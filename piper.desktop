@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=Piper
-Comment=Configurable mouse configuration utility
-Exec=piper
-Icon=piper
-Type=Application
-Categories=GTK;GNOME;Utility;
