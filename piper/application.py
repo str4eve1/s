@@ -19,6 +19,8 @@ gi.require_version('Gio', '2.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, GLib, Gtk
 
+from piper.ratbagd import Ratbagd, RatbagdDBusUnavailable
+
 class Application(Gtk.Application):
     """
     A Gtk.Application subclass to handle the application's initialization and
@@ -40,6 +42,10 @@ class Application(Gtk.Application):
         """
         Gtk.Application.do_startup(self)
         self._build_app_menu()
+        try:
+            self._ratbag = Ratbagd()
+        except RatbagdDBusUnavailable:
+            self._ratbag = None
 
     def do_activate(self):
         """
