@@ -20,6 +20,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, GLib, Gtk
 
 from piper.ratbagd import Ratbagd, RatbagdDBusUnavailable
+from piper.piper import Piper
 
 class Application(Gtk.Application):
     """
@@ -51,11 +52,7 @@ class Application(Gtk.Application):
         """
         This function is called when the user requests a new window to be opened.
         """
-        window = Gtk.ApplicationWindow(application=self)
-        image = Gtk.Image.new_from_resource("/org/freedesktop/Piper/404.svg")
-        image.show()
-        window.add(image)
-        window.present()
+        window = Piper(self, self._ratbag)
 
     def _build_app_menu(self):
         """Set up the app menu."""
