@@ -2,6 +2,8 @@
 Name=Piper
 Comment=Configurable mouse configuration utility
 Exec=piper
-Icon=piper
+Icon=org.freedesktop.Piper
 Type=Application
+StartupNotify=true
 Categories=GTK;GNOME;Utility;
+Keywords=gaming;configuration;mouse;mice;
