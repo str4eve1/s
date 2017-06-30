@@ -7,15 +7,15 @@ import os
 import gi
 gi.require_version('Gio', '2.0')
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio
+from gi.repository import Gtk, Gio, GLib
 
-class Piper(Gtk.Window):
+class Piper(Gtk.ApplicationWindow):
 
     def _show_error(self, message):
         box = self._builder.get_object("piper-error-box")
 
         btn = self._builder.get_object("piper-error-button")
-        btn.connect("clicked", Gtk.main_quit)
+        btn.connect("clicked", lambda b: box.get_parent().destroy())
 
         error = self._builder.get_object("piper-error-body-label")
         error.set_text(message)
@@ -67,8 +67,9 @@ class Piper(Gtk.Window):
 
         dialog.hide()
 
-    def __init__(self):
-        Gtk.Window.__init__(self, title="Piper")
+    def __init__(self, application, ratbag):
+        Gtk.ApplicationWindow.__init__(self, application=application,
+                                       title=GLib.get_application_name())
         main_window = Gtk.Builder()
         main_window.add_from_resource("/org/freedesktop/Piper/piper.ui")
         self._builder = main_window;
@@ -76,7 +77,7 @@ class Piper(Gtk.Window):
         self._initialized = False
         self._button_function_labels = []
 
-        self._ratbag_device = self._fetch_ratbag_device()
+        self._ratbag_device = self._fetch_ratbag_device(ratbag)
         if self._ratbag_device == None:
             return
 
@@ -104,14 +105,12 @@ class Piper(Gtk.Window):
         self._update_from_device()
         self._connect_signals()
         self._initialized = True
-
-        self.connect("delete-event", Gtk.main_quit)
         self.show()
 
     def  _init_header(self, device):
         hb = Gtk.HeaderBar()
         hb.set_show_close_button(True)
-        hb.props.title = "{}".format(device.name)
+        hb.props.title = "{}".format(device.description)
         self.set_titlebar(hb)
 
         # apply/reset buttons
@@ -148,18 +147,13 @@ class Piper(Gtk.Window):
 
         hb.show_all()
 
-    def _fetch_ratbag_device(self):
+    def _fetch_ratbag_device(self, ratbag):
         """
         Get the first ratbag device available. If there are multiple
         devices, an error message is printed and we default to the first
         one.
         Otherwise, an error is shown and we return None.
         """
-        try:
-            ratbag = Ratbagd()
-        except RatbagdDBusUnavailable:
-            ratbag = None
-
         if ratbag == None:
             self._show_error("Can't connect to ratbagd on DBus. That's quite unfortunate.")
             return None
@@ -170,12 +164,12 @@ class Piper(Gtk.Window):
         if len(ratbag.devices) > 1:
             print("Ooops, can't deal with more than one device. My bad.")
             for d in ratbag.devices[1:]:
-                print("Ignoring device {}".format(d.name))
+                print("Ignoring device {}".format(d.description))
 
         d = ratbag.devices[0]
         p = d.profiles
         if len(p) == 1 and len(p[0].resolutions) == 1:
-            self._show_error("Device {} does not support switchable resolutions".format(d.name))
+            self._show_error("Device {} does not support switchable resolutions".format(d.description))
             return None
 
         return d

@@ -7,7 +7,8 @@ import os
 import signal
 import sys
 
-from piper import piper
+import piper
+from piper.application import Application
 
 gi.require_version('Gio', '2.0')
 gi.require_version('Gtk', '3.0')
@@ -48,5 +49,5 @@ if __name__ == "__main__":
     Gio.Resource._register(resource)
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    win = piper.Piper()
-    Gtk.main()
+    exit_status = Application().run(sys.argv)
+    sys.exit(exit_status)
