@@ -1,20 +1,14 @@
 #!/usr/bin/env python3
 
-import gettext
 import gi
-import locale
 import os
-import signal
-import sys
-
 import piper
-from piper.application import Application
+import sys
 
 gi.require_version('Gio', '2.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk
 
-localedir = '@localedir@'
 srcdir = os.path.abspath(os.path.join(os.path.dirname(piper.__file__), '..'))
 if os.path.exists(os.path.join(srcdir, 'meson.build')):
     print('Running from source tree, using local files')
@@ -23,6 +17,8 @@ if os.path.exists(os.path.join(srcdir, 'meson.build')):
         os.environ['GSETTINGS_SCHEMA_DIR'] = pkgdatadir
 else:
     pkgdatadir = '@pkgdatadir@'
+resource = Gio.resource_load(os.path.join(pkgdatadir, 'piper.gresource'))
+Gio.Resource._register(resource)
 
 
 def install_excepthook():
@@ -38,15 +34,18 @@ def install_excepthook():
 
 
 if __name__ == "__main__":
+    import gettext
+    import locale
+    import signal
+    from piper.application import Application
+
     install_excepthook()
 
+    localedir = '@localedir@'
     locale.bindtextdomain('piper', localedir)
     locale.textdomain('piper')
     gettext.bindtextdomain('piper', localedir)
     gettext.textdomain('piper')
-
-    resource = Gio.resource_load(os.path.join(pkgdatadir, 'piper.gresource'))
-    Gio.Resource._register(resource)
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     exit_status = Application().run(sys.argv)
