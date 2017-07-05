@@ -189,6 +189,10 @@ class RatbagdDevice(_RatbagdDBus):
         """
         return self.dbus_call("GetProfileByIndex", "u", index)
 
+    def commit(self):
+        """Commits all changes made to the device."""
+        return self.dbus_call("Commit", "")
+
     def __eq__(self, other):
         return other and self._objpath == other._objpath
 
