@@ -75,7 +75,7 @@ class _RatbagdDBus(GObject.GObject):
                                                  object_path,
                                                  "org.freedesktop.ratbag1.{}".format(interface),
                                                  None)
-        except GLib.GError:
+        except GLib.Error:
             raise RatbagdDBusUnavailable()
 
         if self._proxy.get_name_owner() is None:
