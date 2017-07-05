@@ -21,7 +21,34 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+from enum import IntEnum
 from gi.repository import Gio, GLib, GObject
+
+
+class RatbagErrorCode(IntEnum):
+    RATBAG_SUCCESS = 0
+
+    """An error occured on the device. Either the device is not a libratbag
+    device or communication with the device failed."""
+    RATBAG_ERROR_DEVICE = -1000
+
+    """Insufficient capabilities. This error occurs when a requested change is
+    beyond the device's capabilities."""
+    RATBAG_ERROR_CAPABILITY = -1001
+
+    """Invalid value or value range. The provided value or value range is
+    outside of the legal or supported range."""
+    RATBAG_ERROR_VALUE = -1002
+
+    """A low-level system error has occured, e.g. a failure to access files
+    that should be there. This error is usually unrecoverable and libratbag will
+    print a log message with details about the error."""
+    RATBAG_ERROR_SYSTEM = -1003
+
+    """Implementation bug, either in libratbag or in the caller. This error is
+    usually unrecoverable and libratbag will print a log message with details
+    about the error."""
+    RATBAG_ERROR_IMPLEMENTATION = -1004
 
 
 class RatbagdDBusUnavailable(BaseException):
