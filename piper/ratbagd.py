@@ -30,15 +30,18 @@ class RatbagdDBusUnavailable(BaseException):
 
 
 class _RatbagdDBus(GObject.GObject):
+    _dbus = None
+
     def __init__(self, interface, object_path):
         GObject.GObject.__init__(self)
 
-        self._dbus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
-        if self._dbus is None:
-            raise RatbagdDBusUnavailable()
+        if _RatbagdDBus._dbus is None:
+            _RatbagdDBus._dbus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+            if _RatbagdDBus._dbus is None:
+                raise RatbagdDBusUnavailable()
 
         try:
-            self._proxy = Gio.DBusProxy.new_sync(self._dbus,
+            self._proxy = Gio.DBusProxy.new_sync(_RatbagdDBus._dbus,
                                                  Gio.DBusProxyFlags.NONE,
                                                  None,
                                                  "org.freedesktop.ratbag1",
