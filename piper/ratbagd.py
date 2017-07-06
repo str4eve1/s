@@ -92,11 +92,13 @@ class _RatbagdDBus(GObject.GObject):
         # Calls a method synchronously on the bus, using the given method name,
         # type signature and values. Returns the returned result, or None.
         val = GLib.Variant("({})".format(type), value)
-        res = self._proxy.call_sync(method, val,
-                                    Gio.DBusCallFlags.NO_AUTO_START, 500, None)
-        if res is not None:
+        try:
+            res = self._proxy.call_sync(method, val,
+                                        Gio.DBusCallFlags.NO_AUTO_START,
+                                        500, None)
             return res.unpack()
-        return res
+        except GLib.Error:
+            return None
 
 
 class Ratbagd(_RatbagdDBus):
