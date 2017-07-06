@@ -32,6 +32,8 @@ class Window(Gtk.ApplicationWindow):
     __gtype_name__ = "ApplicationWindow"
 
     stack = GtkTemplate.Child()
+    rate_500 = GtkTemplate.Child()
+    rate_1000 = GtkTemplate.Child()
     box_resolutions = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
     add_resolution_row = GtkTemplate.Child()
@@ -54,6 +56,11 @@ class Window(Gtk.ApplicationWindow):
     def _setup_resolutions_page(self):
         # TODO: mousemap needs to show which button switches resolution
         mousemap = MouseMap("#Device", self._device, spacing=20, border_width=20)
+
+        self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
+        self.rate_500.set_active(profile.active_resolution.report_rate == 500)
+        self.rate_1000.connect("toggled", self._on_report_rate_toggled, 1000)
+        self.rate_1000.set_active(profile.active_resolution.report_rate == 1000)
 
         self.box_resolutions.pack_start(mousemap, True, True, 0)
         # Place the MouseMap on the left
@@ -92,6 +99,10 @@ class Window(Gtk.ApplicationWindow):
     def _on_notification_commit_timeout(self):
         self._hide_notification_commit()
         return False
+
+    def _on_report_rate_toggled(self, button, rate):
+        profile = self._device.active_profile
+        profile.active_resolution.report_rate = rate
 
     @GtkTemplate.Callback
     def _on_row_activated(self, listbox, row):
