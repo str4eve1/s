@@ -14,13 +14,13 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from .ratbagd import Ratbagd, RatbagdDBusUnavailable
+from .piper import Piper
+
 import gi
 gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gio, GLib, Gtk
-
-from .ratbagd import Ratbagd, RatbagdDBusUnavailable
-from .piper import Piper
 
 
 class Application(Gtk.Application):
