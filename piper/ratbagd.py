@@ -96,7 +96,7 @@ class _RatbagdDBus(GObject.GObject):
             res = self._proxy.call_sync(method, val,
                                         Gio.DBusCallFlags.NO_AUTO_START,
                                         500, None)
-            return res.unpack()
+            return res.unpack()[0]  # Result is always a tuple
         except GLib.Error:
             return None
 
