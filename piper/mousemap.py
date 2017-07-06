@@ -39,6 +39,7 @@ class _MouseMapChild:
         self._is_left = is_left
         self._svg_id = svg_id
         self._svg_leader = svg_id + "-leader"
+        self._svg_path = svg_id + "-path"
 
     @property
     def widget(self):
@@ -56,6 +57,12 @@ class _MouseMapChild:
         # The identifier of the leader SVG element with which this child's
         # widget is paired.
         return self._svg_leader
+
+    @property
+    def svg_path(self):
+        # The identifier of the SVG element's path with which this child's
+        # widget is paired.
+        return self._svg_path
 
     @property
     def is_left(self):
@@ -391,4 +398,6 @@ class MouseMap(Gtk.Container):
             self._handle.render_cairo_sub(highlight_context,
                                           self._highlight_element)
             cr.mask_surface(highlight_surface, 0, 0)
-        self._handle.render_cairo_sub(cr, id=self._layer)
+        for child in self._children:
+            self._handle.render_cairo_sub(cr, id=child.svg_path)
+            self._handle.render_cairo_sub(cr, id=child.svg_leader)
