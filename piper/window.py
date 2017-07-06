@@ -21,7 +21,7 @@ from .resolutionrow import ResolutionRow
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import GLib, Gtk
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/window.ui")
@@ -32,8 +32,10 @@ class Window(Gtk.ApplicationWindow):
     __gtype_name__ = "ApplicationWindow"
 
     stack = GtkTemplate.Child()
+    box_resolutions = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
     add_resolution_row = GtkTemplate.Child()
+    notification_commit = GtkTemplate.Child()
 
     def __init__(self, ratbag, *args, **kwargs):
         """Instantiates a new Window.
@@ -45,6 +47,7 @@ class Window(Gtk.ApplicationWindow):
 
         self._ratbag = ratbag
         self._device = self._fetch_ratbag_device()
+        self._notification_commit_timeout_id = 0
 
         self._setup_resolutions_page()
 
@@ -52,10 +55,9 @@ class Window(Gtk.ApplicationWindow):
         # TODO: mousemap needs to show which button switches resolution
         mousemap = MouseMap("#Device", self._device, spacing=20, border_width=20)
 
-        page = self.stack.get_child_by_name("resolutions")
-        page.pack_start(mousemap, True, True, 0)
+        self.box_resolutions.pack_start(mousemap, True, True, 0)
         # Place the MouseMap on the left
-        page.reorder_child(mousemap, 0)
+        self.box_resolutions.reorder_child(mousemap, 0)
 
         for resolution in profile.resolutions:
             row = ResolutionRow(resolution)
@@ -76,6 +78,21 @@ class Window(Gtk.ApplicationWindow):
                 print("Ignoring device {}".format(d.name))
         return self._ratbag.devices[0]
 
+    def _hide_notification_commit(self):
+        if self._notification_commit_timeout_id is not 0:
+            GLib.Source.remove(self._notification_commit_timeout_id)
+            self._notification_commit_timeout_id = 0
+        self.notification_commit.set_reveal_child(False)
+
+    def _show_notification_commit(self):
+        self.notification_commit.set_reveal_child(True)
+        self._notification_commit_timeout_id = GLib.timeout_add_seconds(5,
+                                                                        self._on_notification_commit_timeout)
+
+    def _on_notification_commit_timeout(self):
+        self._hide_notification_commit()
+        return False
+
     @GtkTemplate.Callback
     def _on_row_activated(self, listbox, row):
         if row is self.add_resolution_row:
@@ -87,4 +104,8 @@ class Window(Gtk.ApplicationWindow):
     def _on_save_button_clicked(self, button):
         status = self._device.commit()
         if not status == RatbagErrorCode.RATBAG_SUCCESS:
-            print("TODO: inform user of error")
+            self._show_notification_commit()
+
+    @GtkTemplate.Callback
+    def _on_notification_commit_close_clicked(self, button):
+        self._hide_notification_commit()
