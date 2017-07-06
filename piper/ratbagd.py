@@ -369,7 +369,7 @@ class RatbagdResolution(_RatbagdDBus):
     @GObject.Property
     def resolution(self):
         """The tuple (xres, yres) with each resolution in DPI."""
-        return (self._xres, self._yres)
+        return self._xres, self._yres
 
     @resolution.setter
     def resolution(self, res):
@@ -462,18 +462,18 @@ class RatbagdButton(_RatbagdDBus):
 
     @GObject.Property
     def key(self):
-        """An array of integers, the first being the keycode and the other
+        """A list of integers, the first being the keycode and the other
         entries, if any, are modifiers (if mapped to key)."""
         return self._key
 
     @key.setter
-    def key(self, key, modifiers):
+    def key(self, keys):
         """Set the key mapping.
 
-        @param key The keycode, as int
-        @param modifiers Modifier keycodes, as [int]
+        @param keys A list of integers, the first being the keycode and the rest
+                    modifiers.
         """
-        return self._dbus_call("SetKeyMapping", "au", [key].append(modifiers))
+        return self._dbus_call("SetKeyMapping", "au", keys)
 
     @GObject.Property
     def action_type(self):
