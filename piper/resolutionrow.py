@@ -32,10 +32,7 @@ class ResolutionRow(Gtk.ListBoxRow):
     index_label = GtkTemplate.Child()
     title_label = GtkTemplate.Child()
     revealer = GtkTemplate.Child()
-    frame_y = GtkTemplate.Child()
-    label_x = GtkTemplate.Child()
-    scale_x = GtkTemplate.Child()
-    scale_y = GtkTemplate.Child()
+    scale = GtkTemplate.Child()
 
     def __init__(self, ratbagd_resolution, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
@@ -50,20 +47,14 @@ class ResolutionRow(Gtk.ListBoxRow):
     def _init_values(self):
         # Initializes the scales and the title label and sets the Y resolution
         # configuration visible if it's supported by the device.
-        (xres, yres) = self._resolution.resolution
+        xres, _ = self._resolution.resolution
         minres = self._resolution.min_res
         maxres = self._resolution.max_res
 
         self.index_label.set_text("Resolution {}".format(self._resolution.index))
 
-        self.scale_x.props.adjustment = Gtk.Adjustment(xres, minres, maxres)
-        self.scale_x.set_value(xres)
-        if self._separate_xy:
-            self.scale_y.props.adjustment = Gtk.Adjustment(yres, minres, maxres)
-            self.scale_y.set_value(yres)
-            self.frame_y.set_visible(True)
-        else:
-            self.label_x.set_text("Resolution")
+        self.scale.props.adjustment = Gtk.Adjustment(xres, minres, maxres)
+        self.scale.set_value(xres)
 
     @GtkTemplate.Callback
     def _on_delete_button_clicked(self, button):
@@ -73,19 +64,13 @@ class ResolutionRow(Gtk.ListBoxRow):
     def _on_value_changed(self, scale):
         # The scale has been moved, update RatbagdResolution's resolution and
         # the title label.
-        xres = int(self.scale_x.get_value())
-        yres = int(self.scale_y.get_value())
+        xres = int(self.scale.get_value())
 
         # Freeze the notify::resolution signal from firing to prevent Piper from
         # ending up in an infinite update loop.
         with self._resolution.handler_block(self._handler):
-            self._resolution.resolution = (xres, yres)
-
-        if self._separate_xy:
-            title = "{} DPI (X), {} DPI (Y)".format(xres, yres)
-        else:
-            title = "{} DPI".format(xres)
-        self.title_label.set_text(title)
+            self._resolution.resolution = xres, xres
+        self.title_label.set_text("{} DPI".format(xres))
 
     @GtkTemplate.Callback
     def _on_scroll_event(self, widget, event):
@@ -95,9 +80,8 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     def _on_resolution_changed(self, obj, pspec):
         # RatbagdResolution's resolution has changed, update the scales.
-        (xres, yres) = self._resolution.resolution
-        self.scale_x.set_value(xres)
-        self.scale_y.set_value(yres)
+        xres, _ = self._resolution.resolution
+        self.scale.set_value(xres)
 
     def toggle_revealer(self):
         """Toggles the revealer to show or hide the configuration widgets."""
