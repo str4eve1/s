@@ -19,7 +19,7 @@ from .ratbagd import RatbagdResolution
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import GObject, Gtk
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/resolutionRow.ui")
@@ -86,6 +86,12 @@ class ResolutionRow(Gtk.ListBoxRow):
         else:
             title = "{} DPI".format(xres)
         self.title_label.set_text(title)
+
+    @GtkTemplate.Callback
+    def _on_scroll_event(self, widget, event):
+        # Prevent a scroll in the list to get caught by the scale
+        GObject.signal_stop_emission_by_name(widget, "scroll-event")
+        return False
 
     def _on_resolution_changed(self, obj, pspec):
         # RatbagdResolution's resolution has changed, update the scales.
