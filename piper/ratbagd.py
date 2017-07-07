@@ -123,6 +123,7 @@ class Ratbagd(_RatbagdDBus):
         result = self._dbus_property("Devices")
         if result is not None:
             self._devices = [RatbagdDevice(objpath) for objpath in result]
+        self._themes = self._dbus_property("Themes")
 
     def _on_g_signal(self, proxy, sender, signal, params):
         params = params.unpack()
@@ -135,6 +136,12 @@ class Ratbagd(_RatbagdDBus):
     def devices(self):
         """A list of RatbagdDevice objects supported by ratbagd."""
         return self._devices
+
+    @GObject.Property
+    def themes(self):
+        """A list of theme names. The theme 'default' is guaranteed to be
+        available."""
+        return self._themes
 
 
 class RatbagdDevice(_RatbagdDBus):
@@ -159,8 +166,6 @@ class RatbagdDevice(_RatbagdDBus):
         self._devnode = self._dbus_property("Id")
         self._caps = self._dbus_property("Capabilities")
         self._name = self._dbus_property("Name")
-        self._svg = self._dbus_property("Svg")
-        self._svg_path = self._dbus_property("SvgPath")
 
         self._profiles = []
         self._active_profile = -1
@@ -190,17 +195,6 @@ class RatbagdDevice(_RatbagdDBus):
         return self._name
 
     @GObject.Property
-    def svg(self):
-        """The SVG file name. This function returns the file name only, not the
-        absolute path to the file."""
-        return self._svg
-
-    @GObject.Property
-    def svg_path(self):
-        """The full, absolute path to the SVG."""
-        return self._svg_path
-
-    @GObject.Property
     def profiles(self):
         """A list of RatbagdProfile objects provided by this device."""
         return self._profiles
@@ -212,6 +206,17 @@ class RatbagdDevice(_RatbagdDBus):
         if self._active_profile == -1:
             return None
         return self._profiles[self._active_profile]
+
+    def get_svg(self, theme):
+        """Gets the full path to the SVG for the given theme, or the empty
+        string if none is available.
+
+        The theme must be one of org.freedesktop.ratbag1.Manager.Themes. The
+        theme 'default' is guaranteed to be available.
+
+        @param theme The theme from which to retrieve the SVG, as str
+        """
+        return self._dbus_call("GetSvg", "s", theme)
 
     def get_profile_by_index(self, index):
         """Returns the profile found at the given index, or None if no profile
