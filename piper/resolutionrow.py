@@ -22,7 +22,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/resolutionRow.ui")
+@GtkTemplate(ui="/org/freedesktop/Piper/ui/ResolutionRow.ui")
 class ResolutionRow(Gtk.ListBoxRow):
     """A Gtk.ListBoxRow subclass containing the widgets to configure a
     resolution."""
