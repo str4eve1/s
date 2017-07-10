@@ -553,9 +553,9 @@ class RatbagdLed(_RatbagdDBus):
     def color(self, color):
         """Set the led color to the given color.
 
-        @param color An RGB color, as an integer triplet.
+        @param color An RGB color, as an integer triplet with values 0-255.
         """
-        return self._dbus_call("SetColor", "uuu", color)
+        return self._dbus_call("SetColor", "(uuu)", color)
 
     @GObject.Property
     def effect_rate(self):
