@@ -25,7 +25,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import GLib, Gtk
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/window.ui")
+@GtkTemplate(ui="/org/freedesktop/Piper/ui/Window.ui")
 class Window(Gtk.ApplicationWindow):
     """A Gtk.ApplicationWindow subclass to implement the main application
     window. This Window contains the overlay for the in-app notifications, the
