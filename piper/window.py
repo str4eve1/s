@@ -19,6 +19,7 @@ from gettext import gettext as _
 from .gi_composites import GtkTemplate
 from .ratbagd import RatbagErrorCode
 from .resolutionspage import ResolutionsPage
+from .ledspage import LedsPage
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -49,7 +50,7 @@ class Window(Gtk.ApplicationWindow):
         self._device = self._fetch_ratbag_device()
 
         self.stack.add_titled(ResolutionsPage(self._device), "resolutions", _("Resolutions"))
-        self.stack.set_visible_child_name("resolutions")
+        self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
 
     def _fetch_ratbag_device(self):
         """Get the first ratbag device available. If there are multiple
