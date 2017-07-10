@@ -79,12 +79,15 @@ class ResolutionsPage(Gtk.Box):
 
     @GtkTemplate.Callback
     def _on_row_activated(self, listbox, row):
-        if row is self.add_resolution_row:
-            print("TODO: RatbagdProfile needs a way to add resolutions")
-        elif row is self._last_activated_row:
+        if row is self._last_activated_row:
+            self._last_activated_row = None
             row.toggle_revealer()
         else:
             if self._last_activated_row is not None:
                 self._last_activated_row.toggle_revealer()
-            self._last_activated_row = row
-            row.toggle_revealer()
+
+            if row is self.add_resolution_row:
+                print("TODO: RatbagdProfile needs a way to add resolutions")
+            else:
+                self._last_activated_row = row
+                row.toggle_revealer()
