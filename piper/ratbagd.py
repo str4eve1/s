@@ -21,6 +21,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import sys
+
 from enum import IntEnum
 from gi.repository import Gio, GLib, GObject
 
@@ -97,7 +99,8 @@ class _RatbagdDBus(GObject.GObject):
                                         Gio.DBusCallFlags.NO_AUTO_START,
                                         500, None)
             return res.unpack()[0]  # Result is always a tuple
-        except GLib.Error:
+        except GLib.Error as e:
+            print(e.message, file=sys.stderr)
             return None
 
 
