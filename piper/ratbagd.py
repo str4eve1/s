@@ -581,4 +581,4 @@ class RatbagdLed(_RatbagdDBus):
 
         @param brightness The new brightness, as int
         """
-        return self._dbus_call("SetBrightness", "i", brightness)
+        return self._dbus_call("SetBrightness", "u", brightness)
