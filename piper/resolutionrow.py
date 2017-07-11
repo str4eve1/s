@@ -32,18 +32,26 @@ class ResolutionRow(Gtk.ListBoxRow):
     title_label = GtkTemplate.Child()
     revealer = GtkTemplate.Child()
     scale = GtkTemplate.Child()
+    default_check = GtkTemplate.Child()
 
     def __init__(self, ratbagd_resolution, *args, **kwargs):
+        """Instantiates a new ResolutionRow.
+
+        @param ratbagd_resolution The resolution to configure, as
+                                  ratbagd.RatbagdResolution.
+        """
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self.init_template()
         self._resolution = ratbagd_resolution
-        self._handler = self._resolution.connect("notify::resolution",
-                                                 self._on_resolution_changed)
+        self._resolution.connect("notify::is-default", self._on_is_default_changed)
+        self._default_handler = self.default_check.connect("toggled",
+                                                           self._on_default_toggled)
+        self._resolution_handler = self._resolution.connect("notify::resolution",
+                                                            self._on_resolution_changed)
         self._init_values()
 
     def _init_values(self):
-        # Initializes the scales and the title label and sets the Y resolution
-        # configuration visible if it's supported by the device.
+        # Initializes the configuration widgets.
         xres, __ = self._resolution.resolution
         minres = self._resolution.minimum
         maxres = self._resolution.maximum
@@ -52,6 +60,11 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         self.scale.props.adjustment.configure(xres, minres, maxres, 50, 50, 0)
         self.scale.set_value(xres)
+        if self._resolution.is_default:
+            # Freeze the toggled signal from firing while we set the initial values.
+            with self.default_check.handler_block(self._default_handler):
+                self.default_check.set_active(True)
+            self.default_check.set_sensitive(False)
 
     @GtkTemplate.Callback
     def _on_change_value(self, scale, scroll, value):
@@ -73,7 +86,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         # Freeze the notify::resolution signal from firing to prevent Piper from
         # ending up in an infinite update loop.
-        with self._resolution.handler_block(self._handler):
+        with self._resolution.handler_block(self._resolution_handler):
             self._resolution.resolution = xres, xres
         self.title_label.set_text("{} DPI".format(xres))
 
@@ -83,9 +96,31 @@ class ResolutionRow(Gtk.ListBoxRow):
         GObject.signal_stop_emission_by_name(widget, "scroll-event")
         return False
 
-    def _on_resolution_changed(self, obj, pspec):
-        # RatbagdResolution's resolution has changed, update the scales.
-        xres, __ = self._resolution.resolution
+    def _on_default_toggled(self, check):
+        print("\nToggled on resolution", self._resolution.index)
+        # The user toggled us; set ourselves as the default. The rest happens in
+        # self._on_is_default_changed.
+        if check.get_active():
+            self._resolution.set_default()
+
+    def _on_is_default_changed(self, resolution, pspec):
+        print("notify::is-default on resolution", resolution.index, resolution.is_default)
+        # A RatbagdResolution's IsDefault has changed, update the checkbox if it
+        # concerns us.
+        if resolution.is_default:
+            print("  New default")
+            self.default_check.set_sensitive(False)
+        elif self.default_check.get_active():
+            print("  Old default")
+            self.default_check.set_sensitive(True)
+            # Freeze the toggled signal from firing to prevent Piper from
+            # toggling back to the old default.
+            with self.default_check.handler_block(self._default_handler):
+                self.default_check.set_active(False)
+
+    def _on_resolution_changed(self, resolution, pspec):
+        # RatbagdResolution's resolution has changed, update the scale.
+        xres, __ = resolution.resolution
         self.scale.set_value(xres)
 
     def toggle_revealer(self):

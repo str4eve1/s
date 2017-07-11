@@ -357,6 +357,11 @@ class RatbagdResolution(_RatbagdDBus):
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Resolution", object_path)
+        self._proxy.connect("g-signal", self._on_g_signal)
+
+    def _on_g_signal(self, proxy, sender, signal, params):
+        if signal == "IsDefault":
+            self.notify("is-default")
 
     @GObject.Property
     def index(self):

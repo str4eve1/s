@@ -14,41 +14,9 @@
             <property name="can_focus">False</property>
             <property name="border_width">12</property>
             <child>
-              <object class="GtkLabel" id="index_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">baseline</property>
-                <property name="single_line_mode">True</property>
-                <property name="track_visited_links">False</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="title_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="justify">center</property>
-                <property name="track_visited_links">False</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkButton" id="delete_button">
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Remove this resolution from the profile</property>
                 <property name="relief">none</property>
                 <signal name="clicked" handler="_on_delete_button_clicked" swapped="no"/>
                 <child>
@@ -66,7 +34,39 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="index_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">baseline</property>
+                <property name="single_line_mode">True</property>
+                <property name="track_visited_links">False</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="title_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="justify">center</property>
+                <property name="track_visited_links">False</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>
@@ -81,48 +81,109 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkFrame">
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">12</property>
                 <child>
-                  <object class="GtkAlignment">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="top_padding">12</property>
-                    <property name="bottom_padding">12</property>
-                    <property name="left_padding">12</property>
-                    <property name="right_padding">12</property>
                     <child>
-                      <object class="GtkScale" id="scale">
+                      <object class="GtkCheckButton" id="default_check">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">Set this resolution's DPI</property>
-                        <property name="round_digits">0</property>
-                        <property name="digits">0</property>
-                        <property name="draw_value">False</property>
-                        <property name="value_pos">bottom</property>
-                        <signal name="change-value" handler="_on_change_value" swapped="no"/>
-                        <signal name="scroll-event" handler="_on_scroll_event" swapped="no"/>
-                        <signal name="value-changed" handler="_on_value_changed" swapped="no"/>
+                        <property name="receives_default">False</property>
+                        <property name="tooltip_text" translatable="yes">Make this resolution the default in the profile</property>
+                        <property name="margin_right">21</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Default resolution</property>
+                        <property name="track_visited_links">False</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                        <style>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
+                    <child>
+                      <object class="GtkAlignment">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="top_padding">12</property>
+                        <property name="bottom_padding">12</property>
+                        <property name="left_padding">12</property>
+                        <property name="right_padding">12</property>
+                        <child>
+                          <object class="GtkScale" id="scale">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="tooltip_text" translatable="yes">Set this resolution's DPI</property>
+                            <property name="round_digits">0</property>
+                            <property name="digits">0</property>
+                            <property name="draw_value">False</property>
+                            <property name="value_pos">bottom</property>
+                            <signal name="change-value" handler="_on_change_value" swapped="no"/>
+                            <signal name="scroll-event" handler="_on_scroll_event" swapped="no"/>
+                            <signal name="value-changed" handler="_on_value_changed" swapped="no"/>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Resolution</property>
+                        <property name="track_visited_links">False</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                        <style>
+                          <class name="dim-label"/>
+                        </style>
                       </object>
                     </child>
                   </object>
-                </child>
-                <child type="label">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Resolution</property>
-                    <property name="track_visited_links">False</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
             </child>
