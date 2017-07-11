@@ -349,8 +349,8 @@ class RatbagdResolution(_RatbagdDBus):
         self._xres = self._dbus_property("XResolution")
         self._yres = self._dbus_property("YResolution")
         self._rate = self._dbus_property("ReportRate")
-        self._max_res = self._dbus_property("Maximum")
-        self._min_res = self._dbus_property("Minimum")
+        self._maximum = self._dbus_property("Maximum")
+        self._minimum = self._dbus_property("Minimum")
 
     def _on_g_signal(self, proxy, sender, signal, params):
         params = params.unpack()
@@ -393,14 +393,14 @@ class RatbagdResolution(_RatbagdDBus):
         return self._rate
 
     @GObject.Property
-    def max_res(self):
+    def maximum(self):
         """The maximum possible resolution."""
-        return self._max_res
+        return self._maximum
 
     @GObject.Property
-    def min_res(self):
+    def minimum(self):
         """The minimum possible resolution."""
-        return self._min_res
+        return self._minimum
 
     @report_rate.setter
     def report_rate(self, rate):
@@ -438,17 +438,17 @@ class RatbagdButton(_RatbagdDBus):
         return self._index
 
     @GObject.Property
-    def button_type(self):
+    def type(self):
         """A string describing this button's type."""
         return self._type
 
     @GObject.Property
-    def button_mapping(self):
+    def mapping(self):
         """An integer of the current button mapping, if mapping to a button."""
         return self._button
 
-    @button_mapping.setter
-    def button_mapping(self, button):
+    @mapping.setter
+    def mapping(self, button):
         """Set the button mapping to the given button.
 
         @param button The button to map to, as int
@@ -504,10 +504,10 @@ class RatbagdButton(_RatbagdDBus):
 class RatbagdLed(_RatbagdDBus):
     """Represents a ratbagd led."""
 
-    LED_MODE_OFF = 0
-    LED_MODE_ON = 1
-    LED_MODE_CYCLE = 2
-    LED_MODE_BREATHING = 3
+    MODE_OFF = 0
+    MODE_ON = 1
+    MODE_CYCLE = 2
+    MODE_BREATHING = 3
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Led", object_path)
@@ -526,16 +526,16 @@ class RatbagdLed(_RatbagdDBus):
 
     @GObject.Property
     def mode(self):
-        """This led's mode, one of LED_MODE_OFF, LED_MODE_ON, LED_MODE_CYCLE and
-        LED_MODE_BREATHING."""
+        """This led's mode, one of MODE_OFF, MODE_ON, MODE_CYCLE and
+        MODE_BREATHING."""
         return self._mode
 
     @mode.setter
     def mode(self, mode):
         """Set the led's mode to the given mode.
 
-        @param mode The new mode, as one of LED_MODE_OFF, LED_MODE_ON,
-                                  LED_MODE_CYCLE and LED_MODE_BREATHING.
+        @param mode The new mode, as one of MODE_OFF, MODE_ON, MODE_CYCLE and
+                    MODE_BREATHING.
         """
         return self._dbus_call("SetMode", "u", mode)
 
