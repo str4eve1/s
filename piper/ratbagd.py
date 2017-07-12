@@ -21,6 +21,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import os
 import sys
 
 from enum import IntEnum
@@ -63,20 +64,28 @@ class _RatbagdDBus(GObject.GObject):
 
     def __init__(self, interface, object_path):
         GObject.GObject.__init__(self)
-        self._object_path = object_path
 
         if _RatbagdDBus._dbus is None:
             _RatbagdDBus._dbus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
             if _RatbagdDBus._dbus is None:
                 raise RatbagdDBusUnavailable()
 
+        ratbag1 = "org.freedesktop.ratbag1"
+        if os.environ.get('RATBAGCTL_DEVEL'):
+            ratbag1 = os.environ['RATBAGCTL_DEVEL']
+
+        if object_path is None:
+            object_path = "/" + ratbag1.replace('.', '/')
+
+        self._object_path = object_path
+
         try:
             self._proxy = Gio.DBusProxy.new_sync(_RatbagdDBus._dbus,
                                                  Gio.DBusProxyFlags.NONE,
                                                  None,
-                                                 "org.freedesktop.ratbag1",
+                                                 ratbag1,
                                                  object_path,
-                                                 "org.freedesktop.ratbag1.{}".format(interface),
+                                                 "{}.{}".format(ratbag1, interface),
                                                  None)
         except GLib.Error:
             raise RatbagdDBusUnavailable()
@@ -124,7 +133,7 @@ class Ratbagd(_RatbagdDBus):
     }
 
     def __init__(self):
-        _RatbagdDBus.__init__(self, "Manager", "/org/freedesktop/ratbag1")
+        _RatbagdDBus.__init__(self, "Manager", None)
         self._proxy.connect("g-signal", self._on_g_signal)
 
     def _on_g_signal(self, proxy, sender, signal, params):
