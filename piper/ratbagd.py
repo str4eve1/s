@@ -63,6 +63,7 @@ class _RatbagdDBus(GObject.GObject):
 
     def __init__(self, interface, object_path):
         GObject.GObject.__init__(self)
+        self._object_path = object_path
 
         if _RatbagdDBus._dbus is None:
             _RatbagdDBus._dbus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
@@ -102,6 +103,9 @@ class _RatbagdDBus(GObject.GObject):
         except GLib.Error as e:
             print(e.message, file=sys.stderr)
             return None
+
+    def __eq__(self, other):
+        return other and self._object_path == other._object_path
 
 
 class Ratbagd(_RatbagdDBus):
@@ -164,7 +168,6 @@ class RatbagdDevice(_RatbagdDBus):
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Device", object_path)
-        self._objpath = object_path
 
     @GObject.Property
     def id(self):
@@ -226,9 +229,6 @@ class RatbagdDevice(_RatbagdDBus):
         """Commits all changes made to the device."""
         return self._dbus_call("Commit", "")
 
-    def __eq__(self, other):
-        return other and self._objpath == other._objpath
-
 
 class RatbagdProfile(_RatbagdDBus):
     """Represents a ratbagd profile."""
@@ -241,7 +241,6 @@ class RatbagdProfile(_RatbagdDBus):
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Profile", object_path)
         self._proxy.connect("g-signal", self._on_g_signal)
-        self._objpath = object_path
 
     def _on_g_signal(self, proxy, sender, signal, params):
         params = params.unpack()
@@ -308,9 +307,6 @@ class RatbagdProfile(_RatbagdDBus):
         returns a RatbagdResolution or None if no resolution was found."""
         return self._dbus_call("GetResolutionByIndex", "u", index)
 
-    def __eq__(self, other):
-        return self._objpath == other._objpath
-
 
 class RatbagdResolution(_RatbagdDBus):
     """Represents a ratbagd resolution."""
@@ -328,7 +324,6 @@ class RatbagdResolution(_RatbagdDBus):
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Resolution", object_path)
         self._proxy.connect("g-signal", self._on_g_signal)
-        self._objpath = object_path
 
     def _on_g_signal(self, proxy, sender, signal, params):
         params = params.unpack()
@@ -392,16 +387,12 @@ class RatbagdResolution(_RatbagdDBus):
         """Set this resolution to be the default."""
         return self._dbus_call("SetDefault", "")
 
-    def __eq__(self, other):
-        return self._objpath == other._objpath
-
 
 class RatbagdButton(_RatbagdDBus):
     """Represents a ratbagd button."""
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Button", object_path)
-        self._objpath = object_path
 
     @GObject.Property
     def index(self):
@@ -482,7 +473,6 @@ class RatbagdLed(_RatbagdDBus):
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Led", object_path)
-        self._objpath = object_path
 
     @GObject.Property
     def index(self):
