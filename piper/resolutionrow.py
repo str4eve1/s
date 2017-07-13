@@ -15,7 +15,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from .gi_composites import GtkTemplate
-from .ratbagd import RatbagdResolution
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -38,8 +37,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self.init_template()
         self._resolution = ratbagd_resolution
-        self._separate_xy = RatbagdResolution.CAP_SEPARATE_XY_RESOLUTION in \
-            ratbagd_resolution.capabilities
         self._handler = self._resolution.connect("notify::resolution",
                                                  self._on_resolution_changed)
         self._init_values()
