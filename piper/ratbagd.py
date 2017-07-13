@@ -145,6 +145,11 @@ class _RatbagdDBus(GObject.GObject):
             return p.unpack()
         return p
 
+    def _set_dbus_property(self, property, type, value):
+        # Sets a cached property on the bus.
+        val = GLib.Variant("{}".format(type), value)
+        self._proxy.set_cached_property(property, val)
+
     def _dbus_call(self, method, type, *value):
         # Calls a method synchronously on the bus, using the given method name,
         # type signature and values.
@@ -425,7 +430,9 @@ class RatbagdResolution(_RatbagdDBus):
 
         @param res The new resolution, as (int, int)
         """
-        return self._dbus_call("SetResolution", "uu", *res)
+        ret = self._dbus_call("SetResolution", "uu", *res)
+        self._set_dbus_property("Resolution", "(uu)", res)
+        return ret
 
     @GObject.Property
     def report_rate(self):
@@ -448,7 +455,9 @@ class RatbagdResolution(_RatbagdDBus):
 
         @param rate The new report rate, as int
         """
-        return self._dbus_call("SetReportRate", "u", rate)
+        ret = self._dbus_call("SetReportRate", "u", rate)
+        self._set_dbus_property("ReportRate", "u", rate)
+        return ret
 
     def set_default(self):
         """Set this resolution to be the default."""
@@ -482,7 +491,9 @@ class RatbagdButton(_RatbagdDBus):
 
         @param button The button to map to, as int
         """
-        return self._dbus_call("SetButtonMapping", "u", button)
+        ret = self._dbus_call("SetButtonMapping", "u", button)
+        self._set_dbus_property("ButtonMapping", "u", button)
+        return ret
 
     @GObject.Property
     def special(self):
@@ -495,7 +506,9 @@ class RatbagdButton(_RatbagdDBus):
 
         @param special The special entry, as str
         """
-        return self._dbus_call("SetSpecialMapping", "s", special)
+        ret = self._dbus_call("SetSpecialMapping", "s", special)
+        self._set_dbus_property("SpecialMapping", "s", special)
+        return ret
 
     @GObject.Property
     def key(self):
@@ -510,7 +523,9 @@ class RatbagdButton(_RatbagdDBus):
         @param keys A list of integers, the first being the keycode and the rest
                     modifiers.
         """
-        return self._dbus_call("SetKeyMapping", "au", keys)
+        ret = self._dbus_call("SetKeyMapping", "au", keys)
+        self._set_dbus_property("KeyMapping", "au", keys)
+        return ret
 
     @GObject.Property
     def action_type(self):
@@ -559,7 +574,9 @@ class RatbagdLed(_RatbagdDBus):
         @param mode The new mode, as one of MODE_OFF, MODE_ON, MODE_CYCLE and
                     MODE_BREATHING.
         """
-        return self._dbus_call("SetMode", "u", mode)
+        ret = self._dbus_call("SetMode", "u", mode)
+        self._set_dbus_property("Mode", "u", mode)
+        return ret
 
     @GObject.Property
     def type(self):
@@ -577,7 +594,9 @@ class RatbagdLed(_RatbagdDBus):
 
         @param color An RGB color, as an integer triplet with values 0-255.
         """
-        return self._dbus_call("SetColor", "(uuu)", color)
+        ret = self._dbus_call("SetColor", "(uuu)", color)
+        self._set_dbus_property("Color", "(uuu)", color)
+        return ret
 
     @GObject.Property
     def effect_rate(self):
@@ -590,7 +609,9 @@ class RatbagdLed(_RatbagdDBus):
 
         @param effect_rate The new effect rate, as int
         """
-        return self._dbus_call("SetEffectRate", "u", effect_rate)
+        ret = self._dbus_call("SetEffectRate", "u", effect_rate)
+        self._set_dbus_property("EffectRate", "u", effect_rate)
+        return ret
 
     @GObject.Property
     def brightness(self):
@@ -603,4 +624,6 @@ class RatbagdLed(_RatbagdDBus):
 
         @param brightness The new brightness, as int
         """
-        return self._dbus_call("SetBrightness", "u", brightness)
+        ret = self._dbus_call("SetBrightness", "u", brightness)
+        self._set_dbus_property("Brightness", "u", brightness)
+        return ret
