@@ -57,6 +57,7 @@
                       <object class="GtkButtonBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Change the profile's report rate</property>
                         <property name="homogeneous">True</property>
                         <property name="layout_style">expand</property>
                         <child>
@@ -170,6 +171,7 @@
                               <object class="GtkListBoxRow" id="add_resolution_row">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="tooltip_text" translatable="yes">Add a new resolution to the profile</property>
                                 <child>
                                   <object class="GtkBox">
                                     <property name="visible">True</property>
