@@ -89,7 +89,7 @@ class Piper(Gtk.ApplicationWindow):
         self.add(grid)
 
         # load the right image
-        svg = self._ratbag_device.svg_path
+        svg = self._ratbag_device.get_svg("gnome")
         img = main_window.get_object("piper-image-device")
         if not os.path.isfile(svg):
             img.set_from_resource("/org/freedesktop/Piper/404.svg")
