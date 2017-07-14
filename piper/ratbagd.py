@@ -59,6 +59,51 @@ class RatbagdDBusUnavailable(BaseException):
     pass
 
 
+class RatbagdDBusTimeout(BaseException):
+    """Signals that a timeout occurred during a DBus method call."""
+    pass
+
+
+class RatbagError(BaseException):
+    """A common base exception to catch any ratbag exception."""
+    pass
+
+
+class RatbagErrorDevice(RatbagError):
+    """An exception corresponding to RatbagErrorCode.RATBAG_ERROR_DEVICE."""
+    pass
+
+
+class RatbagErrorCapability(RatbagError):
+    """An exception corresponding to RatbagErrorCode.RATBAG_ERROR_CAPABILITY."""
+    pass
+
+
+class RatbagErrorValue(RatbagError):
+    """An exception corresponding to RatbagErrorCode.RATBAG_ERROR_Value."""
+    pass
+
+
+class RatbagErrorSystem(RatbagError):
+    """An exception corresponding to RatbagErrorCode.RATBAG_ERROR_System."""
+    pass
+
+
+class RatbagErrorImplementation(RatbagError):
+    """An exception corresponding to RatbagErrorCode.RATBAG_ERROR_IMPLEMENTATION."""
+    pass
+
+
+"""A table mapping RatbagErrorCode values to RatbagError* exceptions."""
+EXCEPTION_TABLE = {
+    RatbagErrorCode.RATBAG_ERROR_DEVICE: RatbagErrorDevice,
+    RatbagErrorCode.RATBAG_ERROR_CAPABILITY: RatbagErrorCapability,
+    RatbagErrorCode.RATBAG_ERROR_VALUE: RatbagErrorValue,
+    RatbagErrorCode.RATBAG_ERROR_SYSTEM: RatbagErrorSystem,
+    RatbagErrorCode.RATBAG_ERROR_IMPLEMENTATION: RatbagErrorImplementation
+}
+
+
 class _RatbagdDBus(GObject.GObject):
     _dbus = None
 
@@ -102,16 +147,29 @@ class _RatbagdDBus(GObject.GObject):
 
     def _dbus_call(self, method, type, *value):
         # Calls a method synchronously on the bus, using the given method name,
-        # type signature and values. Returns the returned result, or None.
+        # type signature and values.
+        #
+        # It the result is valid, it is returned. Invalid results raise the
+        # appropriate RatbagError* or RatbagdDBus* exception, or GLib.Error if
+        # it is an unexpected exception that probably shouldn't be passed up to
+        # the UI.
         val = GLib.Variant("({})".format(type), value)
         try:
             res = self._proxy.call_sync(method, val,
                                         Gio.DBusCallFlags.NO_AUTO_START,
                                         500, None)
+            global EXCEPTION_TABLE
+            if res in EXCEPTION_TABLE:
+                raise EXCEPTION_TABLE[res]
             return res.unpack()[0]  # Result is always a tuple
         except GLib.Error as e:
-            print(e.message, file=sys.stderr)
-            return None
+            if e.code == Gio.IOErrorEnum.TIMED_OUT:
+                raise RatbagdDBusTimeout(e.message)
+            else:
+                # Unrecognized error code; print the message to stderr and raise
+                # the GLib.Error.
+                print(e.message, file=sys.stderr)
+                raise
 
     def __eq__(self, other):
         return other and self._object_path == other._object_path
