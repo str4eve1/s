@@ -48,6 +48,7 @@
               <object class="GtkButton" id="delete_button">
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Remove this resolution from the profile</property>
                 <property name="relief">none</property>
                 <signal name="clicked" handler="_on_delete_button_clicked" swapped="no"/>
                 <child>
@@ -97,6 +98,7 @@
                       <object class="GtkScale" id="scale">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Set this resolution's DPI</property>
                         <property name="round_digits">0</property>
                         <property name="digits">0</property>
                         <property name="draw_value">False</property>

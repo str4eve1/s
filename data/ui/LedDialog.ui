@@ -55,6 +55,7 @@
               <object class="GtkColorChooserWidget" id="colorchooser">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Choose a color for the LED</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="rgba">rgb(237,212,0)</property>
@@ -86,6 +87,7 @@
                           <object class="GtkScale">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="tooltip_text" translatable="yes">Choose a brightness for the LED</property>
                             <property name="adjustment">adjustment_brightness</property>
                             <property name="round_digits">0</property>
                             <property name="digits">0</property>
@@ -130,6 +132,7 @@
                               <object class="GtkScale">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="tooltip_text" translatable="yes">Choose an effect rate for the LED</property>
                                 <property name="adjustment">adjustment_effect_rate</property>
                                 <property name="round_digits">0</property>
                                 <property name="digits">0</property>
@@ -202,6 +205,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Choose a color for the LED</property>
                         <property name="halign">end</property>
                         <property name="valign">center</property>
                         <property name="title" translatable="yes">Pick a Color for the LED</property>
@@ -249,6 +253,7 @@
                           <object class="GtkScale">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="tooltip_text" translatable="yes">Choose a brightness for the LED</property>
                             <property name="adjustment">adjustment_brightness</property>
                             <property name="digits">0</property>
                             <property name="draw_value">False</property>
@@ -292,6 +297,7 @@
                               <object class="GtkScale">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="tooltip_text" translatable="yes">Choose an effect rate for the LED</property>
                                 <property name="adjustment">adjustment_effect_rate</property>
                                 <property name="round_digits">0</property>
                                 <property name="digits">0</property>
@@ -405,6 +411,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Ignore any changes made</property>
           </object>
         </child>
         <child type="title">
@@ -421,6 +428,7 @@
             <property name="can_focus">True</property>
             <property name="can_default">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Apply any changes made</property>
             <style>
               <class name="suggested-action"/>
             </style>
