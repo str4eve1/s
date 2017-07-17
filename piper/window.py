@@ -16,6 +16,7 @@
 
 from gettext import gettext as _
 
+from .buttonspage import ButtonsPage
 from .gi_composites import GtkTemplate
 from .ratbagd import RatbagErrorCode, RatbagdDevice
 from .resolutionspage import ResolutionsPage
@@ -30,8 +31,8 @@ from gi.repository import GLib, Gtk
 class Window(Gtk.ApplicationWindow):
     """A Gtk.ApplicationWindow subclass to implement the main application
     window. This Window contains the overlay for the in-app notifications, the
-    headerbar and the stack holding a ResolutionsPage, a ButtonPage and a
-    LEDPage."""
+    headerbar and the stack holding a ResolutionsPage, a ButtonsPage and a
+    LedsPage."""
 
     __gtype_name__ = "ApplicationWindow"
 
@@ -60,6 +61,8 @@ class Window(Gtk.ApplicationWindow):
             capabilities = self._device.capabilities
             if RatbagdDevice.CAP_RESOLUTION in capabilities:
                 self.stack.add_titled(ResolutionsPage(self._device), "resolutions", _("Resolutions"))
+            if RatbagdDevice.CAP_BUTTON in capabilities:
+                self.stack.add_titled(ButtonsPage(self._device), "buttons", _("Buttons"))
             if RatbagdDevice.CAP_LED in capabilities:
                 self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
         except ValueError as e:
