@@ -43,34 +43,80 @@
             <child>
               <object class="GtkBox">
                 <property name="can_focus">False</property>
+                <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Button- and key mappings allow you to assign to a physical mouse button another
+logical mouse button or a sequence of keypresses. This way you may for example
+make the right mouse button perform a left click, or execute the keystroke Ctrl+R with
+a click on the right mouse button.</property>
+                    <property name="justify">center</property>
+                    <property name="wrap">True</property>
+                    <property name="track_visited_links">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkComboBoxText" id="combo_mapping">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Assign another logical mouse button to this button</property>
+                        <property name="halign">end</property>
+                        <property name="has_entry">True</property>
+                        <signal name="changed" handler="_on_mapping_changed" swapped="no"/>
+                        <child internal-child="entry">
+                          <object class="GtkEntry">
+                            <property name="can_focus">False</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Assign a button mapping:</property>
+                        <property name="track_visited_links">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
                 <child>
                   <placeholder/>
                 </child>
               </object>
               <packing>
-                <property name="name">button</property>
-                <property name="title" translatable="yes">Button Mapping</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="name">key</property>
-                <property name="title" translatable="yes">Key Mapping</property>
-                <property name="position">1</property>
+                <property name="name">mapping</property>
+                <property name="title" translatable="yes">Mapping</property>
               </packing>
             </child>
             <child>
@@ -87,7 +133,7 @@
               <packing>
                 <property name="name">special</property>
                 <property name="title" translatable="yes">Key Sequence</property>
-                <property name="position">2</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -104,7 +150,7 @@
               <packing>
                 <property name="name">macro</property>
                 <property name="title" translatable="yes">Custom</property>
-                <property name="position">3</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>

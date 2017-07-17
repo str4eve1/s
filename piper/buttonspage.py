@@ -19,6 +19,7 @@ from gettext import gettext as _
 from .buttondialog import ButtonDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
+from .ratbagd import RatbagdButton
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -58,7 +59,8 @@ class ButtonsPage(Gtk.Box):
     def _on_button_clicked(self, button, ratbagd_button):
         # Presents the ButtonDialog to configure the mouse button corresponding
         # to the clicked button.
-        dialog = ButtonDialog(ratbagd_button, transient_for=self.get_toplevel())
+        buttons = self._find_active_profile().buttons
+        dialog = ButtonDialog(ratbagd_button, buttons, transient_for=self.get_toplevel())
         dialog.connect("response", self._on_dialog_response, ratbagd_button)
         dialog.present()
 
@@ -66,7 +68,8 @@ class ButtonsPage(Gtk.Box):
         # The user either pressed cancel or apply. If it's apply, apply the
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
-            print("Apply")
+            if dialog.action_type == RatbagdButton.ACTION_TYPE_BUTTON:
+                ratbagd_button.mapping = dialog.button_mapping
         dialog.destroy()
 
     def _find_active_profile(self):

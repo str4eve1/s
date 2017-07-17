@@ -25,6 +25,7 @@ import os
 import sys
 
 from enum import IntEnum
+from gettext import gettext as _
 from gi.repository import Gio, GLib, GObject
 
 
@@ -518,6 +519,16 @@ class RatbagdButton(_RatbagdDBus):
     TYPE_PROFILE_CYCLE_UP = 21
     TYPE_PROFILE_UP = 22
     TYPE_PROFILE_DOWN = 23
+
+    """A table mapping a button's index to its usual function as defined by X
+    and the common desktop environments."""
+    BUTTON_DESCRIPTION = {
+        0: _("Left mouse button click"),
+        1: _("Right mouse button click"),
+        2: _("Middle mouse button click"),
+        3: _("Backward"),
+        4: _("Forward"),
+    }
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Button", object_path)
