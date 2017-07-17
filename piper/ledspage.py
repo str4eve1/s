@@ -71,10 +71,10 @@ class LedsPage(Gtk.Box):
         # Presents the LedDialog to configure the LED corresponding to the
         # clicked button.
         dialog = LedDialog(led, transient_for=self.get_toplevel())
-        dialog.connect("response", self._on_dialog_response, button, led)
+        dialog.connect("response", self._on_dialog_response, led)
         dialog.present()
 
-    def _on_dialog_response(self, dialog, response, button, led):
+    def _on_dialog_response(self, dialog, response, led):
         # The user either pressed cancel or apply. If it's apply, apply the
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
