@@ -14,14 +14,17 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+import sys
+
 from gettext import gettext as _
 
 from .gi_composites import GtkTemplate
 from .ratbagd import RatbagdButton
+from .keystroke import KeyStroke
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import GObject, Gtk
+from gi.repository import Gdk, GObject, Gtk
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/ButtonDialog.ui")
@@ -38,8 +41,27 @@ class ButtonDialog(Gtk.Dialog):
         RatbagdButton.ACTION_TYPE_MACRO: "macro",
     }
 
+    _MODIFIERS = [
+        Gdk.KEY_Shift_L,
+        Gdk.KEY_Shift_R,
+        Gdk.KEY_Shift_Lock,
+        Gdk.KEY_Hyper_L,
+        Gdk.KEY_Hyper_R,
+        Gdk.KEY_Meta_L,
+        Gdk.KEY_Meta_R,
+        Gdk.KEY_Control_L,
+        Gdk.KEY_Control_R,
+        Gdk.KEY_Super_L,
+        Gdk.KEY_Super_R,
+        Gdk.KEY_Alt_L,
+        Gdk.KEY_Alt_R,
+    ]
+
     stack = GtkTemplate.Child()
     combo_mapping = GtkTemplate.Child()
+    stack_mapping = GtkTemplate.Child()
+    label_keystroke = GtkTemplate.Child()
+    label_preview = GtkTemplate.Child()
 
     def __init__(self, ratbagd_button, buttons, *args, **kwargs):
         """Instantiates a new ButtonDialog.
@@ -49,9 +71,12 @@ class ButtonDialog(Gtk.Dialog):
         """
         Gtk.Dialog.__init__(self, *args, **kwargs)
         self.init_template()
+        self._grab_pointer = None
+        self._keystroke = KeyStroke()
         self._button = ratbagd_button
         self._action_type = self._button.action_type
         self._button_mapping = ratbagd_button.mapping
+        self._key_mapping = ratbagd_button.key
 
         self._init_mapping_page(buttons)
         self._activate_current_page()
@@ -75,12 +100,109 @@ class ButtonDialog(Gtk.Dialog):
             if self._button_mapping > 0 and button == self._button:
                 self.combo_mapping.set_active_id(key)
 
+        self._keystroke.connect("keystroke-set", self._on_keystroke_set)
+        self._keystroke.connect("keystroke-cleared", self._on_keystroke_set)
+        self._keystroke.bind_property("accelerator", self.label_keystroke, "accelerator")
+        self._keystroke.bind_property("accelerator", self.label_preview, "accelerator")
+        if self._button.type == RatbagdButton.ACTION_TYPE_KEY:
+            keys = self._button.key
+            self._keystroke.set_from_evdev(keys[0], keys[1:])
+
     def _get_button_key_and_name(self, button):
         if button.index in RatbagdButton.BUTTON_DESCRIPTION:
             name = RatbagdButton.BUTTON_DESCRIPTION[button.index]
         else:
             name = _("Button {} click").format(button.index)
         return str(button.index + 1), name  # Logical buttons are 1-indexed.
+
+    def _grab_seat(self):
+        # Grabs the keyboard seat. Returns True on success, False on failure.
+        # Gratefully copied from GNOME Control Center's keyboard panel.
+        window = self.get_window()
+        if window is None:
+            return False
+        display = window.get_display()
+        seats = display.list_seats()
+        if len(seats) == 0:
+            return False
+        device = seats[0].get_keyboard()
+        if device is None:
+            return False
+        if device.get_source == Gdk.InputSource.KEYBOARD:
+            pointer = device.get_associated_device()
+            if pointer is None:
+                return False
+        else:
+            pointer = device
+        status = pointer.get_seat().grab(window, Gdk.SeatCapabilities.KEYBOARD,
+                                         False, None, None, None, None)
+        if status != Gdk.GrabStatus.SUCCESS:
+            return False
+        self._grab_pointer = pointer
+        self.grab_add()
+        return True
+
+    def _release_grab(self):
+        # Releases a previously grabbed keyboard seat, if any.
+        if self._grab_pointer is None:
+            return
+        self._grab_pointer.get_seat().ungrab()
+        self._grab_pointer = None
+        self.grab_remove()
+
+    def do_key_press_event(self, event):
+        # Overrides Gtk.Widget's standard key press event callback, so we can
+        # capture the pressed buttons in capture mode. Gratefully copied from
+        # GNOME Control Center's keyboard panel.
+        # Don't process key events when we're not in capture mode.
+        if self.stack_mapping.get_visible_child_name() == "overview":
+            return Gtk.Widget.do_key_press_event(self, event)
+
+        # TODO: remove this workaround when libratbag removes its keycode
+        # contraints. When that happens, we just cache all keypresses in the
+        # order they arrive and set the keystroke upon Return.
+        # GdkEventKey.is_modified isn't exposed through PyGObject (see
+        # https://bugzilla.gnome.org/show_bug.cgi?id=752784), so we have to
+        # approximate its behaviour ourselves. This selection is from Gtk's
+        # default mod mask and should be fine for now for most use cases.
+        event.is_modifier = event.keyval in self._MODIFIERS
+
+        # We only want to bind keystrokes using the default modifiers, so that
+        # our workaround above and the one in KeyStroke._update_accelerator()
+        # work.
+        event.state &= Gtk.accelerator_get_default_mod_mask()
+
+        # Put shift back if it changed the case of the key, not otherwise.
+        keyval_lower = Gdk.keyval_to_lower(event.keyval)
+        if keyval_lower != event.keyval:
+            event.state |= Gdk.ModifierType.SHIFT_MASK
+            event.keyval = keyval_lower
+
+        # Normalize tab.
+        if event.keyval == Gdk.KEY_ISO_Left_Tab:
+            event.keyval = Gdk.KEY_Tab
+
+        # HACK: we don't want to use SysRq as a keybinding, but we do want
+        # Al+Print, so we avoid translating Alt+Print to SysRq.
+        if event.keyval == Gdk.KEY_Sys_Req and (event.state & Gdk.ModifierType.MOD1_MASK):
+            event.keyval = Gdk.KEY_Print
+
+        # Backspace clears the current keystroke.
+        if not event.is_modifier and event.state == 0 and event.keyval == Gdk.KEY_BackSpace:
+            self._keystroke.clear()
+            return Gdk.EVENT_STOP
+
+        # Anything else we process as a regular key event.
+        self._keystroke.process_event(event)
+
+        return Gdk.EVENT_STOP
+
+    def _on_keystroke_set(self, keystroke):
+        # A keystroke has been set or cleared; update accordingly.
+        self._action_type = RatbagdButton.ACTION_TYPE_KEY
+        self._key_mapping = self._keystroke.get_keys()
+        self.stack_mapping.set_visible_child_name("overview")
+        self._release_grab()
 
     @GtkTemplate.Callback
     def _on_mapping_changed(self, combo):
@@ -91,6 +213,16 @@ class ButtonDialog(Gtk.Dialog):
         mapping = int(model[tree_iter][1])
         if mapping != self._button_mapping:
             self._button_mapping = mapping
+            self._action_type = RatbagdButton.ACTION_TYPE_BUTTON
+
+    @GtkTemplate.Callback
+    def _on_capture_keystroke_clicked(self, button):
+        # Switches to the capture stack page and grabs the keyboard seat to
+        # capture all key presses.
+        self.stack_mapping.set_visible_child_name("capture")
+        if self._grab_seat() is not True:
+            print("Unable to grab keyboard, can't set keystroke", file=sys.stderr)
+            self.stack_mapping.set_visible_child_name("overview")
 
     @GObject.Property
     def action_type(self):
@@ -99,3 +231,7 @@ class ButtonDialog(Gtk.Dialog):
     @GObject.Property
     def button_mapping(self):
         return self._button_mapping
+
+    @GObject.Property
+    def key_mapping(self):
+        return self._key_mapping

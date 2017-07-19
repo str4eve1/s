@@ -70,6 +70,8 @@ class ButtonsPage(Gtk.Box):
         if response == Gtk.ResponseType.APPLY:
             if dialog.action_type == RatbagdButton.ACTION_TYPE_BUTTON:
                 ratbagd_button.mapping = dialog.button_mapping
+            elif dialog.action_type == RatbagdButton.ACTION_TYPE_KEY:
+                ratbagd_button.key = dialog.key_mapping
         dialog.destroy()
 
     def _find_active_profile(self):
