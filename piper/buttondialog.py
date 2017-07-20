@@ -62,6 +62,7 @@ class ButtonDialog(Gtk.Dialog):
     stack_mapping = GtkTemplate.Child()
     label_keystroke = GtkTemplate.Child()
     label_preview = GtkTemplate.Child()
+    combo_special = GtkTemplate.Child()
 
     def __init__(self, ratbagd_button, buttons, *args, **kwargs):
         """Instantiates a new ButtonDialog.
@@ -77,8 +78,10 @@ class ButtonDialog(Gtk.Dialog):
         self._action_type = self._button.action_type
         self._button_mapping = ratbagd_button.mapping
         self._key_mapping = ratbagd_button.key
+        self._special_mapping = ratbagd_button.special
 
         self._init_mapping_page(buttons)
+        self._init_special_page()
         self._activate_current_page()
 
     def _activate_current_page(self):
@@ -107,6 +110,10 @@ class ButtonDialog(Gtk.Dialog):
         if self._button.type == RatbagdButton.ACTION_TYPE_KEY:
             keys = self._button.key
             self._keystroke.set_from_evdev(keys[0], keys[1:])
+
+    def _init_special_page(self):
+        if self._button.type == RatbagdButton.ACTION_TYPE_SPECIAL:
+            self.combo_special.set_active_id(self._special_mapping)
 
     def _get_button_key_and_name(self, button):
         if button.index in RatbagdButton.BUTTON_DESCRIPTION:
@@ -216,6 +223,17 @@ class ButtonDialog(Gtk.Dialog):
             self._action_type = RatbagdButton.ACTION_TYPE_BUTTON
 
     @GtkTemplate.Callback
+    def _on_special_changed(self, combo):
+        tree_iter = combo.get_active_iter()
+        if tree_iter is None:
+            return
+        model = combo.get_model()
+        mapping = model[tree_iter][0]
+        if mapping != self._special_mapping:
+            self._special_mapping = mapping
+            self._action_type = RatbagdButton.ACTION_TYPE_SPECIAL
+
+    @GtkTemplate.Callback
     def _on_capture_keystroke_clicked(self, button):
         # Switches to the capture stack page and grabs the keyboard seat to
         # capture all key presses.
@@ -235,3 +253,7 @@ class ButtonDialog(Gtk.Dialog):
     @GObject.Property
     def key_mapping(self):
         return self._key_mapping
+
+    @GObject.Property
+    def special_mapping(self):
+        return self._special_mapping

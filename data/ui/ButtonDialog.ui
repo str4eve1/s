@@ -2,6 +2,92 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkListStore" id="liststore_special">
+    <columns>
+      <!-- column-name id, MUST be synced with RatbagdButton.ACTION_SPECIAL_* -->
+      <column type="gint"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">1073741824</col>
+        <col id="1" translatable="yes">Unknown</col>
+      </row>
+      <row>
+        <col id="0">1073741825</col>
+        <col id="1" translatable="yes">Doubleclick</col>
+      </row>
+      <row>
+        <col id="0">1073741825</col>
+        <col id="1" translatable="yes">Wheel Left</col>
+      </row>
+      <row>
+        <col id="0">1073741826</col>
+        <col id="1" translatable="yes">Wheel Right</col>
+      </row>
+      <row>
+        <col id="0">1073741827</col>
+        <col id="1" translatable="yes">Wheel Up</col>
+      </row>
+      <row>
+        <col id="0">1073741828</col>
+        <col id="1" translatable="yes">Wheel Down</col>
+      </row>
+      <row>
+        <col id="0">1073741829</col>
+        <col id="1" translatable="yes">Ratchet Mode Switch</col>
+      </row>
+      <row>
+        <col id="0">1073741830</col>
+        <col id="1" translatable="yes">Resolution Cycle Up</col>
+      </row>
+      <row>
+        <col id="0">1073741831</col>
+        <col id="1" translatable="yes">Resolution Cycle Down</col>
+      </row>
+      <row>
+        <col id="0">1073741832</col>
+        <col id="1" translatable="yes">Resolution Up</col>
+      </row>
+      <row>
+        <col id="0">1073741833</col>
+        <col id="1" translatable="yes">Resolution Down</col>
+      </row>
+      <row>
+        <col id="0">1073741834</col>
+        <col id="1" translatable="yes">Resolution Switch</col>
+      </row>
+      <row>
+        <col id="0">1073741835</col>
+        <col id="1" translatable="yes">Resolution Default</col>
+      </row>
+      <row>
+        <col id="0">1073741836</col>
+        <col id="1" translatable="yes">Profile Cycle Up</col>
+      </row>
+      <row>
+        <col id="0">1073741837</col>
+        <col id="1" translatable="yes">Profile Cycle Down</col>
+      </row>
+      <row>
+        <col id="0">1073741838</col>
+        <col id="1" translatable="yes">Profile Up</col>
+      </row>
+      <row>
+        <col id="0">1073741839</col>
+        <col id="1" translatable="yes">Profile Down</col>
+      </row>
+      <row>
+        <col id="0">1073741840</col>
+        <col id="1" translatable="yes">Second Mode</col>
+      </row>
+      <row>
+        <col id="0">1073741841</col>
+        <col id="1" translatable="yes">Battery Level</col>
+      </row>
+    </data>
+  </object>
   <template class="ButtonDialog" parent="GtkDialog">
     <property name="width_request">400</property>
     <property name="height_request">300</property>
@@ -252,15 +338,73 @@ a click on the right mouse button.</property>
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Custom mappings allow you to assign to a physical mouse button a mouse-specific function.
+This way you may for example switch between resolutions or profiles.</property>
+                    <property name="justify">center</property>
+                    <property name="wrap">True</property>
+                    <property name="track_visited_links">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
                 <child>
-                  <placeholder/>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkComboBox" id="combo_special">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Assign a mouse-specific function to this button</property>
+                        <property name="model">liststore_special</property>
+                        <property name="has_entry">True</property>
+                        <property name="entry_text_column">1</property>
+                        <property name="id_column">0</property>
+                        <signal name="changed" handler="_on_special_changed" swapped="no"/>
+                        <child internal-child="entry">
+                          <object class="GtkEntry">
+                            <property name="can_focus">False</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Assign a custom mapping:</property>
+                        <property name="track_visited_links">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
               <packing>
                 <property name="name">special</property>
-                <property name="title" translatable="yes">Key Sequence</property>
+                <property name="title" translatable="yes">Special</property>
                 <property name="position">1</property>
               </packing>
             </child>
@@ -277,7 +421,7 @@ a click on the right mouse button.</property>
               </object>
               <packing>
                 <property name="name">macro</property>
-                <property name="title" translatable="yes">Custom</property>
+                <property name="title" translatable="yes">Macro</property>
                 <property name="position">2</property>
               </packing>
             </child>
