@@ -60,7 +60,10 @@ class ButtonsPage(Gtk.Box):
         # Presents the ButtonDialog to configure the mouse button corresponding
         # to the clicked button.
         buttons = self._find_active_profile().buttons
-        dialog = ButtonDialog(ratbagd_button, buttons, transient_for=self.get_toplevel())
+        dialog = ButtonDialog(ratbagd_button, buttons,
+                              title=_("Configure button {}").format(ratbagd_button.index),
+                              use_header_bar=True,
+                              transient_for=self.get_toplevel())
         dialog.connect("response", self._on_dialog_response, ratbagd_button)
         dialog.present()
 
@@ -69,11 +72,11 @@ class ButtonsPage(Gtk.Box):
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
             if dialog.action_type == RatbagdButton.ACTION_TYPE_BUTTON:
-                ratbagd_button.mapping = dialog.button_mapping
+                ratbagd_button.mapping = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_KEY:
-                ratbagd_button.key = dialog.key_mapping
+                ratbagd_button.key = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
-                ratbagd_button.special = dialog.special_mapping
+                ratbagd_button.special = dialog.mapping
         dialog.destroy()
 
     def _find_active_profile(self):

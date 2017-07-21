@@ -27,19 +27,40 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GObject, Gtk
 
 
+@GtkTemplate(ui="/org/freedesktop/Piper/ui/ButtonRow.ui")
+class ButtonRow(Gtk.ListBoxRow):
+    """A Gtk.ListBoxRow subclass to implement the rows that show up in the
+    ButtonDialog's Gtk.ListBox. It doesn't do much besides moving UI code into a
+    .ui file."""
+
+    __gtype_name__ = "ButtonRow"
+
+    description_label = GtkTemplate.Child()
+
+    def __init__(self, description, action_type, value, *args, **kwargs):
+        """Instantiates a new ButtonRow.
+
+        @param description The text to display in the row, as str.
+        @param action_type The type of this row's mapping, as one of
+                           RatbagdButton.ACTION_TYPE_*.
+        @param value The value to set when this row is activated. The type needs
+                     to match the action_type, e.g. for it should be int for
+                     RatbagdButton.ACTION_TYPE_BUTTON.
+        """
+        Gtk.ListBoxRow.__init__(self, *args, **kwargs)
+        self._action_type = action_type
+        self._value = value
+
+        self.init_template()
+        self.description_label.set_text(description)
+
+
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/ButtonDialog.ui")
 class ButtonDialog(Gtk.Dialog):
     """A Gtk.Dialog subclass to implement the dialog that shows the
     configuration options for button mappings."""
 
     __gtype_name__ = "ButtonDialog"
-
-    _BUTTON_TYPE_TO_PAGE = {
-        RatbagdButton.ACTION_TYPE_BUTTON: "mapping",
-        RatbagdButton.ACTION_TYPE_SPECIAL: "special",
-        RatbagdButton.ACTION_TYPE_KEY: "mapping",
-        RatbagdButton.ACTION_TYPE_MACRO: "macro",
-    }
 
     _MODIFIERS = [
         Gdk.KEY_Shift_L,
@@ -58,11 +79,10 @@ class ButtonDialog(Gtk.Dialog):
     ]
 
     stack = GtkTemplate.Child()
-    combo_mapping = GtkTemplate.Child()
-    stack_mapping = GtkTemplate.Child()
+    listbox = GtkTemplate.Child()
     label_keystroke = GtkTemplate.Child()
     label_preview = GtkTemplate.Child()
-    combo_special = GtkTemplate.Child()
+    row_keystroke = GtkTemplate.Child()
 
     def __init__(self, ratbagd_button, buttons, *args, **kwargs):
         """Instantiates a new ButtonDialog.
@@ -76,51 +96,46 @@ class ButtonDialog(Gtk.Dialog):
         self._keystroke = KeyStroke()
         self._button = ratbagd_button
         self._action_type = self._button.action_type
-        self._button_mapping = ratbagd_button.mapping
-        self._key_mapping = ratbagd_button.key
-        self._special_mapping = ratbagd_button.special
+        if self._action_type == RatbagdButton.ACTION_TYPE_BUTTON:
+            self._mapping = self._button.mapping
+        elif self._action_type == RatbagdButton.ACTION_TYPE_KEY:
+            self._mapping = self._button.key
+        elif self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
+            self._mapping = self._button.special
 
-        self._init_mapping_page(buttons)
-        self._init_special_page()
-        self._activate_current_page()
+        self._init_ui(buttons)
 
-    def _activate_current_page(self):
-        action_types = self._button.action_types
-        for action_type in action_types:
-            page = self._BUTTON_TYPE_TO_PAGE[action_type]
-            self.stack.get_child_by_name(page).set_visible(True)
-            if self._action_type == action_type:
-                self.stack.set_visible_child_name(page)
-
-    def _init_mapping_page(self, buttons):
-        # Initializes the mapping stack page. First adds the semantic
-        # description of all buttons' logical button assignments to the combobox
-        # (activating the current applied item, if any) and secondly it adds the
-        # item that triggers a key map configuration.
+    def _init_ui(self, buttons):
+        # Initializes the listbox and key mapping previews.
+        i = 0
         for button in buttons:
-            key, name = self._get_button_key_and_name(button)
-            self.combo_mapping.append(key, name)
-            if self._button_mapping > 0 and button == self._button:
-                self.combo_mapping.set_active_id(key)
+            key, name = self._get_button_name_and_description(button)
+            row = ButtonRow(name, RatbagdButton.ACTION_TYPE_BUTTON, button.index + 1)
+            self.listbox.insert(row, i)
+            if button == self._button and self._action_type == RatbagdButton.ACTION_TYPE_BUTTON:
+                self.listbox.select_row(row)
+            i += 1
+        for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
+            row = ButtonRow(name, RatbagdButton.ACTION_TYPE_SPECIAL, key)
+            self.listbox.insert(row, i)
+            if self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL and key == self._mapping:
+                self.listbox.select_row(row)
+            i += 1
 
         self._keystroke.connect("keystroke-set", self._on_keystroke_set)
         self._keystroke.connect("keystroke-cleared", self._on_keystroke_set)
         self._keystroke.bind_property("accelerator", self.label_keystroke, "accelerator")
         self._keystroke.bind_property("accelerator", self.label_preview, "accelerator")
-        if self._button.type == RatbagdButton.ACTION_TYPE_KEY:
-            keys = self._button.key
-            self._keystroke.set_from_evdev(keys[0], keys[1:])
+        if self._action_type == RatbagdButton.ACTION_TYPE_KEY:
+            self._keystroke.set_from_evdev(self._mapping[0], self._mapping[1:])
 
-    def _init_special_page(self):
-        if self._button.type == RatbagdButton.ACTION_TYPE_SPECIAL:
-            self.combo_special.set_active_id(self._special_mapping)
-
-    def _get_button_key_and_name(self, button):
+    def _get_button_name_and_description(self, button):
+        name = _("Button {} click").format(button.index)
         if button.index in RatbagdButton.BUTTON_DESCRIPTION:
-            name = RatbagdButton.BUTTON_DESCRIPTION[button.index]
+            description = RatbagdButton.BUTTON_DESCRIPTION[button.index]
         else:
-            name = _("Button {} click").format(button.index)
-        return str(button.index + 1), name  # Logical buttons are 1-indexed.
+            description = name
+        return name, description
 
     def _grab_seat(self):
         # Grabs the keyboard seat. Returns True on success, False on failure.
@@ -162,7 +177,7 @@ class ButtonDialog(Gtk.Dialog):
         # capture the pressed buttons in capture mode. Gratefully copied from
         # GNOME Control Center's keyboard panel.
         # Don't process key events when we're not in capture mode.
-        if self.stack_mapping.get_visible_child_name() == "overview":
+        if self.stack.get_visible_child_name() == "overview":
             return Gtk.Widget.do_key_press_event(self, event)
 
         # TODO: remove this workaround when libratbag removes its keycode
@@ -207,53 +222,30 @@ class ButtonDialog(Gtk.Dialog):
     def _on_keystroke_set(self, keystroke):
         # A keystroke has been set or cleared; update accordingly.
         self._action_type = RatbagdButton.ACTION_TYPE_KEY
-        self._key_mapping = self._keystroke.get_keys()
-        self.stack_mapping.set_visible_child_name("overview")
+        self._mapping = self._keystroke.get_keys()
+        self.stack.set_visible_child_name("overview")
         self._release_grab()
 
     @GtkTemplate.Callback
-    def _on_mapping_changed(self, combo):
-        tree_iter = combo.get_active_iter()
-        if tree_iter is None:
-            return
-        model = combo.get_model()
-        mapping = int(model[tree_iter][1])
-        if mapping != self._button_mapping:
-            self._button_mapping = mapping
-            self._action_type = RatbagdButton.ACTION_TYPE_BUTTON
-
-    @GtkTemplate.Callback
-    def _on_special_changed(self, combo):
-        tree_iter = combo.get_active_iter()
-        if tree_iter is None:
-            return
-        model = combo.get_model()
-        mapping = model[tree_iter][0]
-        if mapping != self._special_mapping:
-            self._special_mapping = mapping
-            self._action_type = RatbagdButton.ACTION_TYPE_SPECIAL
-
-    @GtkTemplate.Callback
-    def _on_capture_keystroke_clicked(self, button):
-        # Switches to the capture stack page and grabs the keyboard seat to
-        # capture all key presses.
-        self.stack_mapping.set_visible_child_name("capture")
-        if self._grab_seat() is not True:
-            print("Unable to grab keyboard, can't set keystroke", file=sys.stderr)
-            self.stack_mapping.set_visible_child_name("overview")
+    def _on_row_activated(self, listbox, row):
+        if row == self.row_keystroke:
+            if self._grab_seat() is not True:
+                # TODO: display this somewhere in the UI instead.
+                print("Unable to grab keyboard, can't set keystroke", file=sys.stderr)
+            else:
+                self.stack.set_visible_child_name("capture")
+        else:
+            self._action_type = row._action_type
+            self._mapping = row._value
 
     @GObject.Property
     def action_type(self):
+        """The action type as last set in the dialog, one of RatbagdButton.ACTION_TYPE_*."""
         return self._action_type
 
     @GObject.Property
-    def button_mapping(self):
-        return self._button_mapping
-
-    @GObject.Property
-    def key_mapping(self):
-        return self._key_mapping
-
-    @GObject.Property
-    def special_mapping(self):
-        return self._special_mapping
+    def mapping(self):
+        """The mapping as last set in the dialog. Note that the type depends on
+        action_type, and as such you should check that before using this
+        property."""
+        return self._mapping

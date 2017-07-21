@@ -530,6 +530,28 @@ class RatbagdButton(_RatbagdDBus):
         4: _("Forward"),
     }
 
+    """A table mapping a special function to its human-readable description."""
+    SPECIAL_DESCRIPTION = {
+        ACTION_SPECIAL_DOUBLECLICK: _("Doubleclick"),
+        ACTION_SPECIAL_WHEEL_LEFT: _("Wheel Left"),
+        ACTION_SPECIAL_WHEEL_RIGHT: _("Wheel Right"),
+        ACTION_SPECIAL_WHEEL_UP: _("Wheel Up"),
+        ACTION_SPECIAL_WHEEL_DOWN: _("Wheel Down"),
+        ACTION_SPECIAL_RATCHET_MODE_SWITCH: _("Ratchet Mode"),
+        ACTION_SPECIAL_RESOLUTION_CYCLE_UP: _("Resolution Cycle Up"),
+        ACTION_SPECIAL_RESOLUTION_CYCLE_DOWN: _("Resolution Cycle Down"),
+        ACTION_SPECIAL_RESOLUTION_UP: _("Resolution Up"),
+        ACTION_SPECIAL_RESOLUTION_DOWN: _("Resolution Down"),
+        ACTION_SPECIAL_RESOLUTION_ALTERNATE: _("Resolution Switch"),
+        ACTION_SPECIAL_RESOLUTION_DEFAULT: _("Resolution Default"),
+        ACTION_SPECIAL_PROFILE_CYCLE_UP: _("Profile Cycle Up"),
+        ACTION_SPECIAL_PROFILE_CYCLE_DOWN: _("Profile Cycle Down"),
+        ACTION_SPECIAL_PROFILE_UP: _("Profile Up"),
+        ACTION_SPECIAL_PROFILE_DOWN: _("Profile Down"),
+        ACTION_SPECIAL_SECOND_MODE: _("Second Mode"),
+        ACTION_SPECIAL_BATTERY_LEVEL: _("Battery Level"),
+    }
+
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Button", object_path)
 

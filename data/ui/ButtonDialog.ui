@@ -2,92 +2,6 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkListStore" id="liststore_special">
-    <columns>
-      <!-- column-name id, MUST be synced with RatbagdButton.ACTION_SPECIAL_* -->
-      <column type="gint"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">1073741824</col>
-        <col id="1" translatable="yes">Unknown</col>
-      </row>
-      <row>
-        <col id="0">1073741825</col>
-        <col id="1" translatable="yes">Doubleclick</col>
-      </row>
-      <row>
-        <col id="0">1073741825</col>
-        <col id="1" translatable="yes">Wheel Left</col>
-      </row>
-      <row>
-        <col id="0">1073741826</col>
-        <col id="1" translatable="yes">Wheel Right</col>
-      </row>
-      <row>
-        <col id="0">1073741827</col>
-        <col id="1" translatable="yes">Wheel Up</col>
-      </row>
-      <row>
-        <col id="0">1073741828</col>
-        <col id="1" translatable="yes">Wheel Down</col>
-      </row>
-      <row>
-        <col id="0">1073741829</col>
-        <col id="1" translatable="yes">Ratchet Mode Switch</col>
-      </row>
-      <row>
-        <col id="0">1073741830</col>
-        <col id="1" translatable="yes">Resolution Cycle Up</col>
-      </row>
-      <row>
-        <col id="0">1073741831</col>
-        <col id="1" translatable="yes">Resolution Cycle Down</col>
-      </row>
-      <row>
-        <col id="0">1073741832</col>
-        <col id="1" translatable="yes">Resolution Up</col>
-      </row>
-      <row>
-        <col id="0">1073741833</col>
-        <col id="1" translatable="yes">Resolution Down</col>
-      </row>
-      <row>
-        <col id="0">1073741834</col>
-        <col id="1" translatable="yes">Resolution Switch</col>
-      </row>
-      <row>
-        <col id="0">1073741835</col>
-        <col id="1" translatable="yes">Resolution Default</col>
-      </row>
-      <row>
-        <col id="0">1073741836</col>
-        <col id="1" translatable="yes">Profile Cycle Up</col>
-      </row>
-      <row>
-        <col id="0">1073741837</col>
-        <col id="1" translatable="yes">Profile Cycle Down</col>
-      </row>
-      <row>
-        <col id="0">1073741838</col>
-        <col id="1" translatable="yes">Profile Up</col>
-      </row>
-      <row>
-        <col id="0">1073741839</col>
-        <col id="1" translatable="yes">Profile Down</col>
-      </row>
-      <row>
-        <col id="0">1073741840</col>
-        <col id="1" translatable="yes">Second Mode</col>
-      </row>
-      <row>
-        <col id="0">1073741841</col>
-        <col id="1" translatable="yes">Battery Level</col>
-      </row>
-    </data>
-  </object>
   <template class="ButtonDialog" parent="GtkDialog">
     <property name="width_request">400</property>
     <property name="height_request">300</property>
@@ -125,227 +39,87 @@
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="transition_type">slide-left-right</property>
-            <child>
-              <object class="GtkStack" id="stack_mapping">
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="vexpand">True</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Button- and key mappings allow you to assign to a physical mouse button another
-logical mouse button or a sequence of keypresses. This way you may for example
-make the right mouse button perform a left click, or execute the keystroke Ctrl+R with
-a click on the right mouse button.</property>
-                        <property name="justify">center</property>
-                        <property name="wrap">True</property>
-                        <property name="track_visited_links">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <child>
-                          <object class="GtkComboBoxText" id="combo_mapping">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Assign another logical mouse button to this button</property>
-                            <property name="halign">end</property>
-                            <property name="has_entry">True</property>
-                            <signal name="changed" handler="_on_mapping_changed" swapped="no"/>
-                            <child internal-child="entry">
-                              <object class="GtkEntry">
-                                <property name="can_focus">False</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="pack_type">end</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">Assign a button mapping:</property>
-                            <property name="track_visited_links">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="tooltip_text" translatable="yes">Assign a keystroke to this button</property>
-                            <property name="halign">end</property>
-                            <property name="relief">none</property>
-                            <signal name="clicked" handler="_on_capture_keystroke_clicked" swapped="no"/>
-                            <child>
-                              <object class="GtkShortcutLabel" id="label_keystroke">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="hexpand">True</property>
-                                <property name="disabled-text" translatable="yes">None</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="pack_type">end</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">Assign a key stroke:</property>
-                            <property name="track_visited_links">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="name">overview</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">18</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Enter a new key sequence for the mapping, starting with zero or more modifiers and finishing with one regular key.</property>
-                        <property name="justify">center</property>
-                        <property name="wrap">True</property>
-                        <property name="wrap_mode">word-char</property>
-                        <property name="width_chars">15</property>
-                        <property name="max_width_chars">20</property>
-                        <property name="track_visited_links">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkShortcutLabel" id="label_preview">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">center</property>
-                        <property name="hexpand">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="resource">/org/freedesktop/Piper/enter-keyboard-shortcut.svg</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Press Backspace to reset the key mapping.</property>
-                        <property name="wrap">True</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="name">capture</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="name">mapping</property>
-                <property name="title" translatable="yes">Mapping</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkBox">
+                <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Custom mappings allow you to assign to a physical mouse button a mouse-specific function.
-This way you may for example switch between resolutions or profiles.</property>
-                    <property name="justify">center</property>
-                    <property name="wrap">True</property>
-                    <property name="track_visited_links">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="shadow_type">in</property>
+                    <property name="max_content_height">300</property>
+                    <property name="propagate_natural_width">True</property>
+                    <property name="propagate_natural_height">True</property>
+                    <child>
+                      <object class="GtkViewport">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkListBox" id="listbox">
+                            <property name="width_request">250</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <signal name="row-activated" handler="_on_row_activated" swapped="no"/>
+                            <child>
+                              <object class="GtkListBoxRow" id="row_keystroke">
+                                <property name="width_request">100</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="tooltip_text" translatable="yes">Add a new resolution to the profile</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="margin_left">6</property>
+                                    <property name="margin_right">6</property>
+                                    <property name="margin_top">4</property>
+                                    <property name="margin_bottom">4</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">start</property>
+                                        <property name="label" translatable="yes">Send keystroke</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                        <style>
+                                          <class name="dim-label"/>
+                                        </style>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkShortcutLabel" id="label_keystroke">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">True</property>
+                            <property name="disabled-text" translatable="yes">None</property>
+                          </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="pack_type">end</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -354,46 +128,43 @@ This way you may for example switch between resolutions or profiles.</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkBox">
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="name">overview</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">18</property>
+                <child>
+                  <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkComboBox" id="combo_special">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Assign a mouse-specific function to this button</property>
-                        <property name="model">liststore_special</property>
-                        <property name="has_entry">True</property>
-                        <property name="entry_text_column">1</property>
-                        <property name="id_column">0</property>
-                        <signal name="changed" handler="_on_special_changed" swapped="no"/>
-                        <child internal-child="entry">
-                          <object class="GtkEntry">
-                            <property name="can_focus">False</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Assign a custom mapping:</property>
-                        <property name="track_visited_links">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="label" translatable="yes">Enter a new key sequence for the mapping, starting with zero or more modifiers and finishing with one regular key.</property>
+                    <property name="justify">center</property>
+                    <property name="wrap">True</property>
+                    <property name="wrap_mode">word-char</property>
+                    <property name="width_chars">15</property>
+                    <property name="max_width_chars">20</property>
+                    <property name="track_visited_links">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkShortcutLabel" id="label_preview">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="hexpand">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -401,28 +172,38 @@ This way you may for example switch between resolutions or profiles.</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="resource">/org/freedesktop/Piper/enter-keyboard-shortcut.svg</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Press Backspace to reset the key mapping.</property>
+                    <property name="wrap">True</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
               </object>
               <packing>
-                <property name="name">special</property>
-                <property name="title" translatable="yes">Special</property>
+                <property name="name">capture</property>
                 <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="name">macro</property>
-                <property name="title" translatable="yes">Macro</property>
-                <property name="position">2</property>
               </packing>
             </child>
           </object>
@@ -434,43 +215,27 @@ This way you may for example switch between resolutions or profiles.</property>
         </child>
       </object>
     </child>
-    <child type="titlebar">
-      <object class="GtkHeaderBar">
+    <child>
+      <placeholder/>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="cancel">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child>
-          <object class="GtkButton" id="cancel">
-            <property name="label" translatable="yes">Cancel</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Ignore any changes made</property>
-          </object>
-        </child>
-        <child type="title">
-          <object class="GtkStackSwitcher">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stack">stack</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="apply">
-            <property name="label" translatable="yes">Apply</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Apply any changes made</property>
-            <style>
-              <class name="suggested-action"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
+        <property name="label" translatable="yes">Cancel</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text" translatable="yes">Ignore any changes made</property>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="apply">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Apply</property>
+        <property name="can-default">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text" translatable="yes">Apply any changes made</property>
+        <style>
+          <class name="suggested-action"/>
+        </style>
       </object>
     </child>
     <action-widgets>

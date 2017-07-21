@@ -6,6 +6,7 @@
 
         <file preprocess="xml-stripblanks">AboutDialog.ui</file>
         <file preprocess="xml-stripblanks">ui/ButtonDialog.ui</file>
+        <file preprocess="xml-stripblanks">ui/ButtonRow.ui</file>
         <file preprocess="xml-stripblanks">ui/LedDialog.ui</file>
         <file preprocess="xml-stripblanks">ui/OptionButton.ui</file>
         <file preprocess="xml-stripblanks">ui/ResolutionRow.ui</file>
