@@ -111,7 +111,6 @@ class ButtonDialog(Gtk.Dialog):
             i += 1
 
         self._keystroke.connect("keystroke-set", self._on_keystroke_set)
-        self._keystroke.connect("keystroke-cleared", self._on_keystroke_set)
         self._keystroke.bind_property("macro", self.label_keystroke, "label")
         self._keystroke.bind_property("macro", self.label_preview, "label")
         if self._action_type == RatbagdButton.ACTION_TYPE_MACRO:
@@ -213,7 +212,7 @@ class ButtonDialog(Gtk.Dialog):
         return Gdk.EVENT_STOP
 
     def _on_keystroke_set(self, keystroke):
-        # A keystroke has been set or cleared; update accordingly.
+        # A keystroke has been set; update accordingly.
         self._action_type = RatbagdButton.ACTION_TYPE_MACRO
         self._mapping = self._keystroke.get_macro()
         self.stack.set_visible_child_name("overview")

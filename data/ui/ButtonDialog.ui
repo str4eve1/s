@@ -146,7 +146,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Enter a new key sequence for the mapping, starting with zero or more modifiers and finishing with one regular key.</property>
+                    <property name="label" translatable="yes">Enter a new key sequence for the macro.</property>
                     <property name="justify">center</property>
                     <property name="wrap">True</property>
                     <property name="wrap_mode">word-char</property>
@@ -195,7 +195,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Press Backspace to reset the key mapping.</property>
+                    <property name="label" translatable="yes">Press Escape to cancel or Return to accept.</property>
                     <property name="wrap">True</property>
                     <style>
                       <class name="dim-label"/>

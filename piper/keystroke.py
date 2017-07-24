@@ -16,6 +16,7 @@
 
 import sys
 
+from copy import deepcopy
 from evdev import ecodes
 
 from .ratbagd import RatbagdButton
@@ -36,7 +37,6 @@ class KeyStroke(GObject.Object):
 
     __gsignals__ = {
         'keystroke-set': (GObject.SIGNAL_RUN_FIRST, None, ()),
-        'keystroke-cleared': (GObject.SIGNAL_RUN_FIRST, None, ()),
     }
 
     def __init__(self, **kwargs):
@@ -44,6 +44,7 @@ class KeyStroke(GObject.Object):
         GObject.Object.__init__(self, **kwargs)
         self._macro = ""
         self._keys = []
+        self._cur_keys = []
 
     @GObject.Property(type=str)
     def macro(self):
@@ -56,19 +57,16 @@ class KeyStroke(GObject.Object):
         @param event The event to process, as Gdk.EventKey.
         """
         if event.state == 0:
-            # Backspace clears the current keystroke.
-            if event.keyval == Gdk.KEY_BackSpace:
-                self._keystroke.clear()
-                return
-            # Return accepts the current keystroke.
-            elif event.keyval == Gdk.KEY_Return:
-                # TODO: we should assign the keys to self._cur_keys so that we
-                # can add cancel functionality on Escape.
+            # Return accepts and caches the current keystroke.
+            if event.keyval == Gdk.KEY_Return:
+                self._cur_keys = deepcopy(self._keys)
                 self.emit("keystroke-set")
                 return
-            # Escape cancels the editing
+            # Escape cancels the editing and restores the cache.
             elif event.keyval == Gdk.KEY_Escape:
-                # TODO: should restore self._cur_keys here before emitting.
+                self._keys = deepcopy(self._cur_keys)
+                self._cur_keys = []
+                self._update_macro()
                 self.emit("keystroke-set")
                 return
 
@@ -83,12 +81,6 @@ class KeyStroke(GObject.Object):
             self._keys.append((type, keycode))
 
         self._update_macro()
-
-    def clear(self):
-        """Clears the current keystroke."""
-        self._keys = []
-        self._update_macro()
-        self.emit("keystroke-cleared")
 
     def set_from_evdev(self, macro):
         """Converts the given macro in libratbag format to its Gdk keycodes and
@@ -107,6 +99,7 @@ class KeyStroke(GObject.Object):
             # cannot e.g. have two identical key presses in a row.
             if len(self._keys) == 0 or (type, keycode) != self._keys[-1]:
                 self._keys.append((type, keycode))
+        self._cur_keys = deepcopy(self._keys)
         self._update_macro()
 
     def get_macro(self):
