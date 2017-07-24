@@ -53,7 +53,7 @@ class ResolutionsPage(Gtk.Box):
         self._init_ui()
 
     def _init_ui(self):
-        profile = self._device.active_profile
+        profile = self._find_active_profile()
 
         mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
         self.pack_start(mousemap, True, True, 0)
@@ -64,22 +64,36 @@ class ResolutionsPage(Gtk.Box):
                 label = Gtk.Label(_("Switch resolution"))
                 mousemap.add(label, "#button{}".format(button.index))
 
+        active_resolution = self._find_active_resolution(profile)
         self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
-        self.rate_500.set_active(profile.active_resolution.report_rate == 500)
+        self.rate_500.set_active(active_resolution.report_rate == 500)
         self.rate_1000.connect("toggled", self._on_report_rate_toggled, 1000)
-        self.rate_1000.set_active(profile.active_resolution.report_rate == 1000)
+        self.rate_1000.set_active(active_resolution.report_rate == 1000)
 
         for resolution in profile.resolutions:
             row = ResolutionRow(resolution)
             self.listbox.insert(row, resolution.index)
 
     def _on_report_rate_toggled(self, button, rate):
-        profile = self._device.active_profile
+        profile = self._find_active_profile()
         # TODO: currently no devices expose CAP_INDIVIDUAL_REPORT_RATE, but if
         # so then we should check for this here and set it only on the relevant
         # resolution.
         for resolution in profile.resolutions:
             resolution.report_rate = rate
+
+    def _find_active_profile(self):
+        # Finds the active profile, which is guaranteed to be found.
+        for profile in self._device.profiles:
+            if profile.is_active:
+                return profile
+
+    def _find_active_resolution(self, profile):
+        # Finds the active resolution in the given profile, which is guaranteed
+        # to be found.
+        for resolution in profile.resolutions:
+            if resolution.is_active:
+                return resolution
 
     @GtkTemplate.Callback
     def _on_row_activated(self, listbox, row):
