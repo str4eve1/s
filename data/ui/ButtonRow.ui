@@ -22,12 +22,6 @@
             <property name="label" translatable="yes">Left mouse button click</property>
             <property name="justify">center</property>
             <property name="track_visited_links">False</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-            <style>
-              <class name="dim-label"/>
-            </style>
           </object>
           <packing>
             <property name="expand">True</property>

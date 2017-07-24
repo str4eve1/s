@@ -62,22 +62,6 @@ class ButtonDialog(Gtk.Dialog):
 
     __gtype_name__ = "ButtonDialog"
 
-    _MODIFIERS = [
-        Gdk.KEY_Shift_L,
-        Gdk.KEY_Shift_R,
-        Gdk.KEY_Shift_Lock,
-        Gdk.KEY_Hyper_L,
-        Gdk.KEY_Hyper_R,
-        Gdk.KEY_Meta_L,
-        Gdk.KEY_Meta_R,
-        Gdk.KEY_Control_L,
-        Gdk.KEY_Control_R,
-        Gdk.KEY_Super_L,
-        Gdk.KEY_Super_R,
-        Gdk.KEY_Alt_L,
-        Gdk.KEY_Alt_R,
-    ]
-
     stack = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
     label_keystroke = GtkTemplate.Child()
@@ -98,8 +82,8 @@ class ButtonDialog(Gtk.Dialog):
         self._action_type = self._button.action_type
         if self._action_type == RatbagdButton.ACTION_TYPE_BUTTON:
             self._mapping = self._button.mapping
-        elif self._action_type == RatbagdButton.ACTION_TYPE_KEY:
-            self._mapping = self._button.key
+        elif self._action_type == RatbagdButton.ACTION_TYPE_MACRO:
+            self._mapping = self._button.macro
         elif self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
             self._mapping = self._button.special
 
@@ -112,7 +96,7 @@ class ButtonDialog(Gtk.Dialog):
             key, name = self._get_button_name_and_description(button)
             row = ButtonRow(name, RatbagdButton.ACTION_TYPE_BUTTON, button.index + 1)
             self.listbox.insert(row, i)
-            if button == self._button and self._action_type == RatbagdButton.ACTION_TYPE_BUTTON:
+            if self._action_type == RatbagdButton.ACTION_TYPE_BUTTON and button.index + 1 == self._button.mapping:
                 self.listbox.select_row(row)
             i += 1
         for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
@@ -124,10 +108,10 @@ class ButtonDialog(Gtk.Dialog):
 
         self._keystroke.connect("keystroke-set", self._on_keystroke_set)
         self._keystroke.connect("keystroke-cleared", self._on_keystroke_set)
-        self._keystroke.bind_property("accelerator", self.label_keystroke, "accelerator")
-        self._keystroke.bind_property("accelerator", self.label_preview, "accelerator")
-        if self._action_type == RatbagdButton.ACTION_TYPE_KEY:
-            self._keystroke.set_from_evdev(self._mapping[0], self._mapping[1:])
+        self._keystroke.bind_property("macro", self.label_keystroke, "label")
+        self._keystroke.bind_property("macro", self.label_preview, "label")
+        if self._action_type == RatbagdButton.ACTION_TYPE_MACRO:
+            self._keystroke.set_from_evdev(self._mapping)
 
     def _get_button_name_and_description(self, button):
         name = _("Button {} click").format(button.index)
@@ -174,31 +158,10 @@ class ButtonDialog(Gtk.Dialog):
 
     def do_key_press_event(self, event):
         # Overrides Gtk.Widget's standard key press event callback, so we can
-        # capture the pressed buttons in capture mode. Gratefully copied from
-        # GNOME Control Center's keyboard panel.
+        # capture the pressed buttons in capture mode.
         # Don't process key events when we're not in capture mode.
         if self.stack.get_visible_child_name() == "overview":
             return Gtk.Widget.do_key_press_event(self, event)
-
-        # TODO: remove this workaround when libratbag removes its keycode
-        # contraints. When that happens, we just cache all keypresses in the
-        # order they arrive and set the keystroke upon Return.
-        # GdkEventKey.is_modified isn't exposed through PyGObject (see
-        # https://bugzilla.gnome.org/show_bug.cgi?id=752784), so we have to
-        # approximate its behaviour ourselves. This selection is from Gtk's
-        # default mod mask and should be fine for now for most use cases.
-        event.is_modifier = event.keyval in self._MODIFIERS
-
-        # We only want to bind keystrokes using the default modifiers, so that
-        # our workaround above and the one in KeyStroke._update_accelerator()
-        # work.
-        event.state &= Gtk.accelerator_get_default_mod_mask()
-
-        # Put shift back if it changed the case of the key, not otherwise.
-        keyval_lower = Gdk.keyval_to_lower(event.keyval)
-        if keyval_lower != event.keyval:
-            event.state |= Gdk.ModifierType.SHIFT_MASK
-            event.keyval = keyval_lower
 
         # Normalize tab.
         if event.keyval == Gdk.KEY_ISO_Left_Tab:
@@ -209,20 +172,13 @@ class ButtonDialog(Gtk.Dialog):
         if event.keyval == Gdk.KEY_Sys_Req and (event.state & Gdk.ModifierType.MOD1_MASK):
             event.keyval = Gdk.KEY_Print
 
-        # Backspace clears the current keystroke.
-        if not event.is_modifier and event.state == 0 and event.keyval == Gdk.KEY_BackSpace:
-            self._keystroke.clear()
-            return Gdk.EVENT_STOP
-
-        # Anything else we process as a regular key event.
         self._keystroke.process_event(event)
-
         return Gdk.EVENT_STOP
 
     def _on_keystroke_set(self, keystroke):
         # A keystroke has been set or cleared; update accordingly.
-        self._action_type = RatbagdButton.ACTION_TYPE_KEY
-        self._mapping = self._keystroke.get_keys()
+        self._action_type = RatbagdButton.ACTION_TYPE_MACRO
+        self._mapping = self._keystroke.get_macro()
         self.stack.set_visible_child_name("overview")
         self._release_grab()
 

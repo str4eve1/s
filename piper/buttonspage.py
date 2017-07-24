@@ -73,8 +73,8 @@ class ButtonsPage(Gtk.Box):
         if response == Gtk.ResponseType.APPLY:
             if dialog.action_type == RatbagdButton.ACTION_TYPE_BUTTON:
                 ratbagd_button.mapping = dialog.mapping
-            elif dialog.action_type == RatbagdButton.ACTION_TYPE_KEY:
-                ratbagd_button.key = dialog.mapping
+            elif dialog.action_type == RatbagdButton.ACTION_TYPE_MACRO:
+                ratbagd_button.macro = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
                 ratbagd_button.special = dialog.mapping
         dialog.destroy()
