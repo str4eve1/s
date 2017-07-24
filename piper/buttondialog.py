@@ -37,10 +37,11 @@ class ButtonRow(Gtk.ListBoxRow):
 
     description_label = GtkTemplate.Child()
 
-    def __init__(self, description, action_type, value, *args, **kwargs):
+    def __init__(self, description, section, action_type, value, *args, **kwargs):
         """Instantiates a new ButtonRow.
 
         @param description The text to display in the row, as str.
+        @param section The section this row belongs to, as str.
         @param action_type The type of this row's mapping, as one of
                            RatbagdButton.ACTION_TYPE_*.
         @param value The value to set when this row is activated. The type needs
@@ -48,6 +49,7 @@ class ButtonRow(Gtk.ListBoxRow):
                      RatbagdButton.ACTION_TYPE_BUTTON.
         """
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
+        self._section = section
         self._action_type = action_type
         self._value = value
 
@@ -91,16 +93,18 @@ class ButtonDialog(Gtk.Dialog):
 
     def _init_ui(self, buttons):
         # Initializes the listbox and key mapping previews.
+        self.listbox.set_header_func(self._listbox_header_func)
+
         i = 0
         for button in buttons:
             key, name = self._get_button_name_and_description(button)
-            row = ButtonRow(name, RatbagdButton.ACTION_TYPE_BUTTON, button.index + 1)
+            row = ButtonRow(name, _("Button mapping"), RatbagdButton.ACTION_TYPE_BUTTON, button.index + 1)
             self.listbox.insert(row, i)
             if self._action_type == RatbagdButton.ACTION_TYPE_BUTTON and button.index + 1 == self._button.mapping:
                 self.listbox.select_row(row)
             i += 1
         for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
-            row = ButtonRow(name, RatbagdButton.ACTION_TYPE_SPECIAL, key)
+            row = ButtonRow(name, _("Special mapping"), RatbagdButton.ACTION_TYPE_SPECIAL, key)
             self.listbox.insert(row, i)
             if self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL and key == self._mapping:
                 self.listbox.select_row(row)
@@ -112,6 +116,39 @@ class ButtonDialog(Gtk.Dialog):
         self._keystroke.bind_property("macro", self.label_preview, "label")
         if self._action_type == RatbagdButton.ACTION_TYPE_MACRO:
             self._keystroke.set_from_evdev(self._mapping)
+
+    def _listbox_header_func(self, row, before):
+        # Adds headers to those rows where a new category starts, to separate
+        # different kinds of mappings.
+        if row == self.row_keystroke:
+            separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL,
+                                      margin_top=18)
+            row.set_header(separator)
+            return
+
+        if before is not None:
+            add_header = (row._section != before._section)
+        else:
+            add_header = True
+
+        if not add_header:
+            row.set_header(None)
+            return
+
+        box = Gtk.Box.new(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        if before is not None:
+            box.set_margin_top(18)
+        else:
+            box.set_margin_top(6)
+
+        markup = "<b>{}</b>".format(row._section)
+        label = Gtk.Label(label=markup, use_markup=True, xalign=0.0, margin_start=6)
+        label.get_style_context().add_class("dim-label")
+
+        box.add(label)
+        box.add(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+        row.set_header(box)
+        box.show_all()
 
     def _get_button_name_and_description(self, button):
         name = _("Button {} click").format(button.index)
