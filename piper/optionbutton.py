@@ -29,14 +29,15 @@ class OptionButton(Gtk.Button):
 
     label = GtkTemplate.Child()
 
-    def __init__(self, label, *args, **kwargs):
+    def __init__(self, label=None, *args, **kwargs):
         """Instantiates a new OptionButton.
 
         @param label The text to display.
         """
         Gtk.Button.__init__(self, *args, **kwargs)
         self.init_template()
-        self.set_label(label)
+        if label is not None:
+            self.set_label(label)
 
     def set_label(self, label):
         """Set the text to display.

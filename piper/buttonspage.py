@@ -49,12 +49,33 @@ class ButtonsPage(Gtk.Box):
 
         sizegroup = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         for ratbagd_button in profile.buttons:
-            index = ratbagd_button.index
-            # TODO: add the correct *mapping to the label
-            button = OptionButton(_("Button {}").format(index))
+            button = OptionButton()
+            # Set the correct label in the option button.
+            self._on_ratbagd_button_action_type_changed(ratbagd_button, None, button)
             button.connect("clicked", self._on_button_clicked, ratbagd_button)
-            mousemap.add(button, "#button{}".format(index))
+            ratbagd_button.connect("notify::action-type",
+                                   self._on_ratbagd_button_action_type_changed, button)
+            mousemap.add(button, "#button{}".format(ratbagd_button.index))
             sizegroup.add_widget(button)
+
+    def _on_ratbagd_button_action_type_changed(self, ratbagd_button, pspec, optionbutton):
+        # Called when the button's action type changed, which means its
+        # corresponding optionbutton has to be updated.
+        action_type = ratbagd_button.action_type
+        if action_type == RatbagdButton.ACTION_TYPE_BUTTON:
+            if ratbagd_button.mapping - 1 in RatbagdButton.BUTTON_DESCRIPTION:
+                label = RatbagdButton.BUTTON_DESCRIPTION[ratbagd_button.mapping - 1]
+            else:
+                label = _("Button {} click").format(ratbagd_button.mapping - 1)
+        elif action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
+            label = RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special]
+        elif action_type == RatbagdButton.ACTION_TYPE_MACRO:
+            label = _("Macro: {}").format(ratbagd_button.macro)
+        elif action_type == RatbagdButton.ACTION_TYPE_NONE:
+            label = _("Disabled")
+        else:
+            label = _("Unknown")
+        optionbutton.set_label(label)
 
     def _on_button_clicked(self, button, ratbagd_button):
         # Presents the ButtonDialog to configure the mouse button corresponding
