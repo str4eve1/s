@@ -420,6 +420,9 @@ class RatbagdResolution(_RatbagdDBus):
 class RatbagdButton(_RatbagdDBus):
     """Represents a ratbagd button."""
 
+    KEY_PRESS = 0
+    KEY_RELEASE = 1
+
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Button", object_path)
 
@@ -449,6 +452,23 @@ class RatbagdButton(_RatbagdDBus):
         return ret
 
     @GObject.Property
+    def macro(self):
+        """A list of (type, keycode) tuples that form the currently set macro,
+        where type is either RatbagdButton.KEY_PRESS or RatbagdButton.KEY_RELEASE
+        and the keycode is as specified in linux/input.h."""
+        return self._get_dbus_property("Macro")
+
+    @macro.setter
+    def macro(self, macro):
+        """Set the macro to the given macro. Note that the type must be one of
+        RatbagdButton.KEY_PRESS or RatbagdButton.KEY_RELEASE and the keycodes
+        must be as specified in linux/input.h.
+
+        @param macro A list of (type, keycode) tuples to form the new macro.
+        """
+        return self._set_dbus_property("Macro", "a(uu)", macro)
+
+    @GObject.Property
     def special(self):
         """A string of the current special mapping, if mapped to special."""
         return self._get_dbus_property("SpecialMapping")
@@ -464,27 +484,10 @@ class RatbagdButton(_RatbagdDBus):
         return ret
 
     @GObject.Property
-    def key(self):
-        """A list of integers, the first being the keycode and the other
-        entries, if any, are modifiers (if mapped to key)."""
-        return self._get_dbus_property("KeyMapping")
-
-    @key.setter
-    def key(self, keys):
-        """Set the key mapping.
-
-        @param keys A list of integers, the first being the keycode and the rest
-                    modifiers.
-        """
-        ret = self._dbus_call("SetKeyMapping", "au", keys)
-        self._set_dbus_property("KeyMapping", "au", keys)
-        return ret
-
-    @GObject.Property
     def action_type(self):
         """A string describing the action type of the button. One of "none",
-        "button", "key", "special", "macro" or "unknown". This decides which
-        *Mapping property has a value.
+        "button", "special", "macro" or "unknown". This decides which *Mapping
+        property has a value.
         """
         return self._get_dbus_property("ActionType")
 
