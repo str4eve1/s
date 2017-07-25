@@ -24,13 +24,25 @@ if not python_dir.endswith('site-packages')
 endif
 install_subdir('piper', install_dir: python_dir)
 
-conf = configuration_data()
-conf.set('pkgdatadir', pkgdatadir)
-conf.set('localedir', localedir)
+config_piper = configuration_data()
+config_piper.set('pkgdatadir', pkgdatadir)
+config_piper.set('localedir', localedir)
 
 configure_file(input: 'piper.in',
 	       output: 'piper',
-	       configuration: conf,
+	       configuration: config_piper,
 	       install_dir: 'bin')
+
+config_piper_devel = configuration_data()
+config_piper_devel.set('pkgdatadir', join_paths(meson.build_root(), 'data'))
+config_piper_devel.set('localedir', join_paths(meson.build_root(), 'po'))
+config_piper_devel.set('devel', '
+sys.path.insert(1, \'@0@\')
+print(\'Running from source tree, using local files\')
+'.format(meson.source_root()))
+
+configure_file(input: 'piper.in',
+	       output: 'piper.devel',
+	       configuration: config_piper_devel)
 
 meson.add_install_script('meson_install.sh')
