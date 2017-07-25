@@ -9,7 +9,7 @@ jobs:
           command: |
             dnf install -y git python3-flake8
       - checkout
-      - run: flake8-3 . piper.in
+      - run: flake8-3 .
 
       # now install and checks the resulting file (just in case)
       - run:
@@ -19,6 +19,6 @@ jobs:
           command: |
             meson build
             ninja -C build
-      - run: flake8-3 buildir/piper
+      - run: flake8-3 buil/piper buil/piper.devel
       - store_artifacts:
           path: ~/piper/build/meson-logs
