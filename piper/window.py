@@ -46,14 +46,28 @@ class Window(Gtk.ApplicationWindow):
         Gtk.ApplicationWindow.__init__(self, *args, **kwargs)
         self.init_template()
 
+        if ratbag is None:
+            self._present_error_dialog("Cannot connect to ratbagd")
+            return
+
         self._ratbag = ratbag
         self._device = self._fetch_ratbag_device()
 
-        capabilities = self._device.capabilities
-        if RatbagdDevice.CAP_RESOLUTION in capabilities:
-            self.stack.add_titled(ResolutionsPage(self._device), "resolutions", _("Resolutions"))
-        if RatbagdDevice.CAP_LED in capabilities:
-            self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
+        try:
+            capabilities = self._device.capabilities
+            if RatbagdDevice.CAP_RESOLUTION in capabilities:
+                self.stack.add_titled(ResolutionsPage(self._device), "resolutions", _("Resolutions"))
+            if RatbagdDevice.CAP_LED in capabilities:
+                self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
+        except ValueError as e:
+            self._present_error_dialog(e)
+        except GLib.Error as e:
+            self._present_error_dialog(e.message)
+
+    def _present_error_dialog(self, message):
+        # Present an error dialog informing the user of any errors.
+        # TODO: this should be something in the window, not a print
+        print("Cannot create window: {}".format(message))
 
     def _fetch_ratbag_device(self):
         """Get the first ratbag device available. If there are multiple
