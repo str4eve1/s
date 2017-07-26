@@ -495,6 +495,7 @@ class RatbagdButton(_RatbagdDBus):
         """
         ret = self._dbus_call("SetButtonMapping", "u", button)
         self._set_dbus_property("ButtonMapping", "u", button, readwrite=False)
+        self.notify("action-type")
         return ret
 
     @GObject.Property
@@ -516,6 +517,7 @@ class RatbagdButton(_RatbagdDBus):
         """
         ret = self._dbus_call("SetMacro", "a(uu)", macro)
         self._set_dbus_property("Macro", "a(uu)", macro, readwrite=False)
+        self.notify("action-type")
         return ret
 
     @GObject.Property
@@ -531,6 +533,7 @@ class RatbagdButton(_RatbagdDBus):
         """
         ret = self._dbus_call("SetSpecialMapping", "s", special)
         self._set_dbus_property("SpecialMapping", "s", special, readwrite=False)
+        self.notify("action-type")
         return ret
 
     @GObject.Property
@@ -548,6 +551,7 @@ class RatbagdButton(_RatbagdDBus):
         """
         ret = self._dbus_call("SetKeyMapping", "au", keys)
         self._set_dbus_property("KeyMapping", "au", keys, readwrite=False)
+        self.notify("action-type")
         return ret
 
     @GObject.Property
