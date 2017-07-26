@@ -82,7 +82,7 @@ class Piper(Gtk.ApplicationWindow):
             return
 
         self._profile_buttons = []
-        self._current_profile = self._ratbag_device.active_profile
+        self._current_profile = self._find_active_profile()
 
         grid = main_window.get_object("piper-grid")
         self._init_header(self._ratbag_device)
@@ -193,7 +193,7 @@ class Piper(Gtk.ApplicationWindow):
     def _init_report_rate(self, builder, profile):
         # Note: we simplify here, the UI only allows one report rate and it
         # will be applied to all resolutions
-        rate = profile.active_resolution.report_rate
+        rate = self._find_active_resolution(profile).report_rate
         r500 = builder.get_object("piper-report-rate-500")
         r1000 = builder.get_object("piper-report-rate-1000")
         r500.connect("toggled", self.on_resolution_rate_changed, 500)
@@ -301,7 +301,7 @@ class Piper(Gtk.ApplicationWindow):
         if not widget.get_active():
             return
 
-        res = self._current_profile.active_resolution.report_rate = new_rate
+        res = self._find_active_resolution(self._current_profile).report_rate = new_rate
 
     def on_nresolutions_changed(self, widget, builder):
         nres = widget.get_value_as_int()
@@ -421,7 +421,7 @@ class Piper(Gtk.ApplicationWindow):
             else:
                 b.set_active(False)
 
-        rate = profile.active_resolution.report_rate
+        rate = self._find_active_resolution(profile).report_rate
         for r, b in self._rate_buttons.items():
             b.set_active(r == rate)
 
@@ -444,6 +444,16 @@ class Piper(Gtk.ApplicationWindow):
         self._nres_button.set_value(nres)
         self._adjust_sensitivity_ranges()
         self._set_button_row_function_labels(profile)
+
+    def _find_active_profile(self):
+        for profile in self._ratbag_device.profiles:
+            if profile.is_active:
+                return profile
+
+    def _find_active_resolution(self, profile):
+        for resolution in profile.resolutions:
+            if resolution.is_active:
+                return resolution
 
 class PiperImage(Gtk.EventBox):
     def __init__(self, path):
