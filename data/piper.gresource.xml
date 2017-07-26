@@ -9,6 +9,7 @@
         <file preprocess="xml-stripblanks">ui/ButtonRow.ui</file>
         <file preprocess="xml-stripblanks">ui/LedDialog.ui</file>
         <file preprocess="xml-stripblanks">ui/OptionButton.ui</file>
+	<file preprocess="xml-stripblanks">ui/ProfileRow.ui</file>
         <file preprocess="xml-stripblanks">ui/ResolutionRow.ui</file>
         <file preprocess="xml-stripblanks">ui/ResolutionsPage.ui</file>
         <file preprocess="xml-stripblanks">ui/Window.ui</file>

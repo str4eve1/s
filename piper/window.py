@@ -18,6 +18,7 @@ from gettext import gettext as _
 
 from .buttonspage import ButtonsPage
 from .gi_composites import GtkTemplate
+from .profilerow import ProfileRow
 from .ratbagd import RatbagErrorCode, RatbagdDevice
 from .resolutionspage import ResolutionsPage
 from .ledspage import LedsPage
@@ -34,10 +35,13 @@ class Window(Gtk.ApplicationWindow):
     headerbar and the stack holding a ResolutionsPage, a ButtonsPage and a
     LedsPage."""
 
-    __gtype_name__ = "ApplicationWindow"
+    __gtype_name__ = "Window"
 
     stack = GtkTemplate.Child()
     notification_commit = GtkTemplate.Child()
+    listbox_profiles = GtkTemplate.Child()
+    label_profile = GtkTemplate.Child()
+    add_profile_button = GtkTemplate.Child()
 
     def __init__(self, ratbag, *args, **kwargs):
         """Instantiates a new Window.
@@ -57,6 +61,10 @@ class Window(Gtk.ApplicationWindow):
             self._present_error_dialog("No devices found")
             return
 
+        self._setup_pages()
+        self._setup_profiles()
+
+    def _setup_pages(self):
         try:
             capabilities = self._device.capabilities
             if RatbagdDevice.CAP_RESOLUTION in capabilities:
@@ -69,6 +77,22 @@ class Window(Gtk.ApplicationWindow):
             self._present_error_dialog(e)
         except GLib.Error as e:
             self._present_error_dialog(e.message)
+
+    def _setup_profiles(self):
+        active_profile = self._device.active_profile
+        self.label_profile.set_label(_("Profile {}").format(active_profile.index + 1))
+
+        # Find the first profile that is enabled. If there is none, disable the
+        # add button.
+        left = next((p for p in self._device.profiles if not p.enabled), None)
+        self.add_profile_button.set_sensitive(left is not None)
+
+        for profile in self._device.profiles:
+            profile.connect("notify::enabled", self._on_profile_notify_enabled)
+            row = ProfileRow(profile)
+            self.listbox_profiles.insert(row, profile.index)
+            if profile == active_profile:
+                self.listbox_profiles.select_row(row)
 
     def _present_error_dialog(self, message):
         # Present an error dialog informing the user of any errors.
@@ -114,3 +138,31 @@ class Window(Gtk.ApplicationWindow):
     @GtkTemplate.Callback
     def _on_notification_commit_close_clicked(self, button):
         self._hide_notification_commit()
+
+    @GtkTemplate.Callback
+    def _on_profile_row_activated(self, listbox, row):
+        row.set_active()
+        self.label_profile.set_label(row.name)
+
+    @GtkTemplate.Callback
+    def _on_add_profile_button_clicked(self, button):
+        # Enable the first disabled profile we find.
+        for profile in self._device.profiles:
+            if profile.enabled:
+                continue
+            profile.enabled = True
+            if profile == self._device.profiles[-1]:
+                self.add_profile_button.set_sensitive(False)
+            break
+
+    def _on_profile_notify_enabled(self, profile, pspec):
+        # We're only interested in the case where the last profile is disabled,
+        # so that we can reset the sensitivity of the add button.
+        if not profile.enabled and profile == self._device.profiles[-1]:
+            self.add_profile_button.set_sensitive(True)
+
+    def _find_active_profile(self):
+        # Finds the active profile, which is guaranteed to be found.
+        for profile in self._device.profiles:
+            if profile.is_active:
+                return profile

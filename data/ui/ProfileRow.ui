@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="ProfileRow" parent="GtkListBoxRow">
+    <property name="can_focus">True</property>
+    <child>
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+        <property name="margin_left">6</property>
+        <property name="margin_right">6</property>
+        <child>
+          <object class="GtkButton">
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Remove this profile from the device</property>
+            <property name="relief">none</property>
+            <signal name="clicked" handler="_on_delete_button_clicked" swapped="no"/>
+            <child>
+              <object class="GtkImage">
+                <property name="can_focus">False</property>
+                <property name="icon_name">edit-delete-symbolic</property>
+                <property name="icon_size">1</property>
+              </object>
+            </child>
+            <style>
+              <class name="image-button"/>
+              <class name="circular"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="title">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="valign">baseline</property>
+            <property name="single_line_mode">True</property>
+            <property name="track_visited_links">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
