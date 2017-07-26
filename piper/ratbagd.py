@@ -370,7 +370,9 @@ class RatbagdProfile(_RatbagdDBus):
 
     def set_active(self):
         """Set this profile to be the active profile."""
-        return self._dbus_call("SetActive", "")
+        ret = self._dbus_call("SetActive", "")
+        self._set_dbus_property("IsActive", "b", True, readwrite=False)
+        return ret
 
 
 class RatbagdResolution(_RatbagdDBus):
@@ -448,11 +450,15 @@ class RatbagdResolution(_RatbagdDBus):
 
     def set_default(self):
         """Set this resolution to be the default."""
-        return self._dbus_call("SetDefault", "")
+        ret = self._dbus_call("SetDefault", "")
+        self._set_dbus_property("IsDefault", "b", True, readwrite=False)
+        return ret
 
     def set_active(self):
         """Set this resolution to be the active one."""
-        return self._dbus_call("SetActive", "")
+        ret = self._dbus_call("SetActive", "")
+        self._set_dbus_property("IsActive", "b", True, readwrite=False)
+        return ret
 
 
 class RatbagdButton(_RatbagdDBus):
