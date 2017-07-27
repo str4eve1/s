@@ -43,8 +43,8 @@ class Application(Gtk.Application):
         self._build_app_menu()
         try:
             self._ratbag = Ratbagd()
-        except RatbagdDBusUnavailable as e:
-            self._present_error_dialog(e)
+        except RatbagdDBusUnavailable:
+            self._ratbag = None
 
     def do_activate(self):
         """This function is called when the user requests a new window to be
