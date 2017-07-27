@@ -3,11 +3,11 @@
      <gresource prefix="/org/freedesktop/Piper">
         <file>404.svg</file>
 
-        <file preprocess="xml-stripblanks">AboutDialog.ui</file>
-        <file preprocess="xml-stripblanks">ui/ResolutionRow.ui</file>
-        <file preprocess="xml-stripblanks">ui/ResolutionsPage.ui</file>
-        <file preprocess="xml-stripblanks">ui/Window.ui</file>
-        <!-- Using this alias, GtkApplication will automatically pick it up for us. -->
-        <file alias="gtk/menus.ui" preprocess="xml-stripblanks">ui/Menus.ui</file>
+        <file preprocess="xml-stripblanks">aboutDialog.ui</file>
+        <file preprocess="xml-stripblanks">resolutionRow.ui</file>
+        <file preprocess="xml-stripblanks">resolutionsPage.ui</file>
+        <file preprocess="xml-stripblanks">window.ui</file>
+	<!-- Using this alias, GtkApplication will automatically pick it up for us. -->
+        <file alias="gtk/menus.ui" preprocess="xml-stripblanks">menus.ui</file>
     </gresource>
 </gresources>

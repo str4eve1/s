@@ -7,8 +7,8 @@ conf = configuration_data()
 conf.set('version', meson.project_version())
 conf.set('url', 'https://github.com/libratbag/piper')
 
-about_dialog = configure_file(input: 'ui/AboutDialog.ui.in',
-			      output: 'AboutDialog.ui',
+about_dialog = configure_file(input: 'aboutDialog.ui.in',
+			      output: 'aboutDialog.ui',
 			      configuration: conf)
 
 gnome.compile_resources('piper', 'piper.gresource.xml',
