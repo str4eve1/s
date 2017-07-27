@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
+import gettext
 import gi
+import locale
 import os
+import signal
 import sys
 
 gi.require_version('Gio', '2.0')
@@ -9,8 +12,9 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk
 
 @devel@
-resource = Gio.resource_load(os.path.join('@pkgdatadir@', 'piper.gresource'))
-Gio.Resource._register(resource)
+
+# Must come after development code injection.
+from piper.application import Application
 
 
 def install_excepthook():
@@ -26,17 +30,15 @@ def install_excepthook():
 
 
 if __name__ == "__main__":
-    import gettext
-    import locale
-    import signal
-    from piper.application import Application
-
     install_excepthook()
 
     locale.bindtextdomain('piper', '@localedir@')
     locale.textdomain('piper')
     gettext.bindtextdomain('piper', '@localedir@')
     gettext.textdomain('piper')
+
+    resource = Gio.resource_load(os.path.join('@pkgdatadir@', 'piper.gresource'))
+    Gio.Resource._register(resource)
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     exit_status = Application().run(sys.argv)
