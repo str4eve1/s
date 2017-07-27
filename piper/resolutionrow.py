@@ -53,16 +53,8 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         self.index_label.set_text("Resolution {}".format(self._resolution.index))
 
-        self.scale.props.adjustment.configure(xres, minres, maxres, 50, 50, 0)
+        self.scale.props.adjustment = Gtk.Adjustment(xres, minres, maxres)
         self.scale.set_value(xres)
-
-    @GtkTemplate.Callback
-    def _on_change_value(self, scale, scroll, value):
-        # Round the value resulting from a scroll event to the nearest multiple
-        # of 50. This is to work around the Gtk.Scale not snapping to its
-        # Gtk.Adjustment's step_increment.
-        scale.set_value(int(value - (value % 50)))
-        return True
 
     @GtkTemplate.Callback
     def _on_delete_button_clicked(self, button):

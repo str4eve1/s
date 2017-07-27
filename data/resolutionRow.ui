@@ -99,9 +99,7 @@
                         <property name="can_focus">True</property>
                         <property name="round_digits">0</property>
                         <property name="digits">0</property>
-                        <property name="draw_value">False</property>
                         <property name="value_pos">bottom</property>
-                        <signal name="change-value" handler="_on_change_value" swapped="no"/>
                         <signal name="scroll-event" handler="_on_scroll_event" swapped="no"/>
                         <signal name="value-changed" handler="_on_value_changed" swapped="no"/>
                       </object>
