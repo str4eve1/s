@@ -15,7 +15,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from .ratbagd import Ratbagd, RatbagdDBusUnavailable
-from .window import Window
+from .piper import Piper
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -49,20 +49,8 @@ class Application(Gtk.Application):
     def do_activate(self):
         """This function is called when the user requests a new window to be
         opened."""
-        try:
-            window = Window(self._ratbag, application=self)
-            window.show_all()
-            window.present()
-        except ValueError as e:
-            self._present_error_dialog(e)
-        except GLib.Error as e:
-            self._present_error_dialog(e.message)
-
-    def _present_error_dialog(self, message):
-        # Present an error dialog informing the user of any errors.
-        # TODO: this should be something in the main window instead, according
-        # to the mockups.
-        print("Cannot create window: {}".format(message))
+        window = Piper(self, self._ratbag)
+        window.present()
 
     def _build_app_menu(self):
         # Set up the app menu
