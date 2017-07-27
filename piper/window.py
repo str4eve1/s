@@ -14,8 +14,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from gettext import gettext as _
-
 from .gi_composites import GtkTemplate
 from .mousemap import MouseMap
 from .ratbagd import RatbagErrorCode
@@ -56,13 +54,8 @@ class Window(Gtk.ApplicationWindow):
         self._setup_resolutions_page()
 
     def _setup_resolutions_page(self):
-        profile = self._device.active_profile
-
-        mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
-        for button in profile.buttons:
-            if button.action_type == "special" and button.special == "resolution-default":
-                label = Gtk.Label(_("Switch resolution"))
-                mousemap.add(label, "#button{}".format(button.index))
+        # TODO: mousemap needs to show which button switches resolution
+        mousemap = MouseMap("#Device", self._device, spacing=20, border_width=20)
 
         self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
         self.rate_500.set_active(profile.active_resolution.report_rate == 500)
