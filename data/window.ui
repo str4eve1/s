@@ -73,33 +73,42 @@
                                     <property name="homogeneous">True</property>
                                     <property name="layout_style">expand</property>
                                     <child>
-                                      <object class="GtkRadioButton" id="rate_500">
+                                      <object class="GtkToggleButton">
                                         <property name="label" translatable="yes">500</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="draw_indicator">False</property>
+                                        <property name="receives_default">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>
                                         <property name="fill">True</property>
-                                        <property name="position">0</property>
+                                        <property name="position">2</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkRadioButton" id="rate_1000">
+                                      <object class="GtkToggleButton">
                                         <property name="label" translatable="yes">1000</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="active">True</property>
-                                        <property name="draw_indicator">False</property>
-                                        <property name="group">rate_500</property>
+                                        <property name="receives_default">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>
                                         <property name="fill">True</property>
-                                        <property name="position">1</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkToggleButton">
+                                        <property name="label" translatable="yes">1500</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
                                       </packing>
                                     </child>
                                   </object>
