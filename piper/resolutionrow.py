@@ -44,7 +44,7 @@ class ResolutionRow(Gtk.ListBoxRow):
     def _init_values(self):
         # Initializes the scales and the title label and sets the Y resolution
         # configuration visible if it's supported by the device.
-        xres, __ = self._resolution.resolution
+        xres, _ = self._resolution.resolution
         minres = self._resolution.minimum
         maxres = self._resolution.maximum
 
@@ -85,7 +85,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     def _on_resolution_changed(self, obj, pspec):
         # RatbagdResolution's resolution has changed, update the scales.
-        xres, __ = self._resolution.resolution
+        xres, _ = self._resolution.resolution
         self.scale.set_value(xres)
 
     def toggle_revealer(self):
