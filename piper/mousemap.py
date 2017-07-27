@@ -192,7 +192,7 @@ class MouseMap(Gtk.Container):
         # we assume that the SVG is high enough to fit all children and do not
         # worry about setups beyond the default GNOME Adwaita.
         height = self._handle.props.height + 2 * self.props.border_width
-        return height, height
+        return (height, height)
 
     def do_get_preferred_width(self):
         """Calculates the container's initial minimum and natural width. While
@@ -213,7 +213,7 @@ class MouseMap(Gtk.Container):
         width += width_left + width_svg + width_right + self.spacing
         if width_left > 0:
             width += self.spacing
-        return width, width
+        return (width, width)
 
     def do_get_preferred_height_for_width(self, width):
         """Returns this container's minimum and natural height if it would be
