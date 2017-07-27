@@ -140,6 +140,20 @@ class _RatbagdDBus(GObject.GObject):
         if self._proxy.get_name_owner() is None:
             raise RatbagdDBusUnavailable("No one currently owns {}".format(ratbag1))
 
+        self._proxy.connect("g-properties-changed", self._on_properties_changed)
+
+    def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        # Implement this in derived classes to respond to property changes.
+        pass
+
+    def _find_object_with_path(self, iterable, object_path):
+        # Find the index of an object in an iterable that whose object path
+        # matches the given object path.
+        for index, obj in enumerate(iterable):
+            if obj._object_path == object_path:
+                return index
+        return -1
+
     def _get_dbus_property(self, property):
         # Retrieves a cached property from the bus, or None.
         p = self._proxy.get_cached_property(property)
@@ -205,15 +219,22 @@ class Ratbagd(_RatbagdDBus):
 
     def __init__(self):
         _RatbagdDBus.__init__(self, "Manager", None)
+        result = self._get_dbus_property("Devices")
+        self._devices = [RatbagdDevice(objpath) for objpath in result]
+
+    def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        if "Devices" in changed_props.keys():
+            for prop in changed_props["Devices"]:
+                index = self._find_object_with_path(self._devices, prop)
+                if index >= 0:
+                    del self._devices[index]
+                else:
+                    self._devices.append(RatbagdDevice(prop))
 
     @GObject.Property
     def devices(self):
         """A list of RatbagdDevice objects supported by ratbagd."""
-        devices = []
-        result = self._get_dbus_property("Devices")
-        if result is not None:
-            devices = [RatbagdDevice(objpath) for objpath in result]
-        return devices
+        return self._devices
 
     @GObject.Property
     def themes(self):
@@ -241,6 +262,11 @@ class RatbagdDevice(_RatbagdDBus):
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Device", object_path)
 
+        # FIXME: if we start adding and removing objects from this list,
+        # things will break!
+        result = self._get_dbus_property("Profiles")
+        self._profiles = [RatbagdProfile(objpath) for objpath in result]
+
     @GObject.Property
     def id(self):
         """The unique identifier of this device."""
@@ -264,11 +290,7 @@ class RatbagdDevice(_RatbagdDBus):
     @GObject.Property
     def profiles(self):
         """A list of RatbagdProfile objects provided by this device."""
-        profiles = []
-        result = self._get_dbus_property("Profiles")
-        if result is not None:
-            profiles = [RatbagdProfile(objpath) for objpath in result]
-        return profiles
+        return self._profiles
 
     def get_svg(self, theme):
         """Gets the full path to the SVG for the given theme, or the empty
@@ -292,6 +314,17 @@ class RatbagdProfile(_RatbagdDBus):
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Profile", object_path)
 
+        # FIXME: if we start adding and removing objects from any of these
+        # lists, things will break!
+        result = self._get_dbus_property("Resolutions")
+        self._resolutions = [RatbagdResolution(objpath) for objpath in result]
+
+        result = self._get_dbus_property("Buttons")
+        self._buttons = [RatbagdButton(objpath) for objpath in result]
+
+        result = self._get_dbus_property("Leds")
+        self._leds = [RatbagdLed(objpath) for objpath in result]
+
     @GObject.Property
     def index(self):
         """The index of this profile."""
@@ -312,32 +345,23 @@ class RatbagdProfile(_RatbagdDBus):
     @GObject.Property
     def resolutions(self):
         """A list of RatbagdResolution objects with this profile's resolutions.
-        """
-        resolutions = []
-        result = self._get_dbus_property("Resolutions")
-        if result is not None:
-            resolutions = [RatbagdResolution(objpath) for objpath in result]
-        return resolutions
+        Note that the list of resolutions differs between profiles but the number
+        of resolutions is identical across profiles."""
+        return self._resolutions
 
     @GObject.Property
     def buttons(self):
         """A list of RatbagdButton objects with this profile's button mappings.
         Note that the list of buttons differs between profiles but the number
         of buttons is identical across profiles."""
-        buttons = []
-        result = self._get_dbus_property("Buttons")
-        if result is not None:
-            buttons = [RatbagdButton(objpath) for objpath in result]
-        return buttons
+        return self._buttons
 
     @GObject.Property
     def leds(self):
-        """A list of RatbagdLed objects with this profile's leds."""
-        leds = []
-        result = self._get_dbus_property("Leds")
-        if result is not None:
-            leds = [RatbagdLed(objpath) for objpath in result]
-        return leds
+        """A list of RatbagdLed objects with this profile's leds. Note that the
+        list of leds differs between profiles but the number of leds is
+        identical across profiles."""
+        return self._leds
 
     @GObject.Property
     def is_active(self):
