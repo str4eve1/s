@@ -52,7 +52,6 @@ class Window(Gtk.ApplicationWindow):
         self._ratbag = ratbag
         self._device = self._fetch_ratbag_device()
         self._notification_commit_timeout_id = 0
-        self._last_activated_row = None
 
         self._setup_resolutions_page()
 
@@ -116,12 +115,7 @@ class Window(Gtk.ApplicationWindow):
     def _on_row_activated(self, listbox, row):
         if row is self.add_resolution_row:
             print("TODO: RatbagdProfile needs a way to add resolutions")
-        elif row is self._last_activated_row:
-            row.toggle_revealer()
-        else:
-            if self._last_activated_row is not None:
-                self._last_activated_row.toggle_revealer()
-            self._last_activated_row = row
+        elif row is not None:
             row.toggle_revealer()
 
     @GtkTemplate.Callback
