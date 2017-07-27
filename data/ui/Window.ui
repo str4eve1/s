@@ -111,7 +111,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Commit the changes to the device</property>
             <signal name="clicked" handler="_on_save_button_clicked" swapped="no"/>
             <child>
               <object class="GtkImage">

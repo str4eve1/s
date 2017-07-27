@@ -6,7 +6,6 @@
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <property name="receives_default">True</property>
-    <property name="tooltip_text" translatable="yes">Open the configuration dialog</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
