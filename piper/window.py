@@ -17,8 +17,9 @@
 from gettext import gettext as _
 
 from .gi_composites import GtkTemplate
+from .mousemap import MouseMap
 from .ratbagd import RatbagErrorCode
-from .resolutionspage import ResolutionsPage
+from .resolutionrow import ResolutionRow
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -28,13 +29,16 @@ from gi.repository import GLib, Gtk
 @GtkTemplate(ui="/org/freedesktop/Piper/window.ui")
 class Window(Gtk.ApplicationWindow):
     """A Gtk.ApplicationWindow subclass to implement the main application
-    window. This Window contains the overlay for the in-app notifications, the
-    headerbar and the stack holding a ResolutionsPage, a ButtonPage and a
-    LEDPage."""
+    window."""
 
     __gtype_name__ = "ApplicationWindow"
 
     stack = GtkTemplate.Child()
+    rate_500 = GtkTemplate.Child()
+    rate_1000 = GtkTemplate.Child()
+    box_resolutions = GtkTemplate.Child()
+    listbox = GtkTemplate.Child()
+    add_resolution_row = GtkTemplate.Child()
     notification_commit = GtkTemplate.Child()
 
     def __init__(self, ratbag, *args, **kwargs):
@@ -47,9 +51,32 @@ class Window(Gtk.ApplicationWindow):
 
         self._ratbag = ratbag
         self._device = self._fetch_ratbag_device()
+        self._notification_commit_timeout_id = 0
+        self._last_activated_row = None
 
-        self.stack.add_titled(ResolutionsPage(self._device), "resolutions", _("Resolutions"))
-        self.stack.set_visible_child_name("resolutions")
+        self._setup_resolutions_page()
+
+    def _setup_resolutions_page(self):
+        profile = self._device.active_profile
+
+        mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
+        for button in profile.buttons:
+            if button.action_type == "special" and button.special == "resolution-default":
+                label = Gtk.Label(_("Switch resolution"))
+                mousemap.add(label, "#button{}".format(button.index))
+
+        self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
+        self.rate_500.set_active(profile.active_resolution.report_rate == 500)
+        self.rate_1000.connect("toggled", self._on_report_rate_toggled, 1000)
+        self.rate_1000.set_active(profile.active_resolution.report_rate == 1000)
+
+        self.box_resolutions.pack_start(mousemap, True, True, 0)
+        # Place the MouseMap on the left
+        self.box_resolutions.reorder_child(mousemap, 0)
+
+        for resolution in profile.resolutions:
+            row = ResolutionRow(resolution)
+            self.listbox.insert(row, resolution.index)
 
     def _fetch_ratbag_device(self):
         """Get the first ratbag device available. If there are multiple
@@ -80,6 +107,22 @@ class Window(Gtk.ApplicationWindow):
     def _on_notification_commit_timeout(self):
         self._hide_notification_commit()
         return False
+
+    def _on_report_rate_toggled(self, button, rate):
+        profile = self._device.active_profile
+        profile.active_resolution.report_rate = rate
+
+    @GtkTemplate.Callback
+    def _on_row_activated(self, listbox, row):
+        if row is self.add_resolution_row:
+            print("TODO: RatbagdProfile needs a way to add resolutions")
+        elif row is self._last_activated_row:
+            row.toggle_revealer()
+        else:
+            if self._last_activated_row is not None:
+                self._last_activated_row.toggle_revealer()
+            self._last_activated_row = row
+            row.toggle_revealer()
 
     @GtkTemplate.Callback
     def _on_save_button_clicked(self, button):

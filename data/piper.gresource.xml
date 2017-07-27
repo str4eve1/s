@@ -5,7 +5,6 @@
 
         <file preprocess="xml-stripblanks">aboutDialog.ui</file>
         <file preprocess="xml-stripblanks">resolutionRow.ui</file>
-        <file preprocess="xml-stripblanks">resolutionsPage.ui</file>
         <file preprocess="xml-stripblanks">window.ui</file>
 	<!-- Using this alias, GtkApplication will automatically pick it up for us. -->
         <file alias="gtk/menus.ui" preprocess="xml-stripblanks">menus.ui</file>
