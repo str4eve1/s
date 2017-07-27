@@ -106,8 +106,7 @@ class MouseMap(Gtk.Container):
             raise ValueError("Layer cannot be None")
         if ratbagd_device is None:
             raise ValueError("Device cannot be None")
-        svg_path = ratbagd_device.get_svg("gnome")
-        if not os.path.isfile(svg_path):
+        if not os.path.isfile(ratbagd_device.svg_path):
             raise ValueError("Device has no image or its path is invalid")
 
         Gtk.Container.__init__(self, *args, **kwargs)
@@ -119,8 +118,8 @@ class MouseMap(Gtk.Container):
         self._children = []
         self._highlight_element = None
 
-        self._handle = Rsvg.Handle.new_from_file(svg_path)
-        self._svg_data = etree.parse(svg_path)
+        self._handle = Rsvg.Handle.new_from_file(ratbagd_device.svg_path)
+        self._svg_data = etree.parse(ratbagd_device.svg_path)
 
         # TODO: remove this when we're out of the transition to toned down SVGs
         device = self._handle.has_sub("#Device")
