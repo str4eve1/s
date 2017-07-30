@@ -359,6 +359,14 @@ class RatbagdProfile(_RatbagdDBus):
         return self._resolutions
 
     @GObject.Property
+    def active_resolution(self):
+        """The currently active resolution of this profile. This is a non-DBus
+        property computed over the cached list of resolutions."""
+        for resolution in self._resolutions:
+            if resolution.is_active:
+                return resolution
+
+    @GObject.Property
     def buttons(self):
         """A list of RatbagdButton objects with this profile's button mappings.
         Note that the list of buttons differs between profiles but the number
