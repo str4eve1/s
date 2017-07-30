@@ -435,6 +435,14 @@ class RatbagdResolution(_RatbagdDBus):
         """The report rate in Hz."""
         return self._get_dbus_property("ReportRate")
 
+    @report_rate.setter
+    def report_rate(self, rate):
+        """Set the report rate in Hz.
+
+        @param rate The new report rate, as int
+        """
+        return self._set_dbus_property("ReportRate", "u", rate)
+
     @GObject.Property
     def maximum(self):
         """The maximum possible resolution."""
@@ -444,14 +452,6 @@ class RatbagdResolution(_RatbagdDBus):
     def minimum(self):
         """The minimum possible resolution."""
         return self._get_dbus_property("Minimum")
-
-    @report_rate.setter
-    def report_rate(self, rate):
-        """Set the report rate in Hz.
-
-        @param rate The new report rate, as int
-        """
-        return self._set_dbus_property("ReportRate", "u", rate)
 
     @GObject.Property
     def is_active(self):
