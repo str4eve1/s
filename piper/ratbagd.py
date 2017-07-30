@@ -293,6 +293,14 @@ class RatbagdDevice(_RatbagdDBus):
         """A list of RatbagdProfile objects provided by this device."""
         return self._profiles
 
+    @GObject.Property
+    def active_profile(self):
+        """The currently active profile. This is a non-DBus property computed
+        over the cached list of profiles."""
+        for profile in self._profiles:
+            if profile.is_active:
+                return profile
+
     def get_svg(self, theme):
         """Gets the full path to the SVG for the given theme, or the empty
         string if none is available.

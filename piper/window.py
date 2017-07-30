@@ -160,9 +160,3 @@ class Window(Gtk.ApplicationWindow):
         # so that we can reset the sensitivity of the add button.
         if not profile.enabled and profile == self._device.profiles[-1]:
             self.add_profile_button.set_sensitive(True)
-
-    def _find_active_profile(self):
-        # Finds the active profile, which is guaranteed to be found.
-        for profile in self._device.profiles:
-            if profile.is_active:
-                return profile

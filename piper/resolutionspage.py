@@ -53,7 +53,7 @@ class ResolutionsPage(Gtk.Box):
         self._init_ui()
 
     def _init_ui(self):
-        profile = self._find_active_profile()
+        profile = self._device.active_profile
 
         mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
         self.pack_start(mousemap, True, True, 0)
@@ -75,18 +75,12 @@ class ResolutionsPage(Gtk.Box):
             self.listbox.insert(row, resolution.index)
 
     def _on_report_rate_toggled(self, button, rate):
-        profile = self._find_active_profile()
         # TODO: currently no devices expose CAP_INDIVIDUAL_REPORT_RATE, but if
         # so then we should check for this here and set it only on the relevant
         # resolution.
+        profile = self._device.active_profile
         for resolution in profile.resolutions:
             resolution.report_rate = rate
-
-    def _find_active_profile(self):
-        # Finds the active profile, which is guaranteed to be found.
-        for profile in self._device.profiles:
-            if profile.is_active:
-                return profile
 
     def _find_active_resolution(self, profile):
         # Finds the active resolution in the given profile, which is guaranteed

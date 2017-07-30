@@ -42,7 +42,7 @@ class LedsPage(Gtk.Box):
         self._init_ui()
 
     def _init_ui(self):
-        profile = self._find_active_profile()
+        profile = self._device.active_profile
 
         mousemap = MouseMap("#Leds", self._device, spacing=20, border_width=20)
         self.pack_start(mousemap, True, True, 0)
@@ -56,12 +56,6 @@ class LedsPage(Gtk.Box):
             led.connect("notify::mode", self._on_led_mode_changed, button)
             mousemap.add(button, "#led{}".format(index))
             sizegroup.add_widget(button)
-
-    def _find_active_profile(self):
-        # Finds the active profile, which is guaranteed to be found.
-        for profile in self._device.profiles:
-            if profile.is_active:
-                return profile
 
     def _on_led_mode_changed(self, led, pspec, button):
         mode = self._mode_to_string(led.mode)
