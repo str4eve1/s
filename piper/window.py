@@ -52,6 +52,9 @@ class Window(Gtk.ApplicationWindow):
 
         self._ratbag = ratbag
         self._device = self._fetch_ratbag_device()
+        if self._device is None:
+            self._present_error_dialog("No devices found")
+            return
 
         try:
             capabilities = self._device.capabilities
