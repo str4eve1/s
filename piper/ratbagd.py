@@ -260,6 +260,11 @@ class RatbagdDevice(_RatbagdDBus):
     CAP_BUTTON_MACROS = 302
     CAP_LED = 400
 
+    __gsignals__ = {
+        "active-profile-changed":
+            (GObject.SIGNAL_RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
+    }
+
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Device", object_path)
 
@@ -267,6 +272,11 @@ class RatbagdDevice(_RatbagdDBus):
         # things will break!
         result = self._get_dbus_property("Profiles")
         self._profiles = [RatbagdProfile(objpath) for objpath in result]
+        for profile in self._profiles:
+            profile.connect("notify::is-active", self._on_active_profile_changed)
+
+    def _on_active_profile_changed(self, profile, pspec):
+        self.emit("active-profile-changed", self._profiles[profile.index])
 
     @GObject.Property
     def id(self):
@@ -389,6 +399,7 @@ class RatbagdProfile(_RatbagdDBus):
         """Set this profile to be the active profile."""
         ret = self._dbus_call("SetActive", "")
         self._set_dbus_property("IsActive", "b", True, readwrite=False)
+        self.notify("is-active")
         return ret
 
 
