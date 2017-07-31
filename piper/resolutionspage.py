@@ -50,6 +50,10 @@ class ResolutionsPage(Gtk.Box):
         self._notification_commit_timeout_id = 0
         self._last_activated_row = None
 
+        self._device.connect("active-profile-changed", self._on_active_profile_changed)
+        self._handler_500 = self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
+        self._handler_1000 = self.rate_1000.connect("toggled", self._on_report_rate_toggled, 1000)
+
         self._init_ui()
 
     def _init_ui(self):
@@ -64,15 +68,20 @@ class ResolutionsPage(Gtk.Box):
                 label = Gtk.Label(_("Switch resolution"))
                 mousemap.add(label, "#button{}".format(button.index))
 
-        active_resolution = profile.active_resolution
-        self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
-        self.rate_500.set_active(active_resolution.report_rate == 500)
-        self.rate_1000.connect("toggled", self._on_report_rate_toggled, 1000)
-        self.rate_1000.set_active(active_resolution.report_rate == 1000)
-
         for resolution in profile.resolutions:
             row = ResolutionRow(resolution)
             self.listbox.insert(row, resolution.index)
+
+        # Set the report rate through a manual callback invocation.
+        self._on_active_profile_changed(self._device, profile)
+
+    def _on_active_profile_changed(self, device, profile):
+        # Updates report rate to reflect the new active profile's report rate.
+        active_resolution = profile.active_resolution
+        with self.rate_500.handler_block(self._handler_500):
+            self.rate_500.set_active(active_resolution.report_rate == 500)
+        with self.rate_1000.handler_block(self._handler_1000):
+            self.rate_1000.set_active(active_resolution.report_rate == 1000)
 
     def _on_report_rate_toggled(self, button, rate):
         # TODO: currently no devices expose CAP_INDIVIDUAL_REPORT_RATE, but if
