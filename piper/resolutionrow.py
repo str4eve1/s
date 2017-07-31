@@ -33,25 +33,38 @@ class ResolutionRow(Gtk.ListBoxRow):
     revealer = GtkTemplate.Child()
     scale = GtkTemplate.Child()
 
-    def __init__(self, ratbagd_resolution, *args, **kwargs):
+    def __init__(self, device, resolution, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self.init_template()
-        self._resolution = ratbagd_resolution
-        self._handler = self._resolution.connect("notify::resolution",
-                                                 self._on_resolution_changed)
-        self._init_values()
 
-    def _init_values(self):
-        # Initializes the scales and the title label and sets the Y resolution
-        # configuration visible if it's supported by the device.
-        xres, __ = self._resolution.resolution
-        minres = self._resolution.minimum
-        maxres = self._resolution.maximum
+        self._resolution = None
+        self._handler = 0
 
-        self.index_label.set_text("Resolution {}".format(self._resolution.index))
+        device.connect("active-profile-changed",
+                       self._on_active_profile_changed, resolution.index)
+
+        self._init_values(resolution)
+
+    def _init_values(self, resolution):
+        if self._handler > 0:
+            self._resolution.disconnect(self._handler)
+        self._resolution = resolution
+        self._handler = resolution.connect("notify::resolution", self._on_resolution_changed)
+
+        xres, __ = resolution.resolution
+        minres = resolution.minimum
+        maxres = resolution.maximum
+
+        self.index_label.set_text("Resolution {}".format(resolution.index))
 
         self.scale.props.adjustment.configure(xres, minres, maxres, 50, 50, 0)
+        # TODO: this updates the resolution upon initialization and makes the
+        # profile dirty; should be wrapped in a `with self.scale.handler_block()`.
         self.scale.set_value(xres)
+
+    def _on_active_profile_changed(self, device, profile, index):
+        resolution = profile.resolutions[index]
+        self._init_values(resolution)
 
     @GtkTemplate.Callback
     def _on_change_value(self, scale, scroll, value):
@@ -83,9 +96,11 @@ class ResolutionRow(Gtk.ListBoxRow):
         GObject.signal_stop_emission_by_name(widget, "scroll-event")
         return False
 
-    def _on_resolution_changed(self, obj, pspec):
+    def _on_resolution_changed(self, resolution, pspec):
         # RatbagdResolution's resolution has changed, update the scales.
-        xres, __ = self._resolution.resolution
+        xres, __ = resolution.resolution
+        # TODO: this updates the resolution upon initialization and makes the
+        # profile dirty; should be wrapped in a `with self.scale.handler_block()`.
         self.scale.set_value(xres)
 
     def toggle_revealer(self):

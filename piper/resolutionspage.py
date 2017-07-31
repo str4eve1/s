@@ -69,7 +69,7 @@ class ResolutionsPage(Gtk.Box):
                 mousemap.add(label, "#button{}".format(button.index))
 
         for resolution in profile.resolutions:
-            row = ResolutionRow(resolution)
+            row = ResolutionRow(self._device, resolution)
             self.listbox.insert(row, resolution.index)
 
         # Set the report rate through a manual callback invocation.
