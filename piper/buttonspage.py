@@ -39,15 +39,18 @@ class ButtonsPage(Gtk.Box):
         """
         Gtk.Box.__init__(self, *args, **kwargs)
         self._device = ratbagd_device
-        self._init_ui()
+        self._device.connect("active-profile-changed",
+                             self._on_active_profile_changed)
+        self._profile = None
 
-    def _init_ui(self):
-        profile = self._find_active_profile()
+        self._mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
+        self.pack_start(self._mousemap, True, True, 0)
+        self._sizegroup = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
 
-        mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
-        self.pack_start(mousemap, True, True, 0)
+        self._set_profile(self._device.active_profile)
 
-        sizegroup = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
+    def _set_profile(self, profile):
+        self._profile = profile
         for ratbagd_button in profile.buttons:
             button = OptionButton()
             # Set the correct label in the option button.
@@ -55,8 +58,17 @@ class ButtonsPage(Gtk.Box):
             button.connect("clicked", self._on_button_clicked, ratbagd_button)
             ratbagd_button.connect("notify::action-type",
                                    self._on_ratbagd_button_action_type_changed, button)
-            mousemap.add(button, "#button{}".format(ratbagd_button.index))
-            sizegroup.add_widget(button)
+            self._mousemap.add(button, "#button{}".format(ratbagd_button.index))
+            self._sizegroup.add_widget(button)
+
+    def _on_active_profile_changed(self, device, profile):
+        # Disconnect the notify::action_type signal on the old profile's buttons.
+        for button in self._profile.buttons:
+            button.disconnect_by_func(self._on_ratbagd_button_action_type_changed)
+        # Clear the MouseMap of any children.
+        self._mousemap.foreach(Gtk.Widget.destroy)
+        # Repopulate the MouseMap.
+        self._set_profile(profile)
 
     def _on_ratbagd_button_action_type_changed(self, ratbagd_button, pspec, optionbutton):
         # Called when the button's action type changed, which means its
