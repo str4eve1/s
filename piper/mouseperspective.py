@@ -84,6 +84,7 @@ class MousePerspective(Gtk.Overlay):
             self.listbox_profiles.insert(row, profile.index)
             if profile == active_profile:
                 self.listbox_profiles.select_row(row)
+        self.show_all()
 
     def _hide_notification_commit(self):
         if self._notification_commit_timeout_id is not 0:
