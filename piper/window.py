@@ -16,6 +16,7 @@
 
 from gettext import gettext as _
 
+from .errorperspective import ErrorPerspective
 from .gi_composites import GtkTemplate
 from .mouseperspective import MousePerspective
 
@@ -43,14 +44,16 @@ class Window(Gtk.ApplicationWindow):
         Gtk.ApplicationWindow.__init__(self, *args, **kwargs)
         self.init_template()
 
-        perspectives = [MousePerspective()]
+        perspectives = [ErrorPerspective(), MousePerspective()]
         for perspective in perspectives:
             self._add_perspective(perspective)
 
         if ratbag is None:
-            self._present_error_perspective(_("Cannot connect to ratbagd"))
+            self._present_error_perspective(_("Cannot connect to ratbagd"),
+                                            _("Please make sure it is running"))
         elif len(ratbag.devices) == 0:
-            self._present_error_perspective(_("Cannot find any devices"))
+            self._present_error_perspective(_("Cannot find any devices"),
+                                            _("Please make sure it is supported and plugged in"))
         elif len(ratbag.devices) == 1:
             self._present_mouse_perspective(ratbag.devices[0])
         else:
@@ -74,10 +77,15 @@ class Window(Gtk.ApplicationWindow):
             self.stack_titlebar.set_visible_child_name(mouse_perspective.name)
             self.stack_perspectives.set_visible_child_name(mouse_perspective.name)
         except ValueError as e:
-            self._present_error_perspective(e)
+            self._present_error_perspective(_("Cannot display device SVG"), e)
         except GLib.Error as e:
-            self._present_error_perspective(e.message)
+            self._present_error_perspective(_("Unknown exception occurred"), e.message)
 
-    def _present_error_perspective(self, message):
+    def _present_error_perspective(self, message, detail):
         # Present the error perspective informing the user of any errors.
-        pass
+        error_perspective = self.stack_perspectives.get_child_by_name("error_perspective")
+        error_perspective.set_message(message)
+        error_perspective.set_detail(detail)
+
+        self.stack_titlebar.set_visible_child_name(error_perspective.name)
+        self.stack_perspectives.set_visible_child_name(error_perspective.name)
