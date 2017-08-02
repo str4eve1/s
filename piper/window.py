@@ -16,12 +16,8 @@
 
 from gettext import gettext as _
 
-from .buttonspage import ButtonsPage
 from .gi_composites import GtkTemplate
-from .profilerow import ProfileRow
-from .ratbagd import RatbagErrorCode, RatbagdDevice
-from .resolutionspage import ResolutionsPage
-from .ledspage import LedsPage
+from .mouseperspective import MousePerspective
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -31,17 +27,13 @@ from gi.repository import GLib, Gtk
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/Window.ui")
 class Window(Gtk.ApplicationWindow):
     """A Gtk.ApplicationWindow subclass to implement the main application
-    window. This Window contains the overlay for the in-app notifications, the
-    headerbar and the stack holding a ResolutionsPage, a ButtonsPage and a
-    LedsPage."""
+    window. This window displays the different perspectives (error, mouse and
+    welcome) that each present their own behavior."""
 
     __gtype_name__ = "Window"
 
-    stack = GtkTemplate.Child()
-    notification_commit = GtkTemplate.Child()
-    listbox_profiles = GtkTemplate.Child()
-    label_profile = GtkTemplate.Child()
-    add_profile_button = GtkTemplate.Child()
+    stack_titlebar = GtkTemplate.Child()
+    stack_perspectives = GtkTemplate.Child()
 
     def __init__(self, ratbag, *args, **kwargs):
         """Instantiates a new Window.
@@ -51,112 +43,41 @@ class Window(Gtk.ApplicationWindow):
         Gtk.ApplicationWindow.__init__(self, *args, **kwargs)
         self.init_template()
 
+        perspectives = [MousePerspective()]
+        for perspective in perspectives:
+            self._add_perspective(perspective)
+
         if ratbag is None:
-            self._present_error_dialog("Cannot connect to ratbagd")
-            return
+            self._present_error_perspective(_("Cannot connect to ratbagd"))
+        elif len(ratbag.devices) == 0:
+            self._present_error_perspective(_("Cannot find any devices"))
+        elif len(ratbag.devices) == 1:
+            self._present_mouse_perspective(ratbag.devices[0])
+        else:
+            self._present_welcome_perspective(ratbag.devices)
 
-        self._ratbag = ratbag
-        self._device = self._fetch_ratbag_device()
-        if self._device is None:
-            self._present_error_dialog("No devices found")
-            return
+    def _add_perspective(self, perspective):
+        self.stack_perspectives.add_named(perspective, perspective.name)
+        self.stack_titlebar.add_named(perspective.titlebar, perspective.name)
 
-        self._setup_pages()
-        self._setup_profiles()
+    def _present_welcome_perspective(self, devices):
+        # Present the welcome perspective for the user to select one of their
+        # devices.
+        pass
 
-    def _setup_pages(self):
+    def _present_mouse_perspective(self, device):
+        # Present the mouse configuration perspective for the given device.
         try:
-            capabilities = self._device.capabilities
-            if RatbagdDevice.CAP_RESOLUTION in capabilities:
-                self.stack.add_titled(ResolutionsPage(self._device), "resolutions", _("Resolutions"))
-            if RatbagdDevice.CAP_BUTTON in capabilities:
-                self.stack.add_titled(ButtonsPage(self._device), "buttons", _("Buttons"))
-            if RatbagdDevice.CAP_LED in capabilities:
-                self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
+            mouse_perspective = self.stack_perspectives.get_child_by_name("mouse_perspective")
+            mouse_perspective.set_device(device)
+
+            self.stack_titlebar.set_visible_child_name(mouse_perspective.name)
+            self.stack_perspectives.set_visible_child_name(mouse_perspective.name)
         except ValueError as e:
-            self._present_error_dialog(e)
+            self._present_error_perspective(e)
         except GLib.Error as e:
-            self._present_error_dialog(e.message)
+            self._present_error_perspective(e.message)
 
-    def _setup_profiles(self):
-        active_profile = self._device.active_profile
-        self.label_profile.set_label(_("Profile {}").format(active_profile.index + 1))
-
-        # Find the first profile that is enabled. If there is none, disable the
-        # add button.
-        left = next((p for p in self._device.profiles if not p.enabled), None)
-        self.add_profile_button.set_sensitive(left is not None)
-
-        for profile in self._device.profiles:
-            profile.connect("notify::enabled", self._on_profile_notify_enabled)
-            row = ProfileRow(profile)
-            self.listbox_profiles.insert(row, profile.index)
-            if profile == active_profile:
-                self.listbox_profiles.select_row(row)
-
-    def _present_error_dialog(self, message):
-        # Present an error dialog informing the user of any errors.
-        # TODO: this should be something in the window, not a print
-        print("Cannot create window: {}".format(message))
-
-    def _fetch_ratbag_device(self):
-        """Get the first ratbag device available. If there are multiple
-        devices, an error message is printed and we default to the first
-        one. Otherwise, an error is shown and we return None.
-        """
-        # TODO: replace with better implementation once we go for the welcome screen.
-        if len(self._ratbag.devices) == 0:
-            print("Could not find any devices. Do you have anything vaguely mouse-looking plugged in?")
-            return None
-        elif len(self._ratbag.devices) > 1:
-            print("Ooops, can't deal with more than one device. My bad.")
-            for d in self._ratbag.devices[1:]:
-                print("Ignoring device {}".format(d.name))
-        return self._ratbag.devices[0]
-
-    def _hide_notification_commit(self):
-        if self._notification_commit_timeout_id is not 0:
-            GLib.Source.remove(self._notification_commit_timeout_id)
-            self._notification_commit_timeout_id = 0
-        self.notification_commit.set_reveal_child(False)
-
-    def _show_notification_commit(self):
-        self.notification_commit.set_reveal_child(True)
-        self._notification_commit_timeout_id = GLib.timeout_add_seconds(5,
-                                                                        self._on_notification_commit_timeout)
-
-    def _on_notification_commit_timeout(self):
-        self._hide_notification_commit()
-        return False
-
-    @GtkTemplate.Callback
-    def _on_save_button_clicked(self, button):
-        status = self._device.commit()
-        if not status == RatbagErrorCode.RATBAG_SUCCESS:
-            self._show_notification_commit()
-
-    @GtkTemplate.Callback
-    def _on_notification_commit_close_clicked(self, button):
-        self._hide_notification_commit()
-
-    @GtkTemplate.Callback
-    def _on_profile_row_activated(self, listbox, row):
-        row.set_active()
-        self.label_profile.set_label(row.name)
-
-    @GtkTemplate.Callback
-    def _on_add_profile_button_clicked(self, button):
-        # Enable the first disabled profile we find.
-        for profile in self._device.profiles:
-            if profile.enabled:
-                continue
-            profile.enabled = True
-            if profile == self._device.profiles[-1]:
-                self.add_profile_button.set_sensitive(False)
-            break
-
-    def _on_profile_notify_enabled(self, profile, pspec):
-        # We're only interested in the case where the last profile is disabled,
-        # so that we can reset the sensitivity of the add button.
-        if not profile.enabled and profile == self._device.profiles[-1]:
-            self.add_profile_button.set_sensitive(True)
+    def _present_error_perspective(self, message):
+        # Present the error perspective informing the user of any errors.
+        pass
