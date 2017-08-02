@@ -63,7 +63,7 @@ class Application(Gtk.Application):
 
     def _about(self, action, param):
         # Set up the about dialog.
-        builder = Gtk.Builder().new_from_resource("/org/freedesktop/Piper/aboutDialog.ui")
+        builder = Gtk.Builder().new_from_resource("/org/freedesktop/Piper/AboutDialog.ui")
         about = builder.get_object("about_dialog")
         about.set_transient_for(self.get_active_window())
         about.show()
