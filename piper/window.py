@@ -19,6 +19,7 @@ from gettext import gettext as _
 from .errorperspective import ErrorPerspective
 from .gi_composites import GtkTemplate
 from .mouseperspective import MousePerspective
+from .welcomeperspective import WelcomePerspective
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -44,9 +45,11 @@ class Window(Gtk.ApplicationWindow):
         Gtk.ApplicationWindow.__init__(self, *args, **kwargs)
         self.init_template()
 
-        perspectives = [ErrorPerspective(), MousePerspective()]
+        perspectives = [ErrorPerspective(), MousePerspective(), WelcomePerspective()]
         for perspective in perspectives:
             self._add_perspective(perspective)
+        welcome_perspective = self.stack_perspectives.get_child_by_name("welcome_perspective")
+        welcome_perspective.connect("device-selected", self._on_device_selected)
 
         if ratbag is None:
             self._present_error_perspective(_("Cannot connect to ratbagd"),
@@ -66,7 +69,11 @@ class Window(Gtk.ApplicationWindow):
     def _present_welcome_perspective(self, devices):
         # Present the welcome perspective for the user to select one of their
         # devices.
-        pass
+        welcome_perspective = self.stack_perspectives.get_child_by_name("welcome_perspective")
+        welcome_perspective.set_devices(devices)
+
+        self.stack_titlebar.set_visible_child_name(welcome_perspective.name)
+        self.stack_perspectives.set_visible_child_name(welcome_perspective.name)
 
     def _present_mouse_perspective(self, device):
         # Present the mouse configuration perspective for the given device.
@@ -89,3 +96,6 @@ class Window(Gtk.ApplicationWindow):
 
         self.stack_titlebar.set_visible_child_name(error_perspective.name)
         self.stack_perspectives.set_visible_child_name(error_perspective.name)
+
+    def _on_device_selected(self, perspective, device):
+        self._present_mouse_perspective(device)
