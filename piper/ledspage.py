@@ -52,12 +52,11 @@ class LedsPage(Gtk.Box):
     def _set_profile(self, profile):
         self._profile = profile
         for led in profile.leds:
-            index = led.index
             mode = self._mode_to_string(led.mode)
-            button = OptionButton("LED {}: {}".format(index, mode))
+            button = OptionButton(mode)
             button.connect("clicked", self._on_button_clicked, led)
             led.connect("notify::mode", self._on_led_mode_changed, button)
-            self._mousemap.add(button, "#led{}".format(index))
+            self._mousemap.add(button, "#led{}".format(led.index))
             self._sizegroup.add_widget(button)
 
     def _on_active_profile_changed(self, device, profile):
@@ -71,7 +70,7 @@ class LedsPage(Gtk.Box):
 
     def _on_led_mode_changed(self, led, pspec, button):
         mode = self._mode_to_string(led.mode)
-        button.set_label("LED {}: {}".format(led.index, mode))
+        button.set_label(mode)
 
     def _on_button_clicked(self, button, led):
         # Presents the LedDialog to configure the LED corresponding to the
@@ -93,12 +92,12 @@ class LedsPage(Gtk.Box):
     def _mode_to_string(self, mode):
         # Converts a RatbagdLed mode to a string.
         if mode == RatbagdLed.MODE_ON:
-            return _("solid")
+            return _("Solid")
         elif mode == RatbagdLed.MODE_CYCLE:
-            return _("cycle")
+            return _("Cycle")
         elif mode == RatbagdLed.MODE_BREATHING:
-            return _("breathing")
+            return _("Breathing")
         elif mode == RatbagdLed.MODE_OFF:
-            return _("off")
+            return _("Off")
         else:
-            return _("n/a")
+            return _("N/A")
