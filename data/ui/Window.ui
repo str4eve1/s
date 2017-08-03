@@ -3,6 +3,13 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <template class="Window" parent="GtkApplicationWindow">
+    <!-- This size is determined to be the best one with the current set of
+	 device SVGs in libratbag. It is set to ensure that the jump in size
+	 caused by the MousePerspective populating itself when switched to is
+	 minimal and the least disturbing. We can't populate the MousePerspective
+	 in advance because we need to know the device. -->
+    <property name="width_request">1012</property>
+    <property name="height_request">596</property>
     <property name="can_focus">False</property>
     <child>
       <object class="GtkStack" id="stack_perspectives">
