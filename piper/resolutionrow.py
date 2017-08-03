@@ -28,7 +28,6 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     __gtype_name__ = "ResolutionRow"
 
-    index_label = GtkTemplate.Child()
     title_label = GtkTemplate.Child()
     revealer = GtkTemplate.Child()
     scale = GtkTemplate.Child()
@@ -54,8 +53,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         xres, __ = resolution.resolution
         minres = resolution.minimum
         maxres = resolution.maximum
-
-        self.index_label.set_text("Resolution {}".format(resolution.index))
 
         self.scale.props.adjustment.configure(xres, minres, maxres, 50, 50, 0)
         # TODO: this updates the resolution upon initialization and makes the
