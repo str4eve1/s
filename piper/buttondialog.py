@@ -56,6 +56,10 @@ class ButtonRow(Gtk.ListBoxRow):
         self.init_template()
         self.description_label.set_text(description)
 
+    @GObject.Property
+    def description(self):
+        return self.description_label.get_text()
+
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/ButtonDialog.ui")
 class ButtonDialog(Gtk.Dialog):
@@ -76,6 +80,9 @@ class ButtonDialog(Gtk.Dialog):
     swap_primaries = GtkTemplate.Child()
     radio_right_handed = GtkTemplate.Child()
     radio_left_handed = GtkTemplate.Child()
+    empty_search_placeholder = GtkTemplate.Child()
+    search_entry = GtkTemplate.Child()
+    search_bar = GtkTemplate.Child()
 
     def __init__(self, ratbagd_button, buttons, *args, **kwargs):
         """Instantiates a new ButtonDialog.
@@ -129,6 +136,10 @@ class ButtonDialog(Gtk.Dialog):
     def _init_other_buttons_ui(self, buttons):
         # Shows the listbox to map non-primary buttons.
         self.listbox.set_header_func(self._listbox_header_func)
+        self.listbox.set_filter_func(self._listbox_filter_func)
+        self.listbox.set_placeholder(self.empty_search_placeholder)
+        self.search_entry.connect("notify::text", lambda o, p: self.listbox.invalidate_filter())
+
         i = 0
         for button in buttons:
             key, name = self._get_button_name_and_description(button)
@@ -183,6 +194,22 @@ class ButtonDialog(Gtk.Dialog):
         row.set_header(box)
         box.show_all()
 
+    def _listbox_filter_func(self, row):
+        # Filters the list box with the text from the search entry.
+        if self.search_entry.get_text_length() == 0:
+            return True
+
+        if row is not self.row_keystroke:
+            description = row.description.casefold()
+        else:
+            description = _("Send Keystroke").casefold()
+        search = self.search_entry.get_text().casefold()
+
+        for term in search.split(" "):
+            if term not in description:
+                return False
+        return True
+
     def _get_button_name_and_description(self, button):
         name = _("Button {} click").format(button.index)
         if button.index in RatbagdButton.BUTTON_DESCRIPTION:
@@ -227,18 +254,24 @@ class ButtonDialog(Gtk.Dialog):
         self.grab_remove()
 
     def do_key_press_event(self, event):
+        # Overrides Gtk.Window's standard key press event callback, so we can
+        # capture the pressed buttons in capture mode. If we're not in capture
+        # mode, we trigger the search bar on any key press.
         if self.stack.get_visible_child_name() == "overview":
-            return Gtk.Widget.do_key_press_event(self, event)
+            if self.search_bar.handle_event(event) == Gdk.EVENT_STOP:
+                return Gdk.EVENT_STOP
+            return Gtk.Window.do_key_press_event(self, event)
         return self._do_key_event(event)
 
     def do_key_release_event(self, event):
+        # Overrides Gtk.Window's standard key release event callback, so we can
+        # capture the released buttons in capture mode. If we're not in capture
+        # mode, we pass the event on to other widgets in the dialog.
         if self.stack.get_visible_child_name() == "overview":
-            return Gtk.Widget.do_key_release_event(self, event)
+            return Gtk.Window.do_key_release_event(self, event)
         return self._do_key_event(event)
 
     def _do_key_event(self, event):
-        # Overrides Gtk.Widget's standard key press event callback, so we can
-        # capture the pressed keys in capture mode.
         # Normalize tab.
         if event.keyval == Gdk.KEY_ISO_Left_Tab:
             event.keyval = Gdk.KEY_Tab
