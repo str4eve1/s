@@ -14,10 +14,10 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from gettext import gettext as _
 
 from .gi_composites import GtkTemplate
 from .mousemap import MouseMap
+from .ratbagd import RatbagdButton
 from .resolutionrow import ResolutionRow
 
 import gi
@@ -31,6 +31,15 @@ class ResolutionsPage(Gtk.Box):
     report rate buttons and resolutions list."""
 
     __gtype_name__ = "ResolutionsPage"
+
+    _resolution_labels = [
+        RatbagdButton.ACTION_SPECIAL_RESOLUTION_CYCLE_UP,
+        RatbagdButton.ACTION_SPECIAL_RESOLUTION_CYCLE_DOWN,
+        RatbagdButton.ACTION_SPECIAL_RESOLUTION_UP,
+        RatbagdButton.ACTION_SPECIAL_RESOLUTION_DOWN,
+        RatbagdButton.ACTION_SPECIAL_RESOLUTION_ALTERNATE,
+        RatbagdButton.ACTION_SPECIAL_RESOLUTION_DEFAULT,
+    ]
 
     rate_500 = GtkTemplate.Child()
     rate_1000 = GtkTemplate.Child()
@@ -64,8 +73,9 @@ class ResolutionsPage(Gtk.Box):
         # Place the MouseMap on the left
         self.reorder_child(mousemap, 0)
         for button in profile.buttons:
-            if button.action_type == "special" and button.special == "resolution-default":
-                label = Gtk.Label(_("Switch resolution"))
+            if button.action_type == RatbagdButton.ACTION_TYPE_SPECIAL and \
+                    button.special in self._resolution_labels:
+                label = Gtk.Label(RatbagdButton.SPECIAL_DESCRIPTION[button.special])
                 mousemap.add(label, "#button{}".format(button.index))
 
         for resolution in profile.resolutions:
