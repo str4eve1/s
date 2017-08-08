@@ -50,7 +50,24 @@ class WelcomePerspective(Gtk.Box):
         """
         self.listbox.foreach(Gtk.Widget.destroy)
         for device in devices:
-            self.listbox.add(DeviceRow(device))
+            self.add_device(device)
+
+    def add_device(self, device):
+        """Add a device to the list.
+
+        @param device The device to add, as ratbagd.RatbagdDevice
+        """
+        self.listbox.add(DeviceRow(device))
+
+    def remove_device(self, device):
+        """Remove a device from the list.
+
+        @param device The device to remove, as ratbagd.RatbagdDevice
+        """
+        for child in self.listbox.get_children():
+            if child._device is device:
+                child.destroy()
+                break
 
     @GObject.Property
     def name(self):
