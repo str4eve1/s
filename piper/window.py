@@ -56,7 +56,7 @@ class Window(Gtk.ApplicationWindow):
                                             _("Please make sure it is running"))
         elif len(ratbag.devices) == 0:
             self._present_error_perspective(_("Cannot find any devices"),
-                                            _("Please make sure it is supported and plugged in"))
+                                            _("Please make sure your device is supported and plugged in"))
         elif len(ratbag.devices) == 1:
             self._present_mouse_perspective(ratbag.devices[0])
         else:
