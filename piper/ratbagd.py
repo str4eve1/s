@@ -218,6 +218,13 @@ class Ratbagd(_RatbagdDBus):
     Throws RatbagdDBusUnavailable when the DBus service is not available.
     """
 
+    __gsignals__ = {
+        "device-added":
+            (GObject.SIGNAL_RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
+        "device-removed":
+            (GObject.SIGNAL_RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
+    }
+
     def __init__(self):
         _RatbagdDBus.__init__(self, "Manager", None)
         result = self._get_dbus_property("Devices")
@@ -228,9 +235,12 @@ class Ratbagd(_RatbagdDBus):
             for prop in changed_props["Devices"]:
                 index = self._find_object_with_path(self._devices, prop)
                 if index >= 0:
-                    del self._devices[index]
+                    device = self._devices.pop(index)
+                    self.emit("device-removed", device)
                 else:
-                    self._devices.append(RatbagdDevice(prop))
+                    device = RatbagdDevice(prop)
+                    self._devices.append(device)
+                    self.emit("device-added", device)
 
     @GObject.Property
     def devices(self):
