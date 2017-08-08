@@ -48,19 +48,62 @@ class Window(Gtk.ApplicationWindow):
         perspectives = [ErrorPerspective(), MousePerspective(), WelcomePerspective()]
         for perspective in perspectives:
             self._add_perspective(perspective)
-        welcome_perspective = self.stack_perspectives.get_child_by_name("welcome_perspective")
+        welcome_perspective = self._get_child("welcome_perspective")
         welcome_perspective.connect("device-selected", self._on_device_selected)
 
         if ratbag is None:
             self._present_error_perspective(_("Cannot connect to ratbagd"),
                                             _("Please make sure it is running"))
-        elif len(ratbag.devices) == 0:
+            return
+
+        ratbag.connect("device-added", self._on_device_added)
+        ratbag.connect("device-removed", self._on_device_removed)
+
+        if len(ratbag.devices) == 0:
             self._present_error_perspective(_("Cannot find any devices"),
                                             _("Please make sure your device is supported and plugged in"))
         elif len(ratbag.devices) == 1:
             self._present_mouse_perspective(ratbag.devices[0])
         else:
             self._present_welcome_perspective(ratbag.devices)
+
+    def _on_device_added(self, ratbag, device):
+        if len(ratbag.devices) == 1:
+            # We went from 0 devices to 1 device; immediately configure it.
+            self._present_mouse_perspective(device)
+        elif self.stack_perspectives.get_visible_child_name() == "welcome_perspective":
+            # We're in the welcome perspective; just add it to the list.
+            welcome_perspective = self._get_child("welcome_perspective")
+            welcome_perspective.add_device(device)
+        else:
+            # We're configuring another device; just notify the user.
+            # TODO: make back button visible
+            # TODO: show in-app notification?
+            print("Device connected")
+
+    def _on_device_removed(self, ratbag, device):
+        mouse_perspective = self._get_child("mouse_perspective")
+
+        if device is mouse_perspective.device:
+            # The current device disconnected, which can only happen from the
+            # mouse perspective as we'd otherwise be in the welcome screen with
+            # more than one device remaining. Hence, we display the error
+            # perspective.
+            self._present_error_perspective(_("Your device disconnected!"),
+                                            _("Please make sure your device is plugged in"))
+        elif self.stack_perspectives.get_visible_child_name() == "welcome_perspective":
+            # We're in the welcome screen; just remove it from the list. If
+            # there is nothing left, display the error perspective.
+            welcome_perspective = self._get_child("welcome_perspective")
+            welcome_perspective.remove_device(device)
+            if len(ratbag.devices) == 0:
+                self._present_error_perspective(_("Cannot find any devices"),
+                                                _("Please make sure your device is supported and plugged in"))
+        else:
+            # We're configuring another device; just notify the user.
+            # TODO: make back button invisible if required.
+            # TODO: show in-app notification?
+            print("Device disconnected")
 
     def _add_perspective(self, perspective):
         self.stack_perspectives.add_named(perspective, perspective.name)
@@ -69,7 +112,7 @@ class Window(Gtk.ApplicationWindow):
     def _present_welcome_perspective(self, devices):
         # Present the welcome perspective for the user to select one of their
         # devices.
-        welcome_perspective = self.stack_perspectives.get_child_by_name("welcome_perspective")
+        welcome_perspective = self._get_child("welcome_perspective")
         welcome_perspective.set_devices(devices)
 
         self.stack_titlebar.set_visible_child_name(welcome_perspective.name)
@@ -78,7 +121,7 @@ class Window(Gtk.ApplicationWindow):
     def _present_mouse_perspective(self, device):
         # Present the mouse configuration perspective for the given device.
         try:
-            mouse_perspective = self.stack_perspectives.get_child_by_name("mouse_perspective")
+            mouse_perspective = self._get_child("mouse_perspective")
             mouse_perspective.device = device
 
             self.stack_titlebar.set_visible_child_name(mouse_perspective.name)
@@ -90,7 +133,7 @@ class Window(Gtk.ApplicationWindow):
 
     def _present_error_perspective(self, message, detail):
         # Present the error perspective informing the user of any errors.
-        error_perspective = self.stack_perspectives.get_child_by_name("error_perspective")
+        error_perspective = self._get_child("error_perspective")
         error_perspective.set_message(message)
         error_perspective.set_detail(detail)
 
@@ -99,3 +142,6 @@ class Window(Gtk.ApplicationWindow):
 
     def _on_device_selected(self, perspective, device):
         self._present_mouse_perspective(device)
+
+    def _get_child(self, name):
+        return self.stack_perspectives.get_child_by_name(name)
