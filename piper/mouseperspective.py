@@ -59,7 +59,12 @@ class MousePerspective(Gtk.Overlay):
         """The titlebar to this perspective."""
         return self._titlebar
 
-    def set_device(self, device):
+    @GObject.Property
+    def device(self):
+        return self._device
+
+    @device.setter
+    def device(self, device):
         self._device = device
         capabilities = device.capabilities
 

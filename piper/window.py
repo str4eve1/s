@@ -79,7 +79,7 @@ class Window(Gtk.ApplicationWindow):
         # Present the mouse configuration perspective for the given device.
         try:
             mouse_perspective = self.stack_perspectives.get_child_by_name("mouse_perspective")
-            mouse_perspective.set_device(device)
+            mouse_perspective.device = device
 
             self.stack_titlebar.set_visible_child_name(mouse_perspective.name)
             self.stack_perspectives.set_visible_child_name(mouse_perspective.name)
