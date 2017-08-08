@@ -232,15 +232,16 @@ class Ratbagd(_RatbagdDBus):
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
         if "Devices" in changed_props.keys():
-            for prop in changed_props["Devices"]:
-                index = self._find_object_with_path(self._devices, prop)
-                if index >= 0:
-                    device = self._devices.pop(index)
-                    self.emit("device-removed", device)
-                else:
-                    device = RatbagdDevice(prop)
+            object_paths = [d._object_path for d in self._devices]
+            for object_path in changed_props["Devices"]:
+                if object_path not in object_paths:
+                    device = RatbagdDevice(object_path)
                     self._devices.append(device)
                     self.emit("device-added", device)
+            for device in self.devices:
+                if device._object_path not in changed_props["Devices"]:
+                    self._devices.remove(device)
+                    self.emit("device-removed", device)
 
     @GObject.Property
     def devices(self):
