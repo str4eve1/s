@@ -242,6 +242,7 @@ class Ratbagd(_RatbagdDBus):
                 if device._object_path not in changed_props["Devices"]:
                     self._devices.remove(device)
                     self.emit("device-removed", device)
+            self.notify("devices")
 
     @GObject.Property
     def devices(self):
