@@ -47,7 +47,7 @@ class Window(Gtk.ApplicationWindow):
 
         perspectives = [ErrorPerspective(), MousePerspective(), WelcomePerspective()]
         for perspective in perspectives:
-            self._add_perspective(perspective)
+            self._add_perspective(perspective, ratbag)
         welcome_perspective = self._get_child("welcome_perspective")
         welcome_perspective.connect("device-selected", self._on_device_selected)
 
@@ -77,7 +77,6 @@ class Window(Gtk.ApplicationWindow):
             welcome_perspective.add_device(device)
         else:
             # We're configuring another device; just notify the user.
-            # TODO: make back button visible
             # TODO: show in-app notification?
             print("Device connected")
 
@@ -101,13 +100,24 @@ class Window(Gtk.ApplicationWindow):
                                                 _("Please make sure your device is supported and plugged in"))
         else:
             # We're configuring another device; just notify the user.
-            # TODO: make back button invisible if required.
             # TODO: show in-app notification?
             print("Device disconnected")
 
-    def _add_perspective(self, perspective):
+    def _add_perspective(self, perspective, ratbag):
         self.stack_perspectives.add_named(perspective, perspective.name)
         self.stack_titlebar.add_named(perspective.titlebar, perspective.name)
+        if perspective.can_go_back:
+            button_back = Gtk.Button.new_from_icon_name("go-previous-symbolic",
+                                                        Gtk.IconSize.BUTTON)
+            button_back.set_visible(len(ratbag.devices) > 1)
+            button_back.connect("clicked", lambda button, ratbag:
+                                self._present_welcome_perspective(ratbag.devices),
+                                ratbag)
+            ratbag.connect("notify::devices", lambda ratbag, pspec:
+                           button_back.set_visible(len(ratbag.devices) > 1))
+            perspective.titlebar.add(button_back)
+            # Place the button first in the titlebar.
+            perspective.titlebar.child_set_property(button_back, "position", 0)
 
     def _present_welcome_perspective(self, devices):
         # Present the welcome perspective for the user to select one of their

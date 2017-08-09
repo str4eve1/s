@@ -51,6 +51,12 @@ class ErrorPerspective(Gtk.Box):
         """The titlebar to this perspective."""
         return self._titlebar
 
+    @GObject.Property
+    def can_go_back(self):
+        """Whether this perspective wants a back button to be displayed in case
+        there is more than one connected device."""
+        return False
+
     def set_message(self, message):
         """Sets the error message.
 
