@@ -50,7 +50,6 @@ class Application(Gtk.Application):
         """This function is called when the user requests a new window to be
         opened."""
         window = Window(self._ratbag, application=self)
-        window.show_all()
         window.present()
 
     def _build_app_menu(self):
