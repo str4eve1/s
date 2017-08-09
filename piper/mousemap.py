@@ -177,9 +177,13 @@ class MouseMap(Gtk.Container):
         @param parameters The parameters to pass to the callback, as object or
                           None.
         """
-        if callback is not None:
-            for child in self._children:
-                callback(child.widget, *parameters)
+        try:
+            if callback is not None:
+                for child in self._children:
+                    callback(child.widget, *parameters)
+        except AttributeError:
+            # See https://bugzilla.gnome.org/show_bug.cgi?id=722562.
+            pass
 
     def do_get_request_mode(self):
         """Gets whether the container prefers a height-for-width or a
