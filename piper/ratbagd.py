@@ -324,7 +324,12 @@ class RatbagdDevice(_RatbagdDBus):
 
     def commit(self):
         """Commits all changes made to the device."""
-        return self._dbus_call("Commit", "")
+        ret = self._dbus_call("Commit", "")
+        for profile in self._profiles:
+            if profile.dirty:
+                profile._dirty = False
+                profile.notify("dirty")
+        return ret
 
 
 class RatbagdProfile(_RatbagdDBus):
@@ -332,22 +337,40 @@ class RatbagdProfile(_RatbagdDBus):
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Profile", object_path)
+        self._dirty = False
 
         # FIXME: if we start adding and removing objects from any of these
         # lists, things will break!
         result = self._get_dbus_property("Resolutions")
         self._resolutions = [RatbagdResolution(objpath) for objpath in result]
+        self._subscribe_dirty(self._resolutions)
 
         result = self._get_dbus_property("Buttons")
         self._buttons = [RatbagdButton(objpath) for objpath in result]
+        self._subscribe_dirty(self._buttons)
 
         result = self._get_dbus_property("Leds")
         self._leds = [RatbagdLed(objpath) for objpath in result]
+        self._subscribe_dirty(self._leds)
+
+    def _subscribe_dirty(self, objects):
+        for obj in objects:
+            obj.connect("notify", self._on_obj_notify)
+
+    def _on_obj_notify(self, obj, pspec):
+        if not self._dirty:
+            self._dirty = True
+            self.notify("dirty")
 
     @GObject.Property
     def index(self):
         """The index of this profile."""
         return self._get_dbus_property("Index")
+
+    @GObject.Property
+    def dirty(self):
+        """Whether this profile is dirty."""
+        return self._dirty
 
     @GObject.Property
     def enabled(self):
