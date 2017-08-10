@@ -37,7 +37,9 @@ class ResolutionRow(Gtk.ListBoxRow):
         self.init_template()
 
         self._resolution = None
-        self._handler = 0
+        self._resolution_handler = 0
+        self._scale_handler = self.scale.connect("value-changed",
+                                                 self._on_scale_value_changed)
 
         device.connect("active-profile-changed",
                        self._on_active_profile_changed, resolution.index)
@@ -45,19 +47,19 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._init_values(resolution)
 
     def _init_values(self, resolution):
-        if self._handler > 0:
-            self._resolution.disconnect(self._handler)
+        if self._resolution_handler > 0:
+            self._resolution.disconnect(self._resolution_handler)
         self._resolution = resolution
-        self._handler = resolution.connect("notify::resolution", self._on_resolution_changed)
+        self._resolution_handler = resolution.connect("notify::resolution",
+                                                      self._on_resolution_changed)
 
         xres, __ = resolution.resolution
         minres = resolution.minimum
         maxres = resolution.maximum
 
-        self.scale.props.adjustment.configure(xres, minres, maxres, 50, 50, 0)
-        # TODO: this updates the resolution upon initialization and makes the
-        # profile dirty; should be wrapped in a `with self.scale.handler_block()`.
-        self.scale.set_value(xres)
+        with self.scale.handler_block(self._scale_handler):
+            self.scale.props.adjustment.configure(xres, minres, maxres, 50, 50, 0)
+            self.scale.set_value(xres)
 
     def _on_active_profile_changed(self, device, profile, index):
         resolution = profile.resolutions[index]
@@ -76,28 +78,25 @@ class ResolutionRow(Gtk.ListBoxRow):
         print("TODO: RatbagdProfile needs a way to delete resolutions")
 
     @GtkTemplate.Callback
-    def _on_value_changed(self, scale):
+    def _on_scroll_event(self, widget, event):
+        # Prevent a scroll in the list to get caught by the scale
+        GObject.signal_stop_emission_by_name(widget, "scroll-event")
+        return False
+
+    def _on_scale_value_changed(self, scale):
         # The scale has been moved, update RatbagdResolution's resolution and
         # the title label.
         xres = int(self.scale.get_value())
 
         # Freeze the notify::resolution signal from firing to prevent Piper from
         # ending up in an infinite update loop.
-        with self._resolution.handler_block(self._handler):
+        with self._resolution.handler_block(self._resolution_handler):
             self._resolution.resolution = xres, xres
         self.title_label.set_text("{} DPI".format(xres))
-
-    @GtkTemplate.Callback
-    def _on_scroll_event(self, widget, event):
-        # Prevent a scroll in the list to get caught by the scale
-        GObject.signal_stop_emission_by_name(widget, "scroll-event")
-        return False
 
     def _on_resolution_changed(self, resolution, pspec):
         # RatbagdResolution's resolution has changed, update the scales.
         xres, __ = resolution.resolution
-        # TODO: this updates the resolution upon initialization and makes the
-        # profile dirty; should be wrapped in a `with self.scale.handler_block()`.
         self.scale.set_value(xres)
 
     def toggle_revealer(self):
