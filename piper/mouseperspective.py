@@ -40,6 +40,7 @@ class MousePerspective(Gtk.Overlay):
     listbox_profiles = GtkTemplate.Child()
     label_profile = GtkTemplate.Child()
     add_profile_button = GtkTemplate.Child()
+    button_commit = GtkTemplate.Child()
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new MousePerspective."""
@@ -80,6 +81,7 @@ class MousePerspective(Gtk.Overlay):
 
         for profile in device.profiles:
             profile.connect("notify::enabled", self._on_profile_notify_enabled)
+            profile.connect("notify::dirty", self._on_profile_notify_dirty)
             row = ProfileRow(profile)
             self.listbox_profiles.insert(row, profile.index)
             if profile == active_profile:
@@ -132,3 +134,13 @@ class MousePerspective(Gtk.Overlay):
         # so that we can reset the sensitivity of the add button.
         if not profile.enabled and profile == self._device.profiles[-1]:
             self.add_profile_button.set_sensitive(True)
+
+    def _on_profile_notify_dirty(self, profile, pspec):
+        style_context = self.button_commit.get_style_context()
+        if profile.dirty and not style_context.has_class("suggested-action"):
+            style_context.add_class("suggested-action")
+        else:
+            # There is no way to make a single profile non-dirty, so this works
+            # for now. Ideally, this should however check if there are any other
+            # profiles on the device that are dirty.
+            style_context.remove_class("suggested-action")
