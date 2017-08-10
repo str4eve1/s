@@ -73,6 +73,7 @@ class MousePerspective(Gtk.Overlay):
 
         active_profile = device.active_profile
         self.label_profile.set_label(_("Profile {}").format(active_profile.index + 1))
+        self.button_commit.set_sensitive(active_profile.dirty)
 
         # Find the first profile that is enabled. If there is none, disable the
         # add button.
@@ -139,8 +140,10 @@ class MousePerspective(Gtk.Overlay):
         style_context = self.button_commit.get_style_context()
         if profile.dirty and not style_context.has_class("suggested-action"):
             style_context.add_class("suggested-action")
+            self.button_commit.set_sensitive(True)
         else:
             # There is no way to make a single profile non-dirty, so this works
             # for now. Ideally, this should however check if there are any other
             # profiles on the device that are dirty.
             style_context.remove_class("suggested-action")
+            self.button_commit.set_sensitive(False)
