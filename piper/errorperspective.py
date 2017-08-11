@@ -57,6 +57,11 @@ class ErrorPerspective(Gtk.Box):
         there is more than one connected device."""
         return False
 
+    @GObject.Property
+    def can_shutdown(self):
+        """Whether this perspective can safely shutdown."""
+        return True
+
     def set_message(self, message):
         """Sets the error message.
 

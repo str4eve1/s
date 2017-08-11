@@ -85,6 +85,11 @@ class WelcomePerspective(Gtk.Box):
         there is more than one connected device."""
         return False
 
+    @GObject.Property
+    def can_shutdown(self):
+        """Whether this perspective can safely shutdown."""
+        return True
+
     @GtkTemplate.Callback
     def _on_quit_button_clicked(self, button):
         window = button.get_toplevel()

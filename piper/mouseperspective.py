@@ -66,6 +66,14 @@ class MousePerspective(Gtk.Overlay):
         return True
 
     @GObject.Property
+    def can_shutdown(self):
+        """Whether this perspective can safely shutdown."""
+        for profile in self._device.profiles:
+            if profile.dirty:
+                return False
+        return True
+
+    @GObject.Property
     def device(self):
         return self._device
 

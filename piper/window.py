@@ -23,7 +23,7 @@ from .welcomeperspective import WelcomePerspective
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import GLib, Gtk
+from gi.repository import Gdk, GLib, Gtk
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/Window.ui")
@@ -66,6 +66,20 @@ class Window(Gtk.ApplicationWindow):
             self._present_mouse_perspective(ratbag.devices[0])
         else:
             self._present_welcome_perspective(ratbag.devices)
+
+    def do_delete_event(self, event):
+        for perspective in self.stack_perspectives.get_children():
+            if not perspective.can_shutdown:
+                dialog = Gtk.MessageDialog(self, Gtk.DialogFlags.MODAL,
+                                           Gtk.MessageType.QUESTION,
+                                           Gtk.ButtonsType.YES_NO,
+                                           _("There are unapplied changes. Are you sure you want to quit?"))
+                response = dialog.run()
+                dialog.destroy()
+
+                if response == Gtk.ResponseType.NO or response == Gtk.ResponseType.DELETE_EVENT:
+                    return Gdk.EVENT_STOP
+        return Gdk.EVENT_PROPAGATE
 
     def _on_device_added(self, ratbag, device):
         if len(ratbag.devices) == 1:
