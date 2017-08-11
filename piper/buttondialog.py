@@ -193,12 +193,18 @@ class ButtonDialog(Gtk.Dialog):
         self.grab_remove()
 
     def do_key_press_event(self, event):
-        # Overrides Gtk.Widget's standard key press event callback, so we can
-        # capture the pressed buttons in capture mode.
-        # Don't process key events when we're not in capture mode.
         if self.stack.get_visible_child_name() == "overview":
             return Gtk.Widget.do_key_press_event(self, event)
+        return self._do_key_event(event)
 
+    def do_key_release_event(self, event):
+        if self.stack.get_visible_child_name() == "overview":
+            return Gtk.Widget.do_key_release_event(self, event)
+        return self._do_key_event(event)
+
+    def _do_key_event(self, event):
+        # Overrides Gtk.Widget's standard key press event callback, so we can
+        # capture the pressed keys in capture mode.
         # Normalize tab.
         if event.keyval == Gdk.KEY_ISO_Left_Tab:
             event.keyval = Gdk.KEY_Tab
