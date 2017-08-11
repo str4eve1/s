@@ -84,7 +84,7 @@ class MousePerspective(Gtk.Overlay):
 
         active_profile = device.active_profile
         self.label_profile.set_label(_("Profile {}").format(active_profile.index + 1))
-        self.button_commit.set_sensitive(active_profile.dirty)
+        self._on_profile_notify_dirty(active_profile, None)
 
         # Find the first profile that is enabled. If there is none, disable the
         # add button.
