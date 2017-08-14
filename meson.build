@@ -7,6 +7,10 @@ project('piper',
 dependency('python3', required: true)
 dependency('pygobject-3.0', required: true)
 
+# Gtk version required
+gtk_major_version = 3
+gtk_minor_version = 22
+
 prefix = get_option('prefix')
 datadir = join_paths(prefix, get_option('datadir'))
 localedir = join_paths(prefix, get_option('localedir'))
@@ -28,6 +32,8 @@ install_subdir('piper', install_dir: python_dir)
 config_piper = configuration_data()
 config_piper.set('pkgdatadir', pkgdatadir)
 config_piper.set('localedir', localedir)
+config_piper.set('gtk_major_version', gtk_major_version)
+config_piper.set('gtk_minor_version', gtk_minor_version)
 
 configure_file(input: 'piper.in',
 	       output: 'piper',
@@ -37,6 +43,8 @@ configure_file(input: 'piper.in',
 config_piper_devel = configuration_data()
 config_piper_devel.set('pkgdatadir', join_paths(meson.build_root(), 'data'))
 config_piper_devel.set('localedir', join_paths(meson.build_root(), 'po'))
+config_piper_devel.set('gtk_major_version', gtk_major_version)
+config_piper_devel.set('gtk_minor_version', gtk_minor_version)
 config_piper_devel.set('devel', '
 sys.path.insert(1, \'@0@\')
 print(\'Running from source tree, using local files\')

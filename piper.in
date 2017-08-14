@@ -7,6 +7,10 @@ import sys
 gi.require_version('Gio', '2.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk
+gtk_version = Gtk.get_major_version(), Gtk.get_minor_version()
+if gtk_version < (@gtk_major_version@, @gtk_minor_version@):
+    print("Version of GTK is too old, @gtk_major_version@.@gtk_minor_version@ required", file=sys.stderr)
+    sys.exit(1)
 
 @devel@
 resource = Gio.resource_load(os.path.join('@pkgdatadir@', 'piper.gresource'))
