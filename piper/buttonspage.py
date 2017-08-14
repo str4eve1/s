@@ -110,6 +110,14 @@ class ButtonsPage(Gtk.Box):
                 ratbagd_button.macro = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
                 ratbagd_button.special = dialog.mapping
+                lower = RatbagdButton.ACTION_SPECIAL_PROFILE_CYCLE_UP
+                upper = RatbagdButton.ACTION_SPECIAL_PROFILE_DOWN
+                if lower <= dialog.mapping <= upper:
+                    index = ratbagd_button.index
+                    for profile in self._device.profiles:
+                        if profile is self._profile:
+                            continue
+                        profile.buttons[index].special = dialog.mapping
         dialog.destroy()
 
     def _find_active_profile(self):
