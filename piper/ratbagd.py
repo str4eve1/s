@@ -594,6 +594,7 @@ class RatbagdButton(_RatbagdDBus):
 
     """A table mapping a special function to its human-readable description."""
     SPECIAL_DESCRIPTION = {
+        ACTION_SPECIAL_UNKNOWN: _("Unknown"),
         ACTION_SPECIAL_DOUBLECLICK: _("Doubleclick"),
         ACTION_SPECIAL_WHEEL_LEFT: _("Wheel Left"),
         ACTION_SPECIAL_WHEEL_RIGHT: _("Wheel Right"),
