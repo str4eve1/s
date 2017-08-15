@@ -77,8 +77,7 @@ class MousePerspective(Gtk.Overlay):
     def device(self):
         return self._device
 
-    @device.setter
-    def device(self, device):
+    def set_device(self, device):
         self._device = device
         capabilities = device.capabilities
 
