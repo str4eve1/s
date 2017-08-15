@@ -157,7 +157,7 @@ class MousePerspective(Gtk.Overlay):
 
     def _on_profile_notify_dirty(self, profile, pspec):
         style_context = self.button_commit.get_style_context()
-        if profile.dirty and not style_context.has_class("suggested-action"):
+        if profile.dirty:
             style_context.add_class("suggested-action")
             self.button_commit.set_sensitive(True)
         else:
