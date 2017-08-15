@@ -64,11 +64,18 @@ class ButtonDialog(Gtk.Dialog):
 
     __gtype_name__ = "ButtonDialog"
 
+    LEFT_HANDED_MODE = -1000
+    RIGHT_HANDED_MODE = -1001
+
     stack = GtkTemplate.Child()
+    button_mappings = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
     label_keystroke = GtkTemplate.Child()
     label_preview = GtkTemplate.Child()
     row_keystroke = GtkTemplate.Child()
+    swap_primaries = GtkTemplate.Child()
+    radio_right_handed = GtkTemplate.Child()
+    radio_left_handed = GtkTemplate.Child()
 
     def __init__(self, ratbagd_button, buttons, *args, **kwargs):
         """Instantiates a new ButtonDialog.
@@ -92,9 +99,36 @@ class ButtonDialog(Gtk.Dialog):
         self._init_ui(buttons)
 
     def _init_ui(self, buttons):
-        # Initializes the listbox and key mapping previews.
-        self.listbox.set_header_func(self._listbox_header_func)
+        # TODO: make this self._button.type == RatbagdButton.TYPE_LEFT or
+        # or self._button.type == RatbagdButton.TYPE_RIGHT once
+        # https://github.com/libratbag/libratbag/issues/233 is fixed.
+        if self._button.index in [0, 1]:
+            self._init_primary_buttons_ui()
+        else:
+            self._init_other_buttons_ui(buttons)
 
+    def _init_primary_buttons_ui(self):
+        # Shows the listbox to swap the primary buttons.
+        self.swap_primaries.set_visible(True)
+        self.button_mappings.set_visible(False)
+        # Left mouse button (index 0) is mapped to left mouse button, where
+        # mappings are 1-indexed and thus left mouse click has value 1.
+        # Or, right mouse button (index 1) is mapped to right mouse button,
+        # which has value 2.
+        if self._button.index == 0 and self._mapping == 1 or \
+                self._button.index == 1 and self._mapping == 2:
+            self.radio_right_handed.set_active(True)
+        # Left mouse button (index 0) is mapped to right mouse button, where
+        # mappings are 1-indexed and thus right mouse click has value 2.
+        # Or, right mouse button (index 1) is mapped to left mouse button,
+        # which has value 1.
+        elif self._button.index == 0 and self._mapping == 2 or \
+                self._button.index == 1 and self._mapping == 1:
+            self.radio_left_handed.set_active(True)
+
+    def _init_other_buttons_ui(self, buttons):
+        # Shows the listbox to map non-primary buttons.
+        self.listbox.set_header_func(self._listbox_header_func)
         i = 0
         for button in buttons:
             key, name = self._get_button_name_and_description(button)
@@ -236,6 +270,16 @@ class ButtonDialog(Gtk.Dialog):
             self._action_type = row._action_type
             self._mapping = row._value
 
+    @GtkTemplate.Callback
+    def _on_primary_mode_toggled(self, toggle):
+        if not toggle.get_active():
+            return
+        self._action_type = RatbagdButton.ACTION_TYPE_BUTTON
+        if toggle is self.radio_left_handed:
+            self._mapping = ButtonDialog.LEFT_HANDED_MODE
+        elif toggle is self.radio_right_handed:
+            self._mapping = ButtonDialog.RIGHT_HANDED_MODE
+
     @GObject.Property
     def action_type(self):
         """The action type as last set in the dialog, one of RatbagdButton.ACTION_TYPE_*."""
@@ -245,5 +289,8 @@ class ButtonDialog(Gtk.Dialog):
     def mapping(self):
         """The mapping as last set in the dialog. Note that the type depends on
         action_type, and as such you should check that before using this
-        property."""
+        property. A custom value of ButtonDialog.LEFT_HANDED_MODE means that
+        the left- and right mouse buttons should be swapped, whereas
+        ButtonDialog.RIGHT_HANDED_MODE means that the buttons should be as
+        usual."""
         return self._mapping

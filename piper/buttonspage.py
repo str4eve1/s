@@ -105,7 +105,19 @@ class ButtonsPage(Gtk.Box):
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
             if dialog.action_type == RatbagdButton.ACTION_TYPE_BUTTON:
-                ratbagd_button.mapping = dialog.mapping
+                if dialog.mapping in [ButtonDialog.LEFT_HANDED_MODE, ButtonDialog.RIGHT_HANDED_MODE]:
+                    left = self._find_button_type(0)
+                    right = self._find_button_type(1)
+                    if left is None or right is None:
+                        return
+                    # Mappings are 1-indexed, so 1 is left mouse click and 2 is
+                    # right mouse click.
+                    if dialog.mapping == ButtonDialog.LEFT_HANDED_MODE:
+                        left.mapping, right.mapping = 2, 1
+                    elif dialog.mapping == ButtonDialog.RIGHT_HANDED_MODE:
+                        left.mapping, right.mapping = 1, 2
+                else:
+                    ratbagd_button.mapping = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_MACRO:
                 ratbagd_button.macro = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
@@ -125,3 +137,11 @@ class ButtonsPage(Gtk.Box):
         for profile in self._device.profiles:
             if profile.is_active:
                 return profile
+
+    def _find_button_type(self, button_type):
+        # TODO: make this use RatbagdButton.Type once
+        # https://github.com/libratbag/libratbag/issues/233 is fixed.
+        for button in self._profile.buttons:
+            if button.index == button_type:
+                return button
+        return None
