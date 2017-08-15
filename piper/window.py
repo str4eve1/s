@@ -151,7 +151,7 @@ class Window(Gtk.ApplicationWindow):
             self.stack_titlebar.set_visible_child_name(mouse_perspective.name)
             self.stack_perspectives.set_visible_child_name(mouse_perspective.name)
         except ValueError as e:
-            self._present_error_perspective(_("Cannot display device SVG"), e)
+            self._present_error_perspective(_("Cannot display device SVG"), str(e))
         except GLib.Error as e:
             self._present_error_perspective(_("Unknown exception occurred"), e.message)
 
