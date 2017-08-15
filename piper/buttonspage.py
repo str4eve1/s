@@ -105,7 +105,8 @@ class ButtonsPage(Gtk.Box):
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
             if dialog.action_type == RatbagdButton.ACTION_TYPE_BUTTON:
-                ratbagd_button.mapping = dialog.mapping
+                if self._remapping_is_safe(ratbagd_button):
+                    ratbagd_button.mapping = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_MACRO:
                 ratbagd_button.macro = dialog.mapping
             elif dialog.action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
@@ -125,3 +126,19 @@ class ButtonsPage(Gtk.Box):
         for profile in self._device.profiles:
             if profile.is_active:
                 return profile
+
+    def _remapping_is_safe(self, ratbagd_button):
+        if ratbagd_button.mapping == 1:
+            find_other = (b for b in self._profile.buttons if b is not ratbagd_button and b.mapping == 1)
+            another_left_click = next(find_other, False)
+            if not another_left_click:
+                dialog = Gtk.MessageDialog(self.get_toplevel(), Gtk.DialogFlags.MODAL,
+                                           Gtk.MessageType.QUESTION,
+                                           Gtk.ButtonsType.YES_NO,
+                                           _("You are currently attempting to remap a button that will leave you without a left mouse click. Do you want to continue?"))
+                response = dialog.run()
+                dialog.destroy()
+
+                if response == Gtk.ResponseType.NO or response == Gtk.ResponseType.DELETE_EVENT:
+                    return False
+        return True
