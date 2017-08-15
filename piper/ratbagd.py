@@ -318,10 +318,14 @@ class RatbagdDevice(_RatbagdDBus):
     @GObject.Property
     def active_profile(self):
         """The currently active profile. This is a non-DBus property computed
-        over the cached list of profiles."""
+        over the cached list of profiles. In the unlikely case that your device
+        driver is misconfigured and there is no active profile, this returns
+        the first profile."""
         for profile in self._profiles:
             if profile.is_active:
                 return profile
+        print("No active profile. Please report this bug to the libratbag developers", file=sys.stderr)
+        return self._profiles[0]
 
     def get_svg(self, theme):
         """Gets the full path to the SVG for the given theme, or the empty
@@ -406,10 +410,14 @@ class RatbagdProfile(_RatbagdDBus):
     @GObject.Property
     def active_resolution(self):
         """The currently active resolution of this profile. This is a non-DBus
-        property computed over the cached list of resolutions."""
+        property computed over the cached list of resolutions. In the unlikely
+        case that your device driver is misconfigured and there is no active
+        resolution, this returns the first resolution."""
         for resolution in self._resolutions:
             if resolution.is_active:
                 return resolution
+        print("No active resolution. Please report this bug to the libratbag developers", file=sys.stderr)
+        return self._resolutions[0]
 
     @GObject.Property
     def buttons(self):
