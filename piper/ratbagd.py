@@ -473,8 +473,7 @@ class RatbagdResolution(_RatbagdDBus):
 
         @param res The new resolution, as (int, int)
         """
-        ret = self._set_dbus_property("Resolution", "(uu)", res)
-        return ret
+        return self._set_dbus_property("Resolution", "(uu)", res)
 
     @GObject.Property
     def report_rate(self):
