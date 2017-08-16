@@ -174,7 +174,7 @@ class _RatbagdDBus(GObject.GObject):
             pval = GLib.Variant("(ssv)".format(type), (self._interface, property, val))
             self._proxy.call_sync("org.freedesktop.DBus.Properties.Set",
                                   pval, Gio.DBusCallFlags.NO_AUTO_START,
-                                  500, None)
+                                  2000, None)
 
         # This is our local copy, so we don't have to wait for the async
         # update
@@ -192,7 +192,7 @@ class _RatbagdDBus(GObject.GObject):
         try:
             res = self._proxy.call_sync(method, val,
                                         Gio.DBusCallFlags.NO_AUTO_START,
-                                        500, None)
+                                        2000, None)
             global EXCEPTION_TABLE
             if res in EXCEPTION_TABLE:
                 raise EXCEPTION_TABLE[res]
