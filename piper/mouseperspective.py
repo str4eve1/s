@@ -104,7 +104,7 @@ class MousePerspective(Gtk.Overlay):
             profile.connect("notify::dirty", self._on_profile_notify_dirty)
             row = ProfileRow(profile)
             self.listbox_profiles.insert(row, profile.index)
-            if profile == active_profile:
+            if profile is active_profile:
                 self.listbox_profiles.select_row(row)
         self.show_all()
 
