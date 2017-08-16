@@ -455,6 +455,10 @@ class RatbagdResolution(_RatbagdDBus):
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Resolution", object_path)
 
+    def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        if "IsActive" in changed_props.keys():
+            self.notify("is-active")
+
     @GObject.Property
     def index(self):
         """The index of this resolution."""
