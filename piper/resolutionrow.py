@@ -29,6 +29,7 @@ class ResolutionRow(Gtk.ListBoxRow):
     __gtype_name__ = "ResolutionRow"
 
     dpi_label = GtkTemplate.Child()
+    active_label = GtkTemplate.Child()
     revealer = GtkTemplate.Child()
     scale = GtkTemplate.Child()
 
@@ -38,6 +39,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         self._resolution = None
         self._resolution_handler = 0
+        self._active_handler = 0
         self._scale_handler = self.scale.connect("value-changed",
                                                  self._on_scale_value_changed)
 
@@ -49,14 +51,19 @@ class ResolutionRow(Gtk.ListBoxRow):
     def _init_values(self, resolution):
         if self._resolution_handler > 0:
             self._resolution.disconnect(self._resolution_handler)
+        if self._active_handler > 0:
+            self._resolution.disconnect(self._active_handler)
         self._resolution = resolution
         self._resolution_handler = resolution.connect("notify::resolution",
                                                       self._on_resolution_changed)
+        self._active_handler = resolution.connect("notify::is-active",
+                                                  self._on_is_active_changed)
 
         xres, __ = resolution.resolution
         minres = resolution.minimum
         maxres = resolution.maximum
         self.dpi_label.set_text("{} DPI".format(xres))
+        self.active_label.set_visible(resolution.is_active)
 
         with self.scale.handler_block(self._scale_handler):
             self.scale.props.adjustment.configure(xres, minres, maxres, 50, 50, 0)
@@ -100,7 +107,13 @@ class ResolutionRow(Gtk.ListBoxRow):
         xres, __ = resolution.resolution
         self.scale.set_value(xres)
 
+    def _on_is_active_changed(self, resolution, pspec):
+        # The active resolution changed; update the visibility of the label.
+        self.active_label.set_visible(resolution.is_active)
+
     def toggle_revealer(self):
         """Toggles the revealer to show or hide the configuration widgets."""
         reveal = not self.revealer.get_reveal_child()
         self.revealer.set_reveal_child(reveal)
+        if reveal:
+            self._resolution.set_active()
