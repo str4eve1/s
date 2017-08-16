@@ -34,6 +34,7 @@ config_piper.set('pkgdatadir', pkgdatadir)
 config_piper.set('localedir', localedir)
 config_piper.set('gtk_major_version', gtk_major_version)
 config_piper.set('gtk_minor_version', gtk_minor_version)
+config_piper.set('devel', '')
 
 configure_file(input: 'piper.in',
 	       output: 'piper',
