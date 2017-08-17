@@ -39,7 +39,7 @@ config_piper.set('devel', '')
 configure_file(input: 'piper.in',
 	       output: 'piper',
 	       configuration: config_piper,
-	       install_dir: bindir )
+	       install_dir: bindir)
 
 config_piper_devel = configuration_data()
 config_piper_devel.set('pkgdatadir', join_paths(meson.build_root(), 'data'))
