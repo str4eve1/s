@@ -18,6 +18,7 @@ pkgdatadir = join_paths(datadir, meson.project_name())
 bindir = join_paths(prefix, get_option('bindir'))
 
 subdir('data')
+subdir('po')
 
 # Find the directory to install our Python code
 python = import('python3')
