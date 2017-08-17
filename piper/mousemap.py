@@ -390,7 +390,10 @@ class MouseMap(Gtk.Container):
         # Draws the SVG into the Cairo context. If there is an element to be
         # highlighted, it will do as such in a separate surface which will be
         # used as a mask over the device surface.
-        color = self.get_style_context().get_color(Gtk.StateFlags.LINK)
+        style_context = self.get_style_context()
+        style_context.save()
+        color = style_context.get_color(Gtk.StateFlags.LINK)
+        style_context.restore()
         cr.set_source_rgba(color.red, color.green, color.blue, 0.5)
 
         self._handle.render_cairo_sub(cr, id="#Device")
