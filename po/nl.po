@@ -1,0 +1,429 @@
+# Dutch Piper translation
+# Copyright (C) 2017 Jente Hidskes
+# This file is distributed under the same license as the piper package.
+# Jente Hidskes <hjdskes@gmail.com>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: piper\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-22 16:44+0200\n"
+"PO-Revision-Date: 2017-08-17 17:49+0200\n"
+"Last-Translator: Jente Hidskes <hjdskes@gmail.com>\n"
+"Language-Team: Dutch <>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: section header for mapping one button's click to another.
+#: piper/buttondialog.py:147
+msgid "Button mapping"
+msgstr "Knopindeling"
+
+#. Translators: section header for assigning special functions to buttons.
+#: piper/buttondialog.py:156
+msgid "Special mapping"
+msgstr "Speciale functie indeling"
+
+#: piper/buttondialog.py:226 piper/buttonspage.py:82
+msgid "Button {} click"
+msgstr "Klik met knop {}"
+
+#: piper/buttonspage.py:86
+msgid "Macro: {}"
+msgstr "Makro: {}"
+
+#. Translators: the button is turned disabled, e.g. off.
+#: piper/buttonspage.py:89
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#. Translators: the button has an unknown function.
+#: piper/buttonspage.py:92 piper/ratbagd.py:612
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: piper/buttonspage.py:100
+msgid "Configure button {}"
+msgstr "Knop {} instellen"
+
+#: piper/mouseperspective.py:86 data/ui/ResolutionsPage.ui:209
+msgid "Resolutions"
+msgstr "Resoluties"
+
+#: piper/mouseperspective.py:88
+msgid "Buttons"
+msgstr "Knoppen"
+
+#: piper/mouseperspective.py:90
+msgid "LEDs"
+msgstr "LEDs"
+
+#: piper/mouseperspective.py:93 piper/profilerow.py:41
+msgid "Profile {}"
+msgstr "Profiel {}"
+
+#: piper/ratbagd.py:603
+msgid "Left mouse button click"
+msgstr "Klik met linkermuisknop"
+
+#: piper/ratbagd.py:604
+msgid "Right mouse button click"
+msgstr "Klik met rechtermuisknop"
+
+#: piper/ratbagd.py:605
+msgid "Middle mouse button click"
+msgstr "Klik met middelmuisknop"
+
+#: piper/ratbagd.py:606
+msgid "Backward"
+msgstr "Vorige"
+
+#: piper/ratbagd.py:607
+msgid "Forward"
+msgstr "Volgende"
+
+#: piper/ratbagd.py:613
+msgid "Doubleclick"
+msgstr "Dubbelklik"
+
+#: piper/ratbagd.py:614
+msgid "Wheel Left"
+msgstr "Muiswiel links"
+
+#: piper/ratbagd.py:615
+msgid "Wheel Right"
+msgstr "Muiswiel rechts"
+
+#: piper/ratbagd.py:616
+msgid "Wheel Up"
+msgstr "Muiswiel omhoog"
+
+#: piper/ratbagd.py:617
+msgid "Wheel Down"
+msgstr "Muiswiel omlaag"
+
+#: piper/ratbagd.py:618
+msgid "Ratchet Mode"
+msgstr ""
+
+#: piper/ratbagd.py:619
+msgid "Resolution Cycle Up"
+msgstr "Volgende resolutie (cyclisch)"
+
+#: piper/ratbagd.py:620
+msgid "Resolution Cycle Down"
+msgstr "Vorige resolutie (cyclisch)"
+
+#: piper/ratbagd.py:621
+msgid "Resolution Up"
+msgstr "Volgende resolutie"
+
+#: piper/ratbagd.py:622
+msgid "Resolution Down"
+msgstr "Vorige resolutie"
+
+#: piper/ratbagd.py:623
+msgid "Resolution Switch"
+msgstr "Resolutie wisselen"
+
+#: piper/ratbagd.py:624
+msgid "Resolution Default"
+msgstr "Resolutie standaard"
+
+#: piper/ratbagd.py:625
+msgid "Profile Cycle Up"
+msgstr "Volgend profiel (cyclisch)"
+
+#: piper/ratbagd.py:626
+msgid "Profile Cycle Down"
+msgstr "Vorig profiel (cyclisch)"
+
+#: piper/ratbagd.py:627
+msgid "Profile Up"
+msgstr "Volgende profiel"
+
+#: piper/ratbagd.py:628
+msgid "Profile Down"
+msgstr "Vorige profiel"
+
+#: piper/ratbagd.py:629
+msgid "Second Mode"
+msgstr "Tweede modus"
+
+#: piper/ratbagd.py:630
+msgid "Battery Level"
+msgstr "Batterijniveau"
+
+#. Translators: this is used when there is no macro to preview.
+#: piper/ratbagd.py:758 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+msgid "None"
+msgstr "Geen"
+
+#. Translators: the LED is off.
+#: piper/ratbagd.py:832 data/ui/LedDialog.ui:391
+msgid "Off"
+msgstr "Uit"
+
+#. Translators: the LED has a single, solid color.
+#: piper/ratbagd.py:834 data/ui/LedDialog.ui:66
+msgid "Solid"
+msgstr "Solide"
+
+#. Translators: the LED is cycling between red, green and blue.
+#: piper/ratbagd.py:836 data/ui/LedDialog.ui:188
+msgid "Cycle"
+msgstr "Cyclus"
+
+#. Translators: the LED's is pulsating a single color on different
+#. brightnesses.
+#: piper/ratbagd.py:839 data/ui/LedDialog.ui:353
+msgid "Breathing"
+msgstr "Pulserend"
+
+#: piper/window.py:55
+msgid "Cannot connect to ratbagd"
+msgstr "Kan niet verbinden met ratbagd"
+
+#. Translators: "it" here is ratbagd.
+#: piper/window.py:57
+msgid "Please make sure it is running"
+msgstr "Maakt u zich er zeker van dat het uitgevoerd wordt"
+
+#: piper/window.py:64 piper/window.py:114
+msgid "Cannot find any devices"
+msgstr "Kan geen apparaten vinden"
+
+#: piper/window.py:65 piper/window.py:115
+msgid "Please make sure your device is supported and plugged in"
+msgstr "Maakt u zich er zeker van dat uw apparat ondersteund en verbonden is"
+
+#: piper/window.py:77
+msgid "There are unapplied changes. Are you sure you want to quit?"
+msgstr ""
+"Er zijn niet-toegepaste wijzigingen. Weet u zeker dat u wilt afsluiten?"
+
+#. The current device disconnected, which can only happen from the
+#. mouse perspective as we'd otherwise be in the welcome screen with
+#. more than one device remaining. Hence, we display the error
+#. perspective.
+#: piper/window.py:106
+msgid "Your device disconnected!"
+msgstr "Uw apparaat is losgekoppeld"
+
+#: piper/window.py:107
+msgid "Please make sure your device is plugged in"
+msgstr "Maakt u zich er zeker van dat uw apparaat is aangesloten"
+
+#: piper/window.py:155
+msgid "Cannot display device SVG"
+msgstr "De SVG van dit apparaat kan niet worden weergegeven"
+
+#: piper/window.py:157
+msgid "Unknown exception occurred"
+msgstr "Er is een onbekende fout opgetreden"
+
+#: data/ui/AboutDialog.ui.in:13
+msgid "Visit Piper's website"
+msgstr "Bezoek Piper's website"
+
+#: data/ui/ButtonDialog.ui:65
+msgid "Search for a button mapping"
+msgstr "Zoek voor een knop aanwijzing"
+
+#: data/ui/ButtonDialog.ui:91
+msgid "Capture a macro for this button"
+msgstr "Leg een makro vast voor deze knop"
+
+#: data/ui/ButtonDialog.ui:104
+msgid "The currently set macro"
+msgstr "De huidig ingestelde makro"
+
+#: data/ui/ButtonDialog.ui:129
+msgid "Send keystroke"
+msgstr "Zend een makro"
+
+#: data/ui/ButtonDialog.ui:169
+msgid "Enter a new key sequence for the macro."
+msgstr "Voer een nieuwe toetsencombinatie in voor de makro."
+
+#: data/ui/ButtonDialog.ui:221
+msgid "Press Escape to cancel or Return to accept."
+msgstr "Druk op Escape om af te breken of op Return om te accepteren."
+
+#: data/ui/ButtonDialog.ui:252
+msgid "Set the device's handedness."
+msgstr "Stel links- of rechthandigheid in."
+
+#: data/ui/ButtonDialog.ui:270
+msgid ""
+"This allows you to swap the order of the primary mouse buttons. In left-"
+"handedness mode, the physical left mouse button generates a right mouse "
+"click and vice versa."
+msgstr ""
+
+#: data/ui/ButtonDialog.ui:290
+msgid "Left Handed"
+msgstr "Linkshandig"
+
+#: data/ui/ButtonDialog.ui:295
+msgid "The left mouse button generates a left mouse click"
+msgstr "De linker muisknop genereert een linker muisklik"
+
+#: data/ui/ButtonDialog.ui:308
+msgid "Right Handed"
+msgstr "Rechtshandig"
+
+#: data/ui/ButtonDialog.ui:313
+msgid "The left mouse button generates a right mouse click"
+msgstr "De linker muisknop genereert een rechter muisklik"
+
+#: data/ui/ButtonDialog.ui:352 data/ui/LedDialog.ui:410
+msgid "Cancel"
+msgstr "Afbreken"
+
+#: data/ui/ButtonDialog.ui:354 data/ui/LedDialog.ui:414
+msgid "Ignore any changes made"
+msgstr "Alle veranderingen negeren"
+
+#: data/ui/ButtonDialog.ui:360 data/ui/LedDialog.ui:426
+#: data/ui/MousePerspective.ui:133
+msgid "Apply"
+msgstr "Toepassen"
+
+#: data/ui/ButtonDialog.ui:363 data/ui/LedDialog.ui:431
+msgid "Apply any changes made"
+msgstr "Alle veranderingen toepassen"
+
+#: data/ui/ButtonDialog.ui:403
+msgid "No button mapping found"
+msgstr "Geen knop aanwijzingen gevonden"
+
+#: data/ui/ButtonDialog.ui:419
+msgid "Try a different search"
+msgstr "Probeer een andere zoekterm"
+
+#: data/ui/ErrorPerspective.ui:16
+msgid "Here, rodent, rodent, rodent..."
+msgstr "Hier, knaagdier, knaagdier, knaagdier..."
+
+#: data/ui/ErrorPerspective.ui:73 data/ui/WelcomePerspective.ui:123
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: data/ui/LedDialog.ui:58 data/ui/LedDialog.ui:208
+msgid "Choose a color for the LED"
+msgstr "Kies een kleur voor de LED"
+
+#: data/ui/LedDialog.ui:90 data/ui/LedDialog.ui:256
+msgid "Choose a brightness for the LED"
+msgstr "Kies een helderheid voor de LED"
+
+#: data/ui/LedDialog.ui:104 data/ui/LedDialog.ui:269
+msgid "Brightness"
+msgstr "Helderheid"
+
+#: data/ui/LedDialog.ui:135 data/ui/LedDialog.ui:300
+msgid "Choose an effect rate for the LED"
+msgstr "Kies een effectsnelheid voor de LED"
+
+#: data/ui/LedDialog.ui:152 data/ui/LedDialog.ui:317
+#: data/ui/ResolutionsPage.ui:105
+msgid "Hz"
+msgstr "Hz"
+
+#: data/ui/LedDialog.ui:174 data/ui/LedDialog.ui:339
+msgid "Effect rate"
+msgstr "Effectsnelheid"
+
+#: data/ui/LedDialog.ui:211
+msgid "Pick a Color for the LED"
+msgstr "Kies een kleur voor de LED"
+
+#: data/ui/LedDialog.ui:225
+msgid "Color"
+msgstr "Kleur"
+
+#: data/ui/LedDialog.ui:378
+msgid "This LED is off"
+msgstr "Deze LED is uit"
+
+#: data/ui/Menus.ui:7
+msgid "_About"
+msgstr "_Over"
+
+#: data/ui/Menus.ui:11
+msgid "_Quit"
+msgstr "_Afsluiten"
+
+#: data/ui/MousePerspective.ui:44
+msgid "Failed to commit changes to the device"
+msgstr "Fout bij het toepassen van de veranderingen op het apparaat"
+
+#: data/ui/MousePerspective.ui:102
+msgid "Select another profile"
+msgstr "Kies een ander profiel"
+
+#: data/ui/MousePerspective.ui:127
+msgid "Commit the changes to the device"
+msgstr "Pas de veranderingen toe op het apparaat"
+
+#: data/ui/MousePerspective.ui:171
+msgid "Click to switch to another profile"
+msgstr "Klik om van profiel te veranderen"
+
+#: data/ui/MousePerspective.ui:186
+msgid "Add profile"
+msgstr "Voeg profiel toe"
+
+#: data/ui/MousePerspective.ui:190
+msgid "Add a new profile to the device"
+msgstr "Voeg een nieuw profiel toe aan het apparaat"
+
+#: data/ui/OptionButton.ui:9
+msgid "Open the configuration dialog"
+msgstr "Open de instellingen"
+
+#: data/ui/ProfileRow.ui:16
+msgid "Remove this profile from the device"
+msgstr "Verwijder dit profiel van het apparaat"
+
+#: data/ui/ResolutionRow.ui:23
+msgid "Remove this resolution from the profile"
+msgstr "Verwijder deze resolutie uit het profiel"
+
+#. Translators: this is used to indicate the active resolution.
+#: data/ui/ResolutionRow.ui:65
+msgid "Active"
+msgstr "Actief"
+
+#: data/ui/ResolutionRow.ui:105
+msgid "Set this resolution's DPI"
+msgstr "Stel de DPI van deze resolutie in"
+
+#. Translators: the rate at which the device reports movement.
+#: data/ui/ResolutionsPage.ui:43
+msgid "Report rate"
+msgstr "Rapportagesnelheid"
+
+#: data/ui/ResolutionsPage.ui:60
+msgid "Change the profile's report rate"
+msgstr "Verander de rapportagesnelheid van dit profiel"
+
+#. Translators: the sensitivity of the device's sensor.
+#: data/ui/ResolutionsPage.ui:125
+msgid "Sensitivity"
+msgstr "Gevoeligheid"
+
+#: data/ui/ResolutionsPage.ui:174
+msgid "Add a new resolution to the profile"
+msgstr "Voeg een nieuwe resolutie toe aan het profiel"
+
+#: data/ui/WelcomePerspective.ui:20
+msgid "Welcome"
+msgstr "Welkom"
+
+#: data/ui/WelcomePerspective.ui:38 data/ui/WelcomePerspective.ui:89
+msgid "Select a device to configure it"
+msgstr "Kies een apparaat om het in te stellen"
