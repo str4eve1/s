@@ -25,6 +25,7 @@ import os
 import sys
 
 from enum import IntEnum
+from evdev import ecodes
 from gettext import gettext as _
 from gi.repository import Gio, GLib, GObject
 
@@ -657,22 +658,18 @@ class RatbagdButton(_RatbagdDBus):
 
     @GObject.Property
     def macro(self):
-        """A list of (type, value) tuples that form the currently set macro,
-        where type is either RatbagdButton.KEY_PRESS, RatbagdButton.KEY_RELEASE
-        or RatbagdButton.MACRO_WAIT and the value is the keycode as specified
-        in linux/input.h for key related types, or the timeout in milliseconds."""
-        return self._get_dbus_property("Macro")
+        """A RatbagdMacro object representing the currently set macro."""
+        return RatbagdMacro.from_ratbag(self._get_dbus_property("Macro"))
 
     @macro.setter
     def macro(self, macro):
-        """Set the macro to the given macro. Note that the type must be one of
-        RatbagdButton.KEY_PRESS, RatbagdButton.KEY_RELEASE or
-        RatbagdButton.MACRO_WAIT and the keycodes must be as specified in
-        linux/input.h, and the timeout must be in milliseconds.
+        """Set the macro to the macro represented by the given RatbagdMacro
+        object.
 
-        @param macro A list of (type, value) tuples to form the new macro.
+        @param macro A RatbagdMacro object representing the macro to apply to
+                     the button, as RatbagdMacro.
         """
-        self._set_dbus_property("Macro", "a(uu)", macro)
+        self._set_dbus_property("Macro", "a(uu)", macro.keys)
 
     @GObject.Property
     def special(self):
@@ -719,6 +716,74 @@ class RatbagdButton(_RatbagdDBus):
     def disable(self):
         """Disables this button."""
         return self._dbus_call("Disable", "")
+
+
+class RatbagdMacro(GObject.Object):
+    """Represents a button macro. Note that it uses keycodes as defined by
+    linux/input.h and not those used by X.Org or any other higher layer such as
+    Gdk."""
+
+    __gsignals__ = {
+        'macro-set': (GObject.SIGNAL_RUN_FIRST, None, ()),
+    }
+
+    def __init__(self, **kwargs):
+        GObject.Object.__init__(self, **kwargs)
+        self._macro = []
+
+    def __str__(self):
+        if not self._macro:
+            return _("None")
+
+        keys = []
+        for (type, val) in self._macro:
+            if type == RatbagdButton.MACRO_KEY_PRESS:
+                keys.append("↓{}".format(ecodes.KEY[val]))
+            elif type == RatbagdButton.MACRO_KEY_RELEASE:
+                keys.append("↑{}".format(ecodes.KEY[val]))
+            elif type == RatbagdButton.MACRO_WAIT:
+                keys.append("{}ms".format(val))
+        return " ".join(keys)
+
+    @GObject.Property
+    def keys(self):
+        """A list of (RatbagdButton.MACRO_*, value) tuples representing the
+        current macro."""
+        return self._macro
+
+    @staticmethod
+    def from_ratbag(macro):
+        """Instantiates a new RatbagdMacro instance from the given macro in
+        libratbag format.
+
+        @param macro The macro in libratbag format, as
+                     [(RatbagdButton.MACRO_*, value)].
+        """
+        ratbagd_macro = RatbagdMacro()
+
+        # Do not emit notify::keys for every key that we add.
+        with ratbagd_macro.freeze_notify():
+            for (type, value) in macro:
+                ratbagd_macro.append(type, value)
+        return ratbagd_macro
+
+    def accept(self):
+        """Applies the currently cached macro."""
+        self.emit("macro-set")
+
+    def append(self, type, value):
+        """Appends the given event to the current macro.
+
+        @param type The type of event, as one of RatbagdButton.MACRO_*.
+        @param value If the type denotes a key event, the X.Org or Gdk keycode
+                     of the event, as int. Otherwise, the value of the timeout
+                     in milliseconds, as int.
+        """
+        # Only append if the entry isn't identical to the last one, as we cannot
+        # e.g. have two identical key presses in a row.
+        if len(self._macro) == 0 or (type, value) != self._macro[-1]:
+            self._macro.append((type, value))
+            self.notify("keys")
 
 
 class RatbagdLed(_RatbagdDBus):

@@ -19,8 +19,7 @@ import sys
 from gettext import gettext as _
 
 from .gi_composites import GtkTemplate
-from .ratbagd import RatbagdButton
-from .keystroke import KeyStroke
+from .ratbagd import RatbagdButton, RatbagdMacro
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -71,6 +70,9 @@ class ButtonDialog(Gtk.Dialog):
     LEFT_HANDED_MODE = -1000
     RIGHT_HANDED_MODE = -1001
 
+    # Gdk uses an offset of 8 from the keycodes defined in linux/input.h.
+    _XORG_KEYCODE_OFFSET = 8
+
     stack = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
     label_keystroke = GtkTemplate.Child()
@@ -91,7 +93,7 @@ class ButtonDialog(Gtk.Dialog):
         Gtk.Dialog.__init__(self, *args, **kwargs)
         self.init_template()
         self._grab_pointer = None
-        self._keystroke = KeyStroke()
+        self._current_macro = None
         self._button = ratbagd_button
         self._action_type = self._button.action_type
         if self._action_type == RatbagdButton.ACTION_TYPE_BUTTON:
@@ -154,11 +156,19 @@ class ButtonDialog(Gtk.Dialog):
                 self.listbox.select_row(row)
             i += 1
 
-        self._keystroke.connect("keystroke-set", self._on_keystroke_set)
-        self._keystroke.bind_property("macro", self.label_keystroke, "label")
-        self._keystroke.bind_property("macro", self.label_preview, "label")
         if self._action_type == RatbagdButton.ACTION_TYPE_MACRO:
-            self._keystroke.set_from_evdev(self._mapping)
+            self._create_current_macro(macro=self._mapping)
+        else:
+            self._create_current_macro()
+
+    def _create_current_macro(self, macro=None):
+        if macro is not None:
+            self._current_macro = macro
+            self._on_macro_updated(macro, None)
+        else:
+            self._current_macro = RatbagdMacro()
+        self._current_macro.connect("macro-set", self._on_macro_set)
+        self._current_macro.connect("notify::keys", self._on_macro_updated)
 
     def _listbox_header_func(self, row, before):
         # Adds headers to those rows where a new category starts, to separate
@@ -280,13 +290,37 @@ class ButtonDialog(Gtk.Dialog):
         if event.keyval == Gdk.KEY_Sys_Req and (event.state & Gdk.ModifierType.MOD1_MASK):
             event.keyval = Gdk.KEY_Print
 
-        self._keystroke.process_event(event)
+        if event.state == 0:
+            # Return accepts the current keystroke.
+            if event.keyval == Gdk.KEY_Return:
+                self._current_macro.accept()
+                return
+            # Escape cancels the editing.
+            elif event.keyval == Gdk.KEY_Escape:
+                self._create_current_macro(macro=self._mapping)
+                self.stack.set_visible_child_name("overview")
+                return
+
+        if event.type == Gdk.EventType.KEY_PRESS:
+            type = RatbagdButton.MACRO_KEY_PRESS
+        elif event.type == Gdk.EventType.KEY_RELEASE:
+            type = RatbagdButton.MACRO_KEY_RELEASE
+
+        # TODO: this needs to be checked for its Wayland support.
+        if not self._XORG_KEYCODE_OFFSET <= event.hardware_keycode <= 255:
+            print("Keycode is not within the valid range.", file=sys.stderr)
+        else:
+            self._current_macro.append(type, event.hardware_keycode - self._XORG_KEYCODE_OFFSET)
         return Gdk.EVENT_STOP
 
-    def _on_keystroke_set(self, keystroke):
-        # A keystroke has been set; update accordingly.
+    def _on_macro_updated(self, macro, pspec):
+        self.label_keystroke.set_label(str(self._current_macro))
+        self.label_preview.set_label(str(self._current_macro))
+
+    def _on_macro_set(self, macro):
+        # A macro has been set; update accordingly.
         self._action_type = RatbagdButton.ACTION_TYPE_MACRO
-        self._mapping = self._keystroke.get_macro()
+        self._mapping = macro
         self.stack.set_visible_child_name("overview")
         self._release_grab()
 
@@ -297,6 +331,7 @@ class ButtonDialog(Gtk.Dialog):
                 # TODO: display this somewhere in the UI instead.
                 print("Unable to grab keyboard, can't set keystroke", file=sys.stderr)
             else:
+                self._create_current_macro()
                 self.stack.set_visible_child_name("capture")
         else:
             self._action_type = row._action_type
