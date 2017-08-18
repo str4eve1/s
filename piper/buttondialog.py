@@ -72,12 +72,10 @@ class ButtonDialog(Gtk.Dialog):
     RIGHT_HANDED_MODE = -1001
 
     stack = GtkTemplate.Child()
-    button_mappings = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
     label_keystroke = GtkTemplate.Child()
     label_preview = GtkTemplate.Child()
     row_keystroke = GtkTemplate.Child()
-    swap_primaries = GtkTemplate.Child()
     radio_right_handed = GtkTemplate.Child()
     radio_left_handed = GtkTemplate.Child()
     empty_search_placeholder = GtkTemplate.Child()
@@ -116,8 +114,7 @@ class ButtonDialog(Gtk.Dialog):
 
     def _init_primary_buttons_ui(self):
         # Shows the listbox to swap the primary buttons.
-        self.swap_primaries.set_visible(True)
-        self.button_mappings.set_visible(False)
+        self.stack.set_visible_child_name("handedness")
         # Left mouse button (index 0) is mapped to left mouse button, where
         # mappings are 1-indexed and thus left mouse click has value 1.
         # Or, right mouse button (index 1) is mapped to right mouse button,
@@ -257,7 +254,7 @@ class ButtonDialog(Gtk.Dialog):
         # Overrides Gtk.Window's standard key press event callback, so we can
         # capture the pressed buttons in capture mode. If we're not in capture
         # mode, we trigger the search bar on any key press.
-        if self.stack.get_visible_child_name() == "overview":
+        if self.stack.get_visible_child_name() != "capture":
             if self.search_bar.handle_event(event) == Gdk.EVENT_STOP:
                 return Gdk.EVENT_STOP
             return Gtk.Window.do_key_press_event(self, event)
@@ -267,7 +264,7 @@ class ButtonDialog(Gtk.Dialog):
         # Overrides Gtk.Window's standard key release event callback, so we can
         # capture the released buttons in capture mode. If we're not in capture
         # mode, we pass the event on to other widgets in the dialog.
-        if self.stack.get_visible_child_name() == "overview":
+        if self.stack.get_visible_child_name() != "capture":
             return Gtk.Window.do_key_release_event(self, event)
         return self._do_key_event(event)
 
