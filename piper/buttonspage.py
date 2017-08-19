@@ -77,11 +77,11 @@ class ButtonsPage(Gtk.Box):
         action_type = ratbagd_button.action_type
         if action_type == RatbagdButton.ACTION_TYPE_BUTTON:
             if ratbagd_button.mapping - 1 in RatbagdButton.BUTTON_DESCRIPTION:
-                label = RatbagdButton.BUTTON_DESCRIPTION[ratbagd_button.mapping - 1]
+                label = _(RatbagdButton.BUTTON_DESCRIPTION[ratbagd_button.mapping - 1])
             else:
                 label = _("Button {} click").format(ratbagd_button.mapping - 1)
         elif action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
-            label = RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special]
+            label = _(RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special])
         elif action_type == RatbagdButton.ACTION_TYPE_MACRO:
             label = _("Macro: {}").format(str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ACTION_TYPE_NONE:

@@ -14,6 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from gettext import gettext as _
 
 from .gi_composites import GtkTemplate
 from .mousemap import MouseMap
@@ -75,7 +76,7 @@ class ResolutionsPage(Gtk.Box):
         for button in profile.buttons:
             if button.action_type == RatbagdButton.ACTION_TYPE_SPECIAL and \
                     button.special in self._resolution_labels:
-                label = Gtk.Label(RatbagdButton.SPECIAL_DESCRIPTION[button.special])
+                label = Gtk.Label(_(RatbagdButton.SPECIAL_DESCRIPTION[button.special]))
                 mousemap.add(label, "#button{}".format(button.index))
         mousemap.show_all()
 

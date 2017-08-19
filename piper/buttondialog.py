@@ -148,9 +148,9 @@ class ButtonDialog(Gtk.Dialog):
                 self.listbox.select_row(row)
             i += 1
         for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
-            if name == _("Unknown"):
+            if name == "Unknown":
                 continue
-            row = ButtonRow(name, _("Special mapping"), RatbagdButton.ACTION_TYPE_SPECIAL, key)
+            row = ButtonRow(_(name), _("Special mapping"), RatbagdButton.ACTION_TYPE_SPECIAL, key)
             self.listbox.insert(row, i)
             if self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL and key == self._mapping:
                 self.listbox.select_row(row)
@@ -222,7 +222,7 @@ class ButtonDialog(Gtk.Dialog):
     def _get_button_name_and_description(self, button):
         name = _("Button {} click").format(button.index)
         if button.index in RatbagdButton.BUTTON_DESCRIPTION:
-            description = RatbagdButton.BUTTON_DESCRIPTION[button.index]
+            description = _(RatbagdButton.BUTTON_DESCRIPTION[button.index])
         else:
             description = name
         return name, description

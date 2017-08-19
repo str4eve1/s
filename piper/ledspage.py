@@ -14,6 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from gettext import gettext as _
+
 from .leddialog import LedDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
@@ -51,7 +53,7 @@ class LedsPage(Gtk.Box):
     def _set_profile(self, profile):
         self._profile = profile
         for led in profile.leds:
-            mode = RatbagdLed.LED_DESCRIPTION[led.mode]
+            mode = _(RatbagdLed.LED_DESCRIPTION[led.mode])
             button = OptionButton(mode)
             button.connect("clicked", self._on_button_clicked, led)
             led.connect("notify::mode", self._on_led_mode_changed, button)
@@ -68,7 +70,7 @@ class LedsPage(Gtk.Box):
         self._set_profile(profile)
 
     def _on_led_mode_changed(self, led, pspec, button):
-        mode = RatbagdLed.LED_DESCRIPTION[led.mode]
+        mode = _(RatbagdLed.LED_DESCRIPTION[led.mode])
         button.set_label(mode)
 
     def _on_button_clicked(self, button, led):

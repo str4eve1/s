@@ -30,6 +30,11 @@ from gettext import gettext as _
 from gi.repository import Gio, GLib, GObject
 
 
+# Deferred translations, see https://docs.python.org/3/library/gettext.html#deferred-translations
+def N_(x):
+    return x
+
+
 class RatbagErrorCode(IntEnum):
     RATBAG_SUCCESS = 0
 
@@ -596,34 +601,34 @@ class RatbagdButton(_RatbagdDBus):
     """A table mapping a button's index to its usual function as defined by X
     and the common desktop environments."""
     BUTTON_DESCRIPTION = {
-        0: _("Left mouse button click"),
-        1: _("Right mouse button click"),
-        2: _("Middle mouse button click"),
-        3: _("Backward"),
-        4: _("Forward"),
+        0: N_("Left mouse button click"),
+        1: N_("Right mouse button click"),
+        2: N_("Middle mouse button click"),
+        3: N_("Backward"),
+        4: N_("Forward"),
     }
 
     """A table mapping a special function to its human-readable description."""
     SPECIAL_DESCRIPTION = {
-        ACTION_SPECIAL_UNKNOWN: _("Unknown"),
-        ACTION_SPECIAL_DOUBLECLICK: _("Doubleclick"),
-        ACTION_SPECIAL_WHEEL_LEFT: _("Wheel Left"),
-        ACTION_SPECIAL_WHEEL_RIGHT: _("Wheel Right"),
-        ACTION_SPECIAL_WHEEL_UP: _("Wheel Up"),
-        ACTION_SPECIAL_WHEEL_DOWN: _("Wheel Down"),
-        ACTION_SPECIAL_RATCHET_MODE_SWITCH: _("Ratchet Mode"),
-        ACTION_SPECIAL_RESOLUTION_CYCLE_UP: _("Resolution Cycle Up"),
-        ACTION_SPECIAL_RESOLUTION_CYCLE_DOWN: _("Resolution Cycle Down"),
-        ACTION_SPECIAL_RESOLUTION_UP: _("Resolution Up"),
-        ACTION_SPECIAL_RESOLUTION_DOWN: _("Resolution Down"),
-        ACTION_SPECIAL_RESOLUTION_ALTERNATE: _("Resolution Switch"),
-        ACTION_SPECIAL_RESOLUTION_DEFAULT: _("Resolution Default"),
-        ACTION_SPECIAL_PROFILE_CYCLE_UP: _("Profile Cycle Up"),
-        ACTION_SPECIAL_PROFILE_CYCLE_DOWN: _("Profile Cycle Down"),
-        ACTION_SPECIAL_PROFILE_UP: _("Profile Up"),
-        ACTION_SPECIAL_PROFILE_DOWN: _("Profile Down"),
-        ACTION_SPECIAL_SECOND_MODE: _("Second Mode"),
-        ACTION_SPECIAL_BATTERY_LEVEL: _("Battery Level"),
+        ACTION_SPECIAL_UNKNOWN: N_("Unknown"),
+        ACTION_SPECIAL_DOUBLECLICK: N_("Doubleclick"),
+        ACTION_SPECIAL_WHEEL_LEFT: N_("Wheel Left"),
+        ACTION_SPECIAL_WHEEL_RIGHT: N_("Wheel Right"),
+        ACTION_SPECIAL_WHEEL_UP: N_("Wheel Up"),
+        ACTION_SPECIAL_WHEEL_DOWN: N_("Wheel Down"),
+        ACTION_SPECIAL_RATCHET_MODE_SWITCH: N_("Ratchet Mode"),
+        ACTION_SPECIAL_RESOLUTION_CYCLE_UP: N_("Resolution Cycle Up"),
+        ACTION_SPECIAL_RESOLUTION_CYCLE_DOWN: N_("Resolution Cycle Down"),
+        ACTION_SPECIAL_RESOLUTION_UP: N_("Resolution Up"),
+        ACTION_SPECIAL_RESOLUTION_DOWN: N_("Resolution Down"),
+        ACTION_SPECIAL_RESOLUTION_ALTERNATE: N_("Resolution Switch"),
+        ACTION_SPECIAL_RESOLUTION_DEFAULT: N_("Resolution Default"),
+        ACTION_SPECIAL_PROFILE_CYCLE_UP: N_("Profile Cycle Up"),
+        ACTION_SPECIAL_PROFILE_CYCLE_DOWN: N_("Profile Cycle Down"),
+        ACTION_SPECIAL_PROFILE_UP: N_("Profile Up"),
+        ACTION_SPECIAL_PROFILE_DOWN: N_("Profile Down"),
+        ACTION_SPECIAL_SECOND_MODE: N_("Second Mode"),
+        ACTION_SPECIAL_BATTERY_LEVEL: N_("Battery Level"),
     }
 
     def __init__(self, object_path):
@@ -823,10 +828,10 @@ class RatbagdLed(_RatbagdDBus):
     MODE_BREATHING = 3
 
     LED_DESCRIPTION = {
-        MODE_OFF: _("Off"),
-        MODE_ON: _("Solid"),
-        MODE_CYCLE: _("Cycle"),
-        MODE_BREATHING: _("Breathing"),
+        MODE_OFF: N_("Off"),
+        MODE_ON: N_("Solid"),
+        MODE_CYCLE: N_("Cycle"),
+        MODE_BREATHING: N_("Breathing"),
     }
 
     def __init__(self, object_path):
