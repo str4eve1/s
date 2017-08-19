@@ -193,7 +193,6 @@ class _RatbagdDBus(GObject.GObject):
             res = self._proxy.call_sync(method, val,
                                         Gio.DBusCallFlags.NO_AUTO_START,
                                         2000, None)
-            global EXCEPTION_TABLE
             if res in EXCEPTION_TABLE:
                 raise EXCEPTION_TABLE[res]
             return res.unpack()[0]  # Result is always a tuple
