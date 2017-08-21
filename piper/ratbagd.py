@@ -653,8 +653,7 @@ class RatbagdButton(_RatbagdDBus):
 
         @param button The button to map to, as int
         """
-        self._dbus_call("SetButtonMapping", "u", button)
-        self._set_dbus_property("ButtonMapping", "u", button, readwrite=False)
+        self._set_dbus_property("ButtonMapping", "u", button)
 
     @GObject.Property
     def macro(self):
@@ -673,8 +672,7 @@ class RatbagdButton(_RatbagdDBus):
 
         @param macro A list of (type, value) tuples to form the new macro.
         """
-        self._dbus_call("SetMacro", "a(uu)", macro)
-        self._set_dbus_property("Macro", "a(uu)", macro, readwrite=False)
+        self._set_dbus_property("Macro", "a(uu)", macro)
 
     @GObject.Property
     def special(self):
@@ -687,8 +685,7 @@ class RatbagdButton(_RatbagdDBus):
 
         @param special The special entry, as one of RatbagdButton.ACTION_SPECIAL_*
         """
-        self._dbus_call("SetSpecialMapping", "u", special)
-        self._set_dbus_property("SpecialMapping", "u", special, readwrite=False)
+        self._set_dbus_property("SpecialMapping", "u", special)
 
     @GObject.Property
     def key(self):
@@ -703,8 +700,7 @@ class RatbagdButton(_RatbagdDBus):
         @param keys A list of integers, the first being the keycode and the rest
                     modifiers.
         """
-        self._dbus_call("SetKeyMapping", "au", keys)
-        self._set_dbus_property("KeyMapping", "au", keys, readwrite=False)
+        self._set_dbus_property("KeyMapping", "au", keys)
 
     @GObject.Property
     def action_type(self):
