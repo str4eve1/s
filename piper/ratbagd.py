@@ -723,6 +723,9 @@ class RatbagdMacro(GObject.Object):
     linux/input.h and not those used by X.Org or any other higher layer such as
     Gdk."""
 
+    # All keys from ecodes.KEY have a KEY_ prefix. We strip it.
+    _PREFIX_LEN = len("KEY_")
+
     __gsignals__ = {
         'macro-set': (GObject.SIGNAL_RUN_FIRST, None, ()),
     }
@@ -738,9 +741,9 @@ class RatbagdMacro(GObject.Object):
         keys = []
         for (type, val) in self._macro:
             if type == RatbagdButton.MACRO_KEY_PRESS:
-                keys.append("↓{}".format(ecodes.KEY[val]))
+                keys.append("↓{}".format(ecodes.KEY[val][self._PREFIX_LEN:]))
             elif type == RatbagdButton.MACRO_KEY_RELEASE:
-                keys.append("↑{}".format(ecodes.KEY[val]))
+                keys.append("↑{}".format(ecodes.KEY[val][self._PREFIX_LEN:]))
             elif type == RatbagdButton.MACRO_WAIT:
                 keys.append("{}ms".format(val))
         return " ".join(keys)
