@@ -138,6 +138,8 @@ class ButtonDialog(Gtk.Dialog):
                 self.listbox.select_row(row)
             i += 1
         for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
+            if name == _("Unknown"):
+                continue
             row = ButtonRow(name, _("Special mapping"), RatbagdButton.ACTION_TYPE_SPECIAL, key)
             self.listbox.insert(row, i)
             if self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL and key == self._mapping:
