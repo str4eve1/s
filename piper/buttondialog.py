@@ -313,8 +313,9 @@ class ButtonDialog(Gtk.Dialog):
         return Gdk.EVENT_STOP
 
     def _on_macro_updated(self, macro, pspec):
-        self.label_keystroke.set_label(str(self._current_macro))
-        self.label_preview.set_label(str(self._current_macro))
+        current_macro = str(self._current_macro)
+        self.label_keystroke.set_label(current_macro)
+        self.label_preview.set_label(current_macro)
 
     def _on_macro_set(self, macro):
         # A macro has been set; update accordingly.

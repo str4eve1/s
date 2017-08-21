@@ -726,6 +726,20 @@ class RatbagdMacro(GObject.Object):
     # All keys from ecodes.KEY have a KEY_ prefix. We strip it.
     _PREFIX_LEN = len("KEY_")
 
+    # Both a key press and release.
+    _MACRO_KEY = 1000
+
+    _MACRO_DESCRIPTION = {
+        RatbagdButton.MACRO_KEY_PRESS: lambda key:
+            "↓{}".format(ecodes.KEY[key][RatbagdMacro._PREFIX_LEN:]),
+        RatbagdButton.MACRO_KEY_RELEASE: lambda key:
+            "↑{}".format(ecodes.KEY[key][RatbagdMacro._PREFIX_LEN:]),
+        RatbagdButton.MACRO_WAIT: lambda val:
+            "{}ms".format(val),
+        _MACRO_KEY: lambda key:
+            "↕{}".format(ecodes.KEY[key][RatbagdMacro._PREFIX_LEN:]),
+    }
+
     __gsignals__ = {
         'macro-set': (GObject.SIGNAL_RUN_FIRST, None, ()),
     }
@@ -739,13 +753,20 @@ class RatbagdMacro(GObject.Object):
             return _("None")
 
         keys = []
-        for (type, val) in self._macro:
-            if type == RatbagdButton.MACRO_KEY_PRESS:
-                keys.append("↓{}".format(ecodes.KEY[val][self._PREFIX_LEN:]))
-            elif type == RatbagdButton.MACRO_KEY_RELEASE:
-                keys.append("↑{}".format(ecodes.KEY[val][self._PREFIX_LEN:]))
-            elif type == RatbagdButton.MACRO_WAIT:
-                keys.append("{}ms".format(val))
+        idx = 0
+        while idx < len(self._macro):
+            t, v = self._macro[idx]
+            try:
+                if t == RatbagdButton.MACRO_KEY_PRESS:
+                    # Check for a paired press/release event
+                    t2, v2 = self._macro[idx + 1]
+                    if t2 == RatbagdButton.MACRO_KEY_RELEASE and v == v2:
+                        t = self._MACRO_KEY
+                        idx += 1
+            except IndexError:
+                pass
+            keys.append(self._MACRO_DESCRIPTION[t](v))
+            idx += 1
         return " ".join(keys)
 
     @GObject.Property
