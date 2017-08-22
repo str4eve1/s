@@ -78,6 +78,7 @@ class ButtonDialog(Gtk.Dialog):
     label_keystroke = GtkTemplate.Child()
     label_preview = GtkTemplate.Child()
     row_keystroke = GtkTemplate.Child()
+    row_keystroke_label = GtkTemplate.Child()
     radio_right_handed = GtkTemplate.Child()
     radio_left_handed = GtkTemplate.Child()
     empty_search_placeholder = GtkTemplate.Child()
@@ -211,7 +212,7 @@ class ButtonDialog(Gtk.Dialog):
         if row is not self.row_keystroke:
             description = row.description.casefold()
         else:
-            description = _("Send Keystroke").casefold()
+            description = self.row_keystroke_label.get_label().casefold()
         search = self.search_entry.get_text().casefold()
 
         for term in search.split(" "):
