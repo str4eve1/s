@@ -337,6 +337,12 @@ class ButtonDialog(Gtk.Dialog):
             self._mapping = row._value
 
     @GtkTemplate.Callback
+    def _on_apply_button_clicked(self, button):
+        if self.stack.get_visible_child_name() == "capture":
+            self._current_macro.accept()
+        return Gdk.EVENT_PROPAGATE
+
+    @GtkTemplate.Callback
     def _on_primary_mode_toggled(self, toggle):
         if not toggle.get_active():
             return

@@ -356,6 +356,7 @@
         <property name="can-default">True</property>
         <property name="can_focus">True</property>
         <property name="tooltip_text" translatable="yes">Apply any changes made</property>
+        <signal name="pressed" handler="_on_apply_button_clicked" swapped="no"/>
         <style>
           <class name="suggested-action"/>
         </style>
