@@ -100,6 +100,8 @@ class ButtonDialog(Gtk.Dialog):
             self._mapping = self._button.macro
         elif self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
             self._mapping = self._button.special
+        else:
+            self._mapping = -1
 
         self._init_ui(buttons)
 
