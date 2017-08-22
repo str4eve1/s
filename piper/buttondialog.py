@@ -290,7 +290,9 @@ class ButtonDialog(Gtk.Dialog):
         if event.keyval == Gdk.KEY_Sys_Req and (event.state & Gdk.ModifierType.MOD1_MASK):
             event.keyval = Gdk.KEY_Print
 
-        if event.state == 0:
+        if event.type == Gdk.EventType.KEY_PRESS:
+            type = RatbagdButton.MACRO_KEY_PRESS
+
             # Return accepts the current keystroke.
             if event.keyval == Gdk.KEY_Return:
                 self._current_macro.accept()
@@ -300,9 +302,6 @@ class ButtonDialog(Gtk.Dialog):
                 self._create_current_macro(macro=self._mapping)
                 self.stack.set_visible_child_name("overview")
                 return
-
-        if event.type == Gdk.EventType.KEY_PRESS:
-            type = RatbagdButton.MACRO_KEY_PRESS
         elif event.type == Gdk.EventType.KEY_RELEASE:
             type = RatbagdButton.MACRO_KEY_RELEASE
 
