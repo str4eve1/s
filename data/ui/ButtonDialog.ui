@@ -291,6 +291,7 @@
                         <property name="hexpand">True</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">False</property>
+                        <signal name="toggled" handler="_on_primary_mode_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -309,6 +310,7 @@
                         <property name="hexpand">True</property>
                         <property name="draw_indicator">False</property>
                         <property name="group">radio_left_handed</property>
+                        <signal name="toggled" handler="_on_primary_mode_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
