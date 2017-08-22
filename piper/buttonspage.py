@@ -85,8 +85,10 @@ class ButtonsPage(Gtk.Box):
         elif action_type == RatbagdButton.ACTION_TYPE_MACRO:
             label = _("Macro: {}").format(str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ACTION_TYPE_NONE:
+            # Translators: the button is turned disabled, e.g. off.
             label = _("Disabled")
         else:
+            # Translators: the button has an unknown function.
             label = _("Unknown")
         optionbutton.set_label(label)
 

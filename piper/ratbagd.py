@@ -755,6 +755,7 @@ class RatbagdMacro(GObject.Object):
 
     def __str__(self):
         if not self._macro:
+            # Translators: this is used when there is no macro to preview.
             return _("None")
 
         keys = []
@@ -828,9 +829,14 @@ class RatbagdLed(_RatbagdDBus):
     MODE_BREATHING = 3
 
     LED_DESCRIPTION = {
+        # Translators: the LED is off.
         MODE_OFF: N_("Off"),
+        # Translators: the LED has a single, solid color.
         MODE_ON: N_("Solid"),
+        # Translators: the LED is cycling between red, green and blue.
         MODE_CYCLE: N_("Cycle"),
+        # Translators: the LED's is pulsating a single color on different
+        # brightnesses.
         MODE_BREATHING: N_("Breathing"),
     }
 

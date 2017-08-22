@@ -143,6 +143,7 @@ class ButtonDialog(Gtk.Dialog):
         i = 0
         for button in buttons:
             key, name = self._get_button_name_and_description(button)
+            # Translators: section header for mapping one button's click to another.
             row = ButtonRow(name, _("Button mapping"), RatbagdButton.ACTION_TYPE_BUTTON, button.index + 1)
             self.listbox.insert(row, i)
             if self._action_type == RatbagdButton.ACTION_TYPE_BUTTON and button.index + 1 == self._button.mapping:
@@ -151,6 +152,7 @@ class ButtonDialog(Gtk.Dialog):
         for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
             if name == "Unknown":
                 continue
+            # Translators: section header for assigning special functions to buttons.
             row = ButtonRow(_(name), _("Special mapping"), RatbagdButton.ACTION_TYPE_SPECIAL, key)
             self.listbox.insert(row, i)
             if self._action_type == RatbagdButton.ACTION_TYPE_SPECIAL and key == self._mapping:

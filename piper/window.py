@@ -53,6 +53,7 @@ class Window(Gtk.ApplicationWindow):
 
         if ratbag is None:
             self._present_error_perspective(_("Cannot connect to ratbagd"),
+                                            # Translators: "it" here is ratbagd.
                                             _("Please make sure it is running"))
             return
 
