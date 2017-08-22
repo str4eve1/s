@@ -83,7 +83,7 @@ class ButtonsPage(Gtk.Box):
         elif action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
             label = RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special]
         elif action_type == RatbagdButton.ACTION_TYPE_MACRO:
-            label = _("Macro: {}").format(ratbagd_button.macro)
+            label = _("Macro: {}").format(str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ACTION_TYPE_NONE:
             label = _("Disabled")
         else:
