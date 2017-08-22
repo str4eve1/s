@@ -115,20 +115,15 @@ class ButtonDialog(Gtk.Dialog):
     def _init_primary_buttons_ui(self):
         # Shows the listbox to swap the primary buttons.
         self.stack.set_visible_child_name("handedness")
-        # Left mouse button (index 0) is mapped to left mouse button, where
-        # mappings are 1-indexed and thus left mouse click has value 1.
-        # Or, right mouse button (index 1) is mapped to right mouse button,
-        # which has value 2.
-        if self._button.index == 0 and self._mapping == 1 or \
-                self._button.index == 1 and self._mapping == 2:
-            self.radio_right_handed.set_active(True)
         # Left mouse button (index 0) is mapped to right mouse button, where
         # mappings are 1-indexed and thus right mouse click has value 2.
         # Or, right mouse button (index 1) is mapped to left mouse button,
         # which has value 1.
-        elif self._button.index == 0 and self._mapping == 2 or \
+        if self._button.index == 0 and self._mapping == 2 or \
                 self._button.index == 1 and self._mapping == 1:
             self.radio_left_handed.set_active(True)
+        else:
+            self.radio_right_handed.set_active(True)
 
     def _init_other_buttons_ui(self, buttons):
         # Shows the listbox to map non-primary buttons.
