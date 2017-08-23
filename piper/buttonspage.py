@@ -79,6 +79,8 @@ class ButtonsPage(Gtk.Box):
             if ratbagd_button.mapping - 1 in RatbagdButton.BUTTON_DESCRIPTION:
                 label = _(RatbagdButton.BUTTON_DESCRIPTION[ratbagd_button.mapping - 1])
             else:
+                # Translators: the {} will be replaced with the button index, e.g.
+                # "Button 1 click".
                 label = _("Button {} click").format(ratbagd_button.mapping - 1)
         elif action_type == RatbagdButton.ACTION_TYPE_SPECIAL:
             label = _(RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special])

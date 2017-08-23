@@ -38,6 +38,7 @@ class ProfileRow(Gtk.ListBoxRow):
         self._profile = profile
         self._profile.connect("notify::enabled", self._on_profile_notify_enabled)
 
+        # Translators: the {} will be replaced with the profile index.
         self.title.set_text(_("Profile {}").format(profile.index + 1))
         self.show_all()
         self.set_visible(profile.enabled)

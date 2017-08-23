@@ -220,6 +220,8 @@ class ButtonDialog(Gtk.Dialog):
         return True
 
     def _get_button_name_and_description(self, button):
+        # Translators: the {} will be replaced with the button index, e.g.
+        # "Button 1 click".
         name = _("Button {} click").format(button.index)
         if button.index in RatbagdButton.BUTTON_DESCRIPTION:
             description = _(RatbagdButton.BUTTON_DESCRIPTION[button.index])

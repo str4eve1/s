@@ -90,6 +90,7 @@ class MousePerspective(Gtk.Overlay):
             self.stack.add_titled(LedsPage(device), "leds", _("LEDs"))
 
         active_profile = device.active_profile
+        # Translators: the {} will be replaced with the profile index.
         self.label_profile.set_label(_("Profile {}").format(active_profile.index + 1))
         self._on_profile_notify_dirty(active_profile, None)
 
