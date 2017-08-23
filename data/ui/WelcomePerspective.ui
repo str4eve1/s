@@ -35,7 +35,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Select a device to configure it</property>
+            <property name="label" translatable="yes" context="A subtitle under the &quot;Welcome&quot; title.">Select a device to configure it</property>
             <property name="justify">center</property>
             <property name="track_visited_links">False</property>
             <style>
@@ -86,7 +86,7 @@
                       <object class="GtkListBox" id="listbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Select a device to configure it</property>
+                        <property name="tooltip_text" translatable="yes" context="A tooltip over the list of devices.">Select a device to configure it</property>
                         <property name="selection_mode">none</property>
                         <signal name="row-activated" handler="_on_device_row_activated" swapped="no"/>
                       </object>
