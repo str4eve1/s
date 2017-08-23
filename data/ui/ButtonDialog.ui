@@ -267,7 +267,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">This allows you to swap the order of the primary mouse buttons. In left-handedness mode, the physical left mouse button generates a right mouse click and vice versa.</property>
+                    <property name="label" translatable="yes">This allows you to swap the order of the primary mouse buttons. In left-handed mode, the physical left mouse button generates a right mouse click and vice versa.</property>
                     <property name="justify">center</property>
                     <property name="wrap">True</property>
                     <property name="max_width_chars">60</property>
