@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-23 20:38+0200\n"
-"PO-Revision-Date: 2017-08-23 16:40+0200\n"
+"PO-Revision-Date: 2017-08-23 23:13+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -33,7 +33,7 @@ msgstr "Mapowanie specjalne"
 #. "Button 1 click".
 #: piper/buttondialog.py:225 piper/buttonspage.py:84
 msgid "Button {} click"
-msgstr "Kliknięcie przycisku {}"
+msgstr "Kliknięcie {}. przyciskiem"
 
 #: piper/buttonspage.py:88
 msgid "Macro: {}"
@@ -51,7 +51,7 @@ msgstr "Nieznane"
 
 #: piper/buttonspage.py:102
 msgid "Configure button {}"
-msgstr "Konfiguracja przycisku {}"
+msgstr "Konfiguracja {}. przycisku"
 
 #: piper/mouseperspective.py:86 data/ui/ResolutionsPage.ui:209
 msgid "Resolutions"
@@ -115,14 +115,12 @@ msgid "Ratchet Mode"
 msgstr "Tryb zapadkowy"
 
 #: piper/ratbagd.py:620
-#, fuzzy
 msgid "Cycle Resolution Up"
-msgstr "Rozdzielczość w górę"
+msgstr "Przewija rozdzielczość w górę"
 
 #: piper/ratbagd.py:621
-#, fuzzy
 msgid "Cycle Resolution Down"
-msgstr "Rozdzielczość w dół"
+msgstr "Przewija rozdzielczość w dół"
 
 #: piper/ratbagd.py:622
 msgid "Resolution Up"
@@ -137,19 +135,16 @@ msgid "Resolution Switch"
 msgstr "Przełączenie rozdzielczości"
 
 #: piper/ratbagd.py:625
-#, fuzzy
 msgid "Default Resolution"
-msgstr "Rozdzielczości"
+msgstr "Domyślna rozdzielczość"
 
 #: piper/ratbagd.py:626
-#, fuzzy
 msgid "Cycle Profile Up"
-msgstr "Profil w górę"
+msgstr "Przewija profil w górę"
 
 #: piper/ratbagd.py:627
-#, fuzzy
 msgid "Cycle Profile Down"
-msgstr "Profil w dół"
+msgstr "Przewija profil w dół"
 
 #: piper/ratbagd.py:628
 msgid "Profile Up"
@@ -161,11 +156,11 @@ msgstr "Profil w dół"
 
 #: piper/ratbagd.py:630
 msgid "Second Mode"
-msgstr "Drugi tryb"
+msgstr "Drugi poziom"
 
 #: piper/ratbagd.py:631
 msgid "Battery Level"
-msgstr "Poziom akumulatora"
+msgstr "Poziom naładowania akumulatora"
 
 #. Translators: this is used when there is no macro to preview.
 #: piper/ratbagd.py:759 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
@@ -255,7 +250,7 @@ msgstr "Wyślij kombinację klawiszy"
 
 #: data/ui/ButtonDialog.ui:169
 msgid "Enter a new key sequence for the macro."
-msgstr "Nowa sekwencja klawiszy dla makra."
+msgstr "Proszę wprowadzić nową sekwencję klawiszy dla makra."
 
 #: data/ui/ButtonDialog.ui:221
 msgid "Press Escape to cancel or Return to accept."
@@ -266,7 +261,6 @@ msgid "Set the device's handedness."
 msgstr "Lewo- lub praworęczność urządzenia."
 
 #: data/ui/ButtonDialog.ui:270
-#, fuzzy
 msgid ""
 "This allows you to swap the order of the primary mouse buttons. In left-"
 "handed mode, the physical left mouse button generates a right mouse click "
@@ -442,32 +436,15 @@ msgid "Welcome"
 msgstr "Witamy"
 
 #: data/ui/WelcomePerspective.ui:38
-#, fuzzy
 msgctxt "A subtitle under the \"Welcome\" title."
 msgid "Select a device to configure it"
 msgstr "Proszę wybrać urządzenie do skonfigurowania"
 
 #: data/ui/WelcomePerspective.ui:89
-#, fuzzy
 msgctxt "A tooltip over the list of devices."
 msgid "Select a device to configure it"
-msgstr "Proszę wybrać urządzenie do skonfigurowania"
+msgstr "Wybiera urządzenie do skonfigurowania"
 
 #: data/ui/WelcomePerspective.ui:119
 msgid "Select a Device"
 msgstr "Wybór urządzenia"
-
-#~ msgid "Resolution Cycle Up"
-#~ msgstr "Cykl rozdzielczości w górę"
-
-#~ msgid "Resolution Cycle Down"
-#~ msgstr "Cykl rozdzielczości w dół"
-
-#~ msgid "Resolution Default"
-#~ msgstr "Domyślna rozdzielczość"
-
-#~ msgid "Profile Cycle Up"
-#~ msgstr "Cykl profilu w górę"
-
-#~ msgid "Profile Cycle Down"
-#~ msgstr "Cykl profilu w dół"
