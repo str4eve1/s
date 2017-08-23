@@ -433,3 +433,7 @@ msgstr "Willkommen"
 #: data/ui/WelcomePerspective.ui:38 data/ui/WelcomePerspective.ui:89
 msgid "Select a device to configure it"
 msgstr "Bitte ein Gerät zur Konfiguration auswählen"
+
+#: data/ui/WelcomePerspective.ui:119
+msgid "Select a Device"
+msgstr "Bitte ein Gerät auswählen"
