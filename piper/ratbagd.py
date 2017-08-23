@@ -622,7 +622,7 @@ class RatbagdButton(_RatbagdDBus):
         ACTION_SPECIAL_RESOLUTION_UP: N_("Resolution Up"),
         ACTION_SPECIAL_RESOLUTION_DOWN: N_("Resolution Down"),
         ACTION_SPECIAL_RESOLUTION_ALTERNATE: N_("Resolution Switch"),
-        ACTION_SPECIAL_RESOLUTION_DEFAULT: N_("Resolution Default"),
+        ACTION_SPECIAL_RESOLUTION_DEFAULT: N_("Default Resolution"),
         ACTION_SPECIAL_PROFILE_CYCLE_UP: N_("Profile Cycle Up"),
         ACTION_SPECIAL_PROFILE_CYCLE_DOWN: N_("Profile Cycle Down"),
         ACTION_SPECIAL_PROFILE_UP: N_("Profile Up"),
