@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-23 09:58+0200\n"
+"POT-Creation-Date: 2017-08-23 20:36+0200\n"
 "PO-Revision-Date: 2017-08-17 17:49+0200\n"
 "Last-Translator: Jente Hidskes <hjdskes@gmail.com>\n"
 "Language-Team: Dutch <>\n"
@@ -26,25 +26,27 @@ msgstr "Knopindeling"
 msgid "Special mapping"
 msgstr "Speciale functie indeling"
 
-#: piper/buttondialog.py:223 piper/buttonspage.py:82
+#. Translators: the {} will be replaced with the button index, e.g.
+#. "Button 1 click".
+#: piper/buttondialog.py:225 piper/buttonspage.py:84
 msgid "Button {} click"
 msgstr "Klik met knop {}"
 
-#: piper/buttonspage.py:86
+#: piper/buttonspage.py:88
 msgid "Macro: {}"
 msgstr "Makro: {}"
 
 #. Translators: the button is turned disabled, e.g. off.
-#: piper/buttonspage.py:89
+#: piper/buttonspage.py:91
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:92 piper/ratbagd.py:613
+#: piper/buttonspage.py:94 piper/ratbagd.py:613
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: piper/buttonspage.py:100
+#: piper/buttonspage.py:102
 msgid "Configure button {}"
 msgstr "Knop {} instellen"
 
@@ -60,7 +62,8 @@ msgstr "Knoppen"
 msgid "LEDs"
 msgstr "LEDs"
 
-#: piper/mouseperspective.py:93 piper/profilerow.py:41
+#. Translators: the {} will be replaced with the profile index.
+#: piper/mouseperspective.py:94 piper/profilerow.py:42
 msgid "Profile {}"
 msgstr "Profiel {}"
 
@@ -109,11 +112,11 @@ msgid "Ratchet Mode"
 msgstr ""
 
 #: piper/ratbagd.py:620
-msgid "Resolution Cycle Up"
+msgid "Cycle Resolution Up"
 msgstr "Volgende resolutie (cyclisch)"
 
 #: piper/ratbagd.py:621
-msgid "Resolution Cycle Down"
+msgid "Cycle Resolution Down"
 msgstr "Vorige resolutie (cyclisch)"
 
 #: piper/ratbagd.py:622
@@ -129,16 +132,16 @@ msgid "Resolution Switch"
 msgstr "Resolutie wisselen"
 
 #: piper/ratbagd.py:625
-msgid "Resolution Default"
-msgstr "Resolutie standaard"
+msgid "Default Resolution"
+msgstr "Standaardresolutie"
 
 #: piper/ratbagd.py:626
-msgid "Profile Cycle Up"
-msgstr "Volgend profiel (cyclisch)"
+msgid "Cycle Profile Up"
+msgstr "Volgende profiel (cyclisch)"
 
 #: piper/ratbagd.py:627
-msgid "Profile Cycle Down"
-msgstr "Vorig profiel (cyclisch)"
+msgid "Cycle Profile Down"
+msgstr "Vorige profiel (cyclisch)"
 
 #: piper/ratbagd.py:628
 msgid "Profile Up"
@@ -258,8 +261,8 @@ msgstr "Stel links- of rechthandigheid in."
 #: data/ui/ButtonDialog.ui:270
 msgid ""
 "This allows you to swap the order of the primary mouse buttons. In left-"
-"handedness mode, the physical left mouse button generates a right mouse "
-"click and vice versa."
+"handed mode, the physical left mouse button generates a right mouse click "
+"and vice versa."
 msgstr ""
 
 #: data/ui/ButtonDialog.ui:290
@@ -268,7 +271,7 @@ msgstr "Linkshandig"
 
 #: data/ui/ButtonDialog.ui:295
 msgid "The left mouse button generates a left mouse click"
-msgstr "De linker muisknop genereert een linker muisklik"
+msgstr "De linkermuisknop genereert een linker muisklik"
 
 #: data/ui/ButtonDialog.ui:309
 msgid "Right Handed"
@@ -276,7 +279,7 @@ msgstr "Rechtshandig"
 
 #: data/ui/ButtonDialog.ui:314
 msgid "The left mouse button generates a right mouse click"
-msgstr "De linker muisknop genereert een rechter muisklik"
+msgstr "De linkermuisknop genereert een rechter muisklik"
 
 #: data/ui/ButtonDialog.ui:354 data/ui/LedDialog.ui:410
 msgid "Cancel"
@@ -427,9 +430,15 @@ msgstr "Voeg een nieuwe resolutie toe aan het profiel"
 msgid "Welcome"
 msgstr "Welkom"
 
-#: data/ui/WelcomePerspective.ui:38 data/ui/WelcomePerspective.ui:89
+#: data/ui/WelcomePerspective.ui:38
+msgctxt "A subtitle under the \"Welcome\" title."
 msgid "Select a device to configure it"
 msgstr "Kies een apparaat om het in te stellen"
+
+#: data/ui/WelcomePerspective.ui:89
+msgctxt "A tooltip over the list of devices."
+msgid "Select a device to configure it"
+msgstr "Klik op een apparaat om het in te stellen"
 
 #: data/ui/WelcomePerspective.ui:119
 msgid "Select a Device"
