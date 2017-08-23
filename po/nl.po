@@ -189,7 +189,7 @@ msgstr "Kan niet verbinden met ratbagd"
 #. Translators: "it" here is ratbagd.
 #: piper/window.py:57
 msgid "Please make sure it is running"
-msgstr "Maakt u zich er zeker van dat het uitgevoerd wordt"
+msgstr "Maakt u zich er zeker van dat ratbagd uitgevoerd wordt"
 
 #: piper/window.py:64 piper/window.py:114
 msgid "Cannot find any devices"

@@ -186,10 +186,9 @@ msgstr "Pulsierend"
 msgid "Cannot connect to ratbagd"
 msgstr "Verbindung mit ratbagd fehlgeschlagen"
 
-#. Translators: "it" here is ratbagd.
-#: piper/window.py:52
-msgid "Please make sure it is running"
-msgstr "Bitte vergewissern Sie sich dass es läuft"
+#: piper/window.py:51
+msgid "Please make sure ratbagd is running"
+msgstr "Bitte vergewissern Sie sich dass ratbagd läuft"
 
 #: piper/window.py:65 piper/window.py:115
 msgid "Cannot find any devices"
