@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-23 16:39+0200\n"
+"POT-Creation-Date: 2017-08-23 20:38+0200\n"
 "PO-Revision-Date: 2017-08-23 16:40+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
@@ -29,25 +29,27 @@ msgstr "Mapowanie przycisku"
 msgid "Special mapping"
 msgstr "Mapowanie specjalne"
 
-#: piper/buttondialog.py:223 piper/buttonspage.py:82
+#. Translators: the {} will be replaced with the button index, e.g.
+#. "Button 1 click".
+#: piper/buttondialog.py:225 piper/buttonspage.py:84
 msgid "Button {} click"
 msgstr "Kliknięcie przycisku {}"
 
-#: piper/buttonspage.py:86
+#: piper/buttonspage.py:88
 msgid "Macro: {}"
 msgstr "Makro: {}"
 
 #. Translators: the button is turned disabled, e.g. off.
-#: piper/buttonspage.py:89
+#: piper/buttonspage.py:91
 msgid "Disabled"
 msgstr "Wyłączone"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:92 piper/ratbagd.py:613
+#: piper/buttonspage.py:94 piper/ratbagd.py:613
 msgid "Unknown"
 msgstr "Nieznane"
 
-#: piper/buttonspage.py:100
+#: piper/buttonspage.py:102
 msgid "Configure button {}"
 msgstr "Konfiguracja przycisku {}"
 
@@ -63,7 +65,8 @@ msgstr "Przyciski"
 msgid "LEDs"
 msgstr "Diody LED"
 
-#: piper/mouseperspective.py:93 piper/profilerow.py:41
+#. Translators: the {} will be replaced with the profile index.
+#: piper/mouseperspective.py:94 piper/profilerow.py:42
 msgid "Profile {}"
 msgstr "{}. profil"
 
@@ -112,12 +115,14 @@ msgid "Ratchet Mode"
 msgstr "Tryb zapadkowy"
 
 #: piper/ratbagd.py:620
-msgid "Resolution Cycle Up"
-msgstr "Cykl rozdzielczości w górę"
+#, fuzzy
+msgid "Cycle Resolution Up"
+msgstr "Rozdzielczość w górę"
 
 #: piper/ratbagd.py:621
-msgid "Resolution Cycle Down"
-msgstr "Cykl rozdzielczości w dół"
+#, fuzzy
+msgid "Cycle Resolution Down"
+msgstr "Rozdzielczość w dół"
 
 #: piper/ratbagd.py:622
 msgid "Resolution Up"
@@ -132,16 +137,19 @@ msgid "Resolution Switch"
 msgstr "Przełączenie rozdzielczości"
 
 #: piper/ratbagd.py:625
-msgid "Resolution Default"
-msgstr "Domyślna rozdzielczość"
+#, fuzzy
+msgid "Default Resolution"
+msgstr "Rozdzielczości"
 
 #: piper/ratbagd.py:626
-msgid "Profile Cycle Up"
-msgstr "Cykl profilu w górę"
+#, fuzzy
+msgid "Cycle Profile Up"
+msgstr "Profil w górę"
 
 #: piper/ratbagd.py:627
-msgid "Profile Cycle Down"
-msgstr "Cykl profilu w dół"
+#, fuzzy
+msgid "Cycle Profile Down"
+msgstr "Profil w dół"
 
 #: piper/ratbagd.py:628
 msgid "Profile Up"
@@ -258,10 +266,11 @@ msgid "Set the device's handedness."
 msgstr "Lewo- lub praworęczność urządzenia."
 
 #: data/ui/ButtonDialog.ui:270
+#, fuzzy
 msgid ""
 "This allows you to swap the order of the primary mouse buttons. In left-"
-"handedness mode, the physical left mouse button generates a right mouse "
-"click and vice versa."
+"handed mode, the physical left mouse button generates a right mouse click "
+"and vice versa."
 msgstr ""
 "Umożliwia zamianę głównych przycisków myszy. W trybie leworęcznym fizyczny "
 "lewy przycisk myszy generuje kliknięcie prawym przyciskiem myszy, "
@@ -432,10 +441,33 @@ msgstr "Dodaje nową rozdzielczość do profilu"
 msgid "Welcome"
 msgstr "Witamy"
 
-#: data/ui/WelcomePerspective.ui:38 data/ui/WelcomePerspective.ui:89
+#: data/ui/WelcomePerspective.ui:38
+#, fuzzy
+msgctxt "A subtitle under the \"Welcome\" title."
+msgid "Select a device to configure it"
+msgstr "Proszę wybrać urządzenie do skonfigurowania"
+
+#: data/ui/WelcomePerspective.ui:89
+#, fuzzy
+msgctxt "A tooltip over the list of devices."
 msgid "Select a device to configure it"
 msgstr "Proszę wybrać urządzenie do skonfigurowania"
 
 #: data/ui/WelcomePerspective.ui:119
 msgid "Select a Device"
 msgstr "Wybór urządzenia"
+
+#~ msgid "Resolution Cycle Up"
+#~ msgstr "Cykl rozdzielczości w górę"
+
+#~ msgid "Resolution Cycle Down"
+#~ msgstr "Cykl rozdzielczości w dół"
+
+#~ msgid "Resolution Default"
+#~ msgstr "Domyślna rozdzielczość"
+
+#~ msgid "Profile Cycle Up"
+#~ msgstr "Cykl profilu w górę"
+
+#~ msgid "Profile Cycle Down"
+#~ msgstr "Cykl profilu w dół"
