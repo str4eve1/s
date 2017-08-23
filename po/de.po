@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-23 09:58+0200\n"
+"POT-Creation-Date: 2017-08-23 20:37+0200\n"
 "PO-Revision-Date: 2017-08-23 13:02+1000\n"
 "Last-Translator: Peter Hutterer <peter.hutterer@who-t.net>\n"
 "Language-Team: German <>\n"
@@ -26,25 +26,27 @@ msgstr "Tastenfunktion"
 msgid "Special mapping"
 msgstr "Spezialfunktion"
 
-#: piper/buttondialog.py:223 piper/buttonspage.py:82
+#. Translators: the {} will be replaced with the button index, e.g.
+#. "Button 1 click".
+#: piper/buttondialog.py:225 piper/buttonspage.py:84
 msgid "Button {} click"
 msgstr "Klick mit Taste {}"
 
-#: piper/buttonspage.py:86
+#: piper/buttonspage.py:88
 msgid "Macro: {}"
 msgstr "Makro: {}"
 
 #. Translators: the button is turned disabled, e.g. off.
-#: piper/buttonspage.py:89
+#: piper/buttonspage.py:91
 msgid "Disabled"
 msgstr "Abgeschalted"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:92 piper/ratbagd.py:613
+#: piper/buttonspage.py:94 piper/ratbagd.py:613
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: piper/buttonspage.py:100
+#: piper/buttonspage.py:102
 msgid "Configure button {}"
 msgstr "Taste {} konfigurieren"
 
@@ -60,7 +62,8 @@ msgstr "Tasten"
 msgid "LEDs"
 msgstr "LEDs"
 
-#: piper/mouseperspective.py:93 piper/profilerow.py:41
+#. Translators: the {} will be replaced with the profile index.
+#: piper/mouseperspective.py:94 piper/profilerow.py:42
 msgid "Profile {}"
 msgstr "Profil {}"
 
@@ -109,11 +112,11 @@ msgid "Ratchet Mode"
 msgstr ""
 
 #: piper/ratbagd.py:620
-msgid "Resolution Cycle Up"
+msgid "Cycle Resolution Up"
 msgstr "Nächste Auflösung (zyklisch)"
 
 #: piper/ratbagd.py:621
-msgid "Resolution Cycle Down"
+msgid "Cycle Resolution Down"
 msgstr "Vorherige Auflösung (zyklisch)"
 
 #: piper/ratbagd.py:622
@@ -129,15 +132,15 @@ msgid "Resolution Switch"
 msgstr "Auflösung wechseln"
 
 #: piper/ratbagd.py:625
-msgid "Resolution Default"
+msgid "Default Resolution"
 msgstr "Standardauflösung"
 
 #: piper/ratbagd.py:626
-msgid "Profile Cycle Up"
+msgid "Cycle Profile Up"
 msgstr "Nächstes Profil (zyklisch)"
 
 #: piper/ratbagd.py:627
-msgid "Profile Cycle Down"
+msgid "Cycle Profile Down"
 msgstr "Vorheriges Profil (zyklisch)"
 
 #: piper/ratbagd.py:628
@@ -259,8 +262,8 @@ msgstr "Gerät für Links- order Rechtshänder einstellen"
 #: data/ui/ButtonDialog.ui:270
 msgid ""
 "This allows you to swap the order of the primary mouse buttons. In left-"
-"handedness mode, the physical left mouse button generates a right mouse "
-"click and vice versa."
+"handed mode, the physical left mouse button generates a right mouse click "
+"and vice versa."
 msgstr ""
 "Ändern Sie die Funktion der primären Maustasten. Im Linkshändermodus sendet "
 "die linke Maustaste einen Klick für die rechte Maustaste und umgekehrt."
@@ -430,7 +433,13 @@ msgstr "Eine neue Auflösung zum Profil hinzufügen"
 msgid "Welcome"
 msgstr "Willkommen"
 
-#: data/ui/WelcomePerspective.ui:38 data/ui/WelcomePerspective.ui:89
+#: data/ui/WelcomePerspective.ui:38
+msgctxt "A subtitle under the \"Welcome\" title."
+msgid "Select a device to configure it"
+msgstr "Bitte ein Gerät zur Konfiguration auswählen"
+
+#: data/ui/WelcomePerspective.ui:89
+msgctxt "A tooltip over the list of devices."
 msgid "Select a device to configure it"
 msgstr "Bitte ein Gerät zur Konfiguration auswählen"
 
