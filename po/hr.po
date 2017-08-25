@@ -1,5 +1,5 @@
 # Croatian Piper translation
-# Copyright (C) 2017 Jente Hidskes
+# Copyright (C) 2017 gogo
 # This file is distributed under the same license as the piper package.
 # gogo <trebelnik2@gmail.com>, 2017.
 #
