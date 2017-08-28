@@ -112,7 +112,6 @@ class MouseMap(Gtk.Container):
 
         Gtk.Container.__init__(self, *args, **kwargs)
         self.set_has_window(False)
-        self.set_redraw_on_allocate(False)
 
         self.spacing = spacing
         self._layer = layer
