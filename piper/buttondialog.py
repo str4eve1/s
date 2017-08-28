@@ -301,7 +301,10 @@ class ButtonDialog(Gtk.Dialog):
                 return
             # Escape cancels the editing.
             elif event.keyval == Gdk.KEY_Escape:
-                self._create_current_macro(macro=self._mapping)
+                if self._action_type == RatbagdButton.ACTION_TYPE_MACRO:
+                    self._create_current_macro(macro=self._mapping)
+                else:
+                    self._create_current_macro()
                 self.stack.set_visible_child_name("overview")
                 return
         elif event.type == Gdk.EventType.KEY_RELEASE:
