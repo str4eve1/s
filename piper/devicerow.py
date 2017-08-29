@@ -43,16 +43,16 @@ class DeviceRow(Gtk.ListBoxRow):
         svg_path = device.get_svg("gnome")
         if os.path.isfile(svg_path):
             handle = Rsvg.Handle.new_from_file(svg_path)
-            device = handle.get_pixbuf_sub("#Device")
+            svg = handle.get_pixbuf_sub("#Device")
             handle.close()
-            if device is None:
+            if svg is None:
                 print("Device {}'s SVG is incompatible".format(device.name), file=sys.stderr)
             else:
-                device = device.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
-                if device is None:
+                svg = svg.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
+                if svg is None:
                     print("Cannot resize device SVG", file=sys.stderr)
                 else:
-                    self.image.set_from_pixbuf(device)
+                    self.image.set_from_pixbuf(svg)
         else:
             print("Device {} has no image or its path is invalid".format(device.name), file=sys.stderr)
 
