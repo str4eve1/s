@@ -186,6 +186,27 @@ class _RatbagdDBus(GObject.GObject):
         # update
         self._proxy.set_cached_property(property, val)
 
+    def _dbus_call_async(self, method, type, *value, callback):
+        # The callback handler to unwrap the data
+        def callback_handler(obj, result, user_callback):
+            res = obj.call_finish(result)
+            res = res.unpack()[0]  # Result is always a tuple
+            user_callback(res)
+
+        # Calls a method asynchronously on the bus, using the given method
+        # name, type signature and values. The callback is invoked when the
+        # method finishes
+        val = GLib.Variant("({})".format(type), value)
+        try:
+            self._proxy.call(method, val,
+                             Gio.DBusCallFlags.NO_AUTO_START,
+                             500, None, callback_handler, callback)
+        except GLib.Error as e:
+            # Unrecognized error code; print the message to stderr and raise
+            # the GLib.Error.
+            print(e.message, file=sys.stderr)
+            raise
+
     def _dbus_call(self, method, type, *value):
         # Calls a method synchronously on the bus, using the given method name,
         # type signature and values.
@@ -343,14 +364,20 @@ class RatbagdDevice(_RatbagdDBus):
         """
         return self._dbus_call("GetSvg", "s", theme)
 
-    def commit(self):
-        """Commits all changes made to the device."""
-        ret = self._dbus_call("Commit", "")
+    def commit(self, callback):
+        """Commits all changes made to the device.
+
+        This is an async call to DBus and this method does not return
+        anything. Any success for failure code is reported to the callback
+        provided when ratbagd finishes writing to the device.
+
+        @param callback The function to call with the result of the commit
+        """
+        self._dbus_call_async("Commit", "", callback=callback)
         for profile in self._profiles:
             if profile.dirty:
                 profile._dirty = False
                 profile.notify("dirty")
-        return ret
 
 
 class RatbagdProfile(_RatbagdDBus):
