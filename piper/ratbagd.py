@@ -314,7 +314,8 @@ class RatbagdDevice(_RatbagdDBus):
             profile.connect("notify::is-active", self._on_active_profile_changed)
 
     def _on_active_profile_changed(self, profile, pspec):
-        self.emit("active-profile-changed", self._profiles[profile.index])
+        if profile.is_active:
+            self.emit("active-profile-changed", self._profiles[profile.index])
 
     @GObject.Property
     def id(self):
@@ -391,6 +392,7 @@ class RatbagdProfile(_RatbagdDBus):
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Profile", object_path)
         self._dirty = False
+        self._active = self._get_dbus_property("IsActive")
 
         # FIXME: if we start adding and removing objects from any of these
         # lists, things will break!
@@ -414,6 +416,14 @@ class RatbagdProfile(_RatbagdDBus):
         if not self._dirty:
             self._dirty = True
             self.notify("dirty")
+
+    def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        if "IsActive" in changed_props.keys():
+            active = changed_props["IsActive"]
+            if active != self._active:
+                self._active = active
+                self.notify("is-active")
+                self._on_obj_notify(None, None)
 
     @GObject.Property
     def index(self):
@@ -473,13 +483,12 @@ class RatbagdProfile(_RatbagdDBus):
     @GObject.Property
     def is_active(self):
         """Returns True if the profile is currenly active, false otherwise."""
-        return self._get_dbus_property("IsActive")
+        return self._active
 
     def set_active(self):
         """Set this profile to be the active profile."""
         ret = self._dbus_call("SetActive", "")
         self._set_dbus_property("IsActive", "b", True, readwrite=False)
-        self.notify("is-active")
         return ret
 
 
