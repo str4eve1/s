@@ -500,10 +500,14 @@ class RatbagdResolution(_RatbagdDBus):
 
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Resolution", object_path)
+        self._active = self._get_dbus_property("IsActive")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
         if "IsActive" in changed_props.keys():
-            self.notify("is-active")
+            active = changed_props["IsActive"]
+            if active != self._active:
+                self._active = active
+                self.notify("is-active")
 
     @GObject.Property
     def index(self):
@@ -560,7 +564,7 @@ class RatbagdResolution(_RatbagdDBus):
     def is_active(self):
         """True if this is the currently active resolution, False
         otherwise"""
-        return self._get_dbus_property("IsActive")
+        return self._active
 
     @GObject.Property
     def is_default(self):
