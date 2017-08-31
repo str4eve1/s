@@ -501,6 +501,7 @@ class RatbagdResolution(_RatbagdDBus):
     def __init__(self, object_path):
         _RatbagdDBus.__init__(self, "Resolution", object_path)
         self._active = self._get_dbus_property("IsActive")
+        self._default = self._get_dbus_property("IsDefault")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
         if "IsActive" in changed_props.keys():
@@ -508,6 +509,11 @@ class RatbagdResolution(_RatbagdDBus):
             if active != self._active:
                 self._active = active
                 self.notify("is-active")
+        elif "IsDefault" in changed_props.keys():
+            default = changed_props["IsDefault"]
+            if default != self._default:
+                self._default = default
+                self.notify("is-default")
 
     @GObject.Property
     def index(self):
@@ -570,7 +576,7 @@ class RatbagdResolution(_RatbagdDBus):
     def is_default(self):
         """True if this is the currently default resolution, False
         otherwise"""
-        return self._get_dbus_property("IsDefault")
+        return self._default
 
     def set_default(self):
         """Set this resolution to be the default."""
