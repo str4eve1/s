@@ -621,7 +621,6 @@ class RatbagdButton(_RatbagdDBus):
     ACTION_TYPE_NONE = 0
     ACTION_TYPE_BUTTON = 1
     ACTION_TYPE_SPECIAL = 2
-    ACTION_TYPE_KEY = 3
     ACTION_TYPE_MACRO = 4
 
     ACTION_SPECIAL_UNKNOWN = (1 << 30)
@@ -765,25 +764,10 @@ class RatbagdButton(_RatbagdDBus):
         self._set_dbus_property("SpecialMapping", "u", special)
 
     @GObject.Property
-    def key(self):
-        """A list of integers, the first being the keycode and the other
-        entries, if any, are modifiers (if mapped to key)."""
-        return self._get_dbus_property("KeyMapping")
-
-    @key.setter
-    def key(self, keys):
-        """Set the key mapping.
-
-        @param keys A list of integers, the first being the keycode and the rest
-                    modifiers.
-        """
-        self._set_dbus_property("KeyMapping", "au", keys)
-
-    @GObject.Property
     def action_type(self):
         """An enum describing the action type of the button. One of
         ACTION_TYPE_NONE, ACTION_TYPE_BUTTON, ACTION_TYPE_SPECIAL,
-        ACTION_TYPE_KEY, ACTION_TYPE_MACRO. This decides which
+        ACTION_TYPE_MACRO. This decides which
         *Mapping property has a value.
         """
         return self._get_dbus_property("ActionType")
