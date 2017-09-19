@@ -99,6 +99,8 @@ class ResolutionsPage(Gtk.Box):
         # TODO: currently no devices expose CAP_INDIVIDUAL_REPORT_RATE, but if
         # so then we should check for this here and set it only on the relevant
         # resolution.
+        if not button.get_active():
+            return
         profile = self._device.active_profile
         for resolution in profile.resolutions:
             resolution.report_rate = rate
