@@ -926,8 +926,7 @@ class RatbagdLed(_RatbagdDBus):
 
     @GObject.Property
     def type(self):
-        """An enum describing this led's type,
-        RatbagdLed.TYPE_LOGO or RatbagdLed.TYPE_SIDE."""
+        """An enum describing this led's type, one of RatbagdLed.TYPE_*."""
         return self._get_dbus_property("Type")
 
     @GObject.Property
