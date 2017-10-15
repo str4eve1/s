@@ -60,8 +60,8 @@ class ResolutionRow(Gtk.ListBoxRow):
                                                   self._on_is_active_changed)
 
         xres, __ = resolution.resolution
-        minres = resolution.minimum
-        maxres = resolution.maximum
+        minres = resolution.resolutions[0]
+        maxres = resolution.resolutions[-1]
         self.dpi_label.set_text("{} DPI".format(xres))
         self.active_label.set_visible(resolution.is_active)
 
