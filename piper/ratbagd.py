@@ -581,14 +581,9 @@ class RatbagdResolution(_RatbagdDBus):
         self._set_dbus_property("ReportRate", "u", rate)
 
     @GObject.Property
-    def maximum(self):
-        """The maximum possible resolution."""
-        return self._get_dbus_property("Maximum")
-
-    @GObject.Property
-    def minimum(self):
-        """The minimum possible resolution."""
-        return self._get_dbus_property("Minimum")
+    def resolutions(self):
+        """The list of supported DPI values"""
+        return self._get_dbus_property("Resolutions")
 
     @GObject.Property
     def is_active(self):
@@ -880,14 +875,19 @@ class RatbagdMacro(GObject.Object):
 class RatbagdLed(_RatbagdDBus):
     """Represents a ratbagd led."""
 
-    TYPE_UNKNOWN = -1
-    TYPE_LOGO = 0
-    TYPE_SIDE = 1
+    TYPE_LOGO = 1
+    TYPE_SIDE = 2
+    TYPE_BATTERY = 3
+    TYPE_DPI = 4
 
     MODE_OFF = 0
     MODE_ON = 1
     MODE_CYCLE = 2
     MODE_BREATHING = 3
+
+    COLORDEPTH_MONOCHROME = 400
+    COLORDEPTH_RGB_888 = 401
+    COLORDEPTH_RGB_111 = 402
 
     LED_DESCRIPTION = {
         # Translators: the LED is off.
@@ -926,7 +926,7 @@ class RatbagdLed(_RatbagdDBus):
 
     @GObject.Property
     def type(self):
-        """An enum describing this led's type, one of RatbagdLed.TYPE_UNKNOWN,
+        """An enum describing this led's type,
         RatbagdLed.TYPE_LOGO or RatbagdLed.TYPE_SIDE."""
         return self._get_dbus_property("Type")
 
@@ -942,6 +942,12 @@ class RatbagdLed(_RatbagdDBus):
         @param color An RGB color, as an integer triplet with values 0-255.
         """
         self._set_dbus_property("Color", "(uuu)", color)
+
+    @GObject.Property
+    def colordepth(self):
+        """An enum describing this led's colordepth, one of
+        RatbagdLed.COLORDEPTH_MONOCHROME, RatbagdLed.COLORDEPTH_RGB"""
+        return self._get_dbus_property("ColorDepth")
 
     @GObject.Property
     def effect_rate(self):
