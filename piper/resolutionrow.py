@@ -62,6 +62,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         xres, __ = resolution.resolution
         minres = resolution.resolutions[0]
         maxres = resolution.resolutions[-1]
+        self.resolutions = resolution.resolutions
         self.dpi_label.set_text("{} DPI".format(xres))
         self.active_label.set_visible(resolution.is_active)
 
@@ -75,10 +76,30 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     @GtkTemplate.Callback
     def _on_change_value(self, scale, scroll, value):
-        # Round the value resulting from a scroll event to the nearest multiple
-        # of 50. This is to work around the Gtk.Scale not snapping to its
-        # Gtk.Adjustment's step_increment.
-        scale.set_value(int(value - (value % 50)))
+
+        # Cursor-controlled slider may get out of the GtkAdjustment's range
+        value = min(max(self.resolutions[0], value), self.resolutions[-1])
+
+        # Find the nearest permitted value to our Gtk.Scale value
+        lo = max([r for r in self.resolutions if r <= value])
+        hi = min([r for r in self.resolutions if r >= value])
+
+        if value - lo < hi - value:
+            value = lo
+        else:
+            value = hi
+
+        scale.set_value(value)
+
+        # libratbag provides a fake-exponential range with the deltas
+        # increasing as the resolution goes up. Make sure we set our
+        # steps to the next available value.
+        idx = self.resolutions.index(value)
+        if idx < len(self.resolutions) - 1:
+            delta = self.resolutions[idx + 1] - self.resolutions[idx]
+            self.scale.props.adjustment.set_step_increment(delta)
+            self.scale.props.adjustment.set_page_increment(delta)
+
         return True
 
     @GtkTemplate.Callback
