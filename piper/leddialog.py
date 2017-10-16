@@ -34,6 +34,7 @@ class LedDialog(Gtk.Dialog):
     colorbutton = GtkTemplate.Child()
     adjustment_brightness = GtkTemplate.Child()
     adjustment_effect_rate = GtkTemplate.Child()
+    led_off_image = GtkTemplate.Child()
 
     def __init__(self, ratbagd_led, *args, **kwargs):
         """Instantiates a new LedDialog.
@@ -59,6 +60,11 @@ class LedDialog(Gtk.Dialog):
         self.colorbutton.set_rgba(rgba)
         self.adjustment_brightness.set_value(self._led.brightness)
         self.adjustment_effect_rate.set_value(self._led.effect_rate)
+
+        sp = Gtk.CssProvider()
+        sp.load_from_data("* { background: #565854}".encode())
+        Gtk.StyleContext.add_provider(self.led_off_image.get_style_context(),
+                                      sp, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def _get_led_color_as_rgba(self):
         # Helper function to convert ratbagd's 0-255 color range to a Gdk.RGBA
