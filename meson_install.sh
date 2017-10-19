@@ -1,7 +1,11 @@
 #!/usr/bin/env sh
 
-# Update icon cache
-gtk-update-icon-cache -f -t ${DESTDIR}/${MESON_INSTALL_PREFIX}/share/icons/hicolor
+if [ -z $DESTDIR ]; then
+	PREFIX=${MESON_INSTALL_PREFIX:-/usr}
 
-# Install new schemas
-#glib-compile-schemas ${DESTDIR}/${MESON_INSTALL_PREFIX}/share/glib-2.0/schemas/
+    # Update icon cache
+    gtk-update-icon-cache -f -t $PREFIX/share/icons/hicolor
+
+    # Install new schemas
+    #glib-compile-schemas $PREFIX/share/glib-2.0/schemas/
+fi
