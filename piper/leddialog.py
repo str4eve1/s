@@ -33,7 +33,7 @@ class LedDialog(Gtk.Dialog):
     colorchooser = GtkTemplate.Child()
     colorbutton = GtkTemplate.Child()
     adjustment_brightness = GtkTemplate.Child()
-    adjustment_effect_rate = GtkTemplate.Child()
+    adjustment_effect_duration = GtkTemplate.Child()
     led_off_image = GtkTemplate.Child()
 
     def __init__(self, ratbagd_led, *args, **kwargs):
@@ -59,12 +59,20 @@ class LedDialog(Gtk.Dialog):
         self.colorchooser.set_rgba(rgba)
         self.colorbutton.set_rgba(rgba)
         self.adjustment_brightness.set_value(self._led.brightness)
-        self.adjustment_effect_rate.set_value(self._led.effect_rate)
+        self.adjustment_effect_duration.set_value(self._led.effect_duration)
 
         sp = Gtk.CssProvider()
         sp.load_from_data("* { background: #565854}".encode())
         Gtk.StyleContext.add_provider(self.led_off_image.get_style_context(),
                                       sp, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+    @GtkTemplate.Callback
+    def _on_change_value(self, scale, scroll, value):
+        # Round the value resulting from a scroll event to the nearest multiple
+        # of 500. This is to work around the Gtk.Scale not snapping to its
+        # Gtk.Adjustment's step_increment.
+        scale.set_value(int(value - (value % 500)))
+        return True
 
     def _get_led_color_as_rgba(self):
         # Helper function to convert ratbagd's 0-255 color range to a Gdk.RGBA
@@ -90,5 +98,5 @@ class LedDialog(Gtk.Dialog):
         return self.adjustment_brightness.get_value()
 
     @GObject.Property
-    def effect_rate(self):
-        return self.adjustment_effect_rate.get_value()
+    def effect_duration(self):
+        return self.adjustment_effect_duration.get_value()

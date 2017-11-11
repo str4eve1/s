@@ -87,5 +87,5 @@ class LedsPage(Gtk.Box):
             led.mode = dialog.mode
             led.color = dialog.color
             led.brightness = dialog.brightness
-            led.effect_rate = dialog.effect_rate
+            led.effect_duration = dialog.effect_duration
         dialog.destroy()
