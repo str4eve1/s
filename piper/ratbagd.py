@@ -275,11 +275,24 @@ class Ratbagd(_RatbagdDBus):
         """A list of RatbagdDevice objects supported by ratbagd."""
         return self._devices
 
+    def __getitem__(self, id):
+        """Returns the requested device, or None."""
+        for d in self.devices:
+            if d.id == id:
+                return d
+        return None
+
     @GObject.Property
     def themes(self):
         """A list of theme names. The theme 'default' is guaranteed to be
         available."""
         return self._get_dbus_property("Themes")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
 
 
 class RatbagdDevice(_RatbagdDBus):
@@ -584,6 +597,11 @@ class RatbagdResolution(_RatbagdDBus):
     def resolutions(self):
         """The list of supported DPI values"""
         return self._get_dbus_property("Resolutions")
+
+    @GObject.Property
+    def report_rates(self):
+        """The list of supported report rates"""
+        return self._get_dbus_property("ReportRates")
 
     @GObject.Property
     def is_active(self):
@@ -926,8 +944,14 @@ class RatbagdLed(_RatbagdDBus):
         self._set_dbus_property("Mode", "u", mode)
 
     @GObject.Property
+    def modes(self):
+        """The supported modes as a list"""
+        return self._get_dbus_property("Modes")
+
+    @GObject.Property
     def type(self):
-        """An enum describing this led's type, one of RatbagdLed.TYPE_*."""
+        """An enum describing this led's type,
+        RatbagdLed.TYPE_LOGO or RatbagdLed.TYPE_SIDE."""
         return self._get_dbus_property("Type")
 
     @GObject.Property
@@ -950,17 +974,17 @@ class RatbagdLed(_RatbagdDBus):
         return self._get_dbus_property("ColorDepth")
 
     @GObject.Property
-    def effect_rate(self):
-        """The LED's effect rate in Hz, values range from 100 to 20000."""
-        return self._get_dbus_property("EffectRate")
+    def effect_duration(self):
+        """The LED's effect duration in ms, values range from 0 to 10000."""
+        return self._get_dbus_property("EffectDuration")
 
-    @effect_rate.setter
-    def effect_rate(self, effect_rate):
-        """Set the effect rate in Hz. Allowed values range from 100 to 20000.
+    @effect_duration.setter
+    def effect_duration(self, effect_duration):
+        """Set the effect duration in ms. Allowed values range from 0 to 10000.
 
-        @param effect_rate The new effect rate, as int
+        @param effect_duration The new effect duration, as int
         """
-        self._set_dbus_property("EffectRate", "u", effect_rate)
+        self._set_dbus_property("EffectDuration", "u", effect_duration)
 
     @GObject.Property
     def brightness(self):
