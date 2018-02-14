@@ -55,6 +55,8 @@ class LedDialog(Gtk.Dialog):
         for k, v in self._modes.items():
             if mode == v:
                 self.stack.set_visible_child_name(k)
+            if v not in self._led.modes:
+                self.stack.get_child_by_name(k).set_visible(False)
         rgba = self._get_led_color_as_rgba()
         self.colorchooser.set_rgba(rgba)
         self.colorbutton.set_rgba(rgba)
