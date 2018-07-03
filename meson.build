@@ -40,10 +40,10 @@ config_piper.set('devel', '')
 config_piper_devel = config_piper
 config_piper_devel.set('pkgdatadir', join_paths(meson.build_root(), 'data'))
 config_piper_devel.set('localedir', join_paths(meson.build_root(), 'po'))
-config_piper_devel.set('devel', '
+config_piper_devel.set('devel', '''
 sys.path.insert(1, \'@0@\')
 print(\'Running from source tree, using local files\')
-'.format(meson.source_root()))
+'''.format(meson.source_root()))
 
 configure_file(input: 'piper.in',
 	       output: 'piper',
