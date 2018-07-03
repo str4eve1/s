@@ -6,6 +6,11 @@ project('piper',
 # Dependencies
 dependency('python3', required: true)
 dependency('pygobject-3.0', required: true)
+ratbagd = find_program('ratbagd', required: false)
+
+if not ratbagd.found()
+  error('Dependency libratbag not found!')
+endif
 
 # Gtk version required
 gtk_major_version = 3
