@@ -1,5 +1,5 @@
 project('piper',
-	version: '0.2.900',
+	version: '0.2.901',
 	license: 'GPLv2',
 	meson_version: '>= 0.40.0')
 
