@@ -410,7 +410,7 @@ msgstr "Aktivno"
 
 #: data/ui/ResolutionRow.ui:105
 msgid "Set this resolution's DPI"
-msgstr "Postavi ovu DPI razlučivosti"
+msgstr "Postavi ovu DPI razlučivost"
 
 #. Translators: the rate at which the device reports movement.
 #: data/ui/ResolutionsPage.ui:43
