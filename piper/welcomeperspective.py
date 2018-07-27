@@ -19,7 +19,7 @@ from .gi_composites import GtkTemplate
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import GObject, Gtk
+from gi.repository import GObject, Gtk, Gdk
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/WelcomePerspective.ui")
@@ -93,7 +93,9 @@ class WelcomePerspective(Gtk.Box):
     @GtkTemplate.Callback
     def _on_quit_button_clicked(self, button):
         window = button.get_toplevel()
-        window.destroy()
+
+        if not window.emit("delete-event", Gdk.Event(Gdk.EventType.DELETE)):
+            window.destroy()
 
     @GtkTemplate.Callback
     def _on_device_row_activated(self, listbox, row):
