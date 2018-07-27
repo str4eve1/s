@@ -94,7 +94,7 @@ class WelcomePerspective(Gtk.Box):
     def _on_quit_button_clicked(self, button):
         window = button.get_toplevel()
 
-        if not window.emit("delete-event", Gdk.Event(Gdk.EventType.DELETE)):
+        if not window.emit("delete-event", Gdk.Event.new(Gdk.EventType.DELETE)):
             window.destroy()
 
     @GtkTemplate.Callback
