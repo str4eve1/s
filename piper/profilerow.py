@@ -14,8 +14,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from gettext import gettext as _
-
 from .gi_composites import GtkTemplate
 
 import gi
@@ -38,8 +36,7 @@ class ProfileRow(Gtk.ListBoxRow):
         self._profile = profile
         self._profile.connect("notify::enabled", self._on_profile_notify_enabled)
 
-        # Translators: the {} will be replaced with the profile index.
-        self.title.set_text(_("Profile {}").format(profile.index + 1))
+        self.title.set_text(profile.name)
         self.show_all()
         self.set_visible(profile.enabled)
 
