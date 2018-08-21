@@ -45,7 +45,7 @@ class LedsPage(Gtk.Box):
 
         self._mousemap = MouseMap("#Leds", self._device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
-        self._sizegroup = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
+        self._sizegroup = Gtk.SizeGroup(mode=Gtk.SizeGroupMode.HORIZONTAL)
 
         self._set_profile(self._device.active_profile)
         self.show_all()

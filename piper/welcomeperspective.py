@@ -30,7 +30,7 @@ class WelcomePerspective(Gtk.Box):
     __gtype_name__ = "WelcomePerspective"
 
     __gsignals__ = {
-        "device-selected": (GObject.SIGNAL_RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
+        "device-selected": (GObject.SignalFlags.RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
     }
 
     listbox = GtkTemplate.Child()

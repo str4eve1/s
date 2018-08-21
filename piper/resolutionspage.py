@@ -76,7 +76,7 @@ class ResolutionsPage(Gtk.Box):
         for button in profile.buttons:
             if button.action_type == RatbagdButton.ACTION_TYPE_SPECIAL and \
                     button.special in self._resolution_labels:
-                label = Gtk.Label(_(RatbagdButton.SPECIAL_DESCRIPTION[button.special]))
+                label = Gtk.Label(label=_(RatbagdButton.SPECIAL_DESCRIPTION[button.special]))
                 mousemap.add(label, "#button{}".format(button.index))
         mousemap.show_all()
 

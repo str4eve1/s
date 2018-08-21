@@ -85,7 +85,7 @@ class MouseMap(Gtk.Container):
                     "spacing",
                     "The amount of space between children and the SVG leaders",
                     0, GLib.MAXINT, 0,
-                    GObject.PARAM_READABLE),
+                    GObject.ParamFlags.READABLE),
     }
 
     def __init__(self, layer, ratbagd_device, spacing=10, *args, **kwargs):
