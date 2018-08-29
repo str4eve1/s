@@ -16,14 +16,13 @@
 
 import cairo
 import gi
-import os
 import sys
 from lxml import etree
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("Rsvg", "2.0")
-from gi.repository import Gdk, GLib, Gtk, GObject, Rsvg
+from gi.repository import Gdk, GLib, Gtk, GObject, Rsvg, Gio
 
 """This module contains the MouseMap widget (and its helper class
 _MouseMapChild), which is central to the button and LED configuration stack
@@ -106,8 +105,16 @@ class MouseMap(Gtk.Container):
             raise ValueError("Layer cannot be None")
         if ratbagd_device is None:
             raise ValueError("Device cannot be None")
-        svg_path = ratbagd_device.get_svg("gnome")
-        if not os.path.isfile(svg_path):
+        try:
+            fd = ratbagd_device.get_svg_fd("gnome")
+            uis = Gio.UnixInputStream.new(fd.fileno(), False)
+            self._handle = Rsvg.Handle.new_from_stream_sync(uis, None,
+                                                            Rsvg.HandleFlags.FLAGS_NONE,
+                                                            None)
+            # separate fd for the XML parsing to avoid file offset issues
+            fd = ratbagd_device.get_svg_fd("gnome")
+            self._svg_data = etree.parse(fd)
+        except FileNotFoundError:
             raise ValueError("Device has no image or its path is invalid")
 
         Gtk.Container.__init__(self, *args, **kwargs)
@@ -118,9 +125,6 @@ class MouseMap(Gtk.Container):
         self._device = ratbagd_device
         self._children = []
         self._highlight_element = None
-
-        self._handle = Rsvg.Handle.new_from_file(svg_path)
-        self._svg_data = etree.parse(svg_path)
 
         # TODO: remove this when we're out of the transition to toned down SVGs
         device = self._handle.has_sub("#Device")

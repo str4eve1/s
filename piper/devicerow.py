@@ -14,14 +14,13 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import os
 import sys
 
 from .gi_composites import GtkTemplate
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import GdkPixbuf, GObject, Gtk, Rsvg
+from gi.repository import GdkPixbuf, GObject, Gtk, Rsvg, Gio
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/DeviceRow.ui")
@@ -40,9 +39,12 @@ class DeviceRow(Gtk.ListBoxRow):
         self._device = device
         self.title.set_text(device.name)
 
-        svg_path = device.get_svg("gnome")
-        if os.path.isfile(svg_path):
-            handle = Rsvg.Handle.new_from_file(svg_path)
+        try:
+            fd = device.get_svg_fd("gnome")
+            uis = Gio.UnixInputStream.new(fd.fileno(), False)
+            handle = Rsvg.Handle.new_from_stream_sync(uis, None,
+                                                      Rsvg.HandleFlags.FLAGS_NONE,
+                                                      None)
             svg = handle.get_pixbuf_sub("#Device")
             handle.close()
             if svg is None:
@@ -53,7 +55,7 @@ class DeviceRow(Gtk.ListBoxRow):
                     print("Cannot resize device SVG", file=sys.stderr)
                 else:
                     self.image.set_from_pixbuf(svg)
-        else:
+        except FileNotFoundError:
             print("Device {} has no image or its path is invalid".format(device.name), file=sys.stderr)
 
         self.show_all()
