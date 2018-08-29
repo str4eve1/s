@@ -8,6 +8,9 @@ In order to run Piper, `ratbagd` has to be running (without it, you'll get to
 see a pretty mouse trap). To see how, see [its
 README](https://github.com/libratbag/libratbag/blob/master/README.md#running-ratbagd-as-dbus-activated-systemd-service).
 
+If you are running piper from git, we recommend using libratbag from git
+as well to make sure the latest bugfixes are applied.
+
 Screenshots
 ===========
 
