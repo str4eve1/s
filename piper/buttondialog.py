@@ -147,7 +147,7 @@ class ButtonDialog(Gtk.Dialog):
                 self.listbox.select_row(row)
             i += 1
         for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
-            if name == "Unknown":
+            if name == "Unknown" or name == "Invalid":
                 continue
             # Translators: section header for assigning special functions to buttons.
             row = ButtonRow(_(name), _("Special mapping"), RatbagdButton.ACTION_TYPE_SPECIAL, key)
