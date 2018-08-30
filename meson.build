@@ -9,7 +9,14 @@ dependency('pygobject-3.0', required: true)
 ratbagd = find_program('ratbagd', required: false)
 
 if not ratbagd.found()
-  error('Dependency libratbag not found!')
+	message('''
+	*********************** WARNING **********************
+	* _???_     Dependency libratbag not found in $PATH! *
+	*(_)_(_)    ratbagd must be installed and running    *
+	* (o o)     for Piper to work.                       *
+	*==\o/==                                             *
+	******************************************************
+	''')
 endif
 
 # Gtk version required
