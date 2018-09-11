@@ -23,7 +23,7 @@ from .welcomeperspective import WelcomePerspective
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gdk, GLib, Gtk
+from gi.repository import Gdk, GLib, Gtk, Gio
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/Window.ui")
@@ -154,7 +154,15 @@ class Window(Gtk.ApplicationWindow):
         except ValueError as e:
             self._present_error_perspective(_("Cannot display device SVG"), str(e))
         except GLib.Error as e:
-            self._present_error_perspective(_("Unknown exception occurred"), e.message)
+            # Happens with the GetSvgFd() call when running against older
+            # python. This can be removed when we've had the newer call out
+            # for a while. The full error is printed to stderr by
+            # ratbagd.py.
+            if e.code == Gio.DBusError.UNKNOWN_METHOD:
+                self._present_error_perspective(_("Newer version of ratbagd required"),
+                                                _('Please update to the latest available version'))
+            else:
+                self._present_error_perspective(_("Unknown exception occurred"), e.message)
 
     def _present_error_perspective(self, message, detail):
         # Present the error perspective informing the user of any errors.
