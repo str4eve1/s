@@ -18,6 +18,12 @@ Screenshots
 
 ![LED configuration screenshot](https://github.com/libratbag/piper/blob/wiki/screenshots/piper-ledpage.png)
 
+And if you see the mousetrap, something isn't right. Usually this means that
+either ratbagd is not running (like in this screenshot), ratbagd needs to be
+updated to a newer version, or some other unexpected error occured.
+
+![The error page](https://github.com/libratbag/piper/blob/wiki/screenshots/piper-errorpage.png)
+
 Installing Piper
 ================
 
