@@ -1,12 +1,10 @@
 Piper [![CircleCI](https://circleci.com/gh/libratbag/piper.svg?style=svg&circle-token=7082ad7a7fea706fff66f1547649dca32e446cb0)](https://circleci.com/gh/libratbag/piper)
 =====
 
-Piper is a GTK+ application to configure gaming mice, using libratbag via
-ratbagd.
-
-In order to run Piper, `ratbagd` has to be running (without it, you'll get to
-see a pretty mouse trap). To see how, see [its
-README](https://github.com/libratbag/libratbag/blob/master/README.md#running-ratbagd-as-dbus-activated-systemd-service).
+Piper is a GTK+ application to configure gaming mice. Piper is merely a
+graphical frontend to the ratbagd DBus daemon, see [the libratbag
+README](https://github.com/libratbag/libratbag/blob/master/README.md#running-ratbagd-as-dbus-activated-systemd-service)
+for instructions on how to run ratbagd.
 
 If you are running piper from git, we recommend using libratbag from git
 as well to make sure the latest bugfixes are applied.
@@ -23,6 +21,18 @@ Screenshots
 Installing Piper
 ================
 
+Most popular distributions package Piper and it is available through the
+packaging system (apt, dnf, yum, pacman, ...). This is the preferred way of
+installing Piper.
+
+Piper is also available as a
+[Flatpak](https://flathub.org/apps/details/org.freedesktop.Piper).
+For technical reasons, ratbagd cannot be flatpaked yet so users must install
+ratbagd through their distribution packaging system.
+
+Building Piper from git
+=======================
+
 Piper uses the [meson build system](http://mesonbuild.com/) which in turn uses
 [ninja](https://ninja-build.org/) to build and install itself. Run the following
 commands to clone Piper and initialize the build:
@@ -33,7 +43,10 @@ $ cd piper
 $ meson builddir --prefix=/usr/
 ```
 
-To build or re-build after code-changes, run:
+[This blog post](https://who-t.blogspot.com/2018/07/meson-fails-with-native-dependency-not-found.html)
+explains how to spot and install missing dependencies.
+
+To build or re-build after code-changes and install, run:
 
 ```
 $ ninja -C builddir
