@@ -9,6 +9,15 @@ for instructions on how to run ratbagd.
 If you are running piper from git, we recommend using libratbag from git
 as well to make sure the latest bugfixes are applied.
 
+Supported Devices
+=================
+Piper is merely a frontend, the list of supported devices depends on
+libratbag. See [the libratbag device
+files](https://github.com/libratbag/libratbag/tree/master/data/devices) for
+a list of all known devices.  The device-specific protocols usually have to
+be reverse-engineered and the features available may vary to the
+manufacturer's advertized features.
+
 Screenshots
 ===========
 
