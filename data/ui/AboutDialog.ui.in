@@ -19,6 +19,7 @@ Contributors:
 	Dan Callaghan &lt;djc@djc.id.au&gt;
     </property>
     <property name="artists">Peter Hutterer &lt;peter.hutterer@who-t.net&gt;</property>
+    <property name="translator_credits" translatable="yes">translator-credits</property>
     <property name="logo_icon_name">org.freedesktop.Piper</property>
     <property name="license_type">gpl-2-0</property>
     <child internal-child="vbox">
