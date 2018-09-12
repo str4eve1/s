@@ -1,3 +1,6 @@
+data/org.freedesktop.Piper.desktop.in
+data/org.freedesktop.Piper.appdata.xml.in.in
+
 piper/__init__.py
 piper/application.py
 piper/buttondialog.py

@@ -45,6 +45,9 @@ datadir = join_paths(prefix, get_option('datadir'))
 localedir = join_paths(prefix, get_option('localedir'))
 pkgdatadir = join_paths(datadir, meson.project_name())
 bindir = join_paths(prefix, get_option('bindir'))
+podir = join_paths(meson.source_root(), 'po')
+
+i18n = import('i18n')
 
 subdir('data')
 subdir('po')

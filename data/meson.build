@@ -20,10 +20,22 @@ gnome.compile_resources('piper', 'piper.gresource.xml',
 			install: true,
 			install_dir: pkgdatadir)
 
-install_data('org.freedesktop.Piper.desktop', install_dir: desktopdir)
 install_data('org.freedesktop.Piper.svg', install_dir: icondir)
 
-appdata = configure_file(input: 'org.freedesktop.Piper.appdata.xml.in',
-                         output: 'org.freedesktop.Piper.appdata.xml',
-                         configuration: conf,
-                         install_dir: metainfodir)
+i18n.merge_file(input: 'org.freedesktop.Piper.desktop.in',
+                output: 'org.freedesktop.Piper.desktop',
+                type: 'desktop',
+                po_dir: podir,
+                install: true,
+                install_dir: desktopdir)
+
+appdata = configure_file(input: 'org.freedesktop.Piper.appdata.xml.in.in',
+                         output: 'org.freedesktop.Piper.appdata.xml.in',
+                         configuration: conf)
+
+i18n.merge_file(input: appdata,
+                output: 'org.freedesktop.Piper.appdata.xml',
+                type: 'xml',
+                po_dir: podir,
+                install: true,
+                install_dir: metainfodir)
