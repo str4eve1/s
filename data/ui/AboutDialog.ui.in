@@ -15,8 +15,21 @@
     Jente Hidskes &lt;hjdskes@gmail.com&gt;
     Peter Hutterer &lt;peter.hutterer@who-t.net&gt;
 
+    <!--  Contributor list: git log | git shortlog \-\-summary | cut -f2 -->
 Contributors:
-	Dan Callaghan &lt;djc@djc.id.au&gt;
+        AsavarTzeth
+        Benjamin Tissoires
+        Dan Callaghan
+        FFY00
+        Ikey Doherty
+        Jente Hidskes
+        Julian Richen
+        Peter Hutterer
+        Piotr Drąg
+        Rasmus Thomsen
+        Thomas Hindoe Paaboel Andersen
+        gogogogi
+        muzena
     </property>
     <property name="artists">Peter Hutterer &lt;peter.hutterer@who-t.net&gt;</property>
     <property name="translator_credits" translatable="yes">translator-credits</property>
