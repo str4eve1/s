@@ -1,15 +1,15 @@
 # Polish translation for piper.
-# Copyright © 2017 the piper authors.
+# Copyright © 2017-2018 the piper authors.
 # This file is distributed under the same license as the piper package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2017.
-# Aviary.pl <community-poland@mozilla.org>, 2017.
+# Piotr Drąg <piotrdrag@gmail.com>, 2017-2018.
+# Aviary.pl <community-poland@mozilla.org>, 2017-2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-01 13:37+0200\n"
-"PO-Revision-Date: 2017-10-01 13:38+0200\n"
+"POT-Creation-Date: 2018-09-12 20:29+0200\n"
+"PO-Revision-Date: 2018-09-12 20:40+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -18,6 +18,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+
+#: data/org.freedesktop.Piper.desktop.in:3
+#: data/org.freedesktop.Piper.appdata.xml.in.in:7
+msgid "Piper"
+msgstr "Piper"
+
+#: data/org.freedesktop.Piper.desktop.in:4
+#: data/org.freedesktop.Piper.appdata.xml.in.in:8
+msgid "Configurable mouse configuration utility"
+msgstr "Konfigurowalne narzędzie do konfiguracji myszy"
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.freedesktop.Piper.desktop.in:7
+msgid "org.freedesktop.Piper"
+msgstr "org.freedesktop.Piper"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.freedesktop.Piper.desktop.in:12
+msgid "gaming;configuration;mouse;mice;"
+msgstr ""
+"gry;gra;granie;konfiguracja;ustawienia;opcje;preferencje;mysz;myszy;myszka;"
+"myszki;gryzoń;"
+
+#: data/org.freedesktop.Piper.appdata.xml.in.in:10
+msgid ""
+"Piper is a graphical user interface to configure gaming mice. Configuration "
+"options include changing the resolution (DPI) of the mouse, adding and "
+"removing profiles, setting LED colors and changing button behaviors."
+msgstr ""
+"Piper to graficzny interfejs użytkownika do konfiguracji myszy do gier "
+"komputerowych. Można między innymi zmieniać rozdzielczość (DPI) myszy, "
+"dodawać i usuwać profile, ustawiać kolory diod LED i zmieniać zachowanie "
+"przycisków."
+
+#: data/org.freedesktop.Piper.appdata.xml.in.in:16
+msgid ""
+"Piper requires libratbag’s ratbagd, the daemon to actually communicate with "
+"the mice. Piper is merely a front end to ratbagd, ratbagd must be installed "
+"and running when Piper is launched."
+msgstr ""
+"Piper wymaga ratbagd biblioteki libratbag, usługi do komunikacji z myszą. "
+"Piper to tylko interfejs dla usługi ratbagd, która musi być zainstalowana "
+"i uruchomiona przed włączeniem programu Piper."
+
+#: data/org.freedesktop.Piper.appdata.xml.in.in:33
+msgid "The button configuraton page"
+msgstr "Strona konfiguracji przycisków"
+
+#: data/org.freedesktop.Piper.appdata.xml.in.in:37
+msgid "The LED configuraton page"
+msgstr "Strona konfiguracji diod LED"
+
+#: data/org.freedesktop.Piper.appdata.xml.in.in:41
+msgid "The resolution configuraton page"
+msgstr "Strona konfiguracji rozdzielczości"
 
 #. Translators: section header for mapping one button's click to another.
 #: piper/buttondialog.py:144
@@ -45,7 +100,7 @@ msgid "Disabled"
 msgstr "Wyłączone"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:94 piper/ratbagd.py:689
+#: piper/buttonspage.py:94 piper/ratbagd.py:744
 msgid "Unknown"
 msgstr "Nieznane"
 
@@ -53,142 +108,137 @@ msgstr "Nieznane"
 msgid "Configure button {}"
 msgstr "Konfiguracja {}. przycisku"
 
-#: piper/mouseperspective.py:86 data/ui/ResolutionsPage.ui:209
+#: piper/mouseperspective.py:89 data/ui/ResolutionsPage.ui:209
 msgid "Resolutions"
 msgstr "Rozdzielczości"
 
-#: piper/mouseperspective.py:88
+#: piper/mouseperspective.py:91
 msgid "Buttons"
 msgstr "Przyciski"
 
-#: piper/mouseperspective.py:90
+#: piper/mouseperspective.py:93
 msgid "LEDs"
 msgstr "Diody LED"
 
-#. Translators: the {} will be replaced with the profile index.
-#: piper/mouseperspective.py:94 piper/profilerow.py:42
-msgid "Profile {}"
-msgstr "{}. profil"
-
-#: piper/ratbagd.py:679
+#: piper/ratbagd.py:734
 msgid "Left mouse button click"
 msgstr "Kliknięcie lewym przyciskiem myszy"
 
-#: piper/ratbagd.py:680
+#: piper/ratbagd.py:735
 msgid "Right mouse button click"
 msgstr "Kliknięcie prawym przyciskiem myszy"
 
-#: piper/ratbagd.py:681
+#: piper/ratbagd.py:736
 msgid "Middle mouse button click"
 msgstr "Kliknięcie środkowym przyciskiem myszy"
 
-#: piper/ratbagd.py:682
+#: piper/ratbagd.py:737
 msgid "Backward"
 msgstr "Wstecz"
 
-#: piper/ratbagd.py:683
+#: piper/ratbagd.py:738
 msgid "Forward"
 msgstr "Dalej"
 
-#: piper/ratbagd.py:688
+#: piper/ratbagd.py:743
 msgid "Invalid"
 msgstr "Nieprawidłowe"
 
-#: piper/ratbagd.py:690
+#: piper/ratbagd.py:745
 msgid "Doubleclick"
 msgstr "Podwójne kliknięcie"
 
-#: piper/ratbagd.py:691
+#: piper/ratbagd.py:746
 msgid "Wheel Left"
 msgstr "Kółko w lewo"
 
-#: piper/ratbagd.py:692
+#: piper/ratbagd.py:747
 msgid "Wheel Right"
 msgstr "Kółko w prawo"
 
-#: piper/ratbagd.py:693
+#: piper/ratbagd.py:748
 msgid "Wheel Up"
 msgstr "Kółko w górę"
 
-#: piper/ratbagd.py:694
+#: piper/ratbagd.py:749
 msgid "Wheel Down"
 msgstr "Kółko w dół"
 
-#: piper/ratbagd.py:695
+#: piper/ratbagd.py:750
 msgid "Ratchet Mode"
 msgstr "Tryb zapadkowy"
 
-#: piper/ratbagd.py:696
+#: piper/ratbagd.py:751
 msgid "Cycle Resolution Up"
 msgstr "Przewija rozdzielczość w górę"
 
-#: piper/ratbagd.py:697
+#: piper/ratbagd.py:752
 msgid "Cycle Resolution Down"
 msgstr "Przewija rozdzielczość w dół"
 
-#: piper/ratbagd.py:698
+#: piper/ratbagd.py:753
 msgid "Resolution Up"
 msgstr "Rozdzielczość w górę"
 
-#: piper/ratbagd.py:699
+#: piper/ratbagd.py:754
 msgid "Resolution Down"
 msgstr "Rozdzielczość w dół"
 
-#: piper/ratbagd.py:700
+#: piper/ratbagd.py:755
 msgid "Resolution Switch"
 msgstr "Przełączenie rozdzielczości"
 
-#: piper/ratbagd.py:701
+#: piper/ratbagd.py:756
 msgid "Default Resolution"
 msgstr "Domyślna rozdzielczość"
 
-#: piper/ratbagd.py:702
+#: piper/ratbagd.py:757
 msgid "Cycle Profile Up"
 msgstr "Przewija profil w górę"
 
-#: piper/ratbagd.py:703
+#: piper/ratbagd.py:758
 msgid "Cycle Profile Down"
 msgstr "Przewija profil w dół"
 
-#: piper/ratbagd.py:704
+#: piper/ratbagd.py:759
 msgid "Profile Up"
 msgstr "Profil w górę"
 
-#: piper/ratbagd.py:705
+#: piper/ratbagd.py:760
 msgid "Profile Down"
 msgstr "Profil w dół"
 
-#: piper/ratbagd.py:706
+#: piper/ratbagd.py:761
 msgid "Second Mode"
 msgstr "Drugi poziom"
 
-#: piper/ratbagd.py:707
+#: piper/ratbagd.py:762
 msgid "Battery Level"
 msgstr "Poziom naładowania akumulatora"
 
 #. Translators: this is used when there is no macro to preview.
-#: piper/ratbagd.py:820 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+#: piper/ratbagd.py:875 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
 msgid "None"
 msgstr "Brak"
 
 #. Translators: the LED is off.
-#: piper/ratbagd.py:894 data/ui/LedDialog.ui:391
+#: piper/ratbagd.py:955 data/ui/LedDialog.ui:395
 msgid "Off"
 msgstr "Wyłączone"
 
 #. Translators: the LED has a single, solid color.
-#: piper/ratbagd.py:896 data/ui/LedDialog.ui:66
+#: piper/ratbagd.py:957 data/ui/LedDialog.ui:66
 msgid "Solid"
 msgstr "Jeden kolor"
 
 #. Translators: the LED is cycling between red, green and blue.
-#: piper/ratbagd.py:898 data/ui/LedDialog.ui:188
+#: piper/ratbagd.py:959 data/ui/LedDialog.ui:189
 msgid "Cycle"
 msgstr "Zmienny kolor"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
-#: piper/ratbagd.py:901 data/ui/LedDialog.ui:353
+#: piper/ratbagd.py:962 data/ui/LedDialog.ui:355
 msgid "Breathing"
 msgstr "Pulsujący kolor"
 
@@ -228,13 +278,27 @@ msgstr "Proszę się upewnić, że urządzenie jest podłączone"
 msgid "Cannot display device SVG"
 msgstr "Nie można wyświetlić obrazu SVG urządzenia"
 
-#: piper/window.py:157
+#: piper/window.py:162
+msgid "Newer version of ratbagd required"
+msgstr "Wymagana jest nowsza wersja usługi ratbagd"
+
+#: piper/window.py:163
+msgid "Please update to the latest available version"
+msgstr "Proszę zaktualizować do najnowszej dostępnej wersji"
+
+#: piper/window.py:165
 msgid "Unknown exception occurred"
 msgstr "Wystąpił nieznany wyjątek"
 
 #: data/ui/AboutDialog.ui.in:13
-msgid "Visit Piper's website"
+msgid "Visit Piper’s website"
 msgstr "Strona programu Piper"
+
+#: data/ui/AboutDialog.ui.in:22
+msgid "translator-credits"
+msgstr ""
+"Piotr Drąg <piotrdrag@gmail.com>, 2017-2018\n"
+"Aviary.pl <community-poland@mozilla.org>, 2017-2018"
 
 #: data/ui/ButtonDialog.ui:65
 msgid "Search for a button mapping"
@@ -261,7 +325,7 @@ msgid "Press Escape to cancel or Return to accept."
 msgstr "Klawisz Esc anuluje, a Enter przyjmie."
 
 #: data/ui/ButtonDialog.ui:252
-msgid "Set the device's handedness."
+msgid "Set the device’s handedness."
 msgstr "Lewo- lub praworęczność urządzenia."
 
 #: data/ui/ButtonDialog.ui:270
@@ -290,20 +354,20 @@ msgstr "Praworęczna"
 msgid "The left mouse button generates a right mouse click"
 msgstr "Lewy przycisk myszy generuje kliknięcie prawym przyciskiem myszy"
 
-#: data/ui/ButtonDialog.ui:354 data/ui/LedDialog.ui:410
+#: data/ui/ButtonDialog.ui:354 data/ui/LedDialog.ui:414
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: data/ui/ButtonDialog.ui:356 data/ui/LedDialog.ui:414
+#: data/ui/ButtonDialog.ui:356 data/ui/LedDialog.ui:418
 msgid "Ignore any changes made"
 msgstr "Ignoruje wprowadzone zmiany"
 
-#: data/ui/ButtonDialog.ui:362 data/ui/LedDialog.ui:426
+#: data/ui/ButtonDialog.ui:362 data/ui/LedDialog.ui:430
 #: data/ui/MousePerspective.ui:133
 msgid "Apply"
 msgstr "Zastosuj"
 
-#: data/ui/ButtonDialog.ui:365 data/ui/LedDialog.ui:431
+#: data/ui/ButtonDialog.ui:365 data/ui/LedDialog.ui:435
 msgid "Apply any changes made"
 msgstr "Zastosowuje wprowadzone zmiany"
 
@@ -316,51 +380,50 @@ msgid "Try a different search"
 msgstr "Proszę spróbować innych słów"
 
 #: data/ui/ErrorPerspective.ui:16
-msgid "Here, rodent, rodent, rodent..."
+msgid "Here, rodent, rodent, rodent…"
 msgstr "Myszko, myszko, myszko…"
 
 #: data/ui/ErrorPerspective.ui:69
-msgid "Uh Oh! Something went wrong..."
+msgid "Uh Oh! Something went wrong…"
 msgstr "Coś się nie powiodło."
 
 #: data/ui/ErrorPerspective.ui:73 data/ui/WelcomePerspective.ui:123
 msgid "Quit"
 msgstr "Zakończ"
 
-#: data/ui/LedDialog.ui:58 data/ui/LedDialog.ui:208
+#: data/ui/LedDialog.ui:58 data/ui/LedDialog.ui:209
 msgid "Choose a color for the LED"
 msgstr "Wybiera kolor diody LED"
 
-#: data/ui/LedDialog.ui:90 data/ui/LedDialog.ui:256
+#: data/ui/LedDialog.ui:90 data/ui/LedDialog.ui:257
 msgid "Choose a brightness for the LED"
 msgstr "Wybiera jasność diody LED"
 
-#: data/ui/LedDialog.ui:104 data/ui/LedDialog.ui:269
+#: data/ui/LedDialog.ui:104 data/ui/LedDialog.ui:270
 msgid "Brightness"
 msgstr "Jasność"
 
-#: data/ui/LedDialog.ui:135 data/ui/LedDialog.ui:300
-msgid "Choose an effect rate for the LED"
-msgstr "Wybiera tempo efektu diody LED"
+#: data/ui/LedDialog.ui:135 data/ui/LedDialog.ui:301
+msgid "Choose an effect duration for the LED"
+msgstr "Wybiera czas trwania efektu diody LED"
 
-#: data/ui/LedDialog.ui:152 data/ui/LedDialog.ui:317
-#: data/ui/ResolutionsPage.ui:105
-msgid "Hz"
-msgstr "Hz"
+#: data/ui/LedDialog.ui:153 data/ui/LedDialog.ui:319
+msgid "ms"
+msgstr "ms"
 
-#: data/ui/LedDialog.ui:174 data/ui/LedDialog.ui:339
-msgid "Effect rate"
-msgstr "Tempo efektu"
+#: data/ui/LedDialog.ui:175 data/ui/LedDialog.ui:341
+msgid "Effect duration"
+msgstr "Czas trwania efektu"
 
-#: data/ui/LedDialog.ui:211
+#: data/ui/LedDialog.ui:212
 msgid "Pick a Color for the LED"
 msgstr "Kolor diody LED"
 
-#: data/ui/LedDialog.ui:225
+#: data/ui/LedDialog.ui:226
 msgid "Color"
 msgstr "Kolor"
 
-#: data/ui/LedDialog.ui:378
+#: data/ui/LedDialog.ui:380
 msgid "This LED is off"
 msgstr "Ta dioda LED jest wyłączona"
 
@@ -414,7 +477,7 @@ msgid "Active"
 msgstr "Aktywna"
 
 #: data/ui/ResolutionRow.ui:105
-msgid "Set this resolution's DPI"
+msgid "Set this resolution’s DPI"
 msgstr "Ustawia DPI tej rozdzielczości"
 
 #. Translators: the rate at which the device reports movement.
@@ -423,8 +486,12 @@ msgid "Report rate"
 msgstr "Tempo zgłaszania"
 
 #: data/ui/ResolutionsPage.ui:60
-msgid "Change the profile's report rate"
+msgid "Change the profile’s report rate"
 msgstr "Zmienia tempo zgłaszania profilu"
+
+#: data/ui/ResolutionsPage.ui:105
+msgid "Hz"
+msgstr "Hz"
 
 #. Translators: the sensitivity of the device's sensor.
 #: data/ui/ResolutionsPage.ui:125
