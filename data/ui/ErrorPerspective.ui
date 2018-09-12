@@ -13,7 +13,7 @@
       <object class="GtkImage">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Here, rodent, rodent, rodent...</property>
+        <property name="tooltip_text" translatable="yes">Here, rodent, rodent, rodent…</property>
         <property name="resource">/org/freedesktop/Piper/404.svg</property>
       </object>
       <packing>
@@ -66,7 +66,7 @@
   <object class="GtkHeaderBar" id="_titlebar">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Uh Oh! Something went wrong...</property>
+    <property name="title" translatable="yes">Uh Oh! Something went wrong…</property>
     <property name="has_subtitle">False</property>
     <child>
       <object class="GtkButton">

@@ -249,7 +249,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Set the device's handedness.</property>
+                    <property name="label" translatable="yes">Set the device’s handedness.</property>
                     <property name="justify">center</property>
                     <property name="wrap">True</property>
                     <property name="wrap_mode">word-char</property>

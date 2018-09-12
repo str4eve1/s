@@ -10,7 +10,7 @@
     <property name="version">@version@</property>
     <property name="copyright">Copyright © 2017 Piper Developers</property>
     <property name="website">@url@</property>
-    <property name="website_label" translatable="yes">Visit Piper's website</property>
+    <property name="website_label" translatable="yes">Visit Piper’s website</property>
     <property name="authors">Maintainers:
     Jente Hidskes &lt;hjdskes@gmail.com&gt;
     Peter Hutterer &lt;peter.hutterer@who-t.net&gt;
