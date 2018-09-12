@@ -77,6 +77,15 @@ Contributing
 Yes please. It's best to contact us first to see what you could do. Note that
 the devices displayed by Piper come from libratbag.
 
+For quicker development iteration, there is a special binary `piper.devel`
+that uses data files from the git directory. This removes the need to
+install piper after every code change.
+```
+$ ninja -C builddir
+$ ./builddir/piper.devel
+```
+Note that this still requires ratbagd to run on the system bus.
+
 Piper tries to conform to Python's PEP8 style guide. To verify your code before
 opening a PR, please install `flake8` and run the following commands to install
 its pre-commit hook:
