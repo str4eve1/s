@@ -37,8 +37,8 @@ Installing Piper
 ================
 
 Most popular distributions package Piper and it is available through the
-packaging system (apt, dnf, yum, pacman, ...). This is the preferred way of
-installing Piper.
+packaging system (apt, dnf, yum, pacman, zypper, ...). This is the preferred
+way of installing Piper.
 
 Piper is also available as a
 [Flatpak](https://flathub.org/apps/details/org.freedesktop.Piper).
