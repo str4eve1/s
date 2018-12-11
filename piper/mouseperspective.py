@@ -19,7 +19,7 @@ from gettext import gettext as _
 from .buttonspage import ButtonsPage
 from .gi_composites import GtkTemplate
 from .profilerow import ProfileRow
-from .ratbagd import RatbagErrorCode, RatbagdDevice
+from .ratbagd import RatbagdDevice
 from .resolutionspage import ResolutionsPage
 from .ledspage import LedsPage
 
@@ -128,13 +128,9 @@ class MousePerspective(Gtk.Overlay):
         self._hide_notification_commit()
         return False
 
-    def _commit_cb(self, status):
-        if not status == RatbagErrorCode.SUCCESS:
-            self._show_notification_commit()
-
     @GtkTemplate.Callback
     def _on_save_button_clicked(self, button):
-        self._device.commit(self._commit_cb)
+        self._device.commit()
 
     @GtkTemplate.Callback
     def _on_notification_commit_close_clicked(self, button):
