@@ -57,7 +57,6 @@ class ResolutionsPage(Gtk.Box):
         self.init_template()
 
         self._device = ratbagd_device
-        self._notification_commit_timeout_id = 0
         self._last_activated_row = None
 
         self._device.connect("active-profile-changed", self._on_active_profile_changed)
