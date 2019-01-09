@@ -18,7 +18,5 @@
         <file preprocess="xml-stripblanks">ui/ResolutionsPage.ui</file>
         <file preprocess="xml-stripblanks">ui/WelcomePerspective.ui</file>
         <file preprocess="xml-stripblanks">ui/Window.ui</file>
-        <!-- Using this alias, GtkApplication will automatically pick it up for us. -->
-        <file alias="gtk/menus.ui" preprocess="xml-stripblanks">ui/Menus.ui</file>
     </gresource>
 </gresources>

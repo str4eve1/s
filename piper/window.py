@@ -36,6 +36,7 @@ class Window(Gtk.ApplicationWindow):
 
     stack_titlebar = GtkTemplate.Child()
     stack_perspectives = GtkTemplate.Child()
+    primary_menu = GtkTemplate.Child()
 
     def __init__(self, ratbag, *args, **kwargs):
         """Instantiates a new Window.
@@ -128,6 +129,7 @@ class Window(Gtk.ApplicationWindow):
         self.stack_titlebar.add_named(perspective.titlebar, perspective.name)
         if perspective.can_go_back:
             self._perspective_add_back_button(perspective, ratbag)
+        self._perspective_add_primary_menu(perspective)
 
     def _present_welcome_perspective(self, devices):
         # Present the welcome perspective for the user to select one of their
@@ -186,3 +188,15 @@ class Window(Gtk.ApplicationWindow):
         perspective.titlebar.add(button_back)
         # Place the button first in the titlebar.
         perspective.titlebar.child_set_property(button_back, "position", 0)
+
+    def _perspective_add_primary_menu(self, perspective):
+        hamburger = Gtk.Image.new_from_icon_name("open-menu-symbolic",
+                                                 Gtk.IconSize.BUTTON)
+        hamburger.set_visible(True)
+        button_primary_menu = Gtk.MenuButton.new()
+        button_primary_menu.add(hamburger)
+        button_primary_menu.set_visible(True)
+        button_primary_menu.set_menu_model(self.primary_menu)
+        perspective.titlebar.pack_end(button_primary_menu)
+        # Place the button last in the titlebar.
+        perspective.titlebar.child_set_property(button_primary_menu, "position", 0)
