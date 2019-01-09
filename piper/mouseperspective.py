@@ -36,7 +36,7 @@ class MousePerspective(Gtk.Overlay):
 
     _titlebar = GtkTemplate.Child()
     stack = GtkTemplate.Child()
-    notification_commit = GtkTemplate.Child()
+    notification_error = GtkTemplate.Child()
     listbox_profiles = GtkTemplate.Child()
     label_profile = GtkTemplate.Child()
     add_profile_button = GtkTemplate.Child()
@@ -48,7 +48,7 @@ class MousePerspective(Gtk.Overlay):
         Gtk.Overlay.__init__(self, *args, **kwargs)
         self.init_template()
         self._device = None
-        self._notification_commit_timeout_id = 0
+        self._notification_error_timeout_id = 0
 
     @GObject.Property
     def name(self):
@@ -113,19 +113,19 @@ class MousePerspective(Gtk.Overlay):
             if profile is active_profile:
                 self.listbox_profiles.select_row(row)
 
-    def _hide_notification_commit(self):
-        if self._notification_commit_timeout_id is not 0:
-            GLib.Source.remove(self._notification_commit_timeout_id)
-            self._notification_commit_timeout_id = 0
-        self.notification_commit.set_reveal_child(False)
+    def _hide_notification_error(self):
+        if self._notification_error_timeout_id is not 0:
+            GLib.Source.remove(self._notification_error_timeout_id)
+            self._notification_error_timeout_id = 0
+        self.notification_error.set_reveal_child(False)
 
-    def _show_notification_commit(self):
-        self.notification_commit.set_reveal_child(True)
-        self._notification_commit_timeout_id = GLib.timeout_add_seconds(5,
-                                                                        self._on_notification_commit_timeout)
+    def _show_notification_error(self):
+        self.notification_error.set_reveal_child(True)
+        self._notification_error_timeout_id = GLib.timeout_add_seconds(5,
+                                                                       self._on_notification_error_timeout)
 
-    def _on_notification_commit_timeout(self):
-        self._hide_notification_commit()
+    def _on_notification_error_timeout(self):
+        self._hide_notification_error()
         return False
 
     @GtkTemplate.Callback
@@ -133,8 +133,8 @@ class MousePerspective(Gtk.Overlay):
         self._device.commit()
 
     @GtkTemplate.Callback
-    def _on_notification_commit_close_clicked(self, button):
-        self._hide_notification_commit()
+    def _on_notification_error_close_clicked(self, button):
+        self._hide_notification_error()
 
     @GtkTemplate.Callback
     def _on_profile_row_activated(self, listbox, row):
