@@ -127,17 +127,7 @@ class Window(Gtk.ApplicationWindow):
         self.stack_perspectives.add_named(perspective, perspective.name)
         self.stack_titlebar.add_named(perspective.titlebar, perspective.name)
         if perspective.can_go_back:
-            button_back = Gtk.Button.new_from_icon_name("go-previous-symbolic",
-                                                        Gtk.IconSize.BUTTON)
-            button_back.set_visible(len(ratbag.devices) > 1)
-            button_back.connect("clicked", lambda button, ratbag:
-                                self._present_welcome_perspective(ratbag.devices),
-                                ratbag)
-            ratbag.connect("notify::devices", lambda ratbag, pspec:
-                           button_back.set_visible(len(ratbag.devices) > 1))
-            perspective.titlebar.add(button_back)
-            # Place the button first in the titlebar.
-            perspective.titlebar.child_set_property(button_back, "position", 0)
+            self._perspective_add_back_button(perspective, ratbag)
 
     def _present_welcome_perspective(self, devices):
         # Present the welcome perspective for the user to select one of their
@@ -183,3 +173,16 @@ class Window(Gtk.ApplicationWindow):
 
     def _get_child(self, name):
         return self.stack_perspectives.get_child_by_name(name)
+
+    def _perspective_add_back_button(self, perspective, ratbag):
+        button_back = Gtk.Button.new_from_icon_name("go-previous-symbolic",
+                                                    Gtk.IconSize.BUTTON)
+        button_back.set_visible(len(ratbag.devices) > 1)
+        button_back.connect("clicked",
+                            lambda _, ratbag: self._present_welcome_perspective(ratbag.devices),
+                            ratbag)
+        ratbag.connect("notify::devices",
+                       lambda ratbag, _: button_back.set_visible(len(ratbag.devices) > 1))
+        perspective.titlebar.add(button_back)
+        # Place the button first in the titlebar.
+        perspective.titlebar.child_set_property(button_back, "position", 0)
