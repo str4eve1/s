@@ -84,6 +84,7 @@ class MousePerspective(Gtk.Overlay):
     def set_device(self, device):
         self._device = device
         capabilities = device.capabilities
+        device.connect("resync", lambda _: self._show_notification_error())
 
         self.stack.foreach(Gtk.Widget.destroy)
         if RatbagdDevice.CAP_RESOLUTION in capabilities:
