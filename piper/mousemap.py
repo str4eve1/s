@@ -292,6 +292,10 @@ class MouseMap(Gtk.Container):
 
         @param cr The Cairo context to draw into, as cairo.Context
         """
+        scale_factor = self.get_scale_factor()
+        target = cr.get_target()
+        target.set_device_scale(scale_factor, scale_factor)
+
         cr.save()
         x, y = self._translate_to_origin()
         cr.translate(x, y)
