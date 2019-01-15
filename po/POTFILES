@@ -26,7 +26,6 @@ data/ui/ButtonRow.ui
 data/ui/DeviceRow.ui
 data/ui/ErrorPerspective.ui
 data/ui/LedDialog.ui
-data/ui/Menus.ui
 data/ui/MousePerspective.ui
 data/ui/OptionButton.ui
 data/ui/ProfileRow.ui
