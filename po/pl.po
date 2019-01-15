@@ -1,15 +1,15 @@
 # Polish translation for piper.
-# Copyright © 2017-2018 the piper authors.
+# Copyright © 2017-2019 the piper authors.
 # This file is distributed under the same license as the piper package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2017-2018.
-# Aviary.pl <community-poland@mozilla.org>, 2017-2018.
+# Piotr Drąg <piotrdrag@gmail.com>, 2017-2019.
+# Aviary.pl <community-poland@mozilla.org>, 2017-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-12 20:29+0200\n"
-"PO-Revision-Date: 2018-09-12 20:40+0200\n"
+"POT-Creation-Date: 2019-01-15 19:08+0100\n"
+"PO-Revision-Date: 2019-01-15 19:11+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -100,7 +100,7 @@ msgid "Disabled"
 msgstr "Wyłączone"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:94 piper/ratbagd.py:744
+#: piper/buttonspage.py:94 piper/ratbagd.py:734
 msgid "Unknown"
 msgstr "Nieznane"
 
@@ -108,185 +108,193 @@ msgstr "Nieznane"
 msgid "Configure button {}"
 msgstr "Konfiguracja {}. przycisku"
 
-#: piper/mouseperspective.py:89 data/ui/ResolutionsPage.ui:209
+#: piper/mouseperspective.py:91 data/ui/ResolutionsPage.ui:209
 msgid "Resolutions"
 msgstr "Rozdzielczości"
 
-#: piper/mouseperspective.py:91
+#: piper/mouseperspective.py:93
 msgid "Buttons"
 msgstr "Przyciski"
 
-#: piper/mouseperspective.py:93
+#: piper/mouseperspective.py:95
 msgid "LEDs"
 msgstr "Diody LED"
 
-#: piper/ratbagd.py:734
+#: piper/ratbagd.py:724
 msgid "Left mouse button click"
 msgstr "Kliknięcie lewym przyciskiem myszy"
 
-#: piper/ratbagd.py:735
+#: piper/ratbagd.py:725
 msgid "Right mouse button click"
 msgstr "Kliknięcie prawym przyciskiem myszy"
 
-#: piper/ratbagd.py:736
+#: piper/ratbagd.py:726
 msgid "Middle mouse button click"
 msgstr "Kliknięcie środkowym przyciskiem myszy"
 
-#: piper/ratbagd.py:737
+#: piper/ratbagd.py:727
 msgid "Backward"
 msgstr "Wstecz"
 
-#: piper/ratbagd.py:738
+#: piper/ratbagd.py:728
 msgid "Forward"
 msgstr "Dalej"
 
-#: piper/ratbagd.py:743
+#: piper/ratbagd.py:733
 msgid "Invalid"
 msgstr "Nieprawidłowe"
 
-#: piper/ratbagd.py:745
+#: piper/ratbagd.py:735
 msgid "Doubleclick"
 msgstr "Podwójne kliknięcie"
 
-#: piper/ratbagd.py:746
+#: piper/ratbagd.py:736
 msgid "Wheel Left"
 msgstr "Kółko w lewo"
 
-#: piper/ratbagd.py:747
+#: piper/ratbagd.py:737
 msgid "Wheel Right"
 msgstr "Kółko w prawo"
 
-#: piper/ratbagd.py:748
+#: piper/ratbagd.py:738
 msgid "Wheel Up"
 msgstr "Kółko w górę"
 
-#: piper/ratbagd.py:749
+#: piper/ratbagd.py:739
 msgid "Wheel Down"
 msgstr "Kółko w dół"
 
-#: piper/ratbagd.py:750
+#: piper/ratbagd.py:740
 msgid "Ratchet Mode"
 msgstr "Tryb zapadkowy"
 
-#: piper/ratbagd.py:751
+#: piper/ratbagd.py:741
 msgid "Cycle Resolution Up"
 msgstr "Przewija rozdzielczość w górę"
 
-#: piper/ratbagd.py:752
+#: piper/ratbagd.py:742
 msgid "Cycle Resolution Down"
 msgstr "Przewija rozdzielczość w dół"
 
-#: piper/ratbagd.py:753
+#: piper/ratbagd.py:743
 msgid "Resolution Up"
 msgstr "Rozdzielczość w górę"
 
-#: piper/ratbagd.py:754
+#: piper/ratbagd.py:744
 msgid "Resolution Down"
 msgstr "Rozdzielczość w dół"
 
-#: piper/ratbagd.py:755
+#: piper/ratbagd.py:745
 msgid "Resolution Switch"
 msgstr "Przełączenie rozdzielczości"
 
-#: piper/ratbagd.py:756
+#: piper/ratbagd.py:746
 msgid "Default Resolution"
 msgstr "Domyślna rozdzielczość"
 
-#: piper/ratbagd.py:757
+#: piper/ratbagd.py:747
 msgid "Cycle Profile Up"
 msgstr "Przewija profil w górę"
 
-#: piper/ratbagd.py:758
+#: piper/ratbagd.py:748
 msgid "Cycle Profile Down"
 msgstr "Przewija profil w dół"
 
-#: piper/ratbagd.py:759
+#: piper/ratbagd.py:749
 msgid "Profile Up"
 msgstr "Profil w górę"
 
-#: piper/ratbagd.py:760
+#: piper/ratbagd.py:750
 msgid "Profile Down"
 msgstr "Profil w dół"
 
-#: piper/ratbagd.py:761
+#: piper/ratbagd.py:751
 msgid "Second Mode"
 msgstr "Drugi poziom"
 
-#: piper/ratbagd.py:762
+#: piper/ratbagd.py:752
 msgid "Battery Level"
 msgstr "Poziom naładowania akumulatora"
 
 #. Translators: this is used when there is no macro to preview.
-#: piper/ratbagd.py:875 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+#: piper/ratbagd.py:865 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
 msgid "None"
 msgstr "Brak"
 
 #. Translators: the LED is off.
-#: piper/ratbagd.py:955 data/ui/LedDialog.ui:395
+#: piper/ratbagd.py:945 data/ui/LedDialog.ui:395
 msgid "Off"
 msgstr "Wyłączone"
 
 #. Translators: the LED has a single, solid color.
-#: piper/ratbagd.py:957 data/ui/LedDialog.ui:66
+#: piper/ratbagd.py:947 data/ui/LedDialog.ui:66
 msgid "Solid"
 msgstr "Jeden kolor"
 
 #. Translators: the LED is cycling between red, green and blue.
-#: piper/ratbagd.py:959 data/ui/LedDialog.ui:189
+#: piper/ratbagd.py:949 data/ui/LedDialog.ui:189
 msgid "Cycle"
 msgstr "Zmienny kolor"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
-#: piper/ratbagd.py:962 data/ui/LedDialog.ui:355
+#: piper/ratbagd.py:952 data/ui/LedDialog.ui:355
 msgid "Breathing"
 msgstr "Pulsujący kolor"
 
-#: piper/window.py:50
+#: piper/window.py:51
 msgid "Cannot connect to ratbagd"
 msgstr "Nie można połączyć z usługą ratbagd"
 
-#: piper/window.py:51
+#: piper/window.py:52
 msgid "Please make sure ratbagd is running"
 msgstr "Proszę się upewnić, że usługa ratbagd jest uruchomiona"
 
-#: piper/window.py:64 piper/window.py:114
+#: piper/window.py:66 piper/window.py:120
 msgid "Cannot find any devices"
 msgstr "Nie można odnaleźć żadnego urządzenia"
 
-#: piper/window.py:65 piper/window.py:115
+#: piper/window.py:67 piper/window.py:121
 msgid "Please make sure your device is supported and plugged in"
 msgstr "Proszę się upewnić, że urządzenie jest obsługiwane i podłączone"
 
-#: piper/window.py:77
+#: piper/window.py:79
 msgid "There are unapplied changes. Are you sure you want to quit?"
 msgstr "Są niezastosowane zmiany. Na pewno zakończyć?"
+
+#: piper/window.py:88
+msgid "Ooops. ratbagd has disappeared"
+msgstr "Usługa ratbagd zniknęła"
+
+#: piper/window.py:89
+msgid "Please restart Piper"
+msgstr "Proszę ponownie uruchomić program Piper"
 
 #. The current device disconnected, which can only happen from the
 #. mouse perspective as we'd otherwise be in the welcome screen with
 #. more than one device remaining. Hence, we display the error
 #. perspective.
-#: piper/window.py:106
+#: piper/window.py:112
 msgid "Your device disconnected!"
 msgstr "Urządzenie zostało rozłączone."
 
-#: piper/window.py:107
+#: piper/window.py:113
 msgid "Please make sure your device is plugged in"
 msgstr "Proszę się upewnić, że urządzenie jest podłączone"
 
-#: piper/window.py:155
+#: piper/window.py:152
 msgid "Cannot display device SVG"
 msgstr "Nie można wyświetlić obrazu SVG urządzenia"
 
-#: piper/window.py:162
+#: piper/window.py:159
 msgid "Newer version of ratbagd required"
 msgstr "Wymagana jest nowsza wersja usługi ratbagd"
 
-#: piper/window.py:163
+#: piper/window.py:160
 msgid "Please update to the latest available version"
 msgstr "Proszę zaktualizować do najnowszej dostępnej wersji"
 
-#: piper/window.py:165
+#: piper/window.py:162
 msgid "Unknown exception occurred"
 msgstr "Wystąpił nieznany wyjątek"
 
@@ -294,7 +302,7 @@ msgstr "Wystąpił nieznany wyjątek"
 msgid "Visit Piper’s website"
 msgstr "Strona programu Piper"
 
-#: data/ui/AboutDialog.ui.in:22
+#: data/ui/AboutDialog.ui.in:35
 msgid "translator-credits"
 msgstr ""
 "Piotr Drąg <piotrdrag@gmail.com>, 2017-2018\n"
@@ -363,7 +371,7 @@ msgid "Ignore any changes made"
 msgstr "Ignoruje wprowadzone zmiany"
 
 #: data/ui/ButtonDialog.ui:362 data/ui/LedDialog.ui:430
-#: data/ui/MousePerspective.ui:133
+#: data/ui/MousePerspective.ui:132
 msgid "Apply"
 msgstr "Zastosuj"
 
@@ -427,35 +435,28 @@ msgstr "Kolor"
 msgid "This LED is off"
 msgstr "Ta dioda LED jest wyłączona"
 
-#: data/ui/Menus.ui:7
-msgid "_About"
-msgstr "_O programie"
-
-#: data/ui/Menus.ui:11
-msgid "_Quit"
-msgstr "Za_kończ"
-
 #: data/ui/MousePerspective.ui:44
-msgid "Failed to commit changes to the device"
-msgstr "Wysłanie zmian do urządzenia się nie powiodło"
+msgid "Something went wrong. The device has been reset to a previous state."
+msgstr ""
+"Coś się nie powiodło. Urządzenie zostało przywrócone do poprzedniego stanu."
 
-#: data/ui/MousePerspective.ui:102
+#: data/ui/MousePerspective.ui:101
 msgid "Select another profile"
 msgstr "Wybiera inny profil"
 
-#: data/ui/MousePerspective.ui:127
+#: data/ui/MousePerspective.ui:126
 msgid "Commit the changes to the device"
-msgstr "Wysyła zmiany do urządzenia"
+msgstr "Zatwierdza zmiany na urządzeniu"
 
-#: data/ui/MousePerspective.ui:171
+#: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
 msgstr "Przełącza na inny profil"
 
-#: data/ui/MousePerspective.ui:186
+#: data/ui/MousePerspective.ui:185
 msgid "Add profile"
 msgstr "Dodaj profil"
 
-#: data/ui/MousePerspective.ui:190
+#: data/ui/MousePerspective.ui:189
 msgid "Add a new profile to the device"
 msgstr "Dodaje nowy profil do urządzenia"
 
@@ -519,3 +520,7 @@ msgstr "Wybiera urządzenie do skonfigurowania"
 #: data/ui/WelcomePerspective.ui:119
 msgid "Select a Device"
 msgstr "Wybór urządzenia"
+
+#: data/ui/Window.ui:8
+msgid "_About Piper"
+msgstr "_O programie"
