@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-13 08:47+1000\n"
+"POT-Creation-Date: 2019-01-16 15:00+1000\n"
 "PO-Revision-Date: 2017-08-23 13:02+1000\n"
 "Last-Translator: Peter Hutterer <peter.hutterer@who-t.net>\n"
 "Language-Team: German <>\n"
@@ -98,7 +98,7 @@ msgid "Disabled"
 msgstr "Abgeschalted"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:94 piper/ratbagd.py:744
+#: piper/buttonspage.py:94 piper/ratbagd.py:734
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -106,187 +106,195 @@ msgstr "Unbekannt"
 msgid "Configure button {}"
 msgstr "Taste {} konfigurieren"
 
-#: piper/mouseperspective.py:89 data/ui/ResolutionsPage.ui:209
+#: piper/mouseperspective.py:91 data/ui/ResolutionsPage.ui:209
 msgid "Resolutions"
 msgstr "Auflösungen"
 
-#: piper/mouseperspective.py:91
+#: piper/mouseperspective.py:93
 msgid "Buttons"
 msgstr "Tasten"
 
-#: piper/mouseperspective.py:93
+#: piper/mouseperspective.py:95
 msgid "LEDs"
 msgstr "LEDs"
 
-#: piper/ratbagd.py:734
+#: piper/ratbagd.py:724
 msgid "Left mouse button click"
 msgstr "Klick mit linker Maustaste"
 
-#: piper/ratbagd.py:735
+#: piper/ratbagd.py:725
 msgid "Right mouse button click"
 msgstr "Klick mit rechter Maustaste"
 
-#: piper/ratbagd.py:736
+#: piper/ratbagd.py:726
 msgid "Middle mouse button click"
 msgstr "Klick mit mittlerer Maustaste"
 
-#: piper/ratbagd.py:737
+#: piper/ratbagd.py:727
 msgid "Backward"
 msgstr "Zurück"
 
-#: piper/ratbagd.py:738
+#: piper/ratbagd.py:728
 msgid "Forward"
 msgstr "Weiter"
 
-#: piper/ratbagd.py:743
+#: piper/ratbagd.py:733
 msgid "Invalid"
 msgstr "Ung̈́ültig"
 
-#: piper/ratbagd.py:745
+#: piper/ratbagd.py:735
 msgid "Doubleclick"
 msgstr "Doppelklick"
 
-#: piper/ratbagd.py:746
+#: piper/ratbagd.py:736
 msgid "Wheel Left"
 msgstr "Mausrad links"
 
-#: piper/ratbagd.py:747
+#: piper/ratbagd.py:737
 msgid "Wheel Right"
 msgstr "Mausrad rechts"
 
-#: piper/ratbagd.py:748
+#: piper/ratbagd.py:738
 msgid "Wheel Up"
 msgstr "Mausrad hinauf"
 
-#: piper/ratbagd.py:749
+#: piper/ratbagd.py:739
 msgid "Wheel Down"
 msgstr "Mausrad hinunter"
 
-#: piper/ratbagd.py:750
+#: piper/ratbagd.py:740
 msgid "Ratchet Mode"
 msgstr "Präzisionsmodus"
 
-#: piper/ratbagd.py:751
+#: piper/ratbagd.py:741
 msgid "Cycle Resolution Up"
 msgstr "Nächste Auflösung (zyklisch)"
 
-#: piper/ratbagd.py:752
+#: piper/ratbagd.py:742
 msgid "Cycle Resolution Down"
 msgstr "Vorherige Auflösung (zyklisch)"
 
-#: piper/ratbagd.py:753
+#: piper/ratbagd.py:743
 msgid "Resolution Up"
 msgstr "Nächste Auflösung"
 
-#: piper/ratbagd.py:754
+#: piper/ratbagd.py:744
 msgid "Resolution Down"
 msgstr "Vorherige Auflösung"
 
-#: piper/ratbagd.py:755
+#: piper/ratbagd.py:745
 msgid "Resolution Switch"
 msgstr "Auflösung wechseln"
 
-#: piper/ratbagd.py:756
+#: piper/ratbagd.py:746
 msgid "Default Resolution"
 msgstr "Standardauflösung"
 
-#: piper/ratbagd.py:757
+#: piper/ratbagd.py:747
 msgid "Cycle Profile Up"
 msgstr "Nächstes Profil (zyklisch)"
 
-#: piper/ratbagd.py:758
+#: piper/ratbagd.py:748
 msgid "Cycle Profile Down"
 msgstr "Vorheriges Profil (zyklisch)"
 
-#: piper/ratbagd.py:759
+#: piper/ratbagd.py:749
 msgid "Profile Up"
 msgstr "Nächstes Profil"
 
-#: piper/ratbagd.py:760
+#: piper/ratbagd.py:750
 msgid "Profile Down"
 msgstr "Vorheriges Profil"
 
-#: piper/ratbagd.py:761
+#: piper/ratbagd.py:751
 msgid "Second Mode"
 msgstr "Zweiter Modus"
 
-#: piper/ratbagd.py:762
+#: piper/ratbagd.py:752
 msgid "Battery Level"
 msgstr "Batterieladestand"
 
 #. Translators: this is used when there is no macro to preview.
-#: piper/ratbagd.py:875 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+#: piper/ratbagd.py:865 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
 msgid "None"
 msgstr "Nicht zugewiesen"
 
 #. Translators: the LED is off.
-#: piper/ratbagd.py:955 data/ui/LedDialog.ui:395
+#: piper/ratbagd.py:945 data/ui/LedDialog.ui:395
 msgid "Off"
 msgstr "Aus"
 
 #. Translators: the LED has a single, solid color.
-#: piper/ratbagd.py:957 data/ui/LedDialog.ui:66
+#: piper/ratbagd.py:947 data/ui/LedDialog.ui:66
 msgid "Solid"
 msgstr "Solide"
 
 #. Translators: the LED is cycling between red, green and blue.
-#: piper/ratbagd.py:959 data/ui/LedDialog.ui:189
+#: piper/ratbagd.py:949 data/ui/LedDialog.ui:189
 msgid "Cycle"
 msgstr "Zyklus"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
-#: piper/ratbagd.py:962 data/ui/LedDialog.ui:355
+#: piper/ratbagd.py:952 data/ui/LedDialog.ui:355
 msgid "Breathing"
 msgstr "Pulsierend"
 
-#: piper/window.py:50
+#: piper/window.py:51
 msgid "Cannot connect to ratbagd"
 msgstr "Verbindung mit ratbagd fehlgeschlagen"
 
-#: piper/window.py:51
+#: piper/window.py:52
 msgid "Please make sure ratbagd is running"
 msgstr "Bitte vergewissern Sie sich dass ratbagd läuft"
 
-#: piper/window.py:64 piper/window.py:114
+#: piper/window.py:66 piper/window.py:120
 msgid "Cannot find any devices"
 msgstr "Es wurden keine Geräte gefunden"
 
-#: piper/window.py:65 piper/window.py:115
+#: piper/window.py:67 piper/window.py:121
 msgid "Please make sure your device is supported and plugged in"
 msgstr ""
 "Bitte vergewissern Sie sich dass Ihr Gerät angeschlossen ist und unterstützt "
 "wird"
 
-#: piper/window.py:77
+#: piper/window.py:79
 msgid "There are unapplied changes. Are you sure you want to quit?"
 msgstr "Es gibt ungespeicherte Änderungen. Wollen Sie wirklich aussteigen?"
+
+#: piper/window.py:88
+msgid "Ooops. ratbagd has disappeared"
+msgstr "Ups. ratbagd hat sich in Luft aufgelöst"
+
+#: piper/window.py:89
+msgid "Please restart Piper"
+msgstr "Bitte starten Sie Piper von neuem"
 
 #. The current device disconnected, which can only happen from the
 #. mouse perspective as we'd otherwise be in the welcome screen with
 #. more than one device remaining. Hence, we display the error
 #. perspective.
-#: piper/window.py:106
+#: piper/window.py:112
 msgid "Your device disconnected!"
 msgstr "Das Gerät wurde entfernt!"
 
-#: piper/window.py:107
+#: piper/window.py:113
 msgid "Please make sure your device is plugged in"
 msgstr "Bitte vergewissern Sie sich dass Ihr Gerät angeschlossen ist"
 
-#: piper/window.py:155
+#: piper/window.py:152
 msgid "Cannot display device SVG"
 msgstr "Das SVG des Gerätes kann nicht angezeigt werden"
 
-#: piper/window.py:162
+#: piper/window.py:159
 msgid "Newer version of ratbagd required"
 msgstr "Eine neuere Version von ratbagd ist notwendig"
 
-#: piper/window.py:163
+#: piper/window.py:160
 msgid "Please update to the latest available version"
 msgstr "Bitte auf die neueste Version updaten."
 
-#: piper/window.py:165
+#: piper/window.py:162
 msgid "Unknown exception occurred"
 msgstr "Ein unbekannter Fehler ist aufgetreten"
 
@@ -297,8 +305,7 @@ msgstr "Piper's Website öffnen"
 
 #: data/ui/AboutDialog.ui.in:35
 msgid "translator-credits"
-msgstr ""
-"Peter Hutterer <peter.hutterer@who-t.net>, 2017-2018"
+msgstr "Peter Hutterer <peter.hutterer@who-t.net>, 2017-2019"
 
 #: data/ui/ButtonDialog.ui:65
 msgid "Search for a button mapping"
@@ -363,7 +370,7 @@ msgid "Ignore any changes made"
 msgstr "Alle Änderungen verwerfen"
 
 #: data/ui/ButtonDialog.ui:362 data/ui/LedDialog.ui:430
-#: data/ui/MousePerspective.ui:133
+#: data/ui/MousePerspective.ui:132
 msgid "Apply"
 msgstr "Zuweisen"
 
@@ -431,35 +438,27 @@ msgstr "Farbe"
 msgid "This LED is off"
 msgstr "Diese LED ist ausgeschalten"
 
-#: data/ui/Menus.ui:7
-msgid "_About"
-msgstr "_Info"
-
-#: data/ui/Menus.ui:11
-msgid "_Quit"
-msgstr "_Beenden"
-
 #: data/ui/MousePerspective.ui:44
-msgid "Failed to commit changes to the device"
-msgstr "Das Speichern der Änderungen ist fehlgeschlagen"
+msgid "Something went wrong. The device has been reset to a previous state."
+msgstr "Irgendetwas ist falschgelaufen. Das Gerät wurde auf einen vorherigen Stand zurückgesetzt."
 
-#: data/ui/MousePerspective.ui:102
+#: data/ui/MousePerspective.ui:101
 msgid "Select another profile"
 msgstr "Anderes Profile auswählen"
 
-#: data/ui/MousePerspective.ui:127
+#: data/ui/MousePerspective.ui:126
 msgid "Commit the changes to the device"
 msgstr "Änderungen am Gerät speichern"
 
-#: data/ui/MousePerspective.ui:171
+#: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
 msgstr "Klicken Sie hier um auf ein anderes Profil zu wechseln"
 
-#: data/ui/MousePerspective.ui:186
+#: data/ui/MousePerspective.ui:185
 msgid "Add profile"
 msgstr "Profil hinzufügen"
 
-#: data/ui/MousePerspective.ui:190
+#: data/ui/MousePerspective.ui:189
 msgid "Add a new profile to the device"
 msgstr "Profil hinzufügen"
 
@@ -525,6 +524,17 @@ msgstr "Bitte ein Gerät zur Konfiguration auswählen"
 #: data/ui/WelcomePerspective.ui:119
 msgid "Select a Device"
 msgstr "Bitte ein Gerät auswählen"
+
+#: data/ui/Window.ui:8
+#, fuzzy
+msgid "_About Piper"
+msgstr "_Info"
+
+#~ msgid "_Quit"
+#~ msgstr "_Beenden"
+
+#~ msgid "Failed to commit changes to the device"
+#~ msgstr "Das Speichern der Änderungen ist fehlgeschlagen"
 
 #~ msgid "Profile {}"
 #~ msgstr "Profil {}"
