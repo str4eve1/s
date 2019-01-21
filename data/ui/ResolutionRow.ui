@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.18"/>
   <template class="ResolutionRow" parent="GtkListBoxRow">
@@ -15,34 +15,6 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">12</property>
-            <child>
-              <object class="GtkButton" id="delete_button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Remove this resolution from the profile</property>
-                <property name="relief">none</property>
-                <signal name="clicked" handler="_on_delete_button_clicked" swapped="no"/>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">edit-delete-symbolic</property>
-                    <property name="icon_size">1</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="image-button"/>
-                  <class name="circular"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="pack_type">end</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkLabel" id="dpi_label">
                 <property name="visible">True</property>

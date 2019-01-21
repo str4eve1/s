@@ -103,10 +103,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         return True
 
     @GtkTemplate.Callback
-    def _on_delete_button_clicked(self, button):
-        print("TODO: RatbagdProfile needs a way to delete resolutions")
-
-    @GtkTemplate.Callback
     def _on_scroll_event(self, widget, event):
         # Prevent a scroll in the list to get caught by the scale
         GObject.signal_stop_emission_by_name(widget, "scroll-event")
