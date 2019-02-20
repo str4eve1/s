@@ -19,7 +19,6 @@ from gettext import gettext as _
 from .buttonspage import ButtonsPage
 from .gi_composites import GtkTemplate
 from .profilerow import ProfileRow
-from .ratbagd import RatbagdDevice
 from .resolutionspage import ResolutionsPage
 from .ledspage import LedsPage
 
@@ -83,20 +82,18 @@ class MousePerspective(Gtk.Overlay):
 
     def set_device(self, device):
         self._device = device
-        capabilities = device.capabilities
         device.connect("resync", lambda _: self._show_notification_error())
 
         self.stack.foreach(Gtk.Widget.destroy)
-        if RatbagdDevice.CAP_RESOLUTION in capabilities:
+        active_profile = device.active_profile
+        if active_profile.resolutions:
             self.stack.add_titled(ResolutionsPage(device), "resolutions", _("Resolutions"))
-        if RatbagdDevice.CAP_BUTTON in capabilities:
+        if active_profile.buttons:
             self.stack.add_titled(ButtonsPage(device), "buttons", _("Buttons"))
-        if RatbagdDevice.CAP_LED in capabilities:
+        if active_profile.leds:
             self.stack.add_titled(LedsPage(device), "leds", _("LEDs"))
 
         self.button_profile.set_visible(len(device.profiles) > 1)
-
-        active_profile = device.active_profile
         self.label_profile.set_label(active_profile.name)
         self._on_profile_notify_dirty(active_profile, None)
 
