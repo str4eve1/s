@@ -115,7 +115,7 @@ class MousePerspective(Gtk.Overlay):
                 self.listbox_profiles.select_row(row)
 
     def _hide_notification_error(self):
-        if self._notification_error_timeout_id is not 0:
+        if self._notification_error_timeout_id != 0:
             GLib.Source.remove(self._notification_error_timeout_id)
             self._notification_error_timeout_id = 0
         self.notification_error.set_reveal_child(False)
