@@ -34,7 +34,7 @@ def get_svg(model):
         # Where the version is 0 (virtually all devices) we drop it. This
         # way the DeviceMatch lines are less confusing.
         if int(version) == 0:
-            usbid=':'.join([bus, vid, pid])
+            usbid = ':'.join([bus, vid, pid])
         else:
             usbid = model
 
