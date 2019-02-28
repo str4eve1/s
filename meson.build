@@ -1,7 +1,7 @@
 project('piper',
 	version: '0.2.904',
 	license: 'GPLv2',
-	meson_version: '>= 0.40.0')
+	meson_version: '>= 0.48.0')
 # The tag date of the project_version(), update when the version bumps.
 version_date='2019-01-24'
 # Note: Update the Contributor list in data/ui/AboutDialog.ui.in when the
