@@ -33,6 +33,7 @@ if __name__ == "__main__":
     import gettext
     import locale
     import signal
+    import piper
     from piper.application import Application
 
     install_excepthook()
