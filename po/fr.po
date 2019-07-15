@@ -1,7 +1,4 @@
-# GermanPiper translation
-# Copyright (C) 2017 Red Hat, Inc.
 # This file is distributed under the same license as the piper package.
-# Peter Hutterer <peter.hutterer@who-t.net>, 2017.
 #
 msgid ""
 msgstr ""
@@ -24,7 +21,7 @@ msgstr "Piper"
 #: data/org.freedesktop.Piper.desktop.in:4
 #: data/org.freedesktop.Piper.appdata.xml.in.in:8
 msgid "Configurable mouse configuration utility"
-msgstr "Outil configurable de configuration de souris"
+msgstr "Outil de configuration de souris programmable"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/org.freedesktop.Piper.desktop.in:7
@@ -43,7 +40,7 @@ msgid ""
 "removing profiles, setting LED colors and changing button behaviors."
 msgstr ""
 "Piper est une interface graphique pour configurer votre souris. Les "
-"optionsde configuration comprennent changer la resolution (DPI) de la "
+"options de configuration comprennent changer la resolution (DPI) de la "
 "souris, ajouter et supprimer des profiles, définir la couleurs des LEDs et "
 "changer le comportement des boutons."
 
@@ -53,8 +50,8 @@ msgid ""
 "the mice. Piper is merely a front end to ratbagd, ratbagd must be installed "
 "and running when Piper is launched."
 msgstr ""
-"Piper a besoin de ratbagd de libratbags, le deamon qui permet de communiquer "
-"avec la souris. Piper est seulement une interface a ratbagd,ratbagd doit "
+"Piper a besoin de ratbagd, le démon de libratbag qui permet de communiquer"
+"avec la souris. Piper est seulement une interface à ratbagd. ratbagd doit donc "
 "être installé, et être en cours d'execution quand Piper est lancé."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:33
@@ -323,11 +320,11 @@ msgstr "Combinaison envoyée"
 
 #: data/ui/ButtonDialog.ui:169
 msgid "Enter a new key sequence for the macro."
-msgstr "Entrez une nouvelle séquence de touches pour la maccro."
+msgstr "Entrez une nouvelle séquence de touches pour la macro."
 
 #: data/ui/ButtonDialog.ui:221
 msgid "Press Escape to cancel or Return to accept."
-msgstr "Appuiyez sur Echap pour annuler ou Entrée pour accepter."
+msgstr "Appuyez sur Echap pour annuler ou Entrée pour accepter."
 
 #: data/ui/ButtonDialog.ui:252
 #, fuzzy
@@ -341,7 +338,7 @@ msgid ""
 "and vice versa."
 msgstr ""
 "Ceci vous permet de changer l'ordre des boutons primaires de la souris. En "
-"mode gaucher,le bouton physique de gauche génère un clique droit, et "
+"mode gaucher, le bouton physique de gauche génère un clique droit, et "
 "inversement."
 
 #: data/ui/ButtonDialog.ui:290
@@ -453,7 +450,7 @@ msgstr "Appliquer les changement au périphérique"
 
 #: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
-msgstr "Cliquer pour changer a un autre profile"
+msgstr "Cliquer pour changer vers un autre profile"
 
 #: data/ui/MousePerspective.ui:185
 msgid "Add profile"
@@ -474,7 +471,7 @@ msgstr "Enlever ce profile du périphérique"
 #. Translators: this is used to indicate the active resolution.
 #: data/ui/ResolutionRow.ui:37
 msgid "Active"
-msgstr "Actif"
+msgstr "Active"
 
 #: data/ui/ResolutionRow.ui:77
 #, fuzzy
