@@ -20,7 +20,7 @@ from .window import Window
 import gi
 gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gio, GLib, Gtk
+from gi.repository import Gio, GLib, Gtk  # noqa
 
 
 class Application(Gtk.Application):

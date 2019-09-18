@@ -24,7 +24,7 @@ from .ledspage import LedsPage
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import GLib, GObject, Gtk
+from gi.repository import GLib, GObject, Gtk  # noqa
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/MousePerspective.ui")

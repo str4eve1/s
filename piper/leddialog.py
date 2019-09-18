@@ -19,7 +19,7 @@ from .ratbagd import RatbagdLed
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gdk, GObject, Gtk
+from gi.repository import Gdk, GObject, Gtk  # noqa
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/LedDialog.ui")

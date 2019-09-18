@@ -24,7 +24,7 @@ from .welcomeperspective import WelcomePerspective
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gdk, GLib, Gtk, Gio
+from gi.repository import Gdk, GLib, Gtk, Gio  # noqa
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/Window.ui")

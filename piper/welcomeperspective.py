@@ -19,7 +19,7 @@ from .gi_composites import GtkTemplate
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import GObject, Gtk, Gdk
+from gi.repository import GObject, Gtk, Gdk  # noqa
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/WelcomePerspective.ui")

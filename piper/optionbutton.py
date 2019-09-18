@@ -18,7 +18,7 @@ from .gi_composites import GtkTemplate
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk  # noqa
 
 
 @GtkTemplate(ui="/org/freedesktop/Piper/ui/OptionButton.ui")

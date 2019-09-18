@@ -24,7 +24,7 @@ from piper.svg import get_svg
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("Rsvg", "2.0")
-from gi.repository import Gdk, GLib, Gtk, GObject, Rsvg
+from gi.repository import Gdk, GLib, Gtk, GObject, Rsvg  # noqa
 
 """This module contains the MouseMap widget (and its helper class
 _MouseMapChild), which is central to the button and LED configuration stack

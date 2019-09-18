@@ -28,7 +28,7 @@ import hashlib
 from enum import IntEnum
 from evdev import ecodes
 from gettext import gettext as _
-from gi.repository import Gio, GLib, GObject
+from gi.repository import Gio, GLib, GObject  # noqa
 
 
 # Deferred translations, see https://docs.python.org/3/library/gettext.html#deferred-translations

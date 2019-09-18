@@ -21,10 +21,7 @@ from os.path import abspath, join
 import inspect
 import warnings
 
-from gi.repository import Gio
-from gi.repository import GLib
-from gi.repository import GObject
-from gi.repository import Gtk
+from gi.repository import Gio, GLib, GObject, Gtk  # noqa
 
 __all__ = ['GtkTemplate']
 
