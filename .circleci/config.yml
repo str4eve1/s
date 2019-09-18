@@ -1,24 +1,132 @@
+# vim: set expandtab shiftwidth=2 tabstop=8:
+piper_references:
+  default_settings: &default_settings
+    working_directory: ~/piper
+    environment:
+      LANG: C.UTF-8
+  build_default: &build_default
+    name: Build
+    command: |
+      rm -rf build
+      meson build ${MESON_PARAMS}
+      meson configure build
+      ninja -v -C build ${NINJA_ARGS}
+    environment:
+      MESON_PARAMS: --prefix=/usr
+  build_buildtype_plain: &build_buildtype_plain
+    run:
+      <<: *build_default
+      name: Build with buildtype plain
+      environment:
+        MESON_PARAMS: --prefix=/usr -Dbuildtype=plain
+  build_buildtype_release: &build_buildtype_release
+    run:
+      <<: *build_default
+      name: Build with buildtype release
+      environment:
+        MESON_PARAMS: --prefix=/usr -Dbuildtype=release
+  build_and_test: &build_and_test
+    run:
+      <<: *build_default
+      name: Build and test
+      environment:
+        NINJA_ARGS: test
+  install: &install
+    run:
+      name: Installing
+      command: ninja -C build install
+  export_logs: &export_logs
+    store_artifacts:
+      path: ~/piper/build/meson-logs
+
+
+fedora_prep_cache: &fedora_prep_cache
+  <<: *default_settings
+  steps:
+    - run:
+        name: Initializing Fedora dnf cache
+        command: dnf install -y --downloadonly libsolv tree git ${FEDORA_RPMS}
+    - persist_to_workspace:
+        root: /var/cache/
+        paths:
+          - dnf/*
+
+
+fedora_fetch_cache: &fedora_fetch_cache
+  attach_workspace:
+    at: /var/cache/
+
+
+fedora_install: &fedora_install
+  run:
+    name: Install prerequisites
+    command: |
+        echo keepcache=1 >> /etc/dnf/dnf.conf
+        dnf upgrade -y libsolv
+        dnf install -y tree git ${FEDORA_RPMS}
+
+
+fedora_settings: &fedora_settings
+  <<: *default_settings
+  steps:
+    - *fedora_fetch_cache
+    - *fedora_install
+    - checkout
+    - *build_and_test
+    - *install
+    - *build_buildtype_plain
+    - *build_buildtype_release
+    - *export_logs
+  environment:
+    FEDORA_RPMS: meson gettext python3-devel pygobject3-devel python3-lxml libratbag-ratbagd python3-cairo python3-evdev python3-flake8 gtk-update-icon-cache
+
+
+ubuntu_settings: &ubuntu_settings
+  <<: *default_settings
+  steps:
+    - run:
+        name: install prerequisites
+        command: |
+          apt-get update
+          apt-get install -y software-properties-common
+          add-apt-repository universe
+          apt-get update
+          apt-get install -y tree git ${UBUNTU_DEBS}
+    - checkout
+    - *build_and_test
+    - *install
+    - *build_buildtype_plain
+    - *build_buildtype_release
+    - *export_logs
+  environment:
+    UBUNTU_DEBS: meson pkg-config gettext python3-dev python-gi-dev python3-lxml python3-evdev gir1.2-rsvg-2.0 python3-gi-cairo python3-flake8 ratbagd gtk-update-icon-cache
+
 version: 2
 jobs:
-  build:
-    working_directory: ~/piper
+  fedora_rawhide:
+    <<: *fedora_settings
     docker:
-      - image: fedora:latest
-    steps:
-      - run:
-          command: |
-            dnf install -y git python3-flake8
-      - checkout
-      - run: flake8-3 .
+      - image: fedora:rawhide
+  fedora_cache:
+    <<: *fedora_prep_cache
+    docker:
+      - image: fedora:30
+  fedora_latest:
+    <<: *fedora_settings
+    docker:
+      - image: fedora:30
+  ubuntu_19_04:
+    <<: *ubuntu_settings
+    docker:
+      - image: ubuntu:19.04
 
-      # now install and checks the resulting file (just in case)
-      - run:
-          command: |
-            dnf install -y meson gettext python3-devel pygobject3-devel python3-lxml libratbag-ratbagd python3-cairo python3-evdev
-      - run:
-          command: |
-            meson build
-            ninja -C build test
-      - run: flake8-3 build/piper build/piper.devel
-      - store_artifacts:
-          path: ~/piper/build/meson-logs
+workflows:
+  version: 2
+  compile_and_test:
+    jobs:
+      # - fedora_rawhide
+      - fedora_cache
+      - ubuntu_19_04
+      - fedora_latest:
+          requires:
+            - fedora_cache
