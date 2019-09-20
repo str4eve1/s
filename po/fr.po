@@ -83,7 +83,7 @@ msgstr "Mappage spécial"
 #. "Button 1 click".
 #: piper/buttondialog.py:222 piper/buttonspage.py:90
 msgid "Button {} click"
-msgstr "clique du bouton {}"
+msgstr "clic du bouton {}"
 
 #: piper/buttonspage.py:94
 msgid "Macro: {}"
@@ -92,7 +92,7 @@ msgstr "Macro: {}"
 #. Translators: the button is turned disabled, e.g. off.
 #: piper/buttonspage.py:97
 msgid "Disabled"
-msgstr "Abgeschalted"
+msgstr "Désactivé"
 
 #. Translators: the button has an unknown function.
 #: piper/buttonspage.py:100 piper/ratbagd.py:641
@@ -117,15 +117,15 @@ msgstr "LEDs"
 
 #: piper/ratbagd.py:631
 msgid "Left mouse button click"
-msgstr "Clique bouton gauche"
+msgstr "Clic bouton gauche"
 
 #: piper/ratbagd.py:632
 msgid "Right mouse button click"
-msgstr "Clique bouton droit"
+msgstr "Clic bouton droit"
 
 #: piper/ratbagd.py:633
 msgid "Middle mouse button click"
-msgstr "Clique bouton du milieu"
+msgstr "Clic bouton du milieu"
 
 #: piper/ratbagd.py:634
 msgid "Backward"
@@ -141,7 +141,7 @@ msgstr "Invalide"
 
 #: piper/ratbagd.py:642
 msgid "Doubleclick"
-msgstr "Double clique"
+msgstr "Double clic"
 
 #: piper/ratbagd.py:643
 msgid "Wheel Left"
@@ -149,7 +149,7 @@ msgstr "Molette gauche"
 
 #: piper/ratbagd.py:644
 msgid "Wheel Right"
-msgstr "Molette droit"
+msgstr "Molette droite"
 
 #: piper/ratbagd.py:645
 msgid "Wheel Up"
@@ -205,7 +205,7 @@ msgstr "Profile précédent"
 
 #: piper/ratbagd.py:658
 msgid "Second Mode"
-msgstr "Second mode "
+msgstr "Second mode"
 
 #: piper/ratbagd.py:659
 msgid "Battery Level"
@@ -312,7 +312,7 @@ msgstr "Enregistrer une macro pour ce bouton"
 
 #: data/ui/ButtonDialog.ui:104
 msgid "The currently set macro"
-msgstr "le macro actuellement défini"
+msgstr "la macro actuellement définie"
 
 #: data/ui/ButtonDialog.ui:129
 msgid "Send keystroke"
