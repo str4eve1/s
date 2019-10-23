@@ -1,5 +1,10 @@
 # vim: set expandtab shiftwidth=2 tabstop=8:
+
 piper_references:
+  build_dependencies: &build_dependencies
+    FEDORA_RPMS: meson gettext python3-devel pygobject3-devel python3-lxml libratbag-ratbagd python3-cairo python3-evdev python3-flake8 gtk-update-icon-cache
+    UBUNTU_DEBS: meson pkg-config gettext python3-dev python-gi-dev python3-lxml python3-evdev gir1.2-rsvg-2.0 python3-gi-cairo python3-flake8 ratbagd gtk-update-icon-cache
+
   default_settings: &default_settings
     working_directory: ~/piper
     environment:
@@ -78,7 +83,7 @@ fedora_settings: &fedora_settings
     - *build_buildtype_release
     - *export_logs
   environment:
-    FEDORA_RPMS: meson gettext python3-devel pygobject3-devel python3-lxml libratbag-ratbagd python3-cairo python3-evdev python3-flake8 gtk-update-icon-cache
+    *build_dependencies
 
 
 ubuntu_settings: &ubuntu_settings
@@ -99,7 +104,7 @@ ubuntu_settings: &ubuntu_settings
     - *build_buildtype_release
     - *export_logs
   environment:
-    UBUNTU_DEBS: meson pkg-config gettext python3-dev python-gi-dev python3-lxml python3-evdev gir1.2-rsvg-2.0 python3-gi-cairo python3-flake8 ratbagd gtk-update-icon-cache
+    *build_dependencies
 
 version: 2
 jobs:
