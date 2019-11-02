@@ -32,16 +32,6 @@
          in2="BackgroundImage"
          id="feBlend4850" />
     </filter>
-    <filter
-       inkscape:collect="always"
-       style="color-interpolation-filters:sRGB"
-       id="filter904">
-      <feBlend
-         inkscape:collect="always"
-         mode="multiply"
-         in2="BackgroundImage"
-         id="feBlend906" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -50,11 +40,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="-104.52066"
-     inkscape:cy="237.08417"
+     inkscape:zoom="1.8101934"
+     inkscape:cx="167.69391"
+     inkscape:cy="202.44579"
      inkscape:document-units="px"
-     inkscape:current-layer="button3"
+     inkscape:current-layer="Device"
      inkscape:document-rotation="0"
      showgrid="false"
      units="px"
@@ -63,9 +53,9 @@
      inkscape:pagecheckerboard="false"
      showguides="true"
      inkscape:window-width="2560"
-     inkscape:window-height="1440"
+     inkscape:window-height="1387"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="26"
      inkscape:window-maximized="0"
      inkscape:snap-global="false"
      inkscape:guide-bbox="true"
@@ -117,7 +107,8 @@
      inkscape:groupmode="layer"
      id="Device"
      inkscape:label="Device"
-     style="display:inline;opacity:0.98999999;filter:url(#filter904)">
+     style="display:inline;opacity:1"
+     sodipodi:insensitive="true">
     <path
        style="display:inline;fill:#d3d3ce;fill-opacity:0.96862745;stroke:#babdb6;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 403.94667,289.38052 c -0.0263,0.15377 -26.66097,96.61363 -88.96886,96.95347 -21.83779,0.1191 -58.51028,-3.23104 -82.15099,-70.9673 -10.25,-31.625 -29.34493,-44.90128 -29.34493,-44.90128 -14.125,-8.375 -18.208,-27.93072 -18.208,-27.93072 -2.875,-10.5 -4.24264,-27.22361 -4.24264,-27.22361 l -0.53033,-16.26345 c 1.5,-13.25 11.49049,-23.15775 11.49049,-23.15775 l 26.5165,-27.04683 c 0,0 -1.30114,-50.882904 12.48744,-74.217428 4.77297,-8.485281 7.7403,-10.881079 14.01587,-16.71471 15.2028,-14.672466 65.84119,-37.50229 65.84119,-37.50229 l 16.89245,3.29124 c 11.22532,2.607456 18.86435,5.477233 35.61435,15.477233 12.96875,8.375 37.67996,23.658767 38.30496,93.658765 l -0.46759,32.11603 c -0.003,6.18912 -0.65602,13.3679 0.17568,19.61564 4.47045,33.5822 7.54484,72.59149 2.57441,104.81299 z"
@@ -390,7 +381,8 @@
      id="Buttons"
      inkscape:label="Buttons"
      style="display:inline"
-     transform="translate(-16.168953)">
+     transform="translate(-16.168953)"
+     sodipodi:insensitive="true">
     <g
        id="button0-path"
        inkscape:label="Left Click leader"
