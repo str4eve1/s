@@ -83,6 +83,7 @@ as of the time of import. See the libratbag COPYING file for details.
  logitech-g502.svg
  logitech-g600.svg
  logitech-g603.svg
+ logitech-g604.svg
  logitech-g700.svg
  logitech-g703.svg
  logitech-g9.svg

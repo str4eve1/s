@@ -118,6 +118,7 @@ if __name__ == "__main__":
     success = True
     for path in sys.argv[1:]:
         logger = SVGLogger.get_logger(path)
+        print("checking {}...".format(path))
         check_svg(path)
         if not logger.success:
             success = False
