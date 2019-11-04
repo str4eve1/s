@@ -90,6 +90,7 @@ as of the time of import. See the libratbag COPYING file for details.
  logitech-g900.svg
  logitech-mx-anywhere2.svg
  logitech-mx-anywhere2s.svg
+ logitech-mx-ergo.svg
  logitech-mx-master-2s.svg
  logitech-mx-master.svg
  roccat-kone-xtd.svg
