@@ -12,7 +12,6 @@ ratbagd_api_version = 1
 
 
 # Dependencies
-dependency('python3', required: true)
 dependency('pygobject-3.0', required: true)
 ratbagd = find_program('ratbagd', required: false)
 ratbagd_required_version='0.10'
