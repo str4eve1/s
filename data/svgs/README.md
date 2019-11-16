@@ -101,5 +101,5 @@ as of the time of import. See the libratbag COPYING file for details.
  steelseries-senseiraw.svg
 
 Where changes are made to these files, the changes will be made under
-piper's license (GPLv3). Use the git commit log to determine the exact
+piper's license (GPLv2). Use the git commit log to determine the exact
 license state of each file.
