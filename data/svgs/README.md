@@ -68,7 +68,8 @@ bright colors.
 License
 -------
 The SVG files listed below were imported from libratbag and are MIT licensed
-as of the time of import. See the libratbag COPYING file for details.
+as of the time of import. See the libratbag COPYING file for details. The files
+can also be licensed under pipers license (GPLv2).
 
  fallback.svg
  logitech-g-pro-wireless.svg
