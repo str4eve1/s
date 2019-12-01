@@ -41,7 +41,7 @@ msgid ""
 msgstr ""
 "Piper est une interface graphique pour configurer votre souris. Les "
 "options de configuration comprennent changer la resolution (DPI) de la "
-"souris, ajouter et supprimer des profiles, définir la couleurs des LEDs et "
+"souris, ajouter et supprimer des profils, définir la couleurs des LEDs et "
 "changer le comportement des boutons."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:16
@@ -52,7 +52,7 @@ msgid ""
 msgstr ""
 "Piper a besoin de ratbagd, le démon de libratbag qui permet de communiquer"
 "avec la souris. Piper est seulement une interface à ratbagd. ratbagd doit donc "
-"être installé, et être en cours d'execution quand Piper est lancé."
+"être installé, et doit être exécuté quand Piper est lancé."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:33
 #, fuzzy
@@ -271,7 +271,7 @@ msgstr "Veuillez redémarrer Piper"
 #. perspective.
 #: piper/window.py:112
 msgid "Your device disconnected!"
-msgstr "Votre périphérique s'est déconnécté!"
+msgstr "Votre périphérique s'est déconnecté!"
 
 #: piper/window.py:113
 msgid "Please make sure your device is plugged in"
@@ -437,7 +437,7 @@ msgstr "Cette led est éteinte"
 #: data/ui/MousePerspective.ui:44
 msgid "Something went wrong. The device has been reset to a previous state."
 msgstr ""
-"Quelquechose s'est mal passé. Le périphérique a été remis à un état "
+"Quelque chose s'est mal passé. Le périphérique a été remis à un état "
 "antérieur."
 
 #: data/ui/MousePerspective.ui:101
@@ -499,7 +499,7 @@ msgstr "Sensibilité"
 
 #: data/ui/ResolutionsPage.ui:174
 msgid "Add a new resolution to the profile"
-msgstr "Ajouter une nouvelle résolution au profile"
+msgstr "Ajouter une nouvelle résolution au profil"
 
 #: data/ui/WelcomePerspective.ui:20
 msgid "Welcome"
