@@ -31,9 +31,9 @@ class SVGLogger(logging.Logger):
 def check_size(root):
     width = float(root.attrib['width'])
     height = float(root.attrib['height'])
-    if not 400 < width < 500:
+    if not 400 <= width <= 500:
         logger.error("Width is outside of range: {}".format(width))
-    if not 400 < height < 500:
+    if not 400 <= height <= 500:
         logger.error("Height is outside of range: {}".format(height))
 
 
