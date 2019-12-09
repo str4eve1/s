@@ -8,7 +8,6 @@
     <property name="type_hint">normal</property>
     <property name="program_name">Piper</property>
     <property name="version">@version@</property>
-    <property name="copyright">Copyright © @year@ Piper Developers</property>
     <property name="website">@url@</property>
     <property name="website_label" translatable="yes">Visit Piper’s website</property>
     <property name="translator_credits" translatable="yes">translator-credits</property>

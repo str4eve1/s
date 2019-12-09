@@ -4,11 +4,8 @@ desktopdir = join_paths(datadir, 'applications')
 icondir = join_paths(datadir, 'icons', 'hicolor', 'scalable', 'apps')
 metainfodir = join_paths(datadir, 'metainfo')
 
-date = run_command('date', '+%Y')
-
 conf = configuration_data()
 conf.set('version', meson.project_version())
-conf.set('year', date.stdout().strip())
 conf.set('url', 'https://github.com/libratbag/piper')
 conf.set('version_date', version_date)
 
