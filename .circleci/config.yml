@@ -9,6 +9,7 @@ piper_references:
     working_directory: ~/piper
     environment:
       LANG: C.UTF-8
+
   build_default: &build_default
     name: Build
     command: |
@@ -44,38 +45,13 @@ piper_references:
     store_artifacts:
       path: ~/piper/build/meson-logs
 
-
-fedora_prep_cache: &fedora_prep_cache
-  <<: *default_settings
-  steps:
-    - run:
-        name: Initializing Fedora dnf cache
-        command: dnf install -y --downloadonly libsolv tree git ${FEDORA_RPMS}
-    - persist_to_workspace:
-        root: /var/cache/
-        paths:
-          - dnf/*
-
-
-fedora_fetch_cache: &fedora_fetch_cache
-  attach_workspace:
-    at: /var/cache/
-
-
-fedora_install: &fedora_install
-  run:
-    name: Install prerequisites
-    command: |
-        echo keepcache=1 >> /etc/dnf/dnf.conf
-        dnf upgrade -y libsolv
-        dnf install -y tree git ${FEDORA_RPMS}
-
-
 fedora_settings: &fedora_settings
   <<: *default_settings
   steps:
-    - *fedora_fetch_cache
-    - *fedora_install
+    - run:
+        name: Install prerequisites
+        command: |
+          dnf install -y tree git diffutils ${FEDORA_RPMS}
     - checkout
     - *build_and_test
     - *install
@@ -85,12 +61,11 @@ fedora_settings: &fedora_settings
   environment:
     *build_dependencies
 
-
 ubuntu_settings: &ubuntu_settings
   <<: *default_settings
   steps:
     - run:
-        name: install prerequisites
+        name: Install prerequisites
         command: |
           apt-get update
           apt-get install -y software-properties-common
@@ -108,18 +83,10 @@ ubuntu_settings: &ubuntu_settings
 
 version: 2
 jobs:
-  fedora_rawhide:
+  fedora_31:
     <<: *fedora_settings
     docker:
-      - image: fedora:rawhide
-  fedora_cache:
-    <<: *fedora_prep_cache
-    docker:
-      - image: fedora:30
-  fedora_latest:
-    <<: *fedora_settings
-    docker:
-      - image: fedora:30
+      - image: fedora:31
   ubuntu_19_04:
     <<: *ubuntu_settings
     docker:
@@ -129,9 +96,5 @@ workflows:
   version: 2
   compile_and_test:
     jobs:
-      # - fedora_rawhide
-      - fedora_cache
       - ubuntu_19_04
-      - fedora_latest:
-          requires:
-            - fedora_cache
+      - fedora_31
