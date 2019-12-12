@@ -1,7 +1,0 @@
-/data/piper.gresource
-/build
-__pycache__
-*~
-tags
-*.swp
-.flatpak-builder
