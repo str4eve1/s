@@ -428,7 +428,7 @@ class RatbagdProfile(_RatbagdDBus):
         """The capabilities of this profile as an array. Capabilities not
         present on the profile are not in the list. Thus use e.g.
 
-        if RatbagdProfile.CAP_WRITABLE_NAME is in profile.capabilities:
+        if profile.CAP_WRITABLE_NAME in profile.capabilities:
             do something
         """
         return self._get_dbus_property("Capabilities") or []
