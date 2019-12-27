@@ -52,7 +52,7 @@ class Window(Gtk.ApplicationWindow):
             ratbag = init_ratbagd_cb()
         except RatbagdUnavailable:
             self._present_error_perspective(_("Cannot connect to ratbagd"),
-                                            _("Please make sure ratbagd is running"))
+                                            _("Please make sure ratbagd is running and your user is in the required group"))
             return
         except RatbagdIncompatible as e:
             self._present_error_perspective(_("Incompatible ratbagd API version (required: {}, provided: {})".format(e.required_version, e.ratbagd_version)),
