@@ -1,15 +1,15 @@
 # Polish translation for piper.
-# Copyright © 2017-2019 the piper authors.
+# Copyright © 2017-2020 the piper authors.
 # This file is distributed under the same license as the piper package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2017-2019.
-# Aviary.pl <community-poland@mozilla.org>, 2017-2019.
+# Piotr Drąg <piotrdrag@gmail.com>, 2017-2020.
+# Aviary.pl <community-poland@mozilla.org>, 2017-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-08 13:01+0200\n"
-"PO-Revision-Date: 2019-09-08 13:02+0200\n"
+"POT-Creation-Date: 2020-01-27 21:28+0100\n"
+"PO-Revision-Date: 2020-01-24 15:22+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -100,7 +100,7 @@ msgid "Disabled"
 msgstr "Wyłączone"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:100 piper/ratbagd.py:663
+#: piper/buttonspage.py:100 piper/ratbagd.py:665
 msgid "Unknown"
 msgstr "Nieznane"
 
@@ -120,125 +120,125 @@ msgstr "Przyciski"
 msgid "LEDs"
 msgstr "Diody LED"
 
-#: piper/ratbagd.py:653
+#: piper/ratbagd.py:655
 msgid "Left mouse button click"
 msgstr "Kliknięcie lewym przyciskiem myszy"
 
-#: piper/ratbagd.py:654
+#: piper/ratbagd.py:656
 msgid "Right mouse button click"
 msgstr "Kliknięcie prawym przyciskiem myszy"
 
-#: piper/ratbagd.py:655
+#: piper/ratbagd.py:657
 msgid "Middle mouse button click"
 msgstr "Kliknięcie środkowym przyciskiem myszy"
 
-#: piper/ratbagd.py:656
+#: piper/ratbagd.py:658
 msgid "Backward"
 msgstr "Wstecz"
 
-#: piper/ratbagd.py:657
+#: piper/ratbagd.py:659
 msgid "Forward"
 msgstr "Dalej"
 
-#: piper/ratbagd.py:662
+#: piper/ratbagd.py:664
 msgid "Invalid"
 msgstr "Nieprawidłowe"
 
-#: piper/ratbagd.py:664
+#: piper/ratbagd.py:666
 msgid "Doubleclick"
 msgstr "Podwójne kliknięcie"
 
-#: piper/ratbagd.py:665
+#: piper/ratbagd.py:667
 msgid "Wheel Left"
 msgstr "Kółko w lewo"
 
-#: piper/ratbagd.py:666
+#: piper/ratbagd.py:668
 msgid "Wheel Right"
 msgstr "Kółko w prawo"
 
-#: piper/ratbagd.py:667
+#: piper/ratbagd.py:669
 msgid "Wheel Up"
 msgstr "Kółko w górę"
 
-#: piper/ratbagd.py:668
+#: piper/ratbagd.py:670
 msgid "Wheel Down"
 msgstr "Kółko w dół"
 
-#: piper/ratbagd.py:669
+#: piper/ratbagd.py:671
 msgid "Ratchet Mode"
 msgstr "Tryb zapadkowy"
 
-#: piper/ratbagd.py:670
+#: piper/ratbagd.py:672
 msgid "Cycle Resolution Up"
 msgstr "Przewija rozdzielczość w górę"
 
-#: piper/ratbagd.py:671
+#: piper/ratbagd.py:673
 msgid "Cycle Resolution Down"
 msgstr "Przewija rozdzielczość w dół"
 
-#: piper/ratbagd.py:672
+#: piper/ratbagd.py:674
 msgid "Resolution Up"
 msgstr "Rozdzielczość w górę"
 
-#: piper/ratbagd.py:673
+#: piper/ratbagd.py:675
 msgid "Resolution Down"
 msgstr "Rozdzielczość w dół"
 
-#: piper/ratbagd.py:674
+#: piper/ratbagd.py:676
 msgid "Resolution Switch"
 msgstr "Przełączenie rozdzielczości"
 
-#: piper/ratbagd.py:675
+#: piper/ratbagd.py:677
 msgid "Default Resolution"
 msgstr "Domyślna rozdzielczość"
 
-#: piper/ratbagd.py:676
+#: piper/ratbagd.py:678
 msgid "Cycle Profile Up"
 msgstr "Przewija profil w górę"
 
-#: piper/ratbagd.py:677
+#: piper/ratbagd.py:679
 msgid "Cycle Profile Down"
 msgstr "Przewija profil w dół"
 
-#: piper/ratbagd.py:678
+#: piper/ratbagd.py:680
 msgid "Profile Up"
 msgstr "Profil w górę"
 
-#: piper/ratbagd.py:679
+#: piper/ratbagd.py:681
 msgid "Profile Down"
 msgstr "Profil w dół"
 
-#: piper/ratbagd.py:680
+#: piper/ratbagd.py:682
 msgid "Second Mode"
 msgstr "Drugi poziom"
 
-#: piper/ratbagd.py:681
+#: piper/ratbagd.py:683
 msgid "Battery Level"
 msgstr "Poziom naładowania akumulatora"
 
 #. Translators: this is used when there is no macro to preview.
-#: piper/ratbagd.py:811 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+#: piper/ratbagd.py:813 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
 msgid "None"
 msgstr "Brak"
 
 #. Translators: the LED is off.
-#: piper/ratbagd.py:893 data/ui/LedDialog.ui:395
+#: piper/ratbagd.py:895 data/ui/LedDialog.ui:395
 msgid "Off"
 msgstr "Wyłączone"
 
 #. Translators: the LED has a single, solid color.
-#: piper/ratbagd.py:895 data/ui/LedDialog.ui:66
+#: piper/ratbagd.py:897 data/ui/LedDialog.ui:66
 msgid "Solid"
 msgstr "Jeden kolor"
 
 #. Translators: the LED is cycling between red, green and blue.
-#: piper/ratbagd.py:897 data/ui/LedDialog.ui:189
+#: piper/ratbagd.py:899 data/ui/LedDialog.ui:189
 msgid "Cycle"
 msgstr "Zmienny kolor"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
-#: piper/ratbagd.py:900 data/ui/LedDialog.ui:355
+#: piper/ratbagd.py:902 data/ui/LedDialog.ui:355
 msgid "Breathing"
 msgstr "Pulsujący kolor"
 
@@ -247,8 +247,11 @@ msgid "Cannot connect to ratbagd"
 msgstr "Nie można połączyć z usługą ratbagd"
 
 #: piper/window.py:55
-msgid "Please make sure ratbagd is running"
-msgstr "Proszę się upewnić, że usługa ratbagd jest uruchomiona"
+msgid ""
+"Please make sure ratbagd is running and your user is in the required group"
+msgstr ""
+"Proszę się upewnić, że usługa ratbagd jest uruchomiona, a obecny użytkownik "
+"jest w wymaganej grupie"
 
 #: piper/window.py:58
 msgid "Incompatible ratbagd API version (required: {}, provided: {})"
@@ -307,15 +310,19 @@ msgstr "Proszę zaktualizować do najnowszej dostępnej wersji"
 msgid "Unknown exception occurred"
 msgstr "Wystąpił nieznany wyjątek"
 
-#: data/ui/AboutDialog.ui.in:13
-msgid "Visit Piper’s website"
-msgstr "Strona programu Piper"
+#: data/ui/AboutDialog.ui.in:10
+msgid "Version: @version@"
+msgstr "Wersja: @version@"
 
-#: data/ui/AboutDialog.ui.in:14
+#: data/ui/AboutDialog.ui.in:12
+msgid "Visit Piper on GitHub"
+msgstr "Program Piper w serwisie GitHub"
+
+#: data/ui/AboutDialog.ui.in:13
 msgid "translator-credits"
 msgstr ""
-"Piotr Drąg <piotrdrag@gmail.com>, 2017-2019\n"
-"Aviary.pl <community-poland@mozilla.org>, 2017-2019"
+"Piotr Drąg <piotrdrag@gmail.com>, 2017-2020\n"
+"Aviary.pl <community-poland@mozilla.org>, 2017-2020"
 
 #: data/ui/ButtonDialog.ui:65
 msgid "Search for a button mapping"
