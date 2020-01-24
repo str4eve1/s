@@ -189,19 +189,19 @@ msgstr "Résolution par défaut"
 
 #: piper/ratbagd.py:654
 msgid "Cycle Profile Up"
-msgstr "Cycle les profiles vers le haut"
+msgstr "Cycle les profils vers le haut"
 
 #: piper/ratbagd.py:655
 msgid "Cycle Profile Down"
-msgstr "Cycle les profiles vers le bas"
+msgstr "Cycle les profils vers le bas"
 
 #: piper/ratbagd.py:656
 msgid "Profile Up"
-msgstr "Profile suivant"
+msgstr "Profil suivant"
 
 #: piper/ratbagd.py:657
 msgid "Profile Down"
-msgstr "Profile précédent"
+msgstr "Profil précédent"
 
 #: piper/ratbagd.py:658
 msgid "Second Mode"
@@ -450,7 +450,7 @@ msgstr "Appliquer les changement au périphérique"
 
 #: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
-msgstr "Cliquer pour changer vers un autre profile"
+msgstr "Cliquer pour changer vers un autre profil"
 
 #: data/ui/MousePerspective.ui:185
 msgid "Add profile"
@@ -458,7 +458,7 @@ msgstr "Ajouter un profile"
 
 #: data/ui/MousePerspective.ui:189
 msgid "Add a new profile to the device"
-msgstr "Ajouter un profile au périphérique"
+msgstr "Ajouter un profil au périphérique"
 
 #: data/ui/OptionButton.ui:9
 msgid "Open the configuration dialog"
@@ -466,7 +466,7 @@ msgstr "Ouvrir le panneau de configuration"
 
 #: data/ui/ProfileRow.ui:16
 msgid "Remove this profile from the device"
-msgstr "Enlever ce profile du périphérique"
+msgstr "Enlever ce profil du périphérique"
 
 #. Translators: this is used to indicate the active resolution.
 #: data/ui/ResolutionRow.ui:37
@@ -486,7 +486,7 @@ msgstr "Fréquence de rapport"
 #: data/ui/ResolutionsPage.ui:60
 #, fuzzy
 msgid "Change the profile’s report rate"
-msgstr "Changer la fréquence de rapport de ce profile"
+msgstr "Changer la fréquence de rapport de ce profil"
 
 #: data/ui/ResolutionsPage.ui:105
 msgid "Hz"
