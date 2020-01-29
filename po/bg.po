@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-18 20:27-0300\n"
-"PO-Revision-Date: 2019-08-31 14:45+0300\n"
+"POT-Creation-Date: 2020-01-27 23:39+0200\n"
+"PO-Revision-Date: 2020-01-27 23:40+0200\n"
 "Last-Translator: Lyubomir Vasilev <lyubomirv [at] abv [dot] bg>\n"
 "Language-Team: Bulgarian <>\n"
 "Language: bg\n"
@@ -98,7 +98,7 @@ msgid "Disabled"
 msgstr "Изключено"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:100 piper/ratbagd.py:663
+#: piper/buttonspage.py:100 piper/ratbagd.py:665
 msgid "Unknown"
 msgstr "Неизвестно"
 
@@ -118,125 +118,125 @@ msgstr "Бутони"
 msgid "LEDs"
 msgstr "Светодиоди"
 
-#: piper/ratbagd.py:653
+#: piper/ratbagd.py:655
 msgid "Left mouse button click"
 msgstr "Натискане на левия бутон"
 
-#: piper/ratbagd.py:654
+#: piper/ratbagd.py:656
 msgid "Right mouse button click"
 msgstr "Натискане на десния бутон"
 
-#: piper/ratbagd.py:655
+#: piper/ratbagd.py:657
 msgid "Middle mouse button click"
 msgstr "Натискане на средния бутон"
 
-#: piper/ratbagd.py:656
+#: piper/ratbagd.py:658
 msgid "Backward"
 msgstr "Назад"
 
-#: piper/ratbagd.py:657
+#: piper/ratbagd.py:659
 msgid "Forward"
 msgstr "Напред"
 
-#: piper/ratbagd.py:662
+#: piper/ratbagd.py:664
 msgid "Invalid"
 msgstr "Грешно"
 
-#: piper/ratbagd.py:664
+#: piper/ratbagd.py:666
 msgid "Doubleclick"
 msgstr "Двукратно щракване"
 
-#: piper/ratbagd.py:665
+#: piper/ratbagd.py:667
 msgid "Wheel Left"
 msgstr "Колелце наляво"
 
-#: piper/ratbagd.py:666
+#: piper/ratbagd.py:668
 msgid "Wheel Right"
 msgstr "Колелце надясно"
 
-#: piper/ratbagd.py:667
+#: piper/ratbagd.py:669
 msgid "Wheel Up"
 msgstr "Колелце нагоре"
 
-#: piper/ratbagd.py:668
+#: piper/ratbagd.py:670
 msgid "Wheel Down"
 msgstr "Колелце надолу"
 
-#: piper/ratbagd.py:669
+#: piper/ratbagd.py:671
 msgid "Ratchet Mode"
 msgstr "Постъпково въртене"
 
-#: piper/ratbagd.py:670
+#: piper/ratbagd.py:672
 msgid "Cycle Resolution Up"
 msgstr "Разделителна способност при превъртане нагоре"
 
-#: piper/ratbagd.py:671
+#: piper/ratbagd.py:673
 msgid "Cycle Resolution Down"
 msgstr "Разделителна способност при превъртане надолу"
 
-#: piper/ratbagd.py:672
+#: piper/ratbagd.py:674
 msgid "Resolution Up"
 msgstr "Разделителна способност нагоре"
 
-#: piper/ratbagd.py:673
+#: piper/ratbagd.py:675
 msgid "Resolution Down"
 msgstr "Разделителна способност надолу"
 
-#: piper/ratbagd.py:674
+#: piper/ratbagd.py:676
 msgid "Resolution Switch"
 msgstr "Превключване на разделителната способност"
 
-#: piper/ratbagd.py:675
+#: piper/ratbagd.py:677
 msgid "Default Resolution"
 msgstr "Разделителна способност по подразбиране"
 
-#: piper/ratbagd.py:676
+#: piper/ratbagd.py:678
 msgid "Cycle Profile Up"
 msgstr "Превъртане на профила нагоре"
 
-#: piper/ratbagd.py:677
+#: piper/ratbagd.py:679
 msgid "Cycle Profile Down"
 msgstr "Превъртане на профила надолу"
 
-#: piper/ratbagd.py:678
+#: piper/ratbagd.py:680
 msgid "Profile Up"
 msgstr "Профил нагоре"
 
-#: piper/ratbagd.py:679
+#: piper/ratbagd.py:681
 msgid "Profile Down"
 msgstr "Профил надолу"
 
-#: piper/ratbagd.py:680
+#: piper/ratbagd.py:682
 msgid "Second Mode"
 msgstr "Втори режим"
 
-#: piper/ratbagd.py:681
+#: piper/ratbagd.py:683
 msgid "Battery Level"
 msgstr "Заряд на батерията"
 
 #. Translators: this is used when there is no macro to preview.
-#: piper/ratbagd.py:811 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+#: piper/ratbagd.py:813 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
 msgid "None"
 msgstr "Няма"
 
 #. Translators: the LED is off.
-#: piper/ratbagd.py:893 data/ui/LedDialog.ui:395
+#: piper/ratbagd.py:895 data/ui/LedDialog.ui:395
 msgid "Off"
 msgstr "Изключено"
 
 #. Translators: the LED has a single, solid color.
-#: piper/ratbagd.py:895 data/ui/LedDialog.ui:66
+#: piper/ratbagd.py:897 data/ui/LedDialog.ui:66
 msgid "Solid"
 msgstr "Постоянен"
 
 #. Translators: the LED is cycling between red, green and blue.
-#: piper/ratbagd.py:897 data/ui/LedDialog.ui:189
+#: piper/ratbagd.py:899 data/ui/LedDialog.ui:189
 msgid "Cycle"
 msgstr "Цикъл"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
-#: piper/ratbagd.py:900 data/ui/LedDialog.ui:355
+#: piper/ratbagd.py:902 data/ui/LedDialog.ui:355
 msgid "Breathing"
 msgstr "Пулсиране"
 
@@ -245,8 +245,10 @@ msgid "Cannot connect to ratbagd"
 msgstr "Не може да се установи връзка с ratbagd"
 
 #: piper/window.py:55
-msgid "Please make sure ratbagd is running"
-msgstr "Моля, уверете се, че ratbagd работи"
+msgid ""
+"Please make sure ratbagd is running and your user is in the required group"
+msgstr ""
+"Моля, уверете се, че ratbagd работи и че потребителят Ви е в нужната група"
 
 #: piper/window.py:58
 msgid "Incompatible ratbagd API version (required: {}, provided: {})"
@@ -304,11 +306,15 @@ msgstr "Моля, обновете до най-новата версия"
 msgid "Unknown exception occurred"
 msgstr "Възникна неизвестно изключение"
 
-#: data/ui/AboutDialog.ui.in:13
-msgid "Visit Piper’s website"
-msgstr "Към уеб сайта на Piper"
+#: data/ui/AboutDialog.ui.in:10
+msgid "Version: @version@"
+msgstr "Версия: @version@"
 
-#: data/ui/AboutDialog.ui.in:14
+#: data/ui/AboutDialog.ui.in:12
+msgid "Visit Piper on GitHub"
+msgstr "Посетете Piper в GitHub"
+
+#: data/ui/AboutDialog.ui.in:13
 msgid "translator-credits"
 msgstr "Любомир Василев"
 
