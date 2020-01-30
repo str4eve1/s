@@ -1,13 +1,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the piper package.
 #
-# Jeff Huang <s8321414@gmail.com>, 2019.
+# Jeff Huang <s8321414@gmail.com>, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-28 08:38+0800\n"
-"PO-Revision-Date: 2019-11-28 11:23+0800\n"
+"POT-Creation-Date: 2020-01-30 11:46+0800\n"
+"PO-Revision-Date: 2020-01-30 11:51+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -43,9 +43,8 @@ msgid ""
 "options include changing the resolution (DPI) of the mouse, adding and "
 "removing profiles, setting LED colors and changing button behaviors."
 msgstr ""
-"Piper 是用來設定遊戲滑鼠的圖形化使用者介面。"
-"設定選項包含了變更滑鼠解析度 (DPI)、新增與移"
-"除設定檔、設定 LED 色彩並變更按鈕行為等等。"
+"Piper 是用來設定遊戲滑鼠的圖形化使用者介面。設定選項包含了變更滑鼠解析度 "
+"(DPI)、新增與移除設定檔、設定 LED 色彩並變更按鈕行為等等。"
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:16
 msgid ""
@@ -53,9 +52,8 @@ msgid ""
 "the mice. Piper is merely a front end to ratbagd, ratbagd must be installed "
 "and running when Piper is launched."
 msgstr ""
-"Piper 依賴於 libratbag 的 ratbagd，這是實際與滑鼠"
-"溝通的幕後程式。Piper 只是 ratbagd 的前端，"
-"ratbagd 必須在 Piper 啟動前安裝並執行。"
+"Piper 依賴於 libratbag 的 ratbagd，這是實際與滑鼠溝通的幕後程式。Piper 只是 "
+"ratbagd 的前端，ratbagd 必須在 Piper 啟動前安裝並執行。"
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:33
 msgid "The button configuraton page"
@@ -95,7 +93,7 @@ msgid "Disabled"
 msgstr "已停用"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:100 piper/ratbagd.py:663
+#: piper/buttonspage.py:100 piper/ratbagd.py:665
 msgid "Unknown"
 msgstr "未知"
 
@@ -115,125 +113,125 @@ msgstr "按鈕"
 msgid "LEDs"
 msgstr "LED"
 
-#: piper/ratbagd.py:653
+#: piper/ratbagd.py:655
 msgid "Left mouse button click"
 msgstr "點擊滑鼠左鍵"
 
-#: piper/ratbagd.py:654
+#: piper/ratbagd.py:656
 msgid "Right mouse button click"
 msgstr "點擊滑鼠右鍵"
 
-#: piper/ratbagd.py:655
+#: piper/ratbagd.py:657
 msgid "Middle mouse button click"
 msgstr "點擊滑鼠中鍵"
 
-#: piper/ratbagd.py:656
+#: piper/ratbagd.py:658
 msgid "Backward"
 msgstr "往後"
 
-#: piper/ratbagd.py:657
+#: piper/ratbagd.py:659
 msgid "Forward"
 msgstr "往前"
 
-#: piper/ratbagd.py:662
+#: piper/ratbagd.py:664
 msgid "Invalid"
 msgstr "無效"
 
-#: piper/ratbagd.py:664
+#: piper/ratbagd.py:666
 msgid "Doubleclick"
 msgstr "雙擊"
 
-#: piper/ratbagd.py:665
+#: piper/ratbagd.py:667
 msgid "Wheel Left"
 msgstr "滾輪向左"
 
-#: piper/ratbagd.py:666
+#: piper/ratbagd.py:668
 msgid "Wheel Right"
 msgstr "滾輪向右"
 
-#: piper/ratbagd.py:667
+#: piper/ratbagd.py:669
 msgid "Wheel Up"
 msgstr "滾輪向上"
 
-#: piper/ratbagd.py:668
+#: piper/ratbagd.py:670
 msgid "Wheel Down"
 msgstr "滾輪向下"
 
-#: piper/ratbagd.py:669
+#: piper/ratbagd.py:671
 msgid "Ratchet Mode"
 msgstr "棘輪模式"
 
-#: piper/ratbagd.py:670
+#: piper/ratbagd.py:672
 msgid "Cycle Resolution Up"
 msgstr "循環解析度提高"
 
-#: piper/ratbagd.py:671
+#: piper/ratbagd.py:673
 msgid "Cycle Resolution Down"
 msgstr "循環解析度降低"
 
-#: piper/ratbagd.py:672
+#: piper/ratbagd.py:674
 msgid "Resolution Up"
 msgstr "解析度提高"
 
-#: piper/ratbagd.py:673
+#: piper/ratbagd.py:675
 msgid "Resolution Down"
 msgstr "解析度降低"
 
-#: piper/ratbagd.py:674
+#: piper/ratbagd.py:676
 msgid "Resolution Switch"
 msgstr "解析度切換"
 
-#: piper/ratbagd.py:675
+#: piper/ratbagd.py:677
 msgid "Default Resolution"
 msgstr "預設解析度"
 
-#: piper/ratbagd.py:676
+#: piper/ratbagd.py:678
 msgid "Cycle Profile Up"
 msgstr "循環設定檔提高"
 
-#: piper/ratbagd.py:677
+#: piper/ratbagd.py:679
 msgid "Cycle Profile Down"
 msgstr "循環設定檔降低"
 
-#: piper/ratbagd.py:678
+#: piper/ratbagd.py:680
 msgid "Profile Up"
 msgstr "設定檔提高"
 
-#: piper/ratbagd.py:679
+#: piper/ratbagd.py:681
 msgid "Profile Down"
 msgstr "設定檔降低"
 
-#: piper/ratbagd.py:680
+#: piper/ratbagd.py:682
 msgid "Second Mode"
 msgstr "第二模式"
 
-#: piper/ratbagd.py:681
+#: piper/ratbagd.py:683
 msgid "Battery Level"
 msgstr "電池電量"
 
 #. Translators: this is used when there is no macro to preview.
-#: piper/ratbagd.py:811 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+#: piper/ratbagd.py:813 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
 msgid "None"
 msgstr "無"
 
 #. Translators: the LED is off.
-#: piper/ratbagd.py:893 data/ui/LedDialog.ui:395
+#: piper/ratbagd.py:895 data/ui/LedDialog.ui:395
 msgid "Off"
 msgstr "關閉"
 
 #. Translators: the LED has a single, solid color.
-#: piper/ratbagd.py:895 data/ui/LedDialog.ui:66
+#: piper/ratbagd.py:897 data/ui/LedDialog.ui:66
 msgid "Solid"
 msgstr "單色"
 
 #. Translators: the LED is cycling between red, green and blue.
-#: piper/ratbagd.py:897 data/ui/LedDialog.ui:189
+#: piper/ratbagd.py:899 data/ui/LedDialog.ui:189
 msgid "Cycle"
 msgstr "循環"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
-#: piper/ratbagd.py:900 data/ui/LedDialog.ui:355
+#: piper/ratbagd.py:902 data/ui/LedDialog.ui:355
 msgid "Breathing"
 msgstr "呼吸"
 
@@ -242,8 +240,9 @@ msgid "Cannot connect to ratbagd"
 msgstr "無法連線至 ratbagd"
 
 #: piper/window.py:55
-msgid "Please make sure ratbagd is running"
-msgstr "請確定 ratbagd 正在執行"
+msgid ""
+"Please make sure ratbagd is running and your user is in the required group"
+msgstr "請確定 ratbagd 正在執行，且您的使用者位在必要的群組中"
 
 #: piper/window.py:58
 msgid "Incompatible ratbagd API version (required: {}, provided: {})"
@@ -301,11 +300,15 @@ msgstr "請更新到可用的最新版本"
 msgid "Unknown exception occurred"
 msgstr "遇到未知的例外"
 
-#: data/ui/AboutDialog.ui.in:13
-msgid "Visit Piper’s website"
-msgstr "造訪 Piper 的網站"
+#: data/ui/AboutDialog.ui.in:10
+msgid "Version: @version@"
+msgstr "版本：@version@"
 
-#: data/ui/AboutDialog.ui.in:14
+#: data/ui/AboutDialog.ui.in:12
+msgid "Visit Piper on GitHub"
+msgstr "在 GitHub 上造訪 Piper"
+
+#: data/ui/AboutDialog.ui.in:13
 msgid "translator-credits"
 msgstr "Jeff Huang <s8321414@gmail.com>, 2019"
 
@@ -343,9 +346,8 @@ msgid ""
 "handed mode, the physical left mouse button generates a right mouse click "
 "and vice versa."
 msgstr ""
-"這讓您可以切換滑鼠主要按鍵的順序。"
-"在左手模式中，實際上的滑鼠左鍵會生"
-"成滑鼠右鍵的點擊，反之亦然。"
+"這讓您可以切換滑鼠主要按鍵的順序。在左手模式中，實際上的滑鼠左鍵會生成滑鼠右"
+"鍵的點擊，反之亦然。"
 
 #: data/ui/ButtonDialog.ui:290
 msgid "Left Handed"
