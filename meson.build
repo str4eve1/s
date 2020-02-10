@@ -1,9 +1,9 @@
 project('piper',
-	version: '0.3',
+	version: '0.4',
 	license: 'GPLv2',
 	meson_version: '>= 0.42.0')
 # The tag date of the project_version(), update when the version bumps.
-version_date='2019-08-02'
+version_date='2020-02-09'
 
 # The DBus API version of ratbagd that we are compatible with. Anything
 # higher or lower will not be compatible so make sure you bumpt that to the
@@ -14,7 +14,7 @@ ratbagd_api_version = 1
 # Dependencies
 dependency('pygobject-3.0', required: true)
 ratbagd = find_program('ratbagd', required: false)
-ratbagd_required_version='0.10'
+ratbagd_required_version='0.13'
 
 if not ratbagd.found()
 	message('''
