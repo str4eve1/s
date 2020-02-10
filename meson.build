@@ -119,7 +119,7 @@ configure_file(input: 'piper.in',
 
 meson.add_install_script('meson_install.sh')
 
-flake8 = find_program('flake8-3', required: false)
+flake8 = find_program('flake8', required: false)
 if flake8.found()
    test('flake8', flake8,
         args: ['--ignore=E501,W504',
