@@ -95,7 +95,7 @@ msgstr "Makro: {}"
 #. Translators: the button is turned disabled, e.g. off.
 #: piper/buttonspage.py:97
 msgid "Disabled"
-msgstr "Abgeschalted"
+msgstr "Abgeschaltet"
 
 #. Translators: the button has an unknown function.
 #: piper/buttonspage.py:100 piper/ratbagd.py:665
@@ -140,7 +140,7 @@ msgstr "Weiter"
 
 #: piper/ratbagd.py:664
 msgid "Invalid"
-msgstr "Ung̈́ültig"
+msgstr "Ungültig"
 
 #: piper/ratbagd.py:666
 msgid "Doubleclick"
@@ -227,7 +227,7 @@ msgstr "Aus"
 #. Translators: the LED has a single, solid color.
 #: piper/ratbagd.py:897 data/ui/LedDialog.ui:66
 msgid "Solid"
-msgstr "Solide"
+msgstr "Dauerhaft"
 
 #. Translators: the LED is cycling between red, green and blue.
 #: piper/ratbagd.py:899 data/ui/LedDialog.ui:189
@@ -273,7 +273,7 @@ msgstr ""
 
 #: piper/window.py:86
 msgid "There are unapplied changes. Are you sure you want to quit?"
-msgstr "Es gibt ungespeicherte Änderungen. Wollen Sie wirklich aussteigen?"
+msgstr "Es gibt ungespeicherte Änderungen. Wollen Sie wirklich beenden?"
 
 #: piper/window.py:95
 msgid "Ooops. ratbagd has disappeared"
@@ -281,7 +281,7 @@ msgstr "Ups. ratbagd hat sich in Luft aufgelöst"
 
 #: piper/window.py:96
 msgid "Please restart Piper"
-msgstr "Bitte starten Sie Piper von neuem"
+msgstr "Bitte starten Sie Piper neu"
 
 #. The current device disconnected, which can only happen from the
 #. mouse perspective as we'd otherwise be in the welcome screen with
@@ -293,7 +293,7 @@ msgstr "Das Gerät wurde entfernt!"
 
 #: piper/window.py:120
 msgid "Please make sure your device is plugged in"
-msgstr "Bitte vergewissern Sie sich dass Ihr Gerät angeschlossen ist"
+msgstr "Bitte vergewissern Sie sich, dass Ihr Gerät angeschlossen ist"
 
 #: piper/window.py:159
 msgid "Cannot display device SVG"
@@ -330,7 +330,7 @@ msgstr "Eine Tastenfunktion suchen"
 
 #: data/ui/ButtonDialog.ui:91
 msgid "Capture a macro for this button"
-msgstr "Ein Marko fuer diese Taste aufnehmen"
+msgstr "Ein Marko für diese Taste aufnehmen"
 
 #: data/ui/ButtonDialog.ui:104
 msgid "The currently set macro"
@@ -338,7 +338,7 @@ msgstr "Das aktuelle Makro"
 
 #: data/ui/ButtonDialog.ui:129
 msgid "Send keystroke"
-msgstr "Tastenkombination senden"
+msgstr "Tastenkombination eingeben"
 
 #: data/ui/ButtonDialog.ui:169
 msgid "Enter a new key sequence for the macro."
@@ -419,7 +419,7 @@ msgstr "Beenden"
 
 #: data/ui/LedDialog.ui:58 data/ui/LedDialog.ui:209
 msgid "Choose a color for the LED"
-msgstr "Eine Farbe fuer die LED auswählen"
+msgstr "Eine Farbe für die LED auswählen"
 
 #: data/ui/LedDialog.ui:90 data/ui/LedDialog.ui:257
 msgid "Choose a brightness for the LED"
@@ -445,7 +445,7 @@ msgstr "Effektrate"
 
 #: data/ui/LedDialog.ui:212
 msgid "Pick a Color for the LED"
-msgstr "Eine Farbe fuer die LED auswählen"
+msgstr "Eine Farbe für die LED auswählen"
 
 #: data/ui/LedDialog.ui:226
 msgid "Color"
@@ -471,7 +471,7 @@ msgstr "Änderungen am Gerät speichern"
 
 #: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
-msgstr "Klicken Sie hier um auf ein anderes Profil zu wechseln"
+msgstr "Klicken Sie hier, um auf ein anderes Profil zu wechseln"
 
 #: data/ui/MousePerspective.ui:185
 msgid "Add profile"
