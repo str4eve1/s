@@ -55,6 +55,7 @@ svgs = [
 	'svgs/logitech-g900.svg',
 	'svgs/logitech-g-pro.svg',
 	'svgs/logitech-g-pro-wireless.svg',
+	'svgs/logitech-mx518.svg',
 	'svgs/logitech-mx-anywhere2.svg',
 	'svgs/logitech-mx-anywhere2s.svg',
 	'svgs/logitech-mx-ergo.svg',
