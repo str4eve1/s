@@ -104,6 +104,7 @@ config_piper_devel = config_piper
 config_piper_devel.set('pkgdatadir', join_paths(meson.build_root(), 'data'))
 config_piper_devel.set('localedir', join_paths(meson.build_root(), 'po'))
 config_piper_devel.set('devel', '''
+sys.dont_write_bytecode = True
 sys.path.insert(1, '@0@')
 print('Running from source tree, using local files')
 '''.format(meson.source_root()))
