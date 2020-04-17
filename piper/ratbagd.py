@@ -1,6 +1,4 @@
-# vim: set expandtab shiftwidth=4 tabstop=4:
-#
-# Copyright 2016 Red Hat, Inc.
+# Copyright 2016-2019 Red Hat, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -28,7 +26,7 @@ import hashlib
 from enum import IntEnum
 from evdev import ecodes
 from gettext import gettext as _
-from gi.repository import Gio, GLib, GObject  # noqa
+from gi.repository import Gio, GLib, GObject
 
 
 # Deferred translations, see https://docs.python.org/3/library/gettext.html#deferred-translations
@@ -430,7 +428,7 @@ class RatbagdProfile(_RatbagdDBus):
         """The capabilities of this profile as an array. Capabilities not
         present on the profile are not in the list. Thus use e.g.
 
-        if RatbagdProfile.CAP_WRITABLE_NAME is in profile.capabilities:
+        if RatbagdProfile.CAP_WRITABLE_NAME in profile.capabilities:
             do something
         """
         return self._get_dbus_property("Capabilities") or []
@@ -772,9 +770,16 @@ class RatbagdButton(_RatbagdDBus):
         """An array of possible values for ActionType."""
         return self._get_dbus_property("ActionTypes")
 
+    @GObject.Property
+    def disabled(self):
+        type, unused = self._mapping()
+        return type == RatbagdButton.ActionType.NONE
+
     def disable(self):
         """Disables this button."""
-        return self._dbus_call("Disable", "")
+        zero = GLib.Variant('u', 0)
+        self._set_dbus_property("Mapping", "(uv)",
+                                (RatbagdButton.ActionType.NONE, zero))
 
 
 class RatbagdMacro(GObject.Object):
