@@ -1,7 +1,7 @@
 project('piper',
-	version: '0.4',
-	license: 'GPLv2',
-	meson_version: '>= 0.42.0')
+    version: '0.4',
+    license: 'GPLv2',
+    meson_version: '>= 0.42.0')
 # The tag date of the project_version(), update when the version bumps.
 version_date='2020-02-09'
 
@@ -17,28 +17,28 @@ ratbagd = find_program('ratbagd', required: false)
 ratbagd_required_version='0.13'
 
 if not ratbagd.found()
-	message('''
-	*********************** WARNING **********************
-	* _???_     Dependency libratbag not found in $PATH! *
-	*(_)_(_)    ratbagd must be installed and running    *
-	* (o o)     for Piper to work.                       *
-	*==\o/==                                             *
-	******************************************************
-	''')
+    message('''
+    *********************** WARNING **********************
+    * _???_     Dependency libratbag not found in $PATH! *
+    *(_)_(_)    ratbagd must be installed and running    *
+    * (o o)     for Piper to work.                       *
+    *==\o/==                                             *
+    ******************************************************
+    ''')
 else
-	r = run_command(ratbagd, '--version')
-	if r.returncode() != 0 or r.stdout().version_compare('<' + ratbagd_required_version)
-	message('''
-	*********************** WARNING ****************************
-	*                 (   )(                                   *
-	*         (\-.     ) (  )    ratbagd found in $PATH is too *
-	*         / _`> .---------.  old and  will  not  work with *
-	* _)     / _)=  |'-------'|  this version of Piper. Please *
-	*(      / _/    |O   O   o|  update libratbag/ratbagd.     *
-	* `-.__(___)_   | o O . o |                                *
-	************************************************************
-	''')
-	endif
+    r = run_command(ratbagd, '--version')
+    if r.returncode() != 0 or r.stdout().version_compare('<' + ratbagd_required_version)
+    message('''
+    *********************** WARNING ****************************
+    *                 (   )(                                   *
+    *         (\-.     ) (  )    ratbagd found in $PATH is too *
+    *         / _`> .---------.  old and  will  not  work with *
+    * _)     / _)=  |'-------'|  this version of Piper. Please *
+    *(      / _/    |O   O   o|  update libratbag/ratbagd.     *
+    * `-.__(___)_   | o O . o |                                *
+    ************************************************************
+    ''')
+    endif
 endif
 
 # Gtk version required
@@ -64,7 +64,7 @@ if meson.version().version_compare('<0.48.0')
     python_dir = python.sysconfig_path('purelib')
     message('Getting Python3 install dir')
     if not python_dir.endswith('site-packages')
-            error('Python3 purelib path seems invalid')
+        error('Python3 purelib path seems invalid')
     endif
 else
     pymod = import('python')
@@ -109,20 +109,20 @@ print('Running from source tree, using local files')
 '''.format(meson.source_root()))
 
 configure_file(input: 'piper.in',
-	       output: 'piper',
-	       configuration: config_piper,
-	       install_dir: bindir)
+               output: 'piper',
+               configuration: config_piper,
+               install_dir: bindir)
 
 configure_file(input: 'piper.in',
-	       output: 'piper.devel',
-	       configuration: config_piper_devel)
+               output: 'piper.devel',
+               configuration: config_piper_devel)
 
 meson.add_install_script('meson_install.sh')
 
 flake8 = find_program('flake8', required: false)
 if flake8.found()
-   test('flake8', flake8,
-        args: ['--ignore=E501,W504',
-               join_paths(meson.source_root(), 'piper'),
-               join_paths(meson.source_root(), 'piper.in')])
+    test('flake8', flake8,
+         args: ['--ignore=E501,W504',
+                join_paths(meson.source_root(), 'piper'),
+                join_paths(meson.source_root(), 'piper.in')])
 endif
