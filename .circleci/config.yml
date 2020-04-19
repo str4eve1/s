@@ -4,6 +4,7 @@ piper_references:
   build_dependencies: &build_dependencies
     FEDORA_RPMS: meson gettext python3 pygobject3-devel python3-lxml libratbag-ratbagd python3-cairo python3-evdev python3-flake8 gtk-update-icon-cache
     UBUNTU_DEBS: meson pkg-config gettext python3 python-gi-dev python3-lxml python3-evdev gir1.2-rsvg-2.0 python3-gi-cairo python3-flake8 ratbagd gtk-update-icon-cache
+    ARCH_PKGS: meson libratbag  python-cairo python-evdev python-gobject python-lxml gtk-update-icon-cache
 
   default_settings: &default_settings
     working_directory: ~/piper
@@ -61,6 +62,21 @@ fedora_settings: &fedora_settings
   environment:
     *build_dependencies
 
+arch_settings: &arch_settings
+  <<: *default_settings
+  steps:
+    - run:
+        name: Install prerequisites
+        command: pacman -Syu --noconfirm --noprogressbar --needed base-devel git ${ARCH_PKGS}
+    - checkout
+    - *build_and_test
+    - *install
+    - *build_buildtype_plain
+    - *build_buildtype_release
+    - *export_logs
+  environment:
+    *build_dependencies
+
 ubuntu_settings: &ubuntu_settings
   <<: *default_settings
   steps:
@@ -87,6 +103,10 @@ jobs:
     <<: *fedora_settings
     docker:
       - image: fedora:31
+  arch:
+    <<: *arch_settings
+    docker:
+      - image: archlinux
   ubuntu_19_10:
     <<: *ubuntu_settings
     docker:
@@ -98,3 +118,4 @@ workflows:
     jobs:
       - ubuntu_19_10
       - fedora_31
+      - arch
