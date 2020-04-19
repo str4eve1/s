@@ -97,6 +97,8 @@ class ButtonDialog(Gtk.Dialog):
         self._current_macro = None
         self._button = ratbagd_button
         self._action_type = self._button.action_type
+        if self._action_type == RatbagdButton.ActionType.NONE:
+            self._mapping = self._button.disabled
         if self._action_type == RatbagdButton.ActionType.BUTTON:
             self._mapping = self._button.mapping
         elif self._action_type == RatbagdButton.ActionType.MACRO:
@@ -152,6 +154,11 @@ class ButtonDialog(Gtk.Dialog):
             if self._action_type == RatbagdButton.ActionType.SPECIAL and key == self._mapping:
                 self.listbox.select_row(row)
             i += 1
+
+        row = ButtonRow(_("Disable"), _("Misc mapping"), RatbagdButton.ActionType.NONE, 'disabled')
+        self.listbox.insert(row, i)
+        if self._action_type == RatbagdButton.ActionType.NONE:
+            self.listbox.select_row(row)
 
         if self._action_type == RatbagdButton.ActionType.MACRO:
             self._create_current_macro(macro=self._mapping)
@@ -338,6 +345,7 @@ class ButtonDialog(Gtk.Dialog):
         else:
             self._action_type = row._action_type
             self._mapping = row._value
+            print(self._mapping) # debug, _value is problematic with NONE
 
     @GtkTemplate.Callback
     def _on_apply_button_clicked(self, button):
