@@ -46,9 +46,27 @@ piper_references:
     store_artifacts:
       path: ~/piper/build/meson-logs
 
+save_date: &save_date
+  run:
+    name: Save date
+    command: date +%F > /tmp/date
+
+fedora_save_cache: &fedora_save_cache
+  save_cache:
+    key: fedora-cache-v1-{{ checksum "/tmp/date" }}
+    paths:
+      - /var/cache/dnf
+
+fedora_fetch_cache: &fedora_fetch_cache
+  restore_cache:
+    keys:
+      - fedora-cache-v1
+
 fedora_settings: &fedora_settings
   <<: *default_settings
   steps:
+    - *save_date
+    - *fedora_fetch_cache
     - run:
         name: Install prerequisites
         command: |
@@ -59,12 +77,26 @@ fedora_settings: &fedora_settings
     - *build_buildtype_plain
     - *build_buildtype_release
     - *export_logs
+    - *fedora_save_cache
   environment:
     *build_dependencies
+
+arch_save_cache: &arch_save_cache
+  save_cache:
+    key: arch-cache-v1-{{ checksum "/tmp/date" }}
+    paths:
+      - /var/cache/pacman/pkg
+
+arch_fetch_cache: &arch_fetch_cache
+  restore_cache:
+    keys:
+      - arch-cache-v1
 
 arch_settings: &arch_settings
   <<: *default_settings
   steps:
+    - *save_date
+    - *arch_fetch_cache
     - run:
         name: Install prerequisites
         command: pacman -Syu --noconfirm --noprogressbar --needed base-devel git ${ARCH_PKGS}
@@ -74,6 +106,7 @@ arch_settings: &arch_settings
     - *build_buildtype_plain
     - *build_buildtype_release
     - *export_logs
+    - *arch_save_cache
   environment:
     *build_dependencies
 
