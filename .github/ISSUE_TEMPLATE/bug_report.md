@@ -12,6 +12,7 @@ assignees: ''
 - `ratbagd` version (`ratbagd --version`):
 - Piper version: 
 - Distribution: 
+- Device: 
 - Kernel version (ex. `uname -srmo`): `KERNEL VERSION HERE`
 
 **Describe the bug**
