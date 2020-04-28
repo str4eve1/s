@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>org.freedesktop.Piper</id>
   <metadata_license>FSFAP</metadata_license>
-  <project_license>GPL-2.0+</project_license>
+  <project_license>GPL-2.0-or-later</project_license>
   <content_rating type="oars-1.0" />
   <name translatable="no">Piper</name>
   <summary>Configurable mouse configuration utility</summary>

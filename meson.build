@@ -1,6 +1,6 @@
 project('piper',
     version: '0.4',
-    license: 'GPLv2',
+    license: 'GPL-2.0-or-later',
     meson_version: '>= 0.42.0')
 # The tag date of the project_version(), update when the version bumps.
 version_date='2020-02-09'
