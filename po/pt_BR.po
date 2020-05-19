@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-12 14:52-0300\n"
+"POT-Creation-Date: 2020-05-19 13:59-0300\n"
 "PO-Revision-Date: 2019-08-18 21:18-0300\n"
 "Last-Translator: Alexandre Oliveira <rockytvbr [at] gmail [dot] com>\n"
 "Language-Team: Brazilian Portuguese <>\n"
@@ -26,11 +26,6 @@ msgstr "Piper"
 #: data/org.freedesktop.Piper.appdata.xml.in.in:8
 msgid "Configurable mouse configuration utility"
 msgstr "Ferramenta de configuração de mouses programáveis"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.freedesktop.Piper.desktop.in:7
-msgid "org.freedesktop.Piper"
-msgstr "org.freedesktop.Piper"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.freedesktop.Piper.desktop.in:12
@@ -246,7 +241,9 @@ msgstr "Não foi possível conectar-se ao ratbagd"
 #, fuzzy
 msgid ""
 "Please make sure ratbagd is running and your user is in the required group"
-msgstr "Por favor, certifique-se de que o ratbagd está executando e que seu usuário possui as permissões necessárias para executá-lo"
+msgstr ""
+"Certifique-se de que o ratbagd está executando e que seu usuário "
+"possui as permissões necessárias para executá-lo"
 
 #: piper/window.py:58
 msgid "Incompatible ratbagd API version (required: {}, provided: {})"
@@ -254,8 +251,7 @@ msgstr "Versão de API do ratbagd incompatível (requer: {}, atual: {})"
 
 #: piper/window.py:59
 msgid "Please update both piper and libratbag to the latest versions"
-msgstr ""
-"Por favor, atualize o piper e o libratbag para a versão mais recente"
+msgstr "Atualize o piper e o libratbag para a versão mais recente"
 
 #: piper/window.py:73 piper/window.py:127
 msgid "Cannot find any devices"
@@ -264,7 +260,7 @@ msgstr "Não foi possível encontrar quaisquer dispositivos"
 #: piper/window.py:74 piper/window.py:128
 msgid "Please make sure your device is supported and plugged in"
 msgstr ""
-"Por favor, certifique-se de que o seu dispositivo é suportado e está "
+"Certifique-se de que o seu dispositivo é compatível e está "
 "conectado"
 
 #: piper/window.py:86
@@ -277,7 +273,7 @@ msgstr "Oops. O ratbagd desapareceu"
 
 #: piper/window.py:96
 msgid "Please restart Piper"
-msgstr "Por favor, reinicie o aplicativo"
+msgstr "Reinicie o aplicativo"
 
 #. The current device disconnected, which can only happen from the
 #. mouse perspective as we'd otherwise be in the welcome screen with
@@ -289,7 +285,7 @@ msgstr "O seu dispositivo foi desconectado!"
 
 #: piper/window.py:120
 msgid "Please make sure your device is plugged in"
-msgstr "Por favor, certifique-se de que seu dispositivo está conectado"
+msgstr "Certifique-se de que seu dispositivo está conectado"
 
 #: piper/window.py:159
 msgid "Cannot display device SVG"
@@ -301,7 +297,7 @@ msgstr "Requer uma versão mais recente do ratbagd"
 
 #: piper/window.py:167
 msgid "Please update to the latest available version"
-msgstr "Por favor, atualize para a versão mais recente"
+msgstr "Atualize para a versão mais recente"
 
 #: piper/window.py:169
 msgid "Unknown exception occurred"
@@ -533,3 +529,6 @@ msgstr "Selecione um dispositivo"
 #: data/ui/Window.ui:8
 msgid "_About Piper"
 msgstr "Sobre o aplicativo"
+
+#~ msgid "org.freedesktop.Piper"
+#~ msgstr "org.freedesktop.Piper"
