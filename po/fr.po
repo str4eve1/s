@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-12 22:45+0200\n"
-"PO-Revision-Date: 2020-01-20 20:30+1000\n"
+"PO-Revision-Date: 2020-05-19 10:05+1000\n"
 "Last-Translator: Launay Théo <launatheo@gmail.com>\n"
 "Language-Team: French <>\n"
 "Language: fr\n"
@@ -287,7 +287,7 @@ msgstr "Une version plus récente de ratbagd est requise"
 
 #: piper/window.py:160
 msgid "Please update to the latest available version"
-msgstr "Veuillez mettre à jour à la version la plus récente."
+msgstr "Veuillez mettre à jour à la version la plus récente"
 
 #: piper/window.py:162
 msgid "Unknown exception occurred"
@@ -300,11 +300,13 @@ msgstr "Visiter le site de Piper"
 
 #: data/ui/AboutDialog.ui.in:36
 msgid "translator-credits"
-msgstr "Mallory Macrez <mallory.macrez@outlook.fr>, 2019"
+msgstr ""
+"Mallory Macrez <mallory.macrez@outlook.fr>, 2019"
+"Théo Launay <launatheo@gmail.com>, 2020"
 
 #: data/ui/ButtonDialog.ui:65
 msgid "Search for a button mapping"
-msgstr "Chercher une fonction"
+msgstr "Chercher pour un mappage de bouton"
 
 #: data/ui/ButtonDialog.ui:91
 msgid "Capture a macro for this button"
@@ -312,7 +314,7 @@ msgstr "Enregistrer une macro pour ce bouton"
 
 #: data/ui/ButtonDialog.ui:104
 msgid "The currently set macro"
-msgstr "la macro actuellement définie"
+msgstr "La macro actuellement définie"
 
 #: data/ui/ButtonDialog.ui:129
 msgid "Send keystroke"
@@ -329,7 +331,7 @@ msgstr "Appuyez sur Echap pour annuler ou Entrée pour accepter."
 #: data/ui/ButtonDialog.ui:252
 #, fuzzy
 msgid "Set the device’s handedness."
-msgstr "Définir pour les droitiers ou gauchers "
+msgstr "Définir pour les droitiers ou les gauchers."
 
 #: data/ui/ButtonDialog.ui:270
 msgid ""
@@ -376,7 +378,7 @@ msgstr "Appliquer les changements"
 
 #: data/ui/ButtonDialog.ui:405
 msgid "No button mapping found"
-msgstr "Aucune fonction trouvée"
+msgstr "Aucun mappage de bouton trouvé"
 
 #: data/ui/ButtonDialog.ui:421
 msgid "Try a different search"
@@ -390,7 +392,7 @@ msgstr "Où es-tu petit rongeur?"
 #: data/ui/ErrorPerspective.ui:69
 #, fuzzy
 msgid "Uh Oh! Something went wrong…"
-msgstr "Oups, quelquechose s'est mal passé"
+msgstr "Oups, quelque chose s'est mal passé"
 
 #: data/ui/ErrorPerspective.ui:73 data/ui/WelcomePerspective.ui:123
 msgid "Quit"
@@ -432,13 +434,11 @@ msgstr "Couleur"
 
 #: data/ui/LedDialog.ui:380
 msgid "This LED is off"
-msgstr "Cette led est éteinte"
+msgstr "Cette LED est éteinte"
 
 #: data/ui/MousePerspective.ui:44
 msgid "Something went wrong. The device has been reset to a previous state."
-msgstr ""
-"Quelque chose s'est mal passé. Le périphérique a été remis à un état "
-"antérieur."
+msgstr "Quelque chose s'est mal passé. Le périphérique a été remis à un état antérieur."
 
 #: data/ui/MousePerspective.ui:101
 msgid "Select another profile"
@@ -446,7 +446,7 @@ msgstr "Choisir un autre profil"
 
 #: data/ui/MousePerspective.ui:126
 msgid "Commit the changes to the device"
-msgstr "Appliquer les changement au périphérique"
+msgstr "Appliquer les changements au périphérique"
 
 #: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
@@ -454,7 +454,7 @@ msgstr "Cliquer pour changer vers un autre profil"
 
 #: data/ui/MousePerspective.ui:185
 msgid "Add profile"
-msgstr "Ajouter un profile"
+msgstr "Ajouter un profil"
 
 #: data/ui/MousePerspective.ui:189
 msgid "Add a new profile to the device"
@@ -471,7 +471,7 @@ msgstr "Enlever ce profil du périphérique"
 #. Translators: this is used to indicate the active resolution.
 #: data/ui/ResolutionRow.ui:37
 msgid "Active"
-msgstr "Active"
+msgstr "Actif"
 
 #: data/ui/ResolutionRow.ui:77
 #, fuzzy
@@ -522,16 +522,16 @@ msgstr "Sélectionnez un périphérique"
 #: data/ui/Window.ui:8
 #, fuzzy
 msgid "_About Piper"
-msgstr "_Info"
+msgstr "_A propos de Piper"
 
 #~ msgid "Remove this resolution from the profile"
 #~ msgstr "Enlever cette résolution du périphérique"
 
 #~ msgid "_Quit"
-#~ msgstr "_Beenden"
+#~ msgstr "_Quitter"
 
 #~ msgid "Failed to commit changes to the device"
-#~ msgstr "Das Speichern der Änderungen ist fehlgeschlagen"
+#~ msgstr "Impossible d'enregistrer les changements sur le périphérique"
 
 #~ msgid "Profile {}"
 #~ msgstr "Profil {}"
