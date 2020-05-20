@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-24 12:46+0100\n"
-"PO-Revision-Date: 2020-01-24 13:03+0100\n"
-"Last-Translator: gogo <linux.hr@protonmail.com>\n"
+"POT-Creation-Date: 2020-05-20 10:47+0200\n"
+"PO-Revision-Date: 2020-05-20 10:53+0200\n"
+"Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -59,15 +59,15 @@ msgstr ""
 "mišem. Piper je prednji program za ratbagd, ratbagd mora biti instaliran i "
 "pokrenut kada se Piper pokrene."
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:33
+#: data/org.freedesktop.Piper.appdata.xml.in.in:27
 msgid "The button configuraton page"
 msgstr "Stranica podešavanja tipki"
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:37
+#: data/org.freedesktop.Piper.appdata.xml.in.in:31
 msgid "The LED configuraton page"
 msgstr "Stranica LED podešavanja"
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:41
+#: data/org.freedesktop.Piper.appdata.xml.in.in:35
 msgid "The resolution configuraton page"
 msgstr "Stranica podešavanja razlučivosti"
 
@@ -306,9 +306,13 @@ msgstr "Nadopunite na najnoviju dostupnu inačicu"
 msgid "Unknown exception occurred"
 msgstr "Dogodila se nepoznata iznimka"
 
+#: data/ui/AboutDialog.ui.in:10
+msgid "Version: @version@"
+msgstr "Inačica: @version@"
+
 #: data/ui/AboutDialog.ui.in:12
-msgid "Visit Piper’s website"
-msgstr "Posjetite Piper web stranicu"
+msgid "Visit Piper on GitHub"
+msgstr "Posjetite Piper na GitHubu"
 
 #: data/ui/AboutDialog.ui.in:13
 msgid "translator-credits"
@@ -527,14 +531,14 @@ msgstr "Odaberi uređaj"
 msgid "_About Piper"
 msgstr "_O Piperu"
 
+#~ msgid "Visit Piper’s website"
+#~ msgstr "Posjetite Piper web stranicu"
+
 #~ msgid "Remove this resolution from the profile"
 #~ msgstr "Ukloni ovu razlučivost sa uređaja"
 
 #~ msgid "Profile {}"
 #~ msgstr "Profil {}"
-
-#~ msgid "Visit Piper's website"
-#~ msgstr "Posjetite Piper web stranicu"
 
 #~ msgid "Set the device's handedness."
 #~ msgstr "Postavite za ljevu/desnu ruku uređaja."
