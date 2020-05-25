@@ -3,10 +3,22 @@ gnome = import('gnome')
 desktopdir = join_paths(datadir, 'applications')
 icondir = join_paths(datadir, 'icons', 'hicolor', 'scalable', 'apps')
 metainfodir = join_paths(datadir, 'metainfo')
+man1dir = join_paths(mandir, 'man1')
 
 conf = configuration_data()
 conf.set('version', meson.project_version())
 conf.set('version_date', version_date)
+
+manpage = configure_file(
+     input: files('piper.1.in'),
+     output: 'piper.1',
+     configuration: conf,
+)
+
+install_man(
+     manpage,
+     install_dir: man1dir,
+)
 
 about_dialog = configure_file(input: 'ui/AboutDialog.ui.in',
                               output: 'AboutDialog.ui',

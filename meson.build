@@ -51,6 +51,7 @@ localedir = join_paths(prefix, get_option('localedir'))
 pkgdatadir = join_paths(datadir, meson.project_name())
 bindir = join_paths(prefix, get_option('bindir'))
 podir = join_paths(meson.source_root(), 'po')
+mandir = join_paths(prefix, get_option('mandir'))
 
 i18n = import('i18n')
 
