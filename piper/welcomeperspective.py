@@ -15,14 +15,13 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from .devicerow import DeviceRow
-from .gi_composites import GtkTemplate
 
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk, Gdk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/WelcomePerspective.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/WelcomePerspective.ui")
 class WelcomePerspective(Gtk.Box):
     """A perspective to present a list of devices for the user to pick one to
     configure."""
@@ -33,8 +32,8 @@ class WelcomePerspective(Gtk.Box):
         "device-selected": (GObject.SignalFlags.RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
     }
 
-    listbox = GtkTemplate.Child()
-    _titlebar = GtkTemplate.Child()
+    listbox = Gtk.Template.Child()
+    _titlebar = Gtk.Template.Child()
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new WelcomePerspective."""
@@ -90,14 +89,14 @@ class WelcomePerspective(Gtk.Box):
         """Whether this perspective can safely shutdown."""
         return True
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_quit_button_clicked(self, button):
         window = button.get_toplevel()
 
         if not window.emit("delete-event", Gdk.Event.new(Gdk.EventType.DELETE)):
             window.destroy()
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_device_row_activated(self, listbox, row):
         self.emit("device-selected", row.device)
 

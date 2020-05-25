@@ -14,20 +14,18 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from .gi_composites import GtkTemplate
-
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/OptionButton.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/OptionButton.ui")
 class OptionButton(Gtk.Button):
     """A Gtk.Button subclass that displays a label, a separator and a cog."""
 
     __gtype_name__ = "OptionButton"
 
-    label = GtkTemplate.Child()
+    label = Gtk.Template.Child()
 
     def __init__(self, label=None, *args, **kwargs):
         """Instantiates a new OptionButton.

@@ -17,7 +17,6 @@
 from gettext import gettext as _
 
 from .buttonspage import ButtonsPage
-from .gi_composites import GtkTemplate
 from .profilerow import ProfileRow
 from .resolutionspage import ResolutionsPage
 from .ledspage import LedsPage
@@ -27,20 +26,20 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import GLib, GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/MousePerspective.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/MousePerspective.ui")
 class MousePerspective(Gtk.Overlay):
     """The perspective to configure a mouse."""
 
     __gtype_name__ = "MousePerspective"
 
-    _titlebar = GtkTemplate.Child()
-    stack = GtkTemplate.Child()
-    notification_error = GtkTemplate.Child()
-    listbox_profiles = GtkTemplate.Child()
-    label_profile = GtkTemplate.Child()
-    add_profile_button = GtkTemplate.Child()
-    button_commit = GtkTemplate.Child()
-    button_profile = GtkTemplate.Child()
+    _titlebar = Gtk.Template.Child()
+    stack = Gtk.Template.Child()
+    notification_error = Gtk.Template.Child()
+    listbox_profiles = Gtk.Template.Child()
+    label_profile = Gtk.Template.Child()
+    add_profile_button = Gtk.Template.Child()
+    button_commit = Gtk.Template.Child()
+    button_profile = Gtk.Template.Child()
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new MousePerspective."""
@@ -129,20 +128,20 @@ class MousePerspective(Gtk.Overlay):
         self._hide_notification_error()
         return False
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_save_button_clicked(self, button):
         self._device.commit()
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_notification_error_close_clicked(self, button):
         self._hide_notification_error()
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_profile_row_activated(self, listbox, row):
         row.set_active()
         self.label_profile.set_label(row.name)
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_add_profile_button_clicked(self, button):
         # Enable the first disabled profile we find.
         for profile in self._device.profiles:

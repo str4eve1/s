@@ -14,22 +14,20 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from .gi_composites import GtkTemplate
-
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ErrorPerspective.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ErrorPerspective.ui")
 class ErrorPerspective(Gtk.Box):
     """A perspective to present an error condition in a user-friendly manner."""
 
     __gtype_name__ = "ErrorPerspective"
 
-    label_error = GtkTemplate.Child()
-    label_detail = GtkTemplate.Child()
-    _titlebar = GtkTemplate.Child()
+    label_error = Gtk.Template.Child()
+    label_detail = Gtk.Template.Child()
+    _titlebar = Gtk.Template.Child()
 
     def __init__(self, message=None, *args, **kwargs):
         """Instantiates a new ErrorPerspective.
@@ -76,7 +74,7 @@ class ErrorPerspective(Gtk.Box):
         """
         self.label_detail.set_label(detail)
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_quit_button_clicked(self, button):
         window = button.get_toplevel()
         window.destroy()

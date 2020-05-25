@@ -14,21 +14,19 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from .gi_composites import GtkTemplate
-
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ProfileRow.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ProfileRow.ui")
 class ProfileRow(Gtk.ListBoxRow):
     """A Gtk.ListBoxRow subclass containing the widgets to display a profile in
     the profile poper."""
 
     __gtype_name__ = "ProfileRow"
 
-    title = GtkTemplate.Child()
+    title = Gtk.Template.Child()
 
     def __init__(self, profile, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
@@ -47,7 +45,7 @@ class ProfileRow(Gtk.ListBoxRow):
     def _on_profile_notify_enabled(self, profile, pspec):
         self.set_visible(profile.enabled)
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_delete_button_clicked(self, button):
         self._profile.enabled = False
 

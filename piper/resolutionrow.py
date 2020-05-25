@@ -14,24 +14,22 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from .gi_composites import GtkTemplate
-
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ResolutionRow.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ResolutionRow.ui")
 class ResolutionRow(Gtk.ListBoxRow):
     """A Gtk.ListBoxRow subclass containing the widgets to configure a
     resolution."""
 
     __gtype_name__ = "ResolutionRow"
 
-    dpi_label = GtkTemplate.Child()
-    active_label = GtkTemplate.Child()
-    revealer = GtkTemplate.Child()
-    scale = GtkTemplate.Child()
+    dpi_label = Gtk.Template.Child()
+    active_label = Gtk.Template.Child()
+    revealer = Gtk.Template.Child()
+    scale = Gtk.Template.Child()
 
     def __init__(self, device, resolution, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
@@ -74,7 +72,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         resolution = profile.resolutions[index]
         self._init_values(resolution)
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_change_value(self, scale, scroll, value):
 
         # Cursor-controlled slider may get out of the GtkAdjustment's range
@@ -102,7 +100,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         return True
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback
     def _on_scroll_event(self, widget, event):
         # Prevent a scroll in the list to get caught by the scale
         GObject.signal_stop_emission_by_name(widget, "scroll-event")
