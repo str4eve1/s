@@ -30,7 +30,7 @@ class ProfileRow(Gtk.ListBoxRow):
 
     def __init__(self, profile, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
         self._profile = profile
         self._profile.connect("notify::enabled", self._on_profile_notify_enabled)
 

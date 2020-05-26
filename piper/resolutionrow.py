@@ -33,7 +33,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     def __init__(self, device, resolution, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
 
         self._resolution = None
         self._resolution_handler = 0

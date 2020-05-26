@@ -35,7 +35,7 @@ class DeviceRow(Gtk.ListBoxRow):
 
     def __init__(self, device, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
         self._device = device
         self.title.set_text(device.name)
 

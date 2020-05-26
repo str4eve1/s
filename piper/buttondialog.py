@@ -51,7 +51,7 @@ class ButtonRow(Gtk.ListBoxRow):
         self._action_type = action_type
         self._value = value
 
-        self.init_template()
+        #self.init_template()
         self.description_label.set_text(description)
 
     @GObject.Property
@@ -91,7 +91,7 @@ class ButtonDialog(Gtk.Dialog):
         @param buttons The buttons on this device, as [ratbagd.RatbagdButton].
         """
         Gtk.Dialog.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
         self._grab_pointer = None
         self._current_macro = None
         self._button = ratbagd_button

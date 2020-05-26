@@ -33,7 +33,7 @@ class OptionButton(Gtk.Button):
         @param label The text to display.
         """
         Gtk.Button.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
         if label is not None:
             self.set_label(label)
 

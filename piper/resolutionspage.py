@@ -53,7 +53,7 @@ class ResolutionsPage(Gtk.Box):
                              ratbagd.RatbagdDevice
         """
         Gtk.Box.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
 
         self._device = ratbagd_device
         self._last_activated_row = None

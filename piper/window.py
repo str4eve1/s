@@ -44,7 +44,7 @@ class Window(Gtk.ApplicationWindow):
         @param ratbag The ratbag instance to connect to, as ratbagd.Ratbag
         """
         Gtk.ApplicationWindow.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
 
         self._add_perspective(ErrorPerspective(), None)
         try:

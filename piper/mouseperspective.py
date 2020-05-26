@@ -44,7 +44,7 @@ class MousePerspective(Gtk.Overlay):
     def __init__(self, *args, **kwargs):
         """Instantiates a new MousePerspective."""
         Gtk.Overlay.__init__(self, *args, **kwargs)
-        self.init_template()
+        #self.init_template()
         self._device = None
         self._notification_error_timeout_id = 0
 
