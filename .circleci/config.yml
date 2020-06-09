@@ -3,7 +3,7 @@
 piper_references:
   build_dependencies: &build_dependencies
     FEDORA_RPMS: meson gettext python3 pygobject3-devel python3-lxml libratbag-ratbagd python3-cairo python3-evdev python3-flake8 gtk-update-icon-cache
-    UBUNTU_DEBS: meson pkg-config gettext python3 python-gi-dev python3-lxml python3-evdev gir1.2-rsvg-2.0 python3-gi-cairo python3-flake8 ratbagd gtk-update-icon-cache
+    UBUNTU_DEBS: meson pkg-config gettext python3 python-gi-dev python3-lxml python3-evdev gir1.2-rsvg-2.0 python3-gi-cairo flake8 ratbagd gtk-update-icon-cache
     ARCH_PKGS: meson libratbag  python-cairo python-evdev python-gobject python-lxml gtk-update-icon-cache
 
   default_settings: &default_settings
@@ -116,9 +116,7 @@ ubuntu_settings: &ubuntu_settings
     - run:
         name: Install prerequisites
         command: |
-          apt-get update
-          apt-get install -y software-properties-common
-          add-apt-repository universe
+          export DEBIAN_FRONTEND=noninteractive
           apt-get update
           apt-get install -y tree git ${UBUNTU_DEBS}
     - checkout
@@ -140,15 +138,15 @@ jobs:
     <<: *arch_settings
     docker:
       - image: archlinux
-  ubuntu_19_10:
+  ubuntu_20_04:
     <<: *ubuntu_settings
     docker:
-      - image: ubuntu:19.10
+      - image: ubuntu:20.04
 
 workflows:
   version: 2
   compile_and_test:
     jobs:
-      - ubuntu_19_10
+      - ubuntu_20_04
       - fedora_31
       - arch
