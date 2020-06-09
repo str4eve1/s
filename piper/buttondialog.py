@@ -5,7 +5,7 @@ import sys
 from gettext import gettext as _
 
 from .gi_composites import GtkTemplate
-from .ratbagd import RatbagdButton, RatbagdMacro
+from .ratbagd import RatbagdButton, RatbagdMacro, RatbagDeviceType
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -71,17 +71,19 @@ class ButtonDialog(Gtk.Dialog):
     search_entry = GtkTemplate.Child()
     search_bar = GtkTemplate.Child()
 
-    def __init__(self, ratbagd_button, buttons, *args, **kwargs):
+    def __init__(self, ratbagd_button, buttons, device_type, *args, **kwargs):
         """Instantiates a new ButtonDialog.
 
         @param ratbagd_button The button to configure, as ratbagd.RatbagdButton.
         @param buttons The buttons on this device, as [ratbagd.RatbagdButton].
+        @param devicetype The type of this device, as ratbagd.RatbagDeviceType.
         """
         Gtk.Dialog.__init__(self, *args, **kwargs)
         self.init_template()
         self._grab_pointer = None
         self._current_macro = None
         self._button = ratbagd_button
+        self._device_type = device_type
         self._action_type = self._button.action_type
         if self._action_type == RatbagdButton.ActionType.BUTTON:
             self._mapping = self._button.mapping
@@ -97,7 +99,7 @@ class ButtonDialog(Gtk.Dialog):
         self._init_ui(buttons)
 
     def _init_ui(self, buttons):
-        if self._button.index in [0, 1]:
+        if self._device_type is RatbagDeviceType.MOUSE and self._button.index in [0, 1]:
             self._init_primary_buttons_ui()
         else:
             self._init_other_buttons_ui(buttons)
