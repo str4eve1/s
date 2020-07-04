@@ -53,6 +53,8 @@ bindir = join_paths(prefix, get_option('bindir'))
 podir = join_paths(meson.source_root(), 'po')
 mandir = join_paths(prefix, get_option('mandir'))
 
+enable_tests = get_option('tests')
+
 i18n = import('i18n')
 
 subdir('data')
@@ -120,10 +122,12 @@ configure_file(input: 'piper.in',
 
 meson.add_install_script('meson_install.sh')
 
-flake8 = find_program('flake8', required: false)
-if flake8.found()
-    test('flake8', flake8,
-         args: ['--ignore=E501,W504',
-                join_paths(meson.source_root(), 'piper'),
-                join_paths(meson.source_root(), 'piper.in')])
+if enable_tests
+    flake8 = find_program('flake8', required: false)
+    if flake8.found()
+        test('flake8', flake8,
+             args: ['--ignore=E501,W504',
+                    join_paths(meson.source_root(), 'piper'),
+                    join_paths(meson.source_root(), 'piper.in')])
+    endif
 endif
