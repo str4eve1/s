@@ -39,13 +39,21 @@ appdata = configure_file(input: 'org.freedesktop.Piper.appdata.xml.in.in',
                          output: 'org.freedesktop.Piper.appdata.xml.in',
                          configuration: conf)
 
-i18n.merge_file(input: appdata,
-                output: 'org.freedesktop.Piper.appdata.xml',
-                type: 'xml',
-                po_dir: podir,
-                install: true,
-                install_dir: metainfodir)
+appdata = i18n.merge_file(input: appdata,
+                          output: 'org.freedesktop.Piper.appdata.xml',
+                          type: 'xml',
+                          po_dir: podir,
+                          install: true,
+                          install_dir: metainfodir)
 
+if enable_tests
+    appstreamcli = find_program('appstreamcli')
+    if appstreamcli.found()
+        test('validate appdata file',
+            appstreamcli,
+            args: ['validate', '--no-net', '--pedantic', appdata])
+     endif
+endif
 
 svg_mapping = files('svgs/svg-lookup.ini')
 
