@@ -201,28 +201,6 @@
        id="button2"
        style="color:#000000;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#fbfbfb;fill-opacity:1;stroke:#babdb6;stroke-width:1.03318608;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
     <g
-       transform="translate(-24.643032,-405.50394)"
-       style="display:inline"
-       id="scroll_left"
-       inkscape:label="Scroll Left">
-      <path
-         id="path1016"
-         d="m 316.40996,510.72751 a 0.24906273,0.24906273 0 0 0 -0.17383,0.0781 l -4.3086,4.6543 a 0.24906273,0.24906273 0 0 0 0.008,0.3457 l 4.30664,4.30664 a 0.24906273,0.24906273 0 0 0 0.40429,-0.27734 l -1.90429,-4.20899 1.9082,-4.55468 a 0.24906273,0.24906273 0 0 0 -0.24023,-0.34375 z"
-         style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.95555294;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
-       transform="translate(13.352497,-407.26997)"
-       style="display:inline"
-       id="scroll_right"
-       inkscape:label="Scroll Right">
-      <path
-         id="path1018"
-         d="m 315.97388,512.49527 a 0.24906273,0.24906273 0 0 0 -0.21484,0.34375 l 1.90624,4.55468 -1.90234,4.20899 a 0.24906273,0.24906273 0 0 0 0.40234,0.27734 l 4.3086,-4.30664 a 0.24906273,0.24906273 0 0 0 0.006,-0.3457 l -4.30664,-4.6543 a 0.24906273,0.24906273 0 0 0 -0.17578,-0.0781 0.24906273,0.24906273 0 0 0 -0.0234,0 z"
-         style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.95555294;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
        id="button10"
        inkscape:label="DPI+">
       <path
