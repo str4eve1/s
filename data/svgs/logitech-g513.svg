@@ -113,7 +113,7 @@
          ry="0.48236895" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button0"
+         id="button0_DISABLED"
          width="4.5405092"
          height="4.5405111"
          x="16.698566"
@@ -122,7 +122,7 @@
          inkscape:label="F1" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button1"
+         id="button1_DISABLED"
          width="4.5405087"
          height="4.5405111"
          x="21.743578"
@@ -131,7 +131,7 @@
          inkscape:label="F2" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button2"
+         id="button2_DISABLED"
          width="4.5405087"
          height="4.5405111"
          x="26.788588"
@@ -140,7 +140,7 @@
          inkscape:label="F3" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button3"
+         id="button3_DISABLED"
          width="4.5405097"
          height="4.5405111"
          x="31.833597"
@@ -149,7 +149,7 @@
          inkscape:label="F4" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button4"
+         id="button4_DISABLED"
          width="4.5405126"
          height="4.5405111"
          x="40.662365"
@@ -158,7 +158,7 @@
          inkscape:label="F5" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button5"
+         id="button5_DISABLED"
          width="4.5405083"
          height="4.5405111"
          x="45.707375"
@@ -167,7 +167,7 @@
          inkscape:label="F6" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button6"
+         id="button6_DISABLED"
          width="4.5405102"
          height="4.5405111"
          x="50.752388"
@@ -176,7 +176,7 @@
          inkscape:label="F7" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button7"
+         id="button7_DISABLED"
          width="4.5405126"
          height="4.5405111"
          x="55.797394"
@@ -185,7 +185,7 @@
          inkscape:label="F8" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button8"
+         id="button8_DISABLED"
          width="4.5405116"
          height="4.5405111"
          x="64.878418"
@@ -194,7 +194,7 @@
          inkscape:label="F9" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button9"
+         id="button9_DISABLED"
          width="4.5405092"
          height="4.5405111"
          x="69.923424"
@@ -203,7 +203,7 @@
          inkscape:label="F10" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button10"
+         id="button10_DISABLED"
          width="4.5405092"
          height="4.5405111"
          x="74.968445"
@@ -212,7 +212,7 @@
          inkscape:label="F11" />
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="button11"
+         id="button11_DISABLED"
          width="4.5405121"
          height="4.5405111"
          x="80.013451"
@@ -1046,6 +1046,7 @@
      style="display:inline"
      id="Buttons"
      inkscape:groupmode="layer">
+   <!--
     <g
        transform="translate(0.03418203,-30.81283)"
        id="button0-group">
@@ -1329,6 +1330,7 @@
          x="81.33194"
          y="85.886795" />
     </g>
+   -->
   </g>
   <g
      style="display:inline"
