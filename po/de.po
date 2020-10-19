@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-28 20:40+0100\n"
 "PO-Revision-Date: 2017-08-23 13:02+1000\n"
-"Last-Translator: Peter Hutterer <peter.hutterer@who-t.net>\n"
+"Last-Translator: Nicolai Weitkemper <kontakt@nicolaiweitkemper.de>\n"
 "Language-Team: German <>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -42,9 +42,9 @@ msgid ""
 "options include changing the resolution (DPI) of the mouse, adding and "
 "removing profiles, setting LED colors and changing button behaviors."
 msgstr ""
-"Piper ist eine Grafische Benutzerschnittstelle zur Konfiguration von Gaming "
-"Mäuse. Mögliche Konfigurationsoptionen sind die Auflösung der Maus (DPI), "
-"das Editieren von Profilen, LED Farbeinstellungen und der Tastenzuweisung."
+"Piper ist eine grafische Benutzeroberfläche zur Konfiguration von Gaming-"
+"Mäusen. Mögliche Konfigurationsoptionen sind die Auflösung der Maus (DPI), "
+"das Editieren von Profilen, LED-Farbeinstellungen und der Tastenzuweisung."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:16
 msgid ""
@@ -52,9 +52,9 @@ msgid ""
 "the mice. Piper is merely a front end to ratbagd, ratbagd must be installed "
 "and running when Piper is launched."
 msgstr ""
-"Piper benötigt libratbags ratbagd, der Daemon der die eigentliche "
-"Kommunikation mit der Maus verwaltet. Piper ist nur eine Graphische "
-"Benutzeroberfläche für ratbagd, ratbagd muss installiert sein und laufen "
+"Piper benötigt libratbag's ratbagd, den Daemon, der die eigentliche "
+"Kommunikation mit der Maus verwaltet. Piper ist nur eine grafische "
+"Benutzeroberfläche für ratbagd; ratbagd muss installiert sein und laufen, "
 "wenn Piper gestartet wird."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:33
@@ -249,7 +249,7 @@ msgstr "Verbindung mit ratbagd fehlgeschlagen"
 msgid ""
 "Please make sure ratbagd is running and your user is in the required group"
 msgstr ""
-"Bitte vergewissern Sie sich dass ratbagd läuft und der Benutzer in der "
+"Bitte vergewissern Sie sich, dass ratbagd läuft und der Benutzer in der "
 "benötigten Gruppe ist"
 
 #: piper/window.py:58
@@ -268,7 +268,7 @@ msgstr "Es wurden keine Geräte gefunden"
 #: piper/window.py:74 piper/window.py:128
 msgid "Please make sure your device is supported and plugged in"
 msgstr ""
-"Bitte vergewissern Sie sich dass Ihr Gerät angeschlossen ist und unterstützt "
+"Bitte vergewissern Sie sich, dass Ihr Gerät angeschlossen ist und unterstützt "
 "wird"
 
 #: piper/window.py:86
@@ -323,6 +323,7 @@ msgstr "Besuche Piper auf GitHub"
 #: data/ui/AboutDialog.ui.in:13
 msgid "translator-credits"
 msgstr "Peter Hutterer <peter.hutterer@who-t.net>, 2017-2019"
+"\nNicolai Weitkemper <kontakt@nicolaiweitkemper.de>, 2020"
 
 #: data/ui/ButtonDialog.ui:65
 msgid "Search for a button mapping"
@@ -330,7 +331,7 @@ msgstr "Eine Tastenfunktion suchen"
 
 #: data/ui/ButtonDialog.ui:91
 msgid "Capture a macro for this button"
-msgstr "Ein Marko für diese Taste aufnehmen"
+msgstr "Ein Makro für diese Taste aufnehmen"
 
 #: data/ui/ButtonDialog.ui:104
 msgid "The currently set macro"
@@ -342,7 +343,7 @@ msgstr "Tastenkombination eingeben"
 
 #: data/ui/ButtonDialog.ui:169
 msgid "Enter a new key sequence for the macro."
-msgstr "Bitte geben sie eine neue Tastenkombination für das Makro ein"
+msgstr "Bitte geben Sie eine neue Tastenkombination für das Makro ein"
 
 #: data/ui/ButtonDialog.ui:221
 msgid "Press Escape to cancel or Return to accept."
@@ -401,7 +402,7 @@ msgstr "Keine Tastenfunktion gefunden"
 
 #: data/ui/ButtonDialog.ui:421
 msgid "Try a different search"
-msgstr "Versuchen sie eine andere Suche"
+msgstr "Versuchen Sie eine andere Suche"
 
 #: data/ui/ErrorPerspective.ui:16
 #, fuzzy
@@ -453,7 +454,7 @@ msgstr "Farbe"
 
 #: data/ui/LedDialog.ui:380
 msgid "This LED is off"
-msgstr "Diese LED ist ausgeschalten"
+msgstr "Diese LED ist ausgeschaltet"
 
 #: data/ui/MousePerspective.ui:44
 msgid "Something went wrong. The device has been reset to a previous state."
@@ -467,7 +468,7 @@ msgstr "Anderes Profile auswählen"
 
 #: data/ui/MousePerspective.ui:126
 msgid "Commit the changes to the device"
-msgstr "Änderungen am Gerät speichern"
+msgstr "Änderungen auf das Gerät übertragen"
 
 #: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
