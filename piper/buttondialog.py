@@ -277,19 +277,6 @@ class ButtonDialog(Gtk.Dialog):
 
         if event.type == Gdk.EventType.KEY_PRESS:
             type = RatbagdButton.Macro.KEY_PRESS
-
-            # Return accepts the current keystroke.
-            if event.keyval == Gdk.KEY_Return:
-                self._current_macro.accept()
-                return
-            # Escape cancels the editing.
-            elif event.keyval == Gdk.KEY_Escape:
-                if self._action_type == RatbagdButton.ActionType.MACRO:
-                    self._create_current_macro(macro=self._mapping)
-                else:
-                    self._create_current_macro()
-                self.stack.set_visible_child_name("overview")
-                return
         elif event.type == Gdk.EventType.KEY_RELEASE:
             type = RatbagdButton.Macro.KEY_RELEASE
 
