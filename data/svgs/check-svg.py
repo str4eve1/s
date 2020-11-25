@@ -100,7 +100,7 @@ def check_leds(root):
 
 
 def check_buttons(root):
-    check_elements(root, "button", 3)
+    check_elements(root, "button")
 
 
 def check_svg(path):
