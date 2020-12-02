@@ -11,34 +11,52 @@ version_date='2020-06-22'
 ratbagd_api_version = 1
 
 
-# Dependencies
-dependency('pygobject-3.0', required: true)
-ratbagd = find_program('ratbagd', required: false)
-ratbagd_required_version='0.14'
+# Options
+enable_runtime_dependency_checks = get_option('runtime-dependency-checks')
+enable_tests = get_option('tests')
 
-if not ratbagd.found()
-    message('''
-    *********************** WARNING **********************
-    * _???_     Dependency libratbag not found in $PATH! *
-    *(_)_(_)    ratbagd must be installed and running    *
-    * (o o)     for Piper to work.                       *
-    *==\o/==                                             *
-    ******************************************************
-    ''')
-else
-    r = run_command(ratbagd, '--version')
-    if r.returncode() != 0 or r.stdout().version_compare('<' + ratbagd_required_version)
-    message('''
-    *********************** WARNING ****************************
-    *                 (   )(                                   *
-    *         (\-.     ) (  )    ratbagd found in $PATH is too *
-    *         / _`> .---------.  old and  will  not  work with *
-    * _)     / _)=  |'-------'|  this version of Piper. Please *
-    *(      / _/    |O   O   o|  update libratbag/ratbagd.     *
-    * `-.__(___)_   | o O . o |                                *
-    ************************************************************
-    ''')
+# Dependencies
+if enable_runtime_dependency_checks
+    ratbagd = find_program('ratbagd', required: true)
+    ratbagd_required_version='0.14'
+
+    if not ratbagd.found()
+        message('''
+        ************************ ERROR ***********************
+        * _???_     Dependency libratbag not found in $PATH! *
+        *(_)_(_)    ratbagd must be installed and running    *
+        * (o o)     for Piper to work.                       *
+        *==\o/==                                             *
+        ******************************************************
+        ''')
+    else
+        r = run_command(ratbagd, '--version')
+        if r.returncode() != 0 or r.stdout().version_compare('<' + ratbagd_required_version)
+        error('''
+        ************************ ERROR *****************************
+        *                 (   )(                                   *
+        *         (\-.     ) (  )    ratbagd found in $PATH is too *
+        *         / _`> .---------.  old and  will  not  work with *
+        * _)     / _)=  |'-------'|  this version of Piper. Please *
+        *(      / _/    |O   O   o|  update libratbag/ratbagd.     *
+        * `-.__(___)_   | o O . o |                                *
+        ************************************************************
+        ''')
+        endif
     endif
+
+    # external python modules that are required for running piper
+    python_modules = [
+        'lxml',
+        'evdev',
+        'cairo',
+        'gi',
+    ]
+
+    dependency('pygobject-3.0', required: true)
+else
+    # external python modules that are required for building piper
+    python_modules = ['lxml']
 endif
 
 # Gtk version required
@@ -52,8 +70,6 @@ pkgdatadir = join_paths(datadir, meson.project_name())
 bindir = join_paths(prefix, get_option('bindir'))
 podir = join_paths(meson.source_root(), 'po')
 mandir = join_paths(prefix, get_option('mandir'))
-
-enable_tests = get_option('tests')
 
 i18n = import('i18n')
 
@@ -71,13 +87,6 @@ if meson.version().version_compare('<0.48.0')
     endif
 else
     pymod = import('python')
-    # external python modules that are required for running piper
-    python_modules = [
-        'lxml',
-        'evdev',
-        'cairo',
-        'gi',
-    ]
     if meson.version().version_compare('>=0.51')
         py3 = pymod.find_installation(modules: python_modules)
     else
