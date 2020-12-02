@@ -2,6 +2,7 @@ gnome = import('gnome')
 
 desktopdir = join_paths(datadir, 'applications')
 icondir = join_paths(datadir, 'icons', 'hicolor', 'scalable', 'apps')
+symbolicicondir = join_paths(datadir, 'icons', 'hicolor', 'symbolic', 'apps')
 metainfodir = join_paths(datadir, 'metainfo')
 man1dir = join_paths(mandir, 'man1')
 
@@ -25,6 +26,7 @@ about_dialog = configure_file(input: 'ui/AboutDialog.ui.in',
                               configuration: conf)
 
 install_data('org.freedesktop.Piper.svg', install_dir: icondir)
+install_data('org.freedesktop.Piper-symbolic.svg', install_dir: symbolicicondir)
 
 i18n.merge_file(input: 'org.freedesktop.Piper.desktop.in',
                 output: 'org.freedesktop.Piper.desktop',
