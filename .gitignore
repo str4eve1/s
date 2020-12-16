@@ -1,5 +1,10 @@
 # Folders
 .vscode/
+builddir/
+bin/
+lib/
+share/
+piper/__pycache__/
 
 # Files
 *.code-workspace
