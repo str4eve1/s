@@ -1,0 +1,152 @@
+[
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson --internal msgfmthelper ../data/org.freedesktop.Piper.desktop.in data/org.freedesktop.Piper.desktop desktop /home/brian/lab/piper/po",
+    "file": "../data/org.freedesktop.Piper.desktop.in",
+    "output": "data/org.freedesktop.Piper.desktop"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson --internal msgfmthelper data/org.freedesktop.Piper.appdata.xml.in data/org.freedesktop.Piper.appdata.xml xml /home/brian/lab/piper/po",
+    "file": "data/org.freedesktop.Piper.appdata.xml.in",
+    "output": "data/org.freedesktop.Piper.appdata.xml"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/glib-compile-resources data/piper.gresource.xml --sourcedir ../data/. --sourcedir data --sourcedir ../data --internal --generate --target data/piper.gresource --dependency-file data/piper.gresource.d",
+    "file": "data/piper.gresource.xml",
+    "output": "data/piper.gresource"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-piper-pot",
+    "output": "piper-pot"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-piper-gmo",
+    "output": "piper-gmo"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-piper-update-po",
+    "output": "piper-update-po"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson test --no-rebuild --print-errorlogs",
+    "file": "all",
+    "output": "meson-test"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-test",
+    "output": "test"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson test --benchmark --logbase benchmarklog --num-processes=1 --no-rebuild",
+    "file": "all",
+    "output": "meson-benchmark"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-benchmark",
+    "output": "benchmark"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson install --no-rebuild",
+    "file": "PHONY",
+    "output": "meson-install"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-install",
+    "output": "install"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson dist",
+    "file": "PHONY",
+    "output": "meson-dist"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-dist",
+    "output": "dist"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson --internal scanbuild /home/brian/lab/piper /home/brian/lab/piper/build /usr/bin/meson -Druntime-dependency-checks=true -Dtests=true",
+    "file": "PHONY",
+    "output": "meson-scan-build"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-scan-build",
+    "output": "scan-build"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson --internal uninstall",
+    "file": "PHONY",
+    "output": "meson-uninstall"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-uninstall",
+    "output": "uninstall"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "data/org.freedesktop.Piper.desktop",
+    "output": "all"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-clean",
+    "output": "clean"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson --internal cleantrees /home/brian/lab/piper/build/meson-private/cleantrees.dat",
+    "file": "PHONY",
+    "output": "meson-clean-ctlist"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "",
+    "file": "meson-clean-ctlist",
+    "output": "clean-ctlist"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/ninja -t clean",
+    "file": "PHONY",
+    "output": "meson-clean"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson --internal regenerate /home/brian/lab/piper /home/brian/lab/piper/build --backend ninja",
+    "file": "../meson.build",
+    "output": "build.ninja"
+  },
+  {
+    "directory": "/home/brian/lab/piper/build",
+    "command": "/usr/bin/meson --internal regenerate /home/brian/lab/piper /home/brian/lab/piper/build --backend ninja",
+    "file": "PHONY",
+    "output": "reconfigure"
+  }
+]

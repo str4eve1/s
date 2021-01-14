@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+     <gresource prefix="/org/freedesktop/Piper">
+        <file>404.svg</file>
+        <file>enter-keyboard-shortcut.svg</file>
+        <file>led-off.svg</file>
+        <file>svgs/svg-lookup.ini</file>
+
+        <file preprocess="xml-stripblanks">AboutDialog.ui</file>
+        <file preprocess="xml-stripblanks">ui/ButtonDialog.ui</file>
+        <file preprocess="xml-stripblanks">ui/ButtonRow.ui</file>
+        <file preprocess="xml-stripblanks">ui/DeviceRow.ui</file>
+        <file preprocess="xml-stripblanks">ui/ErrorPerspective.ui</file>
+        <file preprocess="xml-stripblanks">ui/MousePerspective.ui</file>
+        <file preprocess="xml-stripblanks">ui/LedDialog.ui</file>
+        <file preprocess="xml-stripblanks">ui/OptionButton.ui</file>
+        <file preprocess="xml-stripblanks">ui/ProfileRow.ui</file>
+        <file preprocess="xml-stripblanks">ui/ResolutionRow.ui</file>
+        <file preprocess="xml-stripblanks">ui/ResolutionsPage.ui</file>
+        <file preprocess="xml-stripblanks">ui/WelcomePerspective.ui</file>
+        <file preprocess="xml-stripblanks">ui/Window.ui</file>
+
+        <file>svgs/fallback.svg</file>
+        <file>svgs/logitech-g9.svg</file>
+        <file>svgs/logitech-g102-g203.svg</file>
+        <file>svgs/logitech-g300.svg</file>
+        <file>svgs/logitech-g303.svg</file>
+        <file>svgs/logitech-g402.svg</file>
+        <file>svgs/logitech-g403.svg</file>
+        <file>svgs/logitech-g500.svg</file>
+        <file>svgs/logitech-g500s.svg</file>
+        <file>svgs/logitech-g502.svg</file>
+        <file>svgs/logitech-g600.svg</file>
+        <file>svgs/logitech-g602.svg</file>
+        <file>svgs/logitech-g603.svg</file>
+        <file>svgs/logitech-g604.svg</file>
+        <file>svgs/logitech-g700.svg</file>
+        <file>svgs/logitech-g703.svg</file>
+        <file>svgs/logitech-g815.svg</file>
+        <file>svgs/logitech-g900.svg</file>
+        <file>svgs/logitech-g-pro.svg</file>
+        <file>svgs/logitech-g-pro-wireless.svg</file>
+        <file>svgs/logitech-g-pro-x-superlight.svg</file>
+        <file>svgs/logitech-m720.svg</file>
+        <file>svgs/logitech-mx518.svg</file>
+        <file>svgs/logitech-mx-anywhere2.svg</file>
+        <file>svgs/logitech-mx-anywhere2s.svg</file>
+        <file>svgs/logitech-mx-ergo.svg</file>
+        <file>svgs/logitech-mx-master.svg</file>
+        <file>svgs/logitech-mx-master-2s.svg</file>
+        <file>svgs/logitech-mx-master-3.svg</file>
+        <file>svgs/roccat-kone-pure.svg</file>
+        <file>svgs/roccat-kone-xtd.svg</file>
+        <file>svgs/steelseries-kinzu-v2.svg</file>
+        <file>svgs/steelseries-kinzu-v3.svg</file>
+        <file>svgs/steelseries-rival.svg</file>
+        <file>svgs/steelseries-rival310.svg</file>
+        <file>svgs/steelseries-rival600.svg</file>
+        <file>svgs/steelseries-sensei310.svg</file>
+        <file>svgs/steelseries-senseiraw.svg</file>
+    </gresource>
+</gresources>
