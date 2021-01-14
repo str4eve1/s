@@ -142,7 +142,6 @@
        style="fill:none;stroke:#babdb6;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <g
        style="display:inline"
-       id="led1"
        transform="translate(427.96393,-8.94861)"
        inkscape:label="DPI LED">
       <ellipse
@@ -154,7 +153,7 @@
          ry="1.9375004" />
     </g>
     <path
-       inkscape:label="LOGO LED"
+       inkscape:label="LOGO"
        transform="rotate(-90)"
        sodipodi:open="true"
        d="m -669.98328,291.54166 a 19.936752,19.936752 0 0 1 -28.19482,0 19.936752,19.936752 0 0 1 0,-28.19483 19.936752,19.936752 0 0 1 28.19482,0"
@@ -166,7 +165,6 @@
        sodipodi:cy="277.44424"
        sodipodi:cx="-684.08069"
        sodipodi:type="arc"
-       id="led0"
        style="color:#000000;display:inline;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#babdb6;stroke-width:10;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
   <g
@@ -308,10 +306,4 @@
          y="44.339954" />
     </g>
   </g>
-  <g
-     inkscape:groupmode="layer"
-     id="LEDs"
-     inkscape:label="LEDs"
-     style="display:inline"
-     transform="translate(-68.791597,5.973336)" />
 </svg>
