@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07, custom)"
-   sodipodi:docname="logitech-g-pro-wireless.svg"
+   sodipodi:docname="logitech-g-pro-x-superlight.svg"
    inkscape:export-filename="/home/jimmac/logitech-g-pro.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -35,11 +35,10 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.3799508"
-     inkscape:cx="262.66515"
-     inkscape:cy="216.49457"
+     inkscape:zoom="6.5317957"
+     inkscape:cx="304.96412"
+     inkscape:cy="224.46582"
      inkscape:document-units="px"
-     inkscape:current-layer="Device"
      inkscape:document-rotation="0"
      showgrid="false"
      units="px"
@@ -47,11 +46,11 @@
      inkscape:showpageshadow="false"
      inkscape:pagecheckerboard="false"
      showguides="true"
-     inkscape:window-width="1277"
+     inkscape:window-width="2554"
      inkscape:window-height="1364"
-     inkscape:window-x="1277"
+     inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      fit-margin-top="20"
      fit-margin-left="20"
      fit-margin-bottom="20"
@@ -142,6 +141,7 @@
        style="fill:none;stroke:#babdb6;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <g
        style="display:inline"
+       id="path123123123190231"
        transform="translate(427.96393,-8.94861)"
        inkscape:label="DPI LED">
       <ellipse
@@ -153,7 +153,7 @@
          ry="1.9375004" />
     </g>
     <path
-       inkscape:label="LOGO"
+       inkscape:label="LOGO LED"
        transform="rotate(-90)"
        sodipodi:open="true"
        d="m -669.98328,291.54166 a 19.936752,19.936752 0 0 1 -28.19482,0 19.936752,19.936752 0 0 1 0,-28.19483 19.936752,19.936752 0 0 1 28.19482,0"
@@ -165,6 +165,7 @@
        sodipodi:cy="277.44424"
        sodipodi:cx="-684.08069"
        sodipodi:type="arc"
+       id="path12312321"
        style="color:#000000;display:inline;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#babdb6;stroke-width:10;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
   <g
@@ -306,5 +307,10 @@
          y="44.339954" />
     </g>
   </g>
-  <g id="LEDs" />
+  <g
+     inkscape:groupmode="layer"
+     id="LEDs"
+     inkscape:label="LEDs"
+     style="display:inline"
+     transform="translate(-68.791597,5.973336)" />
 </svg>
