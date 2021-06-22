@@ -89,6 +89,7 @@ svgs = [
     'svgs/steelseries-rival600.svg',
     'svgs/steelseries-sensei310.svg',
     'svgs/steelseries-senseiraw.svg',
+    'svgs/steelseries-senseiten.svg',
 ]
 
 svg_mapping = files('svgs/svg-lookup.ini')
