@@ -5,7 +5,7 @@
   <project_license>GPL-2.0-or-later</project_license>
   <content_rating type="oars-1.0" />
   <name translatable="no">Piper</name>
-  <summary>Configurable mouse configuration utility</summary>
+  <summary>Gaming mouse configuration utility</summary>
   <description>
     <p>
       Piper is a graphical user interface to configure gaming mice.
