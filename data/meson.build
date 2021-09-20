@@ -82,6 +82,7 @@ svgs = [
     'svgs/logitech-mx-master-2s.svg',
     'svgs/logitech-mx-master-3.svg',
     'svgs/logitech-mx-vertical.svg',
+    'svgs/marsgaming-mm4.svg',
     'svgs/roccat-kone-pure.svg',
     'svgs/roccat-kone-xtd.svg',
     'svgs/steelseries-kinzu-v2.svg',
