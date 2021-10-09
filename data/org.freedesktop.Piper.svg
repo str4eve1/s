@@ -14,81 +14,6 @@
         <stop offset="0.875" stop-color="#f5c211"/>
         <stop offset="1" stop-color="#e5a50a"/>
     </linearGradient>
-    <filter id="c" height="100%" width="100%" x="0%" y="0%">
-        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
-    </filter>
-    <mask id="d">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="e">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="f">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="g">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="h">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="i">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="j">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="k">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="l">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="m">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="n">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="o">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="p">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="q">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="r">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.35" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="s">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="t">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.35" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="u">
-        <rect height="152" width="192"/>
-    </clipPath>
     <linearGradient id="v" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#c0bfbc"/>
         <stop offset="0.636926" stop-color="#f6f5f4"/>
@@ -101,22 +26,6 @@
     <linearGradient id="A" x1="68" x2="72" xlink:href="#v" y1="226" y2="226"/>
     <linearGradient id="B" x1="80" x2="84" xlink:href="#v" y1="226" y2="226"/>
     <linearGradient id="C" x1="74" x2="78" xlink:href="#v" y1="226" y2="226"/>
-    <mask id="D">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="E">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <mask id="F">
-        <g filter="url(#c)">
-            <rect fill-opacity="0.4" height="128" width="128"/>
-        </g>
-    </mask>
-    <clipPath id="G">
-        <rect height="152" width="192"/>
-    </clipPath>
     <path d="m 36 62 h 56 c 4.417969 0 8 3.582031 8 8 v 42 c 0 4.417969 -3.582031 8 -8 8 h -56 c -4.417969 0 -8 -3.582031 -8 -8 v -42 c 0 -4.417969 3.582031 -8 8 -8 z m 0 0" fill="url(#a)"/>
     <path d="m 36 8 h 56 c 4.417969 0 8 3.582031 8 8 v 88 c 0 4.417969 -3.582031 8 -8 8 h -56 c -4.417969 0 -8 -3.582031 -8 -8 v -88 c 0 -4.417969 3.582031 -8 8 -8 z m 0 0" fill="#b5835a"/>
     <path d="m 47 52 h 34 c 0.550781 0 1 0.449219 1 1 v 10 c 0 0.550781 -0.449219 1 -1 1 h -34 c -0.550781 0 -1 -0.449219 -1 -1 v -10 c 0 -0.550781 0.449219 -1 1 -1 z m 0 0" fill="#5e5c64"/>
