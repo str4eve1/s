@@ -28,6 +28,8 @@ class ResolutionsPage(Gtk.Box):
         RatbagdButton.ActionSpecial.RESOLUTION_DEFAULT,
     ]
 
+    rate_125 = GtkTemplate.Child()
+    rate_250 = GtkTemplate.Child()
     rate_500 = GtkTemplate.Child()
     rate_1000 = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
@@ -46,6 +48,8 @@ class ResolutionsPage(Gtk.Box):
         self._last_activated_row = None
 
         self._device.connect("active-profile-changed", self._on_active_profile_changed)
+        self._handler_125 = self.rate_125.connect("toggled", self._on_report_rate_toggled, 125)
+        self._handler_250 = self.rate_250.connect("toggled", self._on_report_rate_toggled, 250)
         self._handler_500 = self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
         self._handler_1000 = self.rate_1000.connect("toggled", self._on_report_rate_toggled, 1000)
 
@@ -74,6 +78,10 @@ class ResolutionsPage(Gtk.Box):
 
     def _on_active_profile_changed(self, device, profile):
         # Updates report rate to reflect the new active profile's report rate.
+        with self.rate_125.handler_block(self._handler_125):
+            self.rate_125.set_active(profile.report_rate == 125)
+        with self.rate_250.handler_block(self._handler_250):
+            self.rate_250.set_active(profile.report_rate == 250)
         with self.rate_500.handler_block(self._handler_500):
             self.rate_500.set_active(profile.report_rate == 500)
         with self.rate_1000.handler_block(self._handler_1000):
