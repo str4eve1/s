@@ -142,7 +142,7 @@ if enable_tests
 
     test_svg_files = find_program('tests/check-svg.py')
     test('check-svg', test_svg_files,
-        args: svgs,
+        args: join_paths(meson.source_root(), 'data/svgs/'),
         env: ['BASEDIR=@0@'.format(join_paths(meson.source_root(), 'data/'))]
         )
 
