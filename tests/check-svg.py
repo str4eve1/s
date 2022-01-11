@@ -4,6 +4,7 @@
 import os
 import sys
 from lxml import etree
+from pathlib import Path
 import logging
 
 ns = {'svg': 'http://www.w3.org/2000/svg'}
@@ -116,8 +117,8 @@ def check_svg(path):
 
 if __name__ == "__main__":
     success = True
-    for path in sys.argv[1:]:
-        logger = SVGLogger.get_logger(path)
+    for path in Path(sys.argv[1]).glob("*.svg"):
+        logger = SVGLogger.get_logger(str(path))
         print("checking {}...".format(path))
         check_svg(path)
         if not logger.success:

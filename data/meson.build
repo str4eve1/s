@@ -47,54 +47,6 @@ i18n.merge_file(input: appdata,
                 install_dir: metainfodir)
 
 
-# SVG files
-
-svgs = [
-    'svgs/fallback.svg',
-    'svgs/logitech-g9.svg',
-    'svgs/logitech-g102-g203.svg',
-    'svgs/logitech-g300.svg',
-    'svgs/logitech-g303.svg',
-    'svgs/logitech-g402.svg',
-    'svgs/logitech-g403.svg',
-    'svgs/logitech-g500.svg',
-    'svgs/logitech-g500s.svg',
-    'svgs/logitech-g502.svg',
-    'svgs/logitech-g513.svg',
-    'svgs/logitech-g600.svg',
-    'svgs/logitech-g602.svg',
-    'svgs/logitech-g603.svg',
-    'svgs/logitech-g604.svg',
-    'svgs/logitech-g700.svg',
-    'svgs/logitech-g703.svg',
-    'svgs/logitech-g815.svg',
-    'svgs/logitech-g900.svg',
-    'svgs/logitech-g-pro.svg',
-    'svgs/logitech-g-pro-wireless.svg',
-    'svgs/logitech-g-pro-x-wireless-superlight.svg',
-    'svgs/logitech-m500s.svg',
-    'svgs/logitech-m720.svg',
-    'svgs/logitech-mx518.svg',
-    'svgs/logitech-mx-anywhere2.svg',
-    'svgs/logitech-mx-anywhere2s.svg',
-    'svgs/logitech-mx-ergo.svg',
-    'svgs/logitech-mx-master.svg',
-    'svgs/logitech-mx-master-2s.svg',
-    'svgs/logitech-mx-master-3.svg',
-    'svgs/logitech-mx-vertical.svg',
-    'svgs/marsgaming-mm4.svg',
-    'svgs/roccat-kone-pure.svg',
-    'svgs/roccat-kone-xtd.svg',
-    'svgs/steelseries-kinzu-v2.svg',
-    'svgs/steelseries-kinzu-v3.svg',
-    'svgs/steelseries-rival.svg',
-    'svgs/steelseries-rival310.svg',
-    'svgs/steelseries-rival600.svg',
-    'svgs/steelseries-sensei310.svg',
-    'svgs/steelseries-senseiraw.svg',
-    'svgs/steelseries-senseiten.svg',
-]
-
 svg_mapping = files('svgs/svg-lookup.ini')
 
 gresource = configure_file(input: 'piper.gresource.xml.in',
@@ -102,7 +54,7 @@ gresource = configure_file(input: 'piper.gresource.xml.in',
                            command: ['generate-piper-gresource.xml.py',
                                      join_paths(meson.current_source_dir(), 'piper.gresource.xml.in'),
                                      join_paths(meson.current_build_dir(), 'piper.gresource.xml'),
-                                     svgs])
+                                     join_paths(meson.current_source_dir(), 'svgs')])
 
 gnome.compile_resources('piper', gresource,
                         source_dir: '.',
