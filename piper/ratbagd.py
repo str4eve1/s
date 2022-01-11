@@ -482,6 +482,10 @@ class RatbagdProfile(_RatbagdDBus):
         """
         self._set_dbus_property("ReportRate", "u", rate)
 
+        if not self._dirty:
+            self._dirty = True
+            self.notify("dirty")
+
     @GObject.Property
     def report_rates(self):
         """The list of supported report rates"""
