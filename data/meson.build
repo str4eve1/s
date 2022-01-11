@@ -97,31 +97,6 @@ svgs = [
 
 svg_mapping = files('svgs/svg-lookup.ini')
 
-if enable_tests
-     test_svg_files = find_program('svgs/check-svg.py')
-     test('check-svg', test_svg_files,
-          args: svgs,
-          env: ['BASEDIR=@0@'.format(meson.current_source_dir())])
-
-     test('svg-lookup-check',
-          find_program('svg-lookup-ini-test.py'),
-          args: [svg_mapping,
-               join_paths(meson.source_root(), 'data/svgs/')
-          ],
-
-     )
-     # meson requires that we specify all files one-by-one, so let's add a test
-     # that we can't forget about that.
-     test('svg-files-in-meson.build',
-          find_program('check-svg-in-meson.build.sh'),
-          args: [meson.source_root()],
-          suite: ['all'])
-     test('files-in-git',
-          find_program('check-files-in-git.sh'),
-          args: [meson.source_root()],
-          suite: ['all'])
-endif
-
 gresource = configure_file(input: 'piper.gresource.xml.in',
                            output: 'piper.gresource.xml',
                            command: ['generate-piper-gresource.xml.py',
