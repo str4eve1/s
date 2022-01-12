@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="485"
    height="445"
    viewBox="0 0 128.32296 117.73977"
    version="1.1"
    id="svg8"
    sodipodi:docname="logitech-mx-vertical.svg"
-   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)">
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2">
     <linearGradient
        id="linearGradient1018"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
@@ -27,7 +26,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1010"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#999999;stop-opacity:1;"
          offset="0"
@@ -35,7 +34,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1159"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#babdb6;stop-opacity:1;"
          offset="0"
@@ -43,7 +42,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1153"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
@@ -51,7 +50,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1147"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#d3d3ce;stop-opacity:1;"
          offset="0"
@@ -59,7 +58,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1137"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#d3d3ce;stop-opacity:1;"
          offset="0"
@@ -67,7 +66,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1101"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#999999;stop-opacity:1;"
          offset="0"
@@ -75,7 +74,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1095"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#babdb6;stop-opacity:1;"
          offset="0"
@@ -83,7 +82,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1087"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#babdb6;stop-opacity:1;"
          offset="0"
@@ -91,7 +90,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1081"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#786721;stop-opacity:1;"
          offset="0"
@@ -99,7 +98,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1075"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#999999;stop-opacity:1;"
          offset="0"
@@ -107,7 +106,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1063"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#eeeeec;stop-opacity:1;"
          offset="0"
@@ -115,7 +114,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1057"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#d3d3ce;stop-opacity:1;"
          offset="0"
@@ -123,7 +122,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1021"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
@@ -131,7 +130,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient1015"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#999999;stop-opacity:1;"
          offset="0"
@@ -139,7 +138,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient961"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
@@ -147,7 +146,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient955"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#ceced3;stop-opacity:1;"
          offset="0"
@@ -155,7 +154,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient931"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#babdb6;stop-opacity:1;"
          offset="0"
@@ -163,7 +162,7 @@
     </linearGradient>
     <linearGradient
        id="linearGradient925"
-       osb:paint="solid">
+       inkscape:swatch="solid">
       <stop
          style="stop-color:#d3d3ce;stop-opacity:1;"
          offset="0"
@@ -182,16 +181,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="274.99602"
-     inkscape:cy="223.30097"
+     inkscape:zoom="0.89662921"
+     inkscape:cx="155.02506"
+     inkscape:cy="165.06266"
      inkscape:document-units="px"
-     inkscape:current-layer="LEDs"
+     inkscape:current-layer="g157"
      showgrid="false"
-     inkscape:window-width="1848"
-     inkscape:window-height="1016"
-     inkscape:window-x="72"
-     inkscape:window-y="27"
+     inkscape:window-width="1920"
+     inkscape:window-height="1010"
+     inkscape:window-x="1920"
+     inkscape:window-y="34"
      inkscape:window-maximized="1"
      units="px"
      showguides="true"
@@ -203,7 +202,8 @@
      inkscape:snap-intersection-paths="true"
      inkscape:snap-midpoints="true"
      inkscape:snap-others="false"
-     borderlayer="true">
+     borderlayer="true"
+     inkscape:pagecheckerboard="0">
     <inkscape:grid
        type="xygrid"
        id="grid5521"
@@ -234,7 +234,8 @@
      inkscape:groupmode="layer"
      id="Device"
      inkscape:label="Device"
-     style="display:inline;opacity:1">
+     style="display:inline;opacity:1"
+     sodipodi:insensitive="true">
     <path
        style="fill:#d3d3ce;fill-opacity:1;stroke:#babdb6;stroke-width:0.529168;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 51.840503,31.565489 c -3.790772,-0.986692 -22.989701,21.600708 -23.492827,44.721179 -0.307906,14.149429 5.795172,25.025942 18.156463,31.321922 5.81567,2.9621 25.184297,7.00467 37.451524,-0.42347 C 96.516718,99.579051 99.992208,83.348971 99.869475,70.919873 99.754064,59.232305 97.714311,40.347396 88.322411,27.11746 81.257943,17.166071 67.805393,8.0014208 56.675076,6.8039361 53.697698,6.483607 53.76781,6.0127927 53.76781,6.0127927 c 0,0 6.316494,27.6984573 -1.927307,25.5526963 z"
@@ -378,43 +379,54 @@
        sodipodi:nodetypes="ccsc" />
   </g>
   <g
-     inkscape:groupmode="layer"
      id="Buttons"
      inkscape:label="Buttons"
      style="display:inline;opacity:1"
      transform="translate(0,-179.26022)"
-     sodipodi:insensitive="true">
+     inkscape:groupmode="layer">
     <g
-       id="g153">
+       id="g153"
+       inkscape:label="button3">
+      <rect
+         inkscape:label="button3-leader"
+         style="color:#000000;text-align:end;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
+         id="button3-leader"
+         width="0.26458332"
+         height="0.26458332"
+         x="-0.26088676"
+         y="232.83786" />
       <path
          sodipodi:nodetypes="ccc"
-         style="color:#000000;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#888a85;stroke-width:0.228314;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
-         d="m 49.325978,221.73485 23.96981,27.46891 h 55.056332"
-         id="button5-path"
-         inkscape:connector-curvature="0" />
+         style="color:#000000;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#888a85;stroke-width:0.115521;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+         d="m 49.080739,221.65309 -14.86928,11.3364 H 0.05816248"
+         id="button3-path"
+         inkscape:connector-curvature="0"
+         inkscape:label="button3-path" />
       <rect
          style="color:#000000;overflow:visible;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
-         id="button5"
+         id="button3"
          width="1.8520831"
          height="1.8520831"
          x="48.401443"
-         y="220.54024" />
+         y="220.54024"
+         inkscape:label="button3-point" />
     </g>
-    <rect
-       inkscape:label="#rect867"
-       style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
-       id="button5-leader"
-       width="0.26458332"
-       height="0.26458332"
-       x="128.32291"
-       y="249.03099" />
     <g
-       id="g151">
+       id="g151"
+       inkscape:label="button4">
+      <rect
+         y="220.24954"
+         x="-0.26264206"
+         height="0.26458332"
+         width="0.26458332"
+         id="button4-leader"
+         style="color:#000000;text-align:end;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
+         inkscape:label="button4-leader" />
       <path
          inkscape:connector-curvature="0"
          id="button4-path"
-         d="m 48.454434,213.37919 25.955563,25.24318 h 53.943633"
-         style="color:#000000;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#888a85;stroke-width:0.22963;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+         d="m 48.220594,213.28068 -15.653947,7.11676 H 0.03293482"
+         style="color:#000000;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#888a85;stroke-width:0.0946879;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
          sodipodi:nodetypes="ccc" />
       <rect
          y="212.27823"
@@ -422,44 +434,42 @@
          height="1.8520831"
          width="1.8520831"
          id="button4"
-         style="color:#000000;overflow:visible;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+         style="color:#000000;overflow:visible;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+         inkscape:label="button4-point" />
     </g>
-    <rect
-       y="238.44766"
-       x="128.32291"
-       height="0.26458332"
-       width="0.26458332"
-       id="button4-leader"
-       style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
-       inkscape:label="#rect867" />
     <g
-       id="g149">
+       id="g149"
+       inkscape:label="button5">
+      <rect
+         y="227.99669"
+         x="128.32291"
+         height="0.26458332"
+         width="0.26458332"
+         id="button5-leader"
+         style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
+         inkscape:label="button5-leader" />
       <path
          inkscape:connector-curvature="0"
-         id="button3-path"
+         id="button5-path"
          d="m 56.197424,224.9171 5.101603,3.21899 h 67.188313"
          style="color:#000000;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#888a85;stroke-width:0.251774;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
-         sodipodi:nodetypes="ccc" />
+         sodipodi:nodetypes="ccc"
+         inkscape:label="button5-path" />
       <rect
          y="223.86127"
          x="55.393112"
          height="1.8520831"
          width="1.8520831"
-         id="button3"
-         style="color:#000000;overflow:visible;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+         id="button5"
+         style="color:#000000;overflow:visible;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+         inkscape:label="button5-point" />
     </g>
-    <rect
-       y="227.99669"
-       x="128.32291"
-       height="0.26458332"
-       width="0.26458332"
-       id="button3-leader"
-       style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
-       inkscape:label="#rect867" />
     <g
-       id="g155">
+       id="g155"
+       inkscape:label="button2">
       <g
-         id="button2-path">
+         id="button2-path"
+         inkscape:label="button2-path">
         <path
            sodipodi:nodetypes="cc"
            style="color:#000000;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#888a85;stroke-width:0.186903;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
@@ -479,18 +489,19 @@
          width="1.8520831"
          height="1.8520831"
          x="74.471657"
-         y="201.82648" />
+         y="201.82648"
+         inkscape:label="button2-point" />
+      <rect
+         inkscape:label="button2-leader"
+         style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
+         id="button2-leader"
+         width="0.26458332"
+         height="0.26458332"
+         x="128.32291"
+         y="217.28107" />
     </g>
-    <rect
-       inkscape:label="#rect867"
-       style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
-       id="button2-leader"
-       width="0.26458332"
-       height="0.26458332"
-       x="128.32291"
-       y="217.28107" />
     <g
-       inkscape:label="#g131"
+       inkscape:label="button1"
        id="g157"
        style="display:inline"
        transform="matrix(0.26458333,0,0,0.26458333,2.1166624,193.59933)">
@@ -506,26 +517,28 @@
          height="6.999999"
          width="6.999999"
          id="button1"
-         style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal" />
+         style="color:#000000;overflow:visible;opacity:1;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
+         inkscape:label="button1-point" />
       <rect
          y="50.005764"
          x="477"
          height="1"
          width="1"
-         id="rect140"
+         id="button1-leader"
          style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"
-         inkscape:label="#rect867" />
+         inkscape:label="button1-leader" />
     </g>
-    <rect
-       inkscape:label="#rect867"
-       style="color:#000000;text-align:start;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
-       id="button1-leader"
-       width="0.26458332"
-       height="0.26458332"
-       x="128.05846"
-       y="206.83698" />
     <g
-       id="g159">
+       id="g159"
+       inkscape:label="button0">
+      <rect
+         inkscape:label="button0-leader"
+         style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
+         id="button0-leader"
+         width="0.26458332"
+         height="0.26458332"
+         x="128.32291"
+         y="196.24669" />
       <path
          sodipodi:nodetypes="cc"
          style="color:#000000;overflow:visible;vector-effect:none;fill:none;fill-opacity:1;stroke:#888a85;stroke-width:0.263948;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;paint-order:normal"
@@ -538,15 +551,8 @@
          width="1.8520831"
          height="1.8520831"
          x="65.437782"
-         y="195.50662" />
+         y="195.50662"
+         inkscape:label="button0-point" />
     </g>
-    <rect
-       inkscape:label="#rect867"
-       style="color:#000000;text-align:start;overflow:visible;vector-effect:none;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round"
-       id="button0-leader"
-       width="0.26458332"
-       height="0.26458332"
-       x="128.32291"
-       y="196.24669" />
   </g>
 </svg>
