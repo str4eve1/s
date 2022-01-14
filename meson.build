@@ -139,4 +139,22 @@ if enable_tests
                     join_paths(meson.source_root(), 'piper'),
                     join_paths(meson.source_root(), 'piper.in')])
     endif
+
+    test_svg_files = find_program('tests/check-svg.py')
+    test('check-svg', test_svg_files,
+        args: join_paths(meson.source_root(), 'data/svgs/'),
+        env: ['BASEDIR=@0@'.format(join_paths(meson.source_root(), 'data/'))]
+        )
+
+    test('svg-lookup-check',
+        find_program('tests/svg-lookup-ini-test.py'),
+        args: [svg_mapping,
+            join_paths(meson.source_root(), 'data/svgs/')
+            ],
+
+        )
+    test('files-in-git',
+        find_program('tests/check-files-in-git.sh'),
+        args: [meson.source_root()],
+        suite: ['all'])
 endif
