@@ -1,0 +1,48 @@
+name: linux
+
+on: [ push, pull_request ]
+
+env:
+  UBUNTU_DEPS: |
+      pkg-config gettext appstream
+      python3 python-gi-dev python3-lxml python3-evdev
+      gir1.2-rsvg-2.0 python3-gi-cairo flake8 gtk-update-icon-cache
+  PIP_PACKAGES: meson ninja
+
+jobs:
+  build-and-dist:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        meson_args:
+          - '-Druntime-dependency-checks=false'
+          - '-Druntime-dependency-checks=false -Dbuildtype=plain'
+          - '-Druntime-dependency-checks=false -Dbuildtype=release'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: libratbag/libratbag/.github/actions/pkginstall@master
+        with:
+          apt: $UBUNTU_DEPS
+          pip: $PIP_PACKAGES
+      - name: meson install ${{matrix.meson_args}}
+        uses: libratbag/libratbag/.github/actions/meson@master
+        with:
+          meson_args: --prefix=$PWD/_instdir ${{matrix.meson_args}}
+          ninja_args: install
+      - name: check installation of data files
+        run:  diff -u <(cd data/devices; ls *.device) <(cd _instdir/share/libratbag; ls *.device)
+      - name: ninja uninstall
+        uses: libratbag/libratbag/.github/actions/meson@master
+        with:
+          meson_args: --prefix=$PWD/_instdir
+          ninja_args: uninstall
+      - name: list any files left after uninstall
+        run: (test -d _instdir && tree _instdir) || exit 0
+      # Capture all the meson logs, even if we failed
+      - uses: actions/upload-artifact@v2
+        if: ${{ always() }}  # even if we fail
+        with:
+          name: meson test logs
+          path: |
+            builddir/meson-logs/testlog*.txt
+            builddir/meson-logs/meson-log.txt
