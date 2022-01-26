@@ -3,27 +3,25 @@
 # This file is distributed under the same license as the piper package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-30 18:32+0700\n"
-"PO-Revision-Date: 2020-11-30 19:34+0700\n"
+"PO-Revision-Date: 2022-01-26 14:08+0700\n"
 "Last-Translator: Vail Rahmatulin <vail_rahmatulin@mail.ru>\n"
-"Language-Team:\n"
-"Language: RU\n"
+"Language-Team: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
 
-#: data/org.freedesktop.Piper.desktop.in:3
-#: data/org.freedesktop.Piper.appdata.xml.in.in:7
+#: data/org.freedesktop.Piper.desktop.in:3 data/org.freedesktop.Piper.appdata.xml.in.in:7
 msgid "Piper"
 msgstr "Piper"
 
-#: data/org.freedesktop.Piper.desktop.in:4
-#: data/org.freedesktop.Piper.appdata.xml.in.in:8
+#: data/org.freedesktop.Piper.desktop.in:4 data/org.freedesktop.Piper.appdata.xml.in.in:8
 msgid "Configurable mouse configuration utility"
 msgstr "Утилита для настройки мыши"
 
@@ -39,24 +37,23 @@ msgstr "игра;конфигурация;мышь;мыши;"
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:10
 msgid ""
-"Piper is a graphical user interface to configure gaming mice. Configuration "
-"options include changing the resolution (DPI) of the mouse, adding and "
-"removing profiles, setting LED colors and changing button behaviors."
+"Piper is a graphical user interface to configure gaming mice. Configuration options "
+"include changing the resolution (DPI) of the mouse, adding and removing profiles, "
+"setting LED colors and changing button behaviors."
 msgstr ""
-"Piper - это графический интерфейс пользователя для настройки игровых мышей."
-"Варианты конфигурации включают изменение разрешающей способности (DPI) мыши, "
-"добавление и удаление профилей, настройки цвета светодиода и изменение поведения "
-"кнопки."
+"Piper - это графический интерфейс пользователя, для настройки игровых мышей. Варианты "
+"конфигурации включают изменение разрешающей способности (DPI) мыши, добавление и "
+"удаление профилей, настройки цвета светодиода и изменение поведения кнопки."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:16
 msgid ""
-"Piper requires libratbag’s ratbagd, the daemon to actually communicate with "
-"the mice. Piper is merely a front end to ratbagd, ratbagd must be installed "
-"and running when Piper is launched."
+"Piper requires libratbag’s ratbagd, the daemon to actually communicate with the mice. "
+"Piper is merely a front end to ratbagd, ratbagd must be installed and running when "
+"Piper is launched."
 msgstr ""
-"Piper требует библиотеку libratbagd от сервиса ratbagd, чтобы общаться с "
-"мышью. Piper-это просто графический интерфейс, ratbagd должен быть "
-"установлен и запущен перед запуском Piper."
+"Piper требует библиотеку libratbagd от сервиса ratbagd, чтобы общаться с мышью. Piper-"
+"это просто графический интерфейс, ratbagd должен быть установлен и запущен перед "
+"запуском Piper."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:27
 msgid "The button configuraton page"
@@ -64,7 +61,7 @@ msgstr "Страница настройки кнопок"
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:31
 msgid "The LED configuraton page"
-msgstr "Страница настройки LED"
+msgstr "Страница настройки подсветки"
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:35
 msgid "The resolution configuraton page"
@@ -88,7 +85,7 @@ msgstr "Клик кнопки {}"
 
 #: piper/buttonspage.py:80
 msgid "Macro: {}"
-msgstr "Макро: {}"
+msgstr "Макрос: {}"
 
 #. Translators: the button is turned disabled, e.g. off.
 #: piper/buttonspage.py:83
@@ -114,7 +111,7 @@ msgstr "Кнопки"
 
 #: piper/mouseperspective.py:80
 msgid "LEDs"
-msgstr "LEDs"
+msgstr "Подсветка"
 
 #: piper/ratbagd.py:655
 msgid "Left mouse button click"
@@ -243,10 +240,10 @@ msgid "Cannot connect to ratbagd"
 msgstr "Невозможно подключиться к ratbagd"
 
 #: piper/window.py:41
-msgid ""
-"Please make sure ratbagd is running and your user is in the required group"
+msgid "Please make sure ratbagd is running and your user is in the required group"
 msgstr ""
 "Пожалуйста, убедитесь, что ratbag работает и ваш пользователь находится в нужной группе"
+
 #: piper/window.py:44
 msgid "Incompatible ratbagd API version (required: {}, provided: {})"
 msgstr "Несовместимая версия API ratbags (требуется: {}, предоставляется: {})"
@@ -341,16 +338,15 @@ msgstr "Левая/правая рука."
 
 #: data/ui/ButtonDialog.ui:253
 msgid ""
-"This allows you to swap the order of the primary mouse buttons. In left-"
-"handed mode, the physical left mouse button generates a right mouse click "
-"and vice versa."
+"This allows you to swap the order of the primary mouse buttons. In left-handed mode, "
+"the physical left mouse button generates a right mouse click and vice versa."
 msgstr ""
-"Это позволяет изменить порядок основных кнопок мыши. В режиме левой руки "
-"физическая левая кнопка мыши работает как правая и наоборот."
+"Это позволяет изменить порядок основных кнопок мыши. В режиме левой руки физическая "
+"левая кнопка мыши работает как правая и наоборот."
 
 #: data/ui/ButtonDialog.ui:273
 msgid "Left Handed"
-msgstr "Левая рука"
+msgstr "Для левшей"
 
 #: data/ui/ButtonDialog.ui:278
 msgid "The left mouse button generates a left mouse click"
@@ -358,7 +354,7 @@ msgstr "Левая кнопка мыши генерирует левый кли�
 
 #: data/ui/ButtonDialog.ui:292
 msgid "Right Handed"
-msgstr "Правая рука"
+msgstr "Для правшей"
 
 #: data/ui/ButtonDialog.ui:297
 msgid "The left mouse button generates a right mouse click"
@@ -372,8 +368,7 @@ msgstr "Отмена"
 msgid "Ignore any changes made"
 msgstr "Игнорировать все сделанные изменения"
 
-#: data/ui/ButtonDialog.ui:345 data/ui/LedDialog.ui:430
-#: data/ui/MousePerspective.ui:132
+#: data/ui/ButtonDialog.ui:345 data/ui/LedDialog.ui:430 data/ui/MousePerspective.ui:132
 msgid "Apply"
 msgstr "Применить"
 
@@ -391,7 +386,7 @@ msgstr "Попробуйте сформулировать иначе"
 
 #: data/ui/ErrorPerspective.ui:16
 msgid "Here, rodent, rodent, rodent…"
-msgstr "Тут мыш, мыш, мыш…"
+msgstr "Тут мышь, мышь, мышь…"
 
 #: data/ui/ErrorPerspective.ui:69
 msgid "Uh Oh! Something went wrong…"
