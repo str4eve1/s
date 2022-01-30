@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
   <object class="GtkAdjustment" id="adjustment_brightness">
     <property name="upper">255</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
   </object>
   <object class="GtkAdjustment" id="adjustment_effect_duration">
-    <property name="lower">0</property>
     <property name="upper">10000</property>
-    <property name="step_increment">100</property>
-    <property name="page_increment">500</property>
+    <property name="step-increment">100</property>
+    <property name="page-increment">500</property>
   </object>
   <template class="LedDialog" parent="GtkDialog">
-    <property name="width_request">400</property>
-    <property name="height_request">300</property>
-    <property name="can_focus">False</property>
+    <property name="width-request">400</property>
+    <property name="height-request">300</property>
+    <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
-    <property name="type_hint">dialog</property>
+    <property name="type-hint">dialog</property>
     <child internal-child="vbox">
       <object class="GtkBox">
-        <property name="can_focus">False</property>
-        <property name="margin_left">12</property>
-        <property name="margin_right">12</property>
-        <property name="margin_top">12</property>
-        <property name="margin_bottom">12</property>
+        <property name="can-focus">False</property>
+        <property name="margin-left">12</property>
+        <property name="margin-right">12</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
             <child>
               <placeholder/>
             </child>
@@ -49,17 +48,17 @@
         <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="transition_type">slide-left-right</property>
+            <property name="can-focus">False</property>
+            <property name="transition-type">slide-left-right</property>
             <child>
               <object class="GtkColorChooserWidget" id="colorchooser">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Choose a color for the LED</property>
+                <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Choose a color for the LED</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="rgba">rgb(237,212,0)</property>
-                <property name="use_alpha">False</property>
+                <property name="use-alpha">False</property>
               </object>
               <packing>
                 <property name="name">solid</property>
@@ -69,30 +68,30 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkFrame">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label_xalign">0</property>
-                    <property name="shadow_type">none</property>
+                    <property name="can-focus">False</property>
+                    <property name="label-xalign">0</property>
+                    <property name="shadow-type">none</property>
                     <child>
                       <object class="GtkAlignment">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="can-focus">False</property>
+                        <property name="left-padding">12</property>
                         <child>
                           <object class="GtkScale">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_text" translatable="yes">Choose a brightness for the LED</property>
+                            <property name="can-focus">True</property>
+                            <property name="tooltip-text" translatable="yes">Choose a brightness for the LED</property>
                             <property name="adjustment">adjustment_brightness</property>
-                            <property name="round_digits">0</property>
+                            <property name="round-digits">0</property>
                             <property name="digits">0</property>
-                            <property name="draw_value">False</property>
-                            <property name="value_pos">right</property>
+                            <property name="draw-value">False</property>
+                            <property name="value-pos">right</property>
                           </object>
                         </child>
                       </object>
@@ -100,9 +99,9 @@
                     <child type="label">
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="label" translatable="yes">Brightness</property>
-                        <property name="track_visited_links">False</property>
+                        <property name="track-visited-links">False</property>
                       </object>
                     </child>
                   </object>
@@ -115,28 +114,28 @@
                 <child>
                   <object class="GtkFrame">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label_xalign">0</property>
-                    <property name="shadow_type">none</property>
+                    <property name="can-focus">False</property>
+                    <property name="label-xalign">0</property>
+                    <property name="shadow-type">none</property>
                     <child>
                       <object class="GtkAlignment">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="can-focus">False</property>
+                        <property name="left-padding">12</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
+                            <property name="can-focus">False</property>
                             <property name="spacing">10</property>
                             <child>
                               <object class="GtkScale">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="tooltip_text" translatable="yes">Choose an effect duration for the LED</property>
+                                <property name="can-focus">True</property>
+                                <property name="tooltip-text" translatable="yes">Choose an effect duration for the LED</property>
                                 <property name="adjustment">adjustment_effect_duration</property>
-                                <property name="round_digits">0</property>
+                                <property name="round-digits">0</property>
                                 <property name="digits">0</property>
-                                <property name="value_pos">right</property>
+                                <property name="value-pos">right</property>
                                 <signal name="change-value" handler="_on_change_value" swapped="no"/>
                               </object>
                               <packing>
@@ -148,11 +147,11 @@
                             <child>
                               <object class="GtkLabel">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can-focus">False</property>
                                 <property name="halign">end</property>
                                 <property name="label" translatable="yes">ms</property>
                                 <property name="justify">right</property>
-                                <property name="track_visited_links">False</property>
+                                <property name="track-visited-links">False</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -160,7 +159,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="pack_type">end</property>
+                                <property name="pack-type">end</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -171,9 +170,9 @@
                     <child type="label">
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="label" translatable="yes">Effect duration</property>
-                        <property name="track_visited_links">False</property>
+                        <property name="track-visited-links">False</property>
                       </object>
                     </child>
                   </object>
@@ -193,20 +192,20 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkColorButton" id="colorbutton">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Choose a color for the LED</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <property name="tooltip-text" translatable="yes">Choose a color for the LED</property>
                         <property name="halign">end</property>
                         <property name="valign">center</property>
                         <property name="title" translatable="yes">Pick a Color for the LED</property>
@@ -214,17 +213,17 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="pack_type">end</property>
+                        <property name="pack-type">end</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="label" translatable="yes">Color</property>
-                        <property name="track_visited_links">False</property>
+                        <property name="track-visited-links">False</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -242,23 +241,23 @@
                 <child>
                   <object class="GtkFrame">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label_xalign">0</property>
-                    <property name="shadow_type">none</property>
+                    <property name="can-focus">False</property>
+                    <property name="label-xalign">0</property>
+                    <property name="shadow-type">none</property>
                     <child>
                       <object class="GtkAlignment">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="can-focus">False</property>
+                        <property name="left-padding">12</property>
                         <child>
                           <object class="GtkScale">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_text" translatable="yes">Choose a brightness for the LED</property>
+                            <property name="can-focus">True</property>
+                            <property name="tooltip-text" translatable="yes">Choose a brightness for the LED</property>
                             <property name="adjustment">adjustment_brightness</property>
                             <property name="digits">0</property>
-                            <property name="draw_value">False</property>
-                            <property name="value_pos">right</property>
+                            <property name="draw-value">False</property>
+                            <property name="value-pos">right</property>
                           </object>
                         </child>
                       </object>
@@ -266,9 +265,9 @@
                     <child type="label">
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="label" translatable="yes">Brightness</property>
-                        <property name="track_visited_links">False</property>
+                        <property name="track-visited-links">False</property>
                       </object>
                     </child>
                   </object>
@@ -281,28 +280,28 @@
                 <child>
                   <object class="GtkFrame">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label_xalign">0</property>
-                    <property name="shadow_type">none</property>
+                    <property name="can-focus">False</property>
+                    <property name="label-xalign">0</property>
+                    <property name="shadow-type">none</property>
                     <child>
                       <object class="GtkAlignment">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
+                        <property name="can-focus">False</property>
+                        <property name="left-padding">12</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
+                            <property name="can-focus">False</property>
                             <property name="spacing">10</property>
                             <child>
                               <object class="GtkScale">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="tooltip_text" translatable="yes">Choose an effect duration for the LED</property>
+                                <property name="can-focus">True</property>
+                                <property name="tooltip-text" translatable="yes">Choose an effect duration for the LED</property>
                                 <property name="adjustment">adjustment_effect_duration</property>
-                                <property name="round_digits">0</property>
+                                <property name="round-digits">0</property>
                                 <property name="digits">0</property>
-                                <property name="value_pos">right</property>
+                                <property name="value-pos">right</property>
                                 <signal name="change-value" handler="_on_change_value" swapped="no"/>
                               </object>
                               <packing>
@@ -314,11 +313,11 @@
                             <child>
                               <object class="GtkLabel">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can-focus">False</property>
                                 <property name="halign">end</property>
                                 <property name="label" translatable="yes">ms</property>
                                 <property name="justify">right</property>
-                                <property name="track_visited_links">False</property>
+                                <property name="track-visited-links">False</property>
                                 <style>
                                   <class name="dim-label"/>
                                 </style>
@@ -326,7 +325,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="pack_type">end</property>
+                                <property name="pack-type">end</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -337,9 +336,9 @@
                     <child type="label">
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="label" translatable="yes">Effect duration</property>
-                        <property name="track_visited_links">False</property>
+                        <property name="track-visited-links">False</property>
                       </object>
                     </child>
                   </object>
@@ -359,12 +358,12 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkImage" id="led_off_image">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="resource">/org/freedesktop/Piper/led-off.svg</property>
                   </object>
                   <packing>
@@ -376,12 +375,12 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-top">10</property>
+                    <property name="margin-bottom">5</property>
                     <property name="label" translatable="yes">This LED is off</property>
                     <property name="justify">center</property>
-                    <property name="track_visited_links">False</property>
-                    <property name="margin_top">10</property>
-                    <property name="margin_bottom">5</property>
+                    <property name="track-visited-links">False</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -408,37 +407,37 @@
     <child type="titlebar">
       <object class="GtkHeaderBar" id="titlebar">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
+        <child type="title">
+          <object class="GtkStackSwitcher">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="stack">stack</property>
+          </object>
+        </child>
         <child>
           <object class="GtkButton" id="cancel">
             <property name="label" translatable="yes">Cancel</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Ignore any changes made</property>
-          </object>
-        </child>
-        <child type="title">
-          <object class="GtkStackSwitcher">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stack">stack</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text" translatable="yes">Ignore any changes made</property>
           </object>
         </child>
         <child>
           <object class="GtkButton" id="apply">
             <property name="label" translatable="yes">Apply</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Apply any changes made</property>
+            <property name="can-focus">True</property>
+            <property name="can-default">True</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text" translatable="yes">Apply any changes made</property>
             <style>
               <class name="suggested-action"/>
             </style>
           </object>
           <packing>
-            <property name="pack_type">end</property>
+            <property name="pack-type">end</property>
             <property name="position">1</property>
           </packing>
         </child>

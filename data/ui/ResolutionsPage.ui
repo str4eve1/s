@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
   <template class="ResolutionsPage" parent="GtkBox">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <child>
       <placeholder/>
     </child>
     <child>
       <object class="GtkBox">
-        <property name="width_request">300</property>
+        <property name="width-request">300</property>
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="border_width">20</property>
+        <property name="can-focus">False</property>
+        <property name="border-width">20</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
+            <property name="can-focus">False</property>
+            <property name="label-xalign">0</property>
+            <property name="shadow-type">none</property>
             <child>
               <object class="GtkAlignment">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="top_padding">12</property>
-                <property name="bottom_padding">12</property>
-                <property name="left_padding">12</property>
-                <property name="right_padding">12</property>
+                <property name="can-focus">False</property>
+                <property name="top-padding">12</property>
+                <property name="bottom-padding">12</property>
+                <property name="left-padding">12</property>
+                <property name="right-padding">12</property>
                 <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="halign">center</property>
                     <property name="spacing">20</property>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="halign">end</property>
                         <property name="label" translatable="yes" comments="Translators: the rate at which the device reports movement.">Report rate</property>
                         <property name="justify">right</property>
-                        <property name="track_visited_links">False</property>
+                        <property name="track-visited-links">False</property>
                         <style>
                           <class name="dim-label"/>
                         </style>
@@ -56,17 +56,17 @@
                     <child>
                       <object class="GtkButtonBox" id="rate_button_box">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Change the profile’s report rate</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Change the profile’s report rate</property>
                         <property name="homogeneous">True</property>
-                        <property name="layout_style">expand</property>
+                        <property name="layout-style">expand</property>
                         <child>
                           <object class="GtkRadioButton" id="rate_125">
                             <property name="label">125</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="draw_indicator">False</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
+                            <property name="draw-indicator">False</property>
                             <property name="group">rate_250</property>
                           </object>
                           <packing>
@@ -79,9 +79,9 @@
                           <object class="GtkRadioButton" id="rate_250">
                             <property name="label">250</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="draw_indicator">False</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
+                            <property name="draw-indicator">False</property>
                             <property name="group">rate_125</property>
                           </object>
                           <packing>
@@ -94,9 +94,9 @@
                           <object class="GtkRadioButton" id="rate_500">
                             <property name="label">500</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="draw_indicator">False</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
+                            <property name="draw-indicator">False</property>
                             <property name="group">rate_125</property>
                           </object>
                           <packing>
@@ -109,10 +109,10 @@
                           <object class="GtkRadioButton" id="rate_1000">
                             <property name="label">1000</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
                             <property name="active">True</property>
-                            <property name="draw_indicator">False</property>
+                            <property name="draw-indicator">False</property>
                             <property name="group">rate_125</property>
                           </object>
                           <packing>
@@ -131,10 +131,10 @@
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="halign">start</property>
                         <property name="label" translatable="yes">Hz</property>
-                        <property name="track_visited_links">False</property>
+                        <property name="track-visited-links">False</property>
                         <style>
                           <class name="dim-label"/>
                         </style>
@@ -152,9 +152,9 @@
             <child type="label">
               <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes" comments="Translators: the sensitivity of the device's sensor.">Sensitivity</property>
-                <property name="track_visited_links">False</property>
+                <property name="track-visited-links">False</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -170,50 +170,49 @@
         <child>
           <object class="GtkFrame">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
+            <property name="can-focus">False</property>
+            <property name="label-xalign">0</property>
+            <property name="shadow-type">none</property>
             <child>
               <object class="GtkAlignment">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="top_padding">12</property>
-                <property name="bottom_padding">12</property>
-                <property name="left_padding">12</property>
-                <property name="right_padding">12</property>
+                <property name="can-focus">False</property>
+                <property name="top-padding">12</property>
+                <property name="bottom-padding">12</property>
+                <property name="left-padding">12</property>
+                <property name="right-padding">12</property>
                 <child>
                   <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="shadow_type">in</property>
-                    <property name="propagate_natural_width">True</property>
-                    <property name="propagate_natural_height">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="shadow-type">in</property>
+                    <property name="propagate-natural-width">True</property>
+                    <property name="propagate-natural-height">True</property>
                     <child>
                       <object class="GtkViewport">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <child>
                           <object class="GtkListBox" id="listbox">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="selection_mode">none</property>
+                            <property name="can-focus">False</property>
+                            <property name="selection-mode">none</property>
                             <signal name="row-activated" handler="_on_row_activated" swapped="no"/>
                             <child>
                               <object class="GtkListBoxRow" id="add_resolution_row">
-                                <property name="visible">False</property>
-                                <property name="can_focus">True</property>
-                                <property name="tooltip_text" translatable="yes">Add a new resolution to the profile</property>
+                                <property name="can-focus">True</property>
+                                <property name="tooltip-text" translatable="yes">Add a new resolution to the profile</property>
                                 <child>
                                   <object class="GtkBox">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
+                                    <property name="can-focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="border_width">6</property>
+                                    <property name="border-width">6</property>
                                     <child type="center">
                                       <object class="GtkImage">
                                         <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="icon_name">list-add-symbolic</property>
+                                        <property name="can-focus">False</property>
+                                        <property name="icon-name">list-add-symbolic</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -236,9 +235,9 @@
             <child type="label">
               <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Resolutions</property>
-                <property name="track_visited_links">False</property>
+                <property name="track-visited-links">False</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -255,7 +254,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="pack_type">end</property>
+        <property name="pack-type">end</property>
         <property name="position">1</property>
       </packing>
     </child>
