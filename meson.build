@@ -1,7 +1,7 @@
 project('piper',
     version: '0.6',
     license: 'GPL-2.0-or-later',
-    meson_version: '>= 0.42.0')
+    meson_version: '>= 0.51.0')
 # The tag date of the project_version(), update when the version bumps.
 version_date='2021-07-24'
 
@@ -77,29 +77,9 @@ subdir('data')
 subdir('po')
 
 # Find the directory to install our Python code
-if meson.version().version_compare('<0.48.0')
-    python = import('python3')
-    py3 = python.find_python()
-    python_dir = python.sysconfig_path('purelib')
-    message('Getting Python3 install dir')
-    if not python_dir.endswith('site-packages')
-        error('Python3 purelib path seems invalid')
-    endif
-else
-    pymod = import('python')
-    if meson.version().version_compare('>=0.51')
-        py3 = pymod.find_installation(modules: python_modules)
-    else
-        py3 = pymod.find_installation()
-
-        foreach module: python_modules
-            if run_command(py3, '-c', 'import @0@'.format(module)).returncode() != 0
-                error('Failed to find required python module \'@0@\'.'.format(module))
-            endif
-        endforeach
-    endif
-    python_dir = py3.get_install_dir()
-endif
+pymod = import('python')
+py3 = pymod.find_installation(modules: python_modules)
+python_dir = py3.get_install_dir()
 install_subdir('piper',
                install_dir: python_dir,
                exclude_directories: '__pycache__')
