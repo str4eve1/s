@@ -88,7 +88,7 @@ class MousePerspective(Gtk.Overlay):
 
         # Find the first profile that is enabled. If there is none, disable the
         # add button.
-        left = next((p for p in device.profiles if not p.enabled), None)
+        left = next((p for p in device.profiles if p.disabled), None)
         self.add_profile_button.set_visible(left is not None)
 
         self.listbox_profiles.foreach(Gtk.Widget.destroy)
@@ -132,9 +132,9 @@ class MousePerspective(Gtk.Overlay):
     def _on_add_profile_button_clicked(self, button):
         # Enable the first disabled profile we find.
         for profile in self._device.profiles:
-            if profile.enabled:
+            if not profile.disabled:
                 continue
-            profile.enabled = True
+            profile.disabled = False
             if profile == self._device.profiles[-1]:
                 self.add_profile_button.set_sensitive(False)
             break
@@ -142,7 +142,7 @@ class MousePerspective(Gtk.Overlay):
     def _on_profile_notify_enabled(self, profile, pspec):
         # We're only interested in the case where the last profile is disabled,
         # so that we can reset the sensitivity of the add button.
-        if not profile.enabled and profile == self._device.profiles[-1]:
+        if profile.disabled and profile == self._device.profiles[-1]:
             self.add_profile_button.set_sensitive(True)
 
     def _on_profile_notify_dirty(self, profile, pspec):

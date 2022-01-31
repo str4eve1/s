@@ -28,14 +28,14 @@ class ProfileRow(Gtk.ListBoxRow):
 
         self.title.set_text(name)
         self.show_all()
-        self.set_visible(profile.enabled)
+        self.set_visible(not profile.disabled)
 
     def _on_profile_notify_enabled(self, profile, pspec):
-        self.set_visible(profile.enabled)
+        self.set_visible(not profile.disabled)
 
     @GtkTemplate.Callback
     def _on_delete_button_clicked(self, button):
-        self._profile.enabled = False
+        self._profile.disabled = True
 
     def set_active(self):
         """Activates the profile paired with this row."""
