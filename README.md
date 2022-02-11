@@ -1,4 +1,4 @@
-Piper [![CircleCI](https://circleci.com/gh/libratbag/piper.svg?style=svg&circle-token=7082ad7a7fea706fff66f1547649dca32e446cb0)](https://circleci.com/gh/libratbag/piper)
+Piper
 =====
 
 Piper is a GTK+ application to configure gaming mice. Piper is merely a
