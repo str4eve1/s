@@ -33,6 +33,8 @@ class Window(Gtk.ApplicationWindow):
         Gtk.ApplicationWindow.__init__(self, *args, **kwargs)
         self.init_template()
 
+        self.set_icon_name("org.freedesktop.Piper")
+
         self._add_perspective(ErrorPerspective(), None)
         try:
             ratbag = init_ratbagd_cb()
