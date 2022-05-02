@@ -201,7 +201,7 @@
        d="m 211.25,36.114774 h -5.625 L 162.5,66.114773 c -2.8125,1.956522 -3.99101,3.729262 -5.625,7.5 l -12.1875,28.124997 c -1.625,3.75 -2.02163,9.37524 -1.875,13.12501 l 2.8125,74.99999 3.75,3.75 7.5,30 41.25,-7.5 -5.625,-28.125 c -1.125,-5.625 -0.25547,-9.38482 1.875,-15.9375 l 10.3125,-23.43749 z"
        style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#eeeeec;fill-opacity:1;fill-rule:nonzero;stroke:#babdb6;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
     <path
-       id="path4352"
+       id="led1"
        style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#babdb6;fill-opacity:1;stroke:none;stroke-width:9.375;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
        d="m 220.625,206.73977 c 1.875,0 2.68807,0.75516 2.8125,1.875 l 1.875,16.875 c 0.10424,0.93821 0,1.875 -0.9375,1.875 -1.875,0 -2.48162,-0.9375 -2.8125,-2.8125 l -2.8125,-15.9375 c -0.19581,-1.10959 0,-1.875 1.875,-1.875 z m 18.75,0 c -1.875,0 -2.68808,0.75516 -2.8125,1.875 l -1.875,16.875 c -0.10424,0.93821 0,1.875 0.9375,1.875 1.875,0 2.48162,-0.9375 2.8125,-2.8125 l 2.8125,-15.9375 c 0.19581,-1.10959 0,-1.875 -1.875,-1.875 z m -7.5,18.75 0.9375,-16.875 c 0.049,-0.88251 0.0604,-1.875 -2.78231,-1.875 -2.84269,0 -2.89172,0.99249 -2.84269,1.875 l 0.9375,16.875 c 0.049,0.88253 0,1.875 1.90519,1.875 1.90518,0 1.79581,-0.99247 1.84481,-1.875 z"
        inkscape:connector-curvature="0"
@@ -544,6 +544,30 @@
          inkscape:label="#rect5374" />
       <rect
          y="316.5"
+         x="226.5"
+         height="7"
+         width="7"
+         id="rect4744-5-3"
+         style="display:inline;opacity:1;vector-effect:none;fill:#2e3436;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none" />
+    </g>
+    <g
+       id="led1-path">
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4705-0"
+         d="m 230,220 229.375,0"
+         style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#888a85;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         style="text-align:start;display:inline;fill:#888a85;fill-opacity:1;stroke:none;stroke-width:0.99999994"
+         id="led1-leader"
+         width="1"
+         height="1"
+         x="459"
+         y="219.5"
+         inkscape:label="#rect5374" />
+      <rect
+         y="216.5"
          x="226.5"
          height="7"
          width="7"
