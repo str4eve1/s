@@ -2,26 +2,31 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the piper package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Медоед <vail_rahmatulin@mail.ru>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-30 18:32+0700\n"
-"PO-Revision-Date: 2022-01-26 14:08+0700\n"
-"Last-Translator: Vail Rahmatulin <vail_rahmatulin@mail.ru>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2022-06-02 10:01+0700\n"
+"Last-Translator: Медоед <vail_rahmatulin@mail.ru>\n"
+"Language-Team:Russian <vail_rahmatulin@mail.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Gtranslator 40.0\n"
 
-#: data/org.freedesktop.Piper.desktop.in:3 data/org.freedesktop.Piper.appdata.xml.in.in:7
+#: data/org.freedesktop.Piper.desktop.in:3
+#: data/org.freedesktop.Piper.appdata.xml.in.in:7
 msgid "Piper"
 msgstr "Piper"
 
-#: data/org.freedesktop.Piper.desktop.in:4 data/org.freedesktop.Piper.appdata.xml.in.in:8
+#: data/org.freedesktop.Piper.desktop.in:4
+#: data/org.freedesktop.Piper.appdata.xml.in.in:8
 msgid "Configurable mouse configuration utility"
 msgstr "Утилита для настройки мыши"
 
@@ -37,23 +42,24 @@ msgstr "игра;конфигурация;мышь;мыши;"
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:10
 msgid ""
-"Piper is a graphical user interface to configure gaming mice. Configuration options "
-"include changing the resolution (DPI) of the mouse, adding and removing profiles, "
-"setting LED colors and changing button behaviors."
+"Piper is a graphical user interface to configure gaming mice. Configuration "
+"options include changing the resolution (DPI) of the mouse, adding and "
+"removing profiles, setting LED colors and changing button behaviors."
 msgstr ""
-"Piper - это графический интерфейс пользователя, для настройки игровых мышей. Варианты "
-"конфигурации включают изменение разрешающей способности (DPI) мыши, добавление и "
-"удаление профилей, настройки цвета светодиода и изменение поведения кнопки."
+"Piper - это графический интерфейс для настройки игровых мышей. Варианты "
+"конфигурации включают изменение разрешающей способности (DPI) мыши, "
+"добавление и удаление профилей, настройки цвета светодиода и изменение "
+"поведения кнопок."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:16
 msgid ""
-"Piper requires libratbag’s ratbagd, the daemon to actually communicate with the mice. "
-"Piper is merely a front end to ratbagd, ratbagd must be installed and running when "
-"Piper is launched."
+"Piper requires libratbag’s ratbagd, the daemon to actually communicate with "
+"the mice. Piper is merely a front end to ratbagd, ratbagd must be installed "
+"and running when Piper is launched."
 msgstr ""
-"Piper требует библиотеку libratbagd от сервиса ratbagd, чтобы общаться с мышью. Piper-"
-"это просто графический интерфейс, ratbagd должен быть установлен и запущен перед "
-"запуском Piper."
+"Для управления мышью с помощью Piper требуется библиотека libratbagd от "
+"сервиса ratbagd. Piper-это просто графический интерфейс, ratbagd должен быть "
+"установлен и запущен перед запуском Piper."
 
 #: data/org.freedesktop.Piper.appdata.xml.in.in:27
 msgid "The button configuraton page"
@@ -81,7 +87,7 @@ msgstr "Отдельная привязка"
 #. "Button 1 click".
 #: piper/buttondialog.py:208 piper/buttonspage.py:76
 msgid "Button {} click"
-msgstr "Клик кнопки {}"
+msgstr "Нажатие кнопки {}"
 
 #: piper/buttonspage.py:80
 msgid "Macro: {}"
@@ -95,11 +101,11 @@ msgstr "Выключено"
 #. Translators: the button has an unknown function.
 #: piper/buttonspage.py:86 piper/ratbagd.py:665
 msgid "Unknown"
-msgstr "Неизвестный"
+msgstr "Неизвестно"
 
 #: piper/buttonspage.py:94
 msgid "Configure button {}"
-msgstr "Настройки кнопки {}"
+msgstr "Настройка кнопки {}"
 
 #: piper/mouseperspective.py:76 data/ui/ResolutionsPage.ui:209
 msgid "Resolutions"
@@ -159,7 +165,7 @@ msgstr "Колесо вниз"
 
 #: piper/ratbagd.py:671
 msgid "Ratchet Mode"
-msgstr "Режим храповика"
+msgstr "Прокрутка в режиме храпового механизма"
 
 #: piper/ratbagd.py:672
 msgid "Cycle Resolution Up"
@@ -207,7 +213,7 @@ msgstr "Другой режим"
 
 #: piper/ratbagd.py:683
 msgid "Battery Level"
-msgstr "Уровень батареи"
+msgstr "Уровень заряда батареи"
 
 #. Translators: this is used when there is no macro to preview.
 #: piper/ratbagd.py:813 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
@@ -227,7 +233,7 @@ msgstr "Один цвет"
 #. Translators: the LED is cycling between red, green and blue.
 #: piper/ratbagd.py:899 data/ui/LedDialog.ui:189
 msgid "Cycle"
-msgstr "Цикл"
+msgstr "Циклично"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
@@ -240,13 +246,15 @@ msgid "Cannot connect to ratbagd"
 msgstr "Невозможно подключиться к ratbagd"
 
 #: piper/window.py:41
-msgid "Please make sure ratbagd is running and your user is in the required group"
+msgid ""
+"Please make sure ratbagd is running and your user is in the required group"
 msgstr ""
-"Пожалуйста, убедитесь, что ratbag работает и ваш пользователь находится в нужной группе"
+"Пожалуйста, убедитесь, что ratbagd работает и ваш пользователь находится в "
+"нужной группе"
 
 #: piper/window.py:44
 msgid "Incompatible ratbagd API version (required: {}, provided: {})"
-msgstr "Несовместимая версия API ratbags (требуется: {}, предоставляется: {})"
+msgstr "Несовместимая версия API ratbagd (требуется: {}, предоставляется: {})"
 
 #: piper/window.py:45
 msgid "Please update both piper and libratbag to the latest versions"
@@ -338,11 +346,12 @@ msgstr "Левая/правая рука."
 
 #: data/ui/ButtonDialog.ui:253
 msgid ""
-"This allows you to swap the order of the primary mouse buttons. In left-handed mode, "
-"the physical left mouse button generates a right mouse click and vice versa."
+"This allows you to swap the order of the primary mouse buttons. In left-"
+"handed mode, the physical left mouse button generates a right mouse click "
+"and vice versa."
 msgstr ""
-"Это позволяет изменить порядок основных кнопок мыши. В режиме левой руки физическая "
-"левая кнопка мыши работает как правая и наоборот."
+"Это позволяет изменить порядок основных кнопок мыши. В режиме левой руки "
+"физическая левая кнопка мыши работает как правая и наоборот."
 
 #: data/ui/ButtonDialog.ui:273
 msgid "Left Handed"
@@ -350,7 +359,7 @@ msgstr "Для левшей"
 
 #: data/ui/ButtonDialog.ui:278
 msgid "The left mouse button generates a left mouse click"
-msgstr "Левая кнопка мыши генерирует левый клик"
+msgstr "Левая кнопка мыши реагирует на левый клик"
 
 #: data/ui/ButtonDialog.ui:292
 msgid "Right Handed"
@@ -358,7 +367,7 @@ msgstr "Для правшей"
 
 #: data/ui/ButtonDialog.ui:297
 msgid "The left mouse button generates a right mouse click"
-msgstr "Левая кнопка мыши генерирует правый клик"
+msgstr "Левая кнопка мыши реагирует на правый клик"
 
 #: data/ui/ButtonDialog.ui:337 data/ui/LedDialog.ui:414
 msgid "Cancel"
@@ -366,15 +375,16 @@ msgstr "Отмена"
 
 #: data/ui/ButtonDialog.ui:339 data/ui/LedDialog.ui:418
 msgid "Ignore any changes made"
-msgstr "Игнорировать все сделанные изменения"
+msgstr "Игнорировать все изменения"
 
-#: data/ui/ButtonDialog.ui:345 data/ui/LedDialog.ui:430 data/ui/MousePerspective.ui:132
+#: data/ui/ButtonDialog.ui:345 data/ui/LedDialog.ui:430
+#: data/ui/MousePerspective.ui:132
 msgid "Apply"
 msgstr "Применить"
 
 #: data/ui/ButtonDialog.ui:348 data/ui/LedDialog.ui:435
 msgid "Apply any changes made"
-msgstr "Применить все сделанные изменения"
+msgstr "Применить все изменения"
 
 #: data/ui/ButtonDialog.ui:388
 msgid "No button mapping found"
@@ -386,7 +396,7 @@ msgstr "Попробуйте сформулировать иначе"
 
 #: data/ui/ErrorPerspective.ui:16
 msgid "Here, rodent, rodent, rodent…"
-msgstr "Тут мышь, мышь, мышь…"
+msgstr "Сюда, мышка, мышка, мышка..."
 
 #: data/ui/ErrorPerspective.ui:69
 msgid "Uh Oh! Something went wrong…"
@@ -434,7 +444,8 @@ msgstr "Подсветка отключена"
 
 #: data/ui/MousePerspective.ui:44
 msgid "Something went wrong. The device has been reset to a previous state."
-msgstr "Что-то пошло не так. Устройство было восстановлено в предыдущее состояние."
+msgstr ""
+"Что-то пошло не так. Устройство было восстановлено в предыдущее состояние."
 
 #: data/ui/MousePerspective.ui:101
 msgid "Select another profile"
@@ -446,7 +457,7 @@ msgstr "Отправить изменения в устройство"
 
 #: data/ui/MousePerspective.ui:170
 msgid "Click to switch to another profile"
-msgstr "Кликните чтобы выбрать другой профиль"
+msgstr "Нажмите для выбора другого профиля"
 
 #: data/ui/MousePerspective.ui:185
 msgid "Add profile"
@@ -471,16 +482,16 @@ msgstr "Активный"
 
 #: data/ui/ResolutionRow.ui:77
 msgid "Set this resolution’s DPI"
-msgstr "Определить разрешение DPI"
+msgstr "Установить разрешение DPI"
 
 #. Translators: the rate at which the device reports movement.
 #: data/ui/ResolutionsPage.ui:43
 msgid "Report rate"
-msgstr "Скорость отклика"
+msgstr "Частота опроса"
 
 #: data/ui/ResolutionsPage.ui:60
 msgid "Change the profile’s report rate"
-msgstr "Изменить профиль скорости отклика"
+msgstr "Изменить частоту опроса в области"
 
 #: data/ui/ResolutionsPage.ui:105
 msgid "Hz"
@@ -511,7 +522,7 @@ msgstr "Выберите устройство для настройки"
 
 #: data/ui/WelcomePerspective.ui:119
 msgid "Select a Device"
-msgstr "Выбрать устройство"
+msgstr "Выбор устройства"
 
 #: data/ui/Window.ui:8
 msgid "_About Piper"
