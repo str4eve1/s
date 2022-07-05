@@ -519,4 +519,4 @@ msgstr "Vyberte zařízení"
 
 #: data/ui/Window.ui:8
 msgid "_About Piper"
-msgstr "O Piperu"
+msgstr "_O Piperu"
