@@ -6,7 +6,8 @@ from .window import Window
 import gi
 gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gio, GLib, Gtk  # noqa
+gi.require_version("Handy", "1")
+from gi.repository import Gio, GLib, Gtk, Handy  # noqa
 
 
 class Application(Gtk.Application):
@@ -27,8 +28,13 @@ class Application(Gtk.Application):
         initialization should be done here, to prevent doing duplicate work in
         case another window is opened."""
         Gtk.Application.do_startup(self)
+        Handy.init()
         self._build_app_menu()
         self._ratbagd = None
+
+        # Opt-in to follow the system color-scheme.
+        if manager := Handy.StyleManager.get_default():
+            manager.set_color_scheme(Handy.ColorScheme.PREFER_LIGHT)
 
     def init_ratbagd(self):
         if self._ratbagd is None:

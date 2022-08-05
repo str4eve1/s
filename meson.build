@@ -54,6 +54,7 @@ if enable_runtime_dependency_checks
     ]
 
     dependency('pygobject-3.0', required: true)
+    dependency('libhandy-1', version: '>= 1.6')
 else
     # external python modules that are required for building piper
     python_modules = ['lxml']
