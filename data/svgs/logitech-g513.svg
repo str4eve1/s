@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="logitech-g513.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    id="logitech-g513-piper"
    version="1.1"
-   viewBox="0 0 132.29 132.29"
-   height="500"
-   width="500">
+   viewBox="0 0 129.6442 129.6442"
+   height="490"
+   width="490"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <title
      id="title415">Logitech G513 Keyboard for Piper</title>
   <defs
@@ -34,7 +34,7 @@
      inkscape:showpageshadow="false"
      borderlayer="false"
      showborder="true"
-     showgrid="true"
+     showgrid="false"
      inkscape:current-layer="Buttons"
      inkscape:document-units="px"
      inkscape:cy="249.21384"
@@ -48,14 +48,17 @@
      id="base"
      inkscape:snap-global="true"
      scale-x="0.26458"
-     inkscape:lockguides="false">
+     inkscape:lockguides="false"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        snapvisiblegridlinesonly="true"
        id="grid3721"
        type="xygrid"
        enabled="true"
        visible="true"
-       dotted="false" />
+       dotted="false"
+       originx="0"
+       originy="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -80,29 +83,29 @@
      id="Device"
      inkscape:groupmode="layer">
     <rect
-       ry="1.5135043"
-       y="52.209572"
-       x="6.6145"
-       height="34.288406"
-       width="118.80999"
+       ry="1.4790475"
+       y="52.993065"
+       x="6.6116257"
+       height="33.50779"
+       width="116.10513"
        id="backplate"
-       style="fill:#d3d3ce;fill-opacity:1;stroke:#babdb6;stroke-width:0.25251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#d3d3ce;fill-opacity:1;stroke:#babdb6;stroke-width:0.246761;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        sodipodi:arc-type="arc"
        sodipodi:open="true"
        sodipodi:end="3.9269907"
        sodipodi:start="5.4977871"
-       d="m 122.81926,54.814807 a 1.4826255,1.4826268 0 0 1 0,2.09675 1.4826255,1.4826268 0 0 1 -2.09675,10e-7 1.4826255,1.4826268 0 0 1 0,-2.096751"
-       sodipodi:ry="1.4826268"
-       sodipodi:rx="1.4826255"
-       sodipodi:cy="55.863182"
-       sodipodi:cx="121.77089"
+       d="m 120.17085,55.538988 a 1.4488717,1.448873 0 0 1 0,2.049016 1.4488717,1.448873 0 0 1 -2.04902,0 1.4488717,1.448873 0 0 1 0,-2.049016"
+       sodipodi:ry="1.448873"
+       sodipodi:rx="1.4488717"
+       sodipodi:cy="56.563496"
+       sodipodi:cx="119.14634"
        id="logo"
-       style="display:inline;opacity:1;fill:none;fill-opacity:0.392157;stroke:#babdb6;stroke-width:0.823682;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;opacity:1;fill:none;fill-opacity:0.392157;stroke:#babdb6;stroke-width:0.80493;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:type="arc" />
     <g
        id="led0"
-       transform="translate(0.00595322,4.9129585)">
+       transform="matrix(0.97723378,0,0,0.97723378,0.15353049,6.7732152)">
       <rect
          style="fill:#eeeeec;fill-opacity:0.941176;stroke:#babdb6;stroke-width:0.252251;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="key-esc"
@@ -1046,7 +1049,7 @@
      style="display:inline"
      id="Buttons"
      inkscape:groupmode="layer">
-   <!--
+    <!--
     <g
        transform="translate(0.03418203,-30.81283)"
        id="button0-group">
@@ -1338,7 +1341,7 @@
      inkscape:groupmode="layer">
     <g
        id="led0-group"
-       transform="translate(-0.00167,5.291066)">
+       transform="matrix(0.97723378,0,0,0.97723378,0.14608082,7.1427147)">
       <rect
          y="42.201042"
          x="132.15938"
