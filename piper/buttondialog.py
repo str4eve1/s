@@ -87,6 +87,8 @@ class ButtonDialog(Gtk.Dialog):
             self._mapping = self._button.mapping
         elif self._action_type == RatbagdButton.ActionType.MACRO:
             self._mapping = self._button.macro
+        elif self._action_type == RatbagdButton.ActionType.KEY:
+            self._mapping = self._button.key
         elif self._action_type == RatbagdButton.ActionType.SPECIAL:
             self._mapping = self._button.special
         else:
@@ -294,8 +296,13 @@ class ButtonDialog(Gtk.Dialog):
 
     def _on_macro_set(self, macro):
         # A macro has been set; update accordingly.
-        self._action_type = RatbagdButton.ActionType.MACRO
-        self._mapping = macro
+        if RatbagdButton.ActionType.MACRO in self._button.action_types:  # macro is supported
+            self._action_type = RatbagdButton.ActionType.MACRO
+            self._mapping = macro
+        else:
+            self._action_type = RatbagdButton.ActionType.KEY
+            type_, value = macro.keys[0]
+            self._mapping = value
         self.stack.set_visible_child_name("overview")
         self._release_grab()
 

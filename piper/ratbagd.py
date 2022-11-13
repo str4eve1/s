@@ -623,6 +623,7 @@ class RatbagdButton(_RatbagdDBus):
         NONE = 0
         BUTTON = 1
         SPECIAL = 2
+        KEY = 3
         MACRO = 4
 
     class ActionSpecial(IntEnum):
@@ -741,6 +742,19 @@ class RatbagdButton(_RatbagdDBus):
         macro = GLib.Variant("a(uu)", macro.keys)
         self._set_dbus_property("Mapping", "(uv)",
                                 (RatbagdButton.ActionType.MACRO, macro))
+
+    @GObject.Property
+    def key(self):
+        type, key = self._mapping()
+        if type != RatbagdButton.ActionType.KEY:
+            return None
+        return key
+
+    @key.setter
+    def key(self, key):
+        key = GLib.Variant("u", key)
+        self._set_dbus_property("Mapping", "(uv)",
+                                (RatbagdButton.ActionType.KEY, key))
 
     @GObject.Property
     def special(self):

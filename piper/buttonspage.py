@@ -49,6 +49,8 @@ class ButtonsPage(Gtk.Box):
                                    self._on_button_mapping_changed, button)
             ratbagd_button.connect("notify::macro",
                                    self._on_button_mapping_changed, button)
+            ratbagd_button.connect("notify::key",
+                                   self._on_button_mapping_changed, button)
             ratbagd_button.connect("notify::action-type",
                                    self._on_button_mapping_changed, button)
             self._mousemap.add(button, "#button{}".format(ratbagd_button.index))
@@ -78,6 +80,8 @@ class ButtonsPage(Gtk.Box):
             label = _(RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special])
         elif action_type == RatbagdButton.ActionType.MACRO:
             label = _("Macro: {}").format(str(ratbagd_button.macro))
+        elif action_type == RatbagdButton.ActionType.KEY:
+            label = _("Key: {}").format(str(ratbagd_button.key))
         elif action_type == RatbagdButton.ActionType.NONE:
             # Translators: the button is turned disabled, e.g. off.
             label = _("Disabled")
@@ -117,6 +121,8 @@ class ButtonsPage(Gtk.Box):
                     ratbagd_button.mapping = dialog.mapping
             elif dialog.action_type == RatbagdButton.ActionType.MACRO:
                 ratbagd_button.macro = dialog.mapping
+            elif dialog.action_type == RatbagdButton.ActionType.KEY:
+                ratbagd_button.key = dialog.mapping
             elif dialog.action_type == RatbagdButton.ActionType.SPECIAL:
                 ratbagd_button.special = dialog.mapping
                 lower = RatbagdButton.ActionSpecial.PROFILE_CYCLE_UP
