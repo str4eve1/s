@@ -1,11 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from gettext import gettext as _
+from evdev import ecodes
 
 from .buttondialog import ButtonDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
-from .ratbagd import RatbagdButton
+from .ratbagd import RatbagdButton, RatbagdMacro
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -81,7 +82,7 @@ class ButtonsPage(Gtk.Box):
         elif action_type == RatbagdButton.ActionType.MACRO:
             label = _("Macro: {}").format(str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ActionType.KEY:
-            label = _("Key: {}").format(str(ratbagd_button.key))
+            label = _("Key: {}").format(ecodes.KEY[ratbagd_button.key][RatbagdMacro._PREFIX_LEN:])
         elif action_type == RatbagdButton.ActionType.NONE:
             # Translators: the button is turned disabled, e.g. off.
             label = _("Disabled")

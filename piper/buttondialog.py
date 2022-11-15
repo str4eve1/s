@@ -296,13 +296,14 @@ class ButtonDialog(Gtk.Dialog):
 
     def _on_macro_set(self, macro):
         # A macro has been set; update accordingly.
-        if RatbagdButton.ActionType.MACRO in self._button.action_types:  # macro is supported
-            self._action_type = RatbagdButton.ActionType.MACRO
-            self._mapping = macro
-        else:
+        if (RatbagdButton.ActionType.KEY in self._button.action_types and
+                len(macro.keys) == 2):  # single key (press + release events)
             self._action_type = RatbagdButton.ActionType.KEY
             type_, value = macro.keys[0]
             self._mapping = value
+        else:
+            self._action_type = RatbagdButton.ActionType.MACRO
+            self._mapping = macro
         self.stack.set_visible_child_name("overview")
         self._release_grab()
 
