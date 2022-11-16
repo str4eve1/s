@@ -143,6 +143,11 @@ class ButtonDialog(Gtk.Dialog):
 
         if self._action_type == RatbagdButton.ActionType.MACRO:
             self._create_current_macro(macro=self._mapping)
+        elif self._action_type == RatbagdButton.ActionType.KEY:
+            macro = RatbagdMacro()
+            macro.append(RatbagdButton.Macro.KEY_PRESS, self._mapping)
+            macro.append(RatbagdButton.Macro.KEY_RELEASE, self._mapping)
+            self._create_current_macro(macro=macro)
         else:
             self._create_current_macro()
 
