@@ -7,6 +7,7 @@
         <file>svgs/svg-lookup.ini</file>
 
         <file preprocess="xml-stripblanks">AboutDialog.ui</file>
+        <file preprocess="xml-stripblanks">ui/AdvancedPage.ui</file>
         <file preprocess="xml-stripblanks">ui/ButtonDialog.ui</file>
         <file preprocess="xml-stripblanks">ui/ButtonRow.ui</file>
         <file preprocess="xml-stripblanks">ui/DeviceRow.ui</file>

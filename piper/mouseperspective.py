@@ -6,6 +6,7 @@ from .buttonspage import ButtonsPage
 from .gi_composites import GtkTemplate
 from .profilerow import ProfileRow
 from .resolutionspage import ResolutionsPage
+from .advancedpage import AdvancedPage
 from .ledspage import LedsPage
 
 import gi
@@ -78,6 +79,8 @@ class MousePerspective(Gtk.Overlay):
             self.stack.add_titled(ButtonsPage(device), "buttons", _("Buttons"))
         if active_profile.leds:
             self.stack.add_titled(LedsPage(device), "leds", _("LEDs"))
+        if active_profile.angle_snapping != -1 or active_profile.debounces:
+            self.stack.add_titled(AdvancedPage(device), "advanced", _("Advanced"))
 
         self.button_profile.set_visible(len(device.profiles) > 1)
         name = active_profile.name

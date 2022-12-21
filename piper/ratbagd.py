@@ -519,6 +519,34 @@ class RatbagdProfile(_RatbagdDBus):
         return self._get_dbus_property("ReportRates") or []
 
     @GObject.Property
+    def debounce(self):
+        return self._get_dbus_property("Debounce")
+
+    @debounce.setter
+    def debounce(self, response):
+        self._set_dbus_property("Debounce", "i", response)
+
+        if not self._dirty:
+            self._dirty = True
+            self.notify("dirty")
+
+    @GObject.Property
+    def debounces(self):
+        return self._get_dbus_property("Debounces") or []
+
+    @GObject.Property
+    def angle_snapping(self):
+        return self._get_dbus_property("AngleSnapping")
+
+    @angle_snapping.setter
+    def angle_snapping(self, snapping):
+        self._set_dbus_property("AngleSnapping", "i", snapping)
+
+        if not self._dirty:
+            self._dirty = True
+            self.notify("dirty")
+
+    @GObject.Property
     def resolutions(self):
         """A list of RatbagdResolution objects with this profile's resolutions.
         Note that the list of resolutions differs between profiles but the number
