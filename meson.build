@@ -8,7 +8,7 @@ version_date='2022-06-22'
 # The DBus API version of ratbagd that we are compatible with. Anything
 # higher or lower will not be compatible so make sure you bumpt that to the
 # latest released ratbagd version whenever a piper release is made.
-ratbagd_api_version = 1
+ratbagd_api_version = 2
 
 
 # Options
