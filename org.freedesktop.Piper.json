@@ -1,7 +1,7 @@
 {
     "app-id": "org.freedesktop.Piper",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.38",
+    "runtime-version": "42",
     "sdk": "org.gnome.Sdk",
     "command": "piper",
       "finish-args": [
@@ -29,18 +29,13 @@
             "name": "python-lxml",
             "buildsystem": "simple",
             "build-commands": [
-                "pip3 install --prefix=/app --no-deps ."
+                "pip3 install --no-index --ignore-installed --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"lxml\""
             ],
-            "build-options": {
-                "env": {
-                    "XSLT_CONFIG": "pkg-config libxslt"
-                }
-            },
             "sources": [
                 {
-                    "type": "archive",
-                    "url": "https://files.pythonhosted.org/packages/2c/4d/3ec1ea8512a7fbf57f02dee3035e2cce2d63d0e9c0ab8e4e376e01452597/lxml-4.5.2.tar.gz",
-                    "sha256": "cdc13a1682b2a6241080745b1953719e7fe0850b40a5c71ca574f090a1391df6"
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/70/bb/7a2c7b4f8f434aa1ee801704bf08f1e53d7b5feba3d5313ab17003477808/lxml-4.9.1.tar.gz",
+                    "sha256": "fe749b052bb7233fe5d072fcb549221a8cb1a16725c47c37e42b0b9cb3ff2c3f"
                 }
             ]
         },

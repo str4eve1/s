@@ -23,7 +23,8 @@ class TestSVGLookup(unittest.TestCase):
 
     def test_svg_filename(self):
         svgs = [config[s]['Svg'] for s in config.sections()]
-        for svg in svgs:
+        for filename in svgs:
+            svg = f'{filename}.svg'
             self.assertTrue(Path(svgdir, svg).exists(), msg=svg)
 
     def test_uniq_match(self):

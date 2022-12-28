@@ -9,8 +9,9 @@ from piper.svg import get_svg
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
+gi.require_version("Handy", "1")
 gi.require_version("Rsvg", "2.0")
-from gi.repository import Gdk, GLib, Gtk, GObject, Rsvg  # noqa
+from gi.repository import Gdk, GLib, Gtk, GObject, Handy, Rsvg  # noqa
 
 """This module contains the MouseMap widget (and its helper class
 _MouseMapChild), which is central to the button and LED configuration stack
@@ -89,16 +90,13 @@ class MouseMap(Gtk.Container):
                            has no image registered.
         @raises GLib.Error when the SVG cannot be loaded.
         """
+        if manager := Handy.StyleManager.get_default():
+            manager.connect("notify::dark", self._on_dark_changed)
+
         if layer is None:
             raise ValueError("Layer cannot be None")
         if ratbagd_device is None:
             raise ValueError("Device cannot be None")
-        try:
-            svg_bytes = get_svg(ratbagd_device.model)
-            self._handle = Rsvg.Handle.new_from_data(svg_bytes)
-            self._svg_data = etree.fromstring(svg_bytes)
-        except FileNotFoundError:
-            raise ValueError("Device has no image or its path is invalid")
 
         Gtk.Container.__init__(self, *args, **kwargs)
         self.set_has_window(False)
@@ -108,6 +106,9 @@ class MouseMap(Gtk.Container):
         self._device = ratbagd_device
         self._children = []
         self._highlight_element = None
+        self._ratbagd_device = ratbagd_device
+
+        self._load_svg()
 
         # TODO: remove this when we're out of the transition to toned down SVGs
         device = self._handle.has_sub("#Device")
@@ -404,3 +405,15 @@ class MouseMap(Gtk.Container):
         for child in self._children:
             self._handle.render_cairo_sub(cr, id=child.svg_path)
             self._handle.render_cairo_sub(cr, id=child.svg_leader)
+
+    def _on_dark_changed(self, _manager, _pspec):
+        self._load_svg()
+        self.queue_draw()
+
+    def _load_svg(self):
+        try:
+            svg_bytes = get_svg(self._ratbagd_device.model)
+            self._handle = Rsvg.Handle.new_from_data(svg_bytes)
+            self._svg_data = etree.fromstring(svg_bytes)
+        except FileNotFoundError:
+            raise ValueError("Device has no image or its path is invalid")

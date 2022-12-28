@@ -1,6 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from gi.repository import Gio  # noqa
+import gi
+gi.require_version('Handy', '1')
+
+from gi.repository import Gio, Handy  # noqa
 
 import configparser
 
@@ -13,7 +16,7 @@ def get_svg(model):
     config.read_string(data.decode('utf-8'), source='svg-lookup.ini')
     assert config.sections()
 
-    filename = 'fallback.svg'
+    filename = 'fallback'
 
     if model.startswith('usb:') or model.startswith('bluetooth:'):
         bus, vid, pid, version = model.split(':')
@@ -30,7 +33,11 @@ def get_svg(model):
                 filename = config[s]['Svg']
                 break
 
-    resource = Gio.resources_lookup_data('/org/freedesktop/Piper/svgs/{}'.format(filename),
+        if manager := Handy.StyleManager.get_default():
+            if manager.get_dark():
+                filename += '-dark'
+
+    resource = Gio.resources_lookup_data('/org/freedesktop/Piper/svgs/{}.svg'.format(filename),
                                          Gio.ResourceLookupFlags.NONE)
 
     return resource.get_data()

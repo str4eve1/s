@@ -7,7 +7,7 @@ Requirements
 See the Logitech G403 for an example of a device with a small amount of buttons,
 and the Logitech G700 for an example of a device with a large amount of buttons.
 
-- Canvas size should be between 400x400 and 500x500 pixels.
+- Canvas size should be 490x490 pixels.
 - Three layers in the final SVG:
   1. a lower layer named "Device" with the device itself. Each button on the
   device should have an id `buttonX`, with `X` being the number of the button
