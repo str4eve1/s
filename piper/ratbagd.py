@@ -37,7 +37,7 @@ def N_(x):
 class RatbagErrorCode(IntEnum):
     SUCCESS = 0
 
-    """An error occured on the device. Either the device is not a libratbag
+    """An error occurred on the device. Either the device is not a libratbag
     device or communication with the device failed."""
     DEVICE = -1000
 
@@ -49,7 +49,7 @@ class RatbagErrorCode(IntEnum):
     outside of the legal or supported range."""
     VALUE = -1002
 
-    """A low-level system error has occured, e.g. a failure to access files
+    """A low-level system error has occurred, e.g. a failure to access files
     that should be there. This error is usually unrecoverable and libratbag will
     print a log message with details about the error."""
     SYSTEM = -1003
@@ -58,6 +58,22 @@ class RatbagErrorCode(IntEnum):
     usually unrecoverable and libratbag will print a log message with details
     about the error."""
     IMPLEMENTATION = -1004
+
+
+class RatbagDeviceType(IntEnum):
+    """DeviceType property specified in the .device files"""
+
+    """There was no DeviceType specified for this device"""
+    UNSPECIFIED = 0
+
+    """Device is specified as anything other than a mouse or a keyboard"""
+    OTHER = 1
+
+    """Device is specified as a mouse"""
+    MOUSE = 2
+
+    """Device is specified as a keyboard"""
+    KEYBOARD = 3
 
 
 class RatbagdIncompatible(Exception):
@@ -346,6 +362,16 @@ class RatbagdDevice(_RatbagdDBus):
     def name(self):
         """The device name, usually provided by the kernel."""
         return self._get_dbus_property("Name")
+
+    @GObject.Property
+    def device_type(self):
+        """The device type, see RatbagDeviceType"""
+        return RatbagDeviceType(self._get_dbus_property("DeviceType"))
+
+    @GObject.Property
+    def firmware_version(self):
+        """The firmware version of the device."""
+        return self._get_dbus_property("FirmwareVersion")
 
     @GObject.Property
     def profiles(self):
