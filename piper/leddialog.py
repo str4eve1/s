@@ -27,7 +27,6 @@ class LedDialog(Gtk.Dialog):
         @param ratbagd_led The LED to configure, as ratbagd.RatbagdLed.
         """
         Gtk.Dialog.__init__(self, *args, **kwargs)
-        self.init_template()
         self._led = ratbagd_led
         self._modes = {
             "solid": RatbagdLed.Mode.ON,

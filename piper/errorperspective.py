@@ -21,7 +21,6 @@ class ErrorPerspective(Gtk.Box):
         @param message The error message to display, as str.
         """
         Gtk.Box.__init__(self, *args, **kwargs)
-        self.init_template()
         if message is not None:
             self.set_message(message)
 

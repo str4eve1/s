@@ -24,7 +24,6 @@ class WelcomePerspective(Gtk.Box):
     def __init__(self, *args, **kwargs):
         """Instantiates a new WelcomePerspective."""
         Gtk.Box.__init__(self, *args, **kwargs)
-        self.init_template()
         self.listbox.set_sort_func(self._listbox_sort_func)
         self.listbox.set_header_func(self._listbox_header_func)
 
