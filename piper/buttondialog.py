@@ -4,7 +4,6 @@ import sys
 
 from gettext import gettext as _
 
-from .gi_composites import GtkTemplate
 from .ratbagd import RatbagdButton, RatbagdMacro, RatbagDeviceType
 
 import gi
@@ -12,7 +11,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ButtonRow.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ButtonRow.ui")
 class ButtonRow(Gtk.ListBoxRow):
     """A Gtk.ListBoxRow subclass to implement the rows that show up in the
     ButtonDialog's Gtk.ListBox. It doesn't do much besides moving UI code into a
@@ -20,7 +19,7 @@ class ButtonRow(Gtk.ListBoxRow):
 
     __gtype_name__ = "ButtonRow"
 
-    description_label = GtkTemplate.Child()
+    description_label = Gtk.Template.Child()
 
     def __init__(self, description, section, action_type, value, *args, **kwargs):
         """Instantiates a new ButtonRow.
@@ -46,7 +45,7 @@ class ButtonRow(Gtk.ListBoxRow):
         return self.description_label.get_text()
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ButtonDialog.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ButtonDialog.ui")
 class ButtonDialog(Gtk.Dialog):
     """A Gtk.Dialog subclass to implement the dialog that shows the
     configuration options for button mappings."""
@@ -59,17 +58,17 @@ class ButtonDialog(Gtk.Dialog):
     # Gdk uses an offset of 8 from the keycodes defined in linux/input.h.
     _XORG_KEYCODE_OFFSET = 8
 
-    stack = GtkTemplate.Child()
-    listbox = GtkTemplate.Child()
-    label_keystroke = GtkTemplate.Child()
-    label_preview = GtkTemplate.Child()
-    row_keystroke = GtkTemplate.Child()
-    row_keystroke_label = GtkTemplate.Child()
-    radio_right_handed = GtkTemplate.Child()
-    radio_left_handed = GtkTemplate.Child()
-    empty_search_placeholder = GtkTemplate.Child()
-    search_entry = GtkTemplate.Child()
-    search_bar = GtkTemplate.Child()
+    stack = Gtk.Template.Child()
+    listbox = Gtk.Template.Child()
+    label_keystroke = Gtk.Template.Child()
+    label_preview = Gtk.Template.Child()
+    row_keystroke = Gtk.Template.Child()
+    row_keystroke_label = Gtk.Template.Child()
+    radio_right_handed = Gtk.Template.Child()
+    radio_left_handed = Gtk.Template.Child()
+    empty_search_placeholder = Gtk.Template.Child()
+    search_entry = Gtk.Template.Child()
+    search_bar = Gtk.Template.Child()
 
     def __init__(self, ratbagd_button, buttons, device_type, *args, **kwargs):
         """Instantiates a new ButtonDialog.
@@ -314,7 +313,7 @@ class ButtonDialog(Gtk.Dialog):
         self.stack.set_visible_child_name("overview")
         self._release_grab()
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_row_activated")
     def _on_row_activated(self, listbox, row):
         if row == self.row_keystroke:
             if self._grab_seat() is not True:
@@ -327,13 +326,13 @@ class ButtonDialog(Gtk.Dialog):
             self._action_type = row._action_type
             self._mapping = row._value
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_apply_button_clicked")
     def _on_apply_button_clicked(self, button):
         if self.stack.get_visible_child_name() == "capture":
             self._current_macro.accept()
         return Gdk.EVENT_PROPAGATE
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_primary_mode_toggled")
     def _on_primary_mode_toggled(self, toggle):
         if not toggle.get_active():
             return

@@ -2,7 +2,6 @@
 
 import gi
 
-from .gi_composites import GtkTemplate
 from .mousemap import MouseMap
 from .ratbagd import RatbagdDevice, RatbagdProfile
 
@@ -10,7 +9,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/AdvancedPage.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/AdvancedPage.ui")
 class AdvancedPage(Gtk.Box):
     """
     Advanced settings stack.
@@ -18,8 +17,8 @@ class AdvancedPage(Gtk.Box):
 
     __gtype_name__ = "AdvancedPage"
 
-    debounce = GtkTemplate.Child()
-    angle_snapping = GtkTemplate.Child()
+    debounce = Gtk.Template.Child()
+    angle_snapping = Gtk.Template.Child()
 
     def __init__(self, ratbagd_device: RatbagdDevice, *args, **kwargs) -> None:
         """Instantiates a new AdvancedPage.

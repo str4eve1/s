@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from .gi_composites import GtkTemplate
 from .ratbagd import RatbagdResolution
 
 import gi
@@ -8,19 +7,19 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ResolutionRow.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ResolutionRow.ui")
 class ResolutionRow(Gtk.ListBoxRow):
     """A Gtk.ListBoxRow subclass containing the widgets to configure a
     resolution."""
 
     __gtype_name__ = "ResolutionRow"
 
-    dpi_label = GtkTemplate.Child()
-    active_label = GtkTemplate.Child()
-    revealer = GtkTemplate.Child()
-    scale = GtkTemplate.Child()
-    active_button = GtkTemplate.Child()
-    disable_button = GtkTemplate.Child()
+    dpi_label = Gtk.Template.Child()
+    active_label = Gtk.Template.Child()
+    revealer = Gtk.Template.Child()
+    scale = Gtk.Template.Child()
+    active_button = Gtk.Template.Child()
+    disable_button = Gtk.Template.Child()
 
     CAP_SEPARATE_XY_RESOLUTION = False
     CAP_DISABLE = False
@@ -81,7 +80,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         resolution = profile.resolutions[index]
         self._init_values(resolution)
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_change_value")
     def _on_change_value(self, scale, scroll, value):
         # Cursor-controlled slider may get out of the GtkAdjustment's range.
         value = min(max(self.resolutions[0], value), self.resolutions[-1])
@@ -108,7 +107,6 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         return True
 
-    @GtkTemplate.Callback
     def _on_disable_button_toggled(self, togglebutton):
         # The disable button has been toggled, update RatbagdResolution.
         self._resolution.set_disabled(togglebutton.get_active())
@@ -116,12 +114,12 @@ class ResolutionRow(Gtk.ListBoxRow):
         # Update UI
         self._on_status_changed(self._resolution, pspec=None)
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_active_button_clicked")
     def _on_active_button_clicked(self, togglebutton):
         # The set active button has been clicked, update RatbagdResolution.
         self._resolution.set_active()
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_scroll_event")
     def _on_scroll_event(self, widget, event):
         # Prevent a scroll in the list to get caught by the scale.
         GObject.signal_stop_emission_by_name(widget, "scroll-event")

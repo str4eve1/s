@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from .gi_composites import GtkTemplate
 from .ratbagd import RatbagdLed
 
 import gi
@@ -8,19 +7,19 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/LedDialog.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/LedDialog.ui")
 class LedDialog(Gtk.Dialog):
     """A Gtk.Dialog subclass to implement the dialog that shows the
     configuration options for the LED effects."""
 
     __gtype_name__ = "LedDialog"
 
-    stack = GtkTemplate.Child()
-    colorchooser = GtkTemplate.Child()
-    colorbutton = GtkTemplate.Child()
-    adjustment_brightness = GtkTemplate.Child()
-    adjustment_effect_duration = GtkTemplate.Child()
-    led_off_image = GtkTemplate.Child()
+    adjustment_brightness = Gtk.Template.Child()
+    adjustment_effect_duration = Gtk.Template.Child()
+    colorbutton = Gtk.Template.Child()
+    colorchooser = Gtk.Template.Child()
+    led_off_image = Gtk.Template.Child()
+    stack = Gtk.Template.Child()
 
     def __init__(self, ratbagd_led, *args, **kwargs):
         """Instantiates a new LedDialog.
@@ -54,7 +53,7 @@ class LedDialog(Gtk.Dialog):
         Gtk.StyleContext.add_provider(self.led_off_image.get_style_context(),
                                       sp, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_change_value")
     def _on_change_value(self, scale, scroll, value):
         # Round the value resulting from a scroll event to the nearest multiple
         # of 500. This is to work around the Gtk.Scale not snapping to its

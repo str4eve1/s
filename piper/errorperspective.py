@@ -1,21 +1,19 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from .gi_composites import GtkTemplate
-
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ErrorPerspective.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ErrorPerspective.ui")
 class ErrorPerspective(Gtk.Box):
     """A perspective to present an error condition in a user-friendly manner."""
 
     __gtype_name__ = "ErrorPerspective"
 
-    label_error = GtkTemplate.Child()
-    label_detail = GtkTemplate.Child()
-    _titlebar = GtkTemplate.Child()
+    label_error = Gtk.Template.Child()
+    label_detail = Gtk.Template.Child()
+    _titlebar = Gtk.Template.Child()
 
     def __init__(self, message=None, *args, **kwargs):
         """Instantiates a new ErrorPerspective.

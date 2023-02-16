@@ -2,7 +2,6 @@
 
 from gettext import gettext as _
 
-from .gi_composites import GtkTemplate
 from .mousemap import MouseMap
 from .ratbagd import RatbagdButton
 from .resolutionrow import ResolutionRow
@@ -12,7 +11,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/ResolutionsPage.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ResolutionsPage.ui")
 class ResolutionsPage(Gtk.Box):
     """The first stack page, exposing the resolution configuration with its
     report rate buttons and resolutions list."""
@@ -28,13 +27,13 @@ class ResolutionsPage(Gtk.Box):
         RatbagdButton.ActionSpecial.RESOLUTION_DEFAULT,
     ]
 
-    rate_125 = GtkTemplate.Child()
-    rate_250 = GtkTemplate.Child()
-    rate_500 = GtkTemplate.Child()
-    rate_1000 = GtkTemplate.Child()
-    rate_button_box = GtkTemplate.Child()
-    listbox = GtkTemplate.Child()
-    add_resolution_row = GtkTemplate.Child()
+    rate_125 = Gtk.Template.Child()
+    rate_250 = Gtk.Template.Child()
+    rate_500 = Gtk.Template.Child()
+    rate_1000 = Gtk.Template.Child()
+    rate_button_box = Gtk.Template.Child()
+    listbox = Gtk.Template.Child()
+    add_resolution_row = Gtk.Template.Child()
 
     def __init__(self, ratbagd_device, *args, **kwargs):
         """Instantiates a new ResolutionsPage.
@@ -102,7 +101,7 @@ class ResolutionsPage(Gtk.Box):
         profile = self._device.active_profile
         profile.report_rate = rate
 
-    @GtkTemplate.Callback
+    @Gtk.Template.Callback("_on_row_activated")
     def _on_row_activated(self, listbox, row):
         if row is self._last_activated_row:
             self._last_activated_row = None

@@ -7,7 +7,6 @@ piper/buttondialog.py
 piper/buttonspage.py
 piper/devicerow.py
 piper/errorperspective.py
-piper/gi_composites.py
 piper/leddialog.py
 piper/ledspage.py
 piper/mousemap.py

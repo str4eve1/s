@@ -4,7 +4,6 @@ from gettext import gettext as _
 
 from .ratbagd import RatbagdIncompatible, RatbagdUnavailable
 from .errorperspective import ErrorPerspective
-from .gi_composites import GtkTemplate
 from .mouseperspective import MousePerspective
 from .welcomeperspective import WelcomePerspective
 
@@ -13,7 +12,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GLib, Gtk, Gio  # noqa
 
 
-@GtkTemplate(ui="/org/freedesktop/Piper/ui/Window.ui")
+@Gtk.Template(resource_path="/org/freedesktop/Piper/ui/Window.ui")
 class Window(Gtk.ApplicationWindow):
     """A Gtk.ApplicationWindow subclass to implement the main application
     window. This window displays the different perspectives (error, mouse and
@@ -21,9 +20,9 @@ class Window(Gtk.ApplicationWindow):
 
     __gtype_name__ = "Window"
 
-    stack_titlebar = GtkTemplate.Child()
-    stack_perspectives = GtkTemplate.Child()
-    primary_menu = GtkTemplate.Child()
+    stack_titlebar = Gtk.Template.Child()
+    stack_perspectives = Gtk.Template.Child()
+    primary_menu = Gtk.Template.Child()
 
     def __init__(self, init_ratbagd_cb, *args, **kwargs):
         """Instantiates a new Window.
