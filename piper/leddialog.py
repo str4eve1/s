@@ -20,6 +20,7 @@ class LedDialog(Gtk.Dialog):
     colorchooser = Gtk.Template.Child()
     led_off_image = Gtk.Template.Child()
     stack = Gtk.Template.Child()
+    titlebar = Gtk.Template.Child()
 
     def __init__(self, ratbagd_led, *args, **kwargs):
         """Instantiates a new LedDialog.
@@ -34,6 +35,9 @@ class LedDialog(Gtk.Dialog):
             "breathing": RatbagdLed.Mode.BREATHING,
             "off": RatbagdLed.Mode.OFF
         }
+
+        # FIXME: why is this needed if this child's type is `titlebar` already?
+        self.set_titlebar(self.titlebar)
 
         mode = self._led.mode
         for k, v in self._modes.items():
