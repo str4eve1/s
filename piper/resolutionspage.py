@@ -73,10 +73,10 @@ class ResolutionsPage(Gtk.Box):
             row = ResolutionRow(self._device, resolution)
             self.listbox.insert(row, resolution.index)
 
-        self.rate_125.set_visible(125 in profile.report_rates)
-        self.rate_250.set_visible(250 in profile.report_rates)
-        self.rate_500.set_visible(500 in profile.report_rates)
-        self.rate_1000.set_visible(1000 in profile.report_rates)
+        self.rate_125.set_sensitive(125 in profile.report_rates)
+        self.rate_250.set_sensitive(250 in profile.report_rates)
+        self.rate_500.set_sensitive(500 in profile.report_rates)
+        self.rate_1000.set_sensitive(1000 in profile.report_rates)
 
         # Set the report rate through a manual callback invocation.
         self._on_active_profile_changed(self._device, profile)
