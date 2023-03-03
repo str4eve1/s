@@ -17,7 +17,7 @@ def get_svg(model):
 
     filename = "fallback.svg"
 
-    if model.startswith("usb:") or model.startswith("bluetooth:"):
+    if model.startswith(("usb:", "bluetooth:")):
         bus, vid, pid, version = model.split(":")
         # Where the version is 0 (virtually all devices) we drop it. This
         # way the DeviceMatch lines are less confusing.
