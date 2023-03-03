@@ -9,6 +9,7 @@ from .optionbutton import OptionButton
 from .ratbagd import RatbagdButton, RatbagdMacro
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk  # noqa
 
@@ -26,8 +27,7 @@ class ButtonsPage(Gtk.Box):
         """
         Gtk.Box.__init__(self, *args, **kwargs)
         self._device = ratbagd_device
-        self._device.connect("active-profile-changed",
-                             self._on_active_profile_changed)
+        self._device.connect("active-profile-changed", self._on_active_profile_changed)
         self._profile = None
 
         self._mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
@@ -44,16 +44,21 @@ class ButtonsPage(Gtk.Box):
             # Set the correct label in the option button.
             self._on_button_mapping_changed(ratbagd_button, None, button)
             button.connect("clicked", self._on_button_clicked, ratbagd_button)
-            ratbagd_button.connect("notify::mapping",
-                                   self._on_button_mapping_changed, button)
-            ratbagd_button.connect("notify::special",
-                                   self._on_button_mapping_changed, button)
-            ratbagd_button.connect("notify::macro",
-                                   self._on_button_mapping_changed, button)
-            ratbagd_button.connect("notify::key",
-                                   self._on_button_mapping_changed, button)
-            ratbagd_button.connect("notify::action-type",
-                                   self._on_button_mapping_changed, button)
+            ratbagd_button.connect(
+                "notify::mapping", self._on_button_mapping_changed, button
+            )
+            ratbagd_button.connect(
+                "notify::special", self._on_button_mapping_changed, button
+            )
+            ratbagd_button.connect(
+                "notify::macro", self._on_button_mapping_changed, button
+            )
+            ratbagd_button.connect(
+                "notify::key", self._on_button_mapping_changed, button
+            )
+            ratbagd_button.connect(
+                "notify::action-type", self._on_button_mapping_changed, button
+            )
             self._mousemap.add(button, "#button{}".format(ratbagd_button.index))
             self._sizegroup.add_widget(button)
 
@@ -82,7 +87,9 @@ class ButtonsPage(Gtk.Box):
         elif action_type == RatbagdButton.ActionType.MACRO:
             label = _("Macro: {}").format(str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ActionType.KEY:
-            label = _("Key: {}").format(ecodes.KEY[ratbagd_button.key][RatbagdMacro._PREFIX_LEN:])
+            label = _("Key: {}").format(
+                ecodes.KEY[ratbagd_button.key][RatbagdMacro._PREFIX_LEN :]
+            )
         elif action_type == RatbagdButton.ActionType.NONE:
             # Translators: the button is turned disabled, e.g. off.
             label = _("Disabled")
@@ -112,7 +119,10 @@ class ButtonsPage(Gtk.Box):
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
             if dialog.action_type == RatbagdButton.ActionType.BUTTON:
-                if dialog.mapping in [ButtonDialog.LEFT_HANDED_MODE, ButtonDialog.RIGHT_HANDED_MODE]:
+                if dialog.mapping in [
+                    ButtonDialog.LEFT_HANDED_MODE,
+                    ButtonDialog.RIGHT_HANDED_MODE,
+                ]:
                     left = self._find_button_type(0)
                     right = self._find_button_type(1)
                     if left is None or right is None:

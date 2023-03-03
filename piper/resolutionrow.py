@@ -4,6 +4,7 @@ from .ratbagd import RatbagdResolution
 from .util.gobject import disconnect_handlers
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
@@ -30,18 +31,24 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         self._resolution = resolution
         self.resolutions = resolution.resolutions
-        self._scale_handler = self.scale.connect("value-changed",
-                                                 self._on_scale_value_changed)
-        self._disabled_button_handler = self.disable_button.connect("toggled",
-                                                                    self._on_disable_button_toggled)
+        self._scale_handler = self.scale.connect(
+            "value-changed", self._on_scale_value_changed
+        )
+        self._disabled_button_handler = self.disable_button.connect(
+            "toggled", self._on_disable_button_toggled
+        )
 
-        self._active_handler = resolution.connect("notify::is-active",
-                                                  self._on_status_changed)
-        self._disabled_handler = resolution.connect("notify::is-disabled",
-                                                    self._on_status_changed)
+        self._active_handler = resolution.connect(
+            "notify::is-active", self._on_status_changed
+        )
+        self._disabled_handler = resolution.connect(
+            "notify::is-disabled", self._on_status_changed
+        )
         # https://gitlab.gnome.org/GNOME/pygobject/-/issues/557
         self.weak_ref(
-            lambda: disconnect_handlers(resolution, (self._active_handler, self._disabled_handler))
+            lambda: disconnect_handlers(
+                resolution, (self._active_handler, self._disabled_handler)
+            )
         )
 
         # Get resolution capabilities and update internal values.
@@ -148,9 +155,9 @@ class ResolutionRow(Gtk.ListBoxRow):
         if self.CAP_SEPARATE_XY_RESOLUTION:
             new_res = (res, res)
         else:
-            new_res = (res, )
+            new_res = (res,)
         self.dpi_label.set_text("{} DPI".format(res))
 
         # Only update new resolution if changed
-        if (new_res != self._resolution.resolution):
+        if new_res != self._resolution.resolution:
             self._resolution.resolution = new_res

@@ -5,6 +5,7 @@ from piper.svg import get_svg
 import sys
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import GdkPixbuf, GObject, Gtk, Rsvg  # noqa
 
@@ -30,7 +31,10 @@ class DeviceRow(Gtk.ListBoxRow):
             svg = handle.get_pixbuf_sub("#Device")
             handle.close()
             if svg is None:
-                print("Device {}'s SVG is incompatible".format(device.name), file=sys.stderr)
+                print(
+                    "Device {}'s SVG is incompatible".format(device.name),
+                    file=sys.stderr,
+                )
             else:
                 svg = svg.scale_simple(50, 50, GdkPixbuf.InterpType.BILINEAR)
                 if svg is None:
@@ -38,7 +42,10 @@ class DeviceRow(Gtk.ListBoxRow):
                 else:
                     self.image.set_from_pixbuf(svg)
         except FileNotFoundError:
-            print("Device {} has no image or its path is invalid".format(device.name), file=sys.stderr)
+            print(
+                "Device {} has no image or its path is invalid".format(device.name),
+                file=sys.stderr,
+            )
 
         self.show_all()
 

@@ -3,6 +3,7 @@
 from .devicerow import DeviceRow
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
@@ -15,7 +16,11 @@ class WelcomePerspective(Gtk.Box):
     __gtype_name__ = "WelcomePerspective"
 
     __gsignals__ = {
-        "device-selected": (GObject.SignalFlags.RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
+        "device-selected": (
+            GObject.SignalFlags.RUN_FIRST,
+            None,
+            (GObject.TYPE_PYOBJECT,),
+        ),
     }
 
     listbox = Gtk.Template.Child()

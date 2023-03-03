@@ -9,6 +9,7 @@ from .advancedpage import AdvancedPage
 from .ledspage import LedsPage
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import GLib, GObject, Gtk  # noqa
 
@@ -76,7 +77,9 @@ class MousePerspective(Gtk.Overlay):
         self.stack.foreach(Gtk.Widget.destroy)
         active_profile = device.active_profile
         if active_profile.resolutions:
-            self.stack.add_titled(ResolutionsPage(device), "resolutions", _("Resolutions"))
+            self.stack.add_titled(
+                ResolutionsPage(device), "resolutions", _("Resolutions")
+            )
         if active_profile.buttons:
             self.stack.add_titled(ButtonsPage(device), "buttons", _("Buttons"))
         if active_profile.leds:
@@ -87,7 +90,7 @@ class MousePerspective(Gtk.Overlay):
         self.button_profile.set_visible(len(device.profiles) > 1)
         name = active_profile.name
         if not name:
-            name = 'Profile {}'.format(active_profile.index)
+            name = "Profile {}".format(active_profile.index)
         self.label_profile.set_label(name)
         self._on_profile_notify_dirty(active_profile, None)
 
@@ -113,8 +116,9 @@ class MousePerspective(Gtk.Overlay):
 
     def _show_notification_error(self):
         self.notification_error.set_reveal_child(True)
-        self._notification_error_timeout_id = GLib.timeout_add_seconds(5,
-                                                                       self._on_notification_error_timeout)
+        self._notification_error_timeout_id = GLib.timeout_add_seconds(
+            5, self._on_notification_error_timeout
+        )
 
     def _on_notification_error_timeout(self):
         self._hide_notification_error()

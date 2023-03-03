@@ -8,6 +8,7 @@ from .optionbutton import OptionButton
 from .ratbagd import RatbagdLed
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk  # noqa
 
@@ -25,8 +26,7 @@ class LedsPage(Gtk.Box):
         """
         Gtk.Box.__init__(self, *args, **kwargs)
         self._device = ratbagd_device
-        self._device.connect("active-profile-changed",
-                             self._on_active_profile_changed)
+        self._device.connect("active-profile-changed", self._on_active_profile_changed)
         self._profile = None
 
         self._mousemap = MouseMap("#Leds", self._device, spacing=20, border_width=20)

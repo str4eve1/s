@@ -4,6 +4,7 @@ from .ratbagd import Ratbagd
 from .window import Window
 
 import gi
+
 gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gio, GLib, Gtk  # noqa
@@ -17,8 +18,11 @@ class Application(Gtk.Application):
 
     def __init__(self, ratbagd_api_version):
         """Instantiates a new Application."""
-        Gtk.Application.__init__(self, application_id="org.freedesktop.Piper",
-                                 flags=Gio.ApplicationFlags.FLAGS_NONE)
+        Gtk.Application.__init__(
+            self,
+            application_id="org.freedesktop.Piper",
+            flags=Gio.ApplicationFlags.FLAGS_NONE,
+        )
         GLib.set_application_name("Piper")
         self._required_ratbagd_version = ratbagd_api_version
 
@@ -44,17 +48,19 @@ class Application(Gtk.Application):
     def _build_app_menu(self):
         # Set up the app menu
         actions = [("about", self._about), ("quit", self._quit)]
-        for (name, callback) in actions:
+        for name, callback in actions:
             action = Gio.SimpleAction.new(name, None)
             action.connect("activate", callback)
             self.add_action(action)
 
     def _about(self, action, param):
         # Set up the about dialog.
-        builder = Gtk.Builder().new_from_resource("/org/freedesktop/Piper/AboutDialog.ui")
+        builder = Gtk.Builder().new_from_resource(
+            "/org/freedesktop/Piper/AboutDialog.ui"
+        )
         about = builder.get_object("about_dialog")
         about.set_transient_for(self.get_active_window())
-        about.connect('response', lambda about, param: about.destroy())
+        about.connect("response", lambda about, param: about.destroy())
         about.show()
 
     def _quit(self, action, param):

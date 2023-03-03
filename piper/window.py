@@ -8,6 +8,7 @@ from .mouseperspective import MousePerspective
 from .welcomeperspective import WelcomePerspective
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GLib, Gtk, Gio  # noqa
 
@@ -37,12 +38,22 @@ class Window(Gtk.ApplicationWindow):
         try:
             ratbag = init_ratbagd_cb()
         except RatbagdUnavailable:
-            self._present_error_perspective(_("Cannot connect to ratbagd"),
-                                            _("Please make sure ratbagd is running and your user is in the required group"))
+            self._present_error_perspective(
+                _("Cannot connect to ratbagd"),
+                _(
+                    "Please make sure ratbagd is running and your user is in the required group"
+                ),
+            )
             return
         except RatbagdIncompatible as e:
-            self._present_error_perspective(_("Incompatible ratbagd API version (required: {}, provided: {})".format(e.required_version, e.ratbagd_version)),
-                                            _("Please update both piper and libratbag to the latest versions"))
+            self._present_error_perspective(
+                _(
+                    "Incompatible ratbagd API version (required: {}, provided: {})".format(
+                        e.required_version, e.ratbagd_version
+                    )
+                ),
+                _("Please update both piper and libratbag to the latest versions"),
+            )
             return
 
         for perspective in [MousePerspective(), WelcomePerspective()]:
@@ -56,8 +67,10 @@ class Window(Gtk.ApplicationWindow):
         ratbag.connect("daemon-disappeared", self._on_daemon_disappeared)
 
         if len(ratbag.devices) == 0:
-            self._present_error_perspective(_("Cannot find any devices"),
-                                            _("Please make sure your device is supported and plugged in"))
+            self._present_error_perspective(
+                _("Cannot find any devices"),
+                _("Please make sure your device is supported and plugged in"),
+            )
         elif len(ratbag.devices) == 1:
             self._present_mouse_perspective(ratbag.devices[0])
         else:
@@ -66,20 +79,27 @@ class Window(Gtk.ApplicationWindow):
     def do_delete_event(self, event):
         for perspective in self.stack_perspectives.get_children():
             if not perspective.can_shutdown:
-                dialog = Gtk.MessageDialog(self, Gtk.DialogFlags.MODAL,
-                                           Gtk.MessageType.QUESTION,
-                                           Gtk.ButtonsType.YES_NO,
-                                           _("There are unapplied changes. Are you sure you want to quit?"))
+                dialog = Gtk.MessageDialog(
+                    self,
+                    Gtk.DialogFlags.MODAL,
+                    Gtk.MessageType.QUESTION,
+                    Gtk.ButtonsType.YES_NO,
+                    _("There are unapplied changes. Are you sure you want to quit?"),
+                )
                 response = dialog.run()
                 dialog.destroy()
 
-                if response == Gtk.ResponseType.NO or response == Gtk.ResponseType.DELETE_EVENT:
+                if (
+                    response == Gtk.ResponseType.NO
+                    or response == Gtk.ResponseType.DELETE_EVENT
+                ):
                     return Gdk.EVENT_STOP
         return Gdk.EVENT_PROPAGATE
 
     def _on_daemon_disappeared(self, ratbag):
-        self._present_error_perspective(_("Ooops. ratbagd has disappeared"),
-                                        _("Please restart Piper"))
+        self._present_error_perspective(
+            _("Ooops. ratbagd has disappeared"), _("Please restart Piper")
+        )
 
     def _on_device_added(self, ratbag, device):
         if len(ratbag.devices) == 1:
@@ -102,16 +122,20 @@ class Window(Gtk.ApplicationWindow):
             # mouse perspective as we'd otherwise be in the welcome screen with
             # more than one device remaining. Hence, we display the error
             # perspective.
-            self._present_error_perspective(_("Your device disconnected!"),
-                                            _("Please make sure your device is plugged in"))
+            self._present_error_perspective(
+                _("Your device disconnected!"),
+                _("Please make sure your device is plugged in"),
+            )
         elif self.stack_perspectives.get_visible_child_name() == "welcome_perspective":
             # We're in the welcome screen; just remove it from the list. If
             # there is nothing left, display the error perspective.
             welcome_perspective = self._get_child("welcome_perspective")
             welcome_perspective.remove_device(device)
             if len(ratbag.devices) == 0:
-                self._present_error_perspective(_("Cannot find any devices"),
-                                                _("Please make sure your device is supported and plugged in"))
+                self._present_error_perspective(
+                    _("Cannot find any devices"),
+                    _("Please make sure your device is supported and plugged in"),
+                )
         else:
             # We're configuring another device; just notify the user.
             # TODO: show in-app notification?
@@ -149,10 +173,14 @@ class Window(Gtk.ApplicationWindow):
             # for a while. The full error is printed to stderr by
             # ratbagd.py.
             if e.code == Gio.DBusError.UNKNOWN_METHOD:
-                self._present_error_perspective(_("Newer version of ratbagd required"),
-                                                _('Please update to the latest available version'))
+                self._present_error_perspective(
+                    _("Newer version of ratbagd required"),
+                    _("Please update to the latest available version"),
+                )
             else:
-                self._present_error_perspective(_("Unknown exception occurred"), e.message)
+                self._present_error_perspective(
+                    _("Unknown exception occurred"), e.message
+                )
 
     def _present_error_perspective(self, message, detail):
         # Present the error perspective informing the user of any errors.
@@ -170,21 +198,27 @@ class Window(Gtk.ApplicationWindow):
         return self.stack_perspectives.get_child_by_name(name)
 
     def _perspective_add_back_button(self, perspective, ratbag):
-        button_back = Gtk.Button.new_from_icon_name("go-previous-symbolic",
-                                                    Gtk.IconSize.BUTTON)
+        button_back = Gtk.Button.new_from_icon_name(
+            "go-previous-symbolic", Gtk.IconSize.BUTTON
+        )
         button_back.set_visible(len(ratbag.devices) > 1)
-        button_back.connect("clicked",
-                            lambda _, ratbag: self._present_welcome_perspective(ratbag.devices),
-                            ratbag)
-        ratbag.connect("notify::devices",
-                       lambda ratbag, _: button_back.set_visible(len(ratbag.devices) > 1))
+        button_back.connect(
+            "clicked",
+            lambda _, ratbag: self._present_welcome_perspective(ratbag.devices),
+            ratbag,
+        )
+        ratbag.connect(
+            "notify::devices",
+            lambda ratbag, _: button_back.set_visible(len(ratbag.devices) > 1),
+        )
         perspective.titlebar.add(button_back)
         # Place the button first in the titlebar.
         perspective.titlebar.child_set_property(button_back, "position", 0)
 
     def _perspective_add_primary_menu(self, perspective):
-        hamburger = Gtk.Image.new_from_icon_name("open-menu-symbolic",
-                                                 Gtk.IconSize.BUTTON)
+        hamburger = Gtk.Image.new_from_icon_name(
+            "open-menu-symbolic", Gtk.IconSize.BUTTON
+        )
         hamburger.set_visible(True)
         button_primary_menu = Gtk.MenuButton.new()
         button_primary_menu.add(hamburger)

@@ -7,6 +7,7 @@ from gettext import gettext as _
 from .ratbagd import RatbagdButton, RatbagdMacro, RatbagDeviceType
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GObject, Gtk  # noqa
 
@@ -108,8 +109,12 @@ class ButtonDialog(Gtk.Dialog):
         # mappings are 1-indexed and thus right mouse click has value 2.
         # Or, right mouse button (index 1) is mapped to left mouse button,
         # which has value 1.
-        if self._button.index == 0 and self._mapping == 2 or \
-                self._button.index == 1 and self._mapping == 1:
+        if (
+            self._button.index == 0
+            and self._mapping == 2
+            or self._button.index == 1
+            and self._mapping == 1
+        ):
             self.radio_left_handed.set_active(True)
         else:
             self.radio_right_handed.set_active(True)
@@ -119,24 +124,39 @@ class ButtonDialog(Gtk.Dialog):
         self.listbox.set_header_func(self._listbox_header_func)
         self.listbox.set_filter_func(self._listbox_filter_func)
         self.listbox.set_placeholder(self.empty_search_placeholder)
-        self.search_entry.connect("notify::text", lambda o, p: self.listbox.invalidate_filter())
+        self.search_entry.connect(
+            "notify::text", lambda o, p: self.listbox.invalidate_filter()
+        )
 
         i = 0
         for button in buttons:
             key, name = self._get_button_name_and_description(button)
             # Translators: section header for mapping one button's click to another.
-            row = ButtonRow(name, _("Button mapping"), RatbagdButton.ActionType.BUTTON, button.index + 1)
+            row = ButtonRow(
+                name,
+                _("Button mapping"),
+                RatbagdButton.ActionType.BUTTON,
+                button.index + 1,
+            )
             self.listbox.insert(row, i)
-            if self._action_type == RatbagdButton.ActionType.BUTTON and button.index + 1 == self._button.mapping:
+            if (
+                self._action_type == RatbagdButton.ActionType.BUTTON
+                and button.index + 1 == self._button.mapping
+            ):
                 self.listbox.select_row(row)
             i += 1
         for key, name in RatbagdButton.SPECIAL_DESCRIPTION.items():
             if name == "Unknown" or name == "Invalid":
                 continue
             # Translators: section header for assigning special functions to buttons.
-            row = ButtonRow(_(name), _("Special mapping"), RatbagdButton.ActionType.SPECIAL, key)
+            row = ButtonRow(
+                _(name), _("Special mapping"), RatbagdButton.ActionType.SPECIAL, key
+            )
             self.listbox.insert(row, i)
-            if self._action_type == RatbagdButton.ActionType.SPECIAL and key == self._mapping:
+            if (
+                self._action_type == RatbagdButton.ActionType.SPECIAL
+                and key == self._mapping
+            ):
                 self.listbox.select_row(row)
             i += 1
 
@@ -163,13 +183,14 @@ class ButtonDialog(Gtk.Dialog):
         # Adds headers to those rows where a new category starts, to separate
         # different kinds of mappings.
         if row == self.row_keystroke:
-            separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL,
-                                      margin_top=18)
+            separator = Gtk.Separator(
+                orientation=Gtk.Orientation.HORIZONTAL, margin_top=18
+            )
             row.set_header(separator)
             return
 
         if before is not None:
-            add_header = (row._section != before._section)
+            add_header = row._section != before._section
         else:
             add_header = True
 
@@ -237,8 +258,9 @@ class ButtonDialog(Gtk.Dialog):
                 return False
         else:
             pointer = device
-        status = pointer.get_seat().grab(window, Gdk.SeatCapabilities.KEYBOARD,
-                                         False, None, None, None, None)
+        status = pointer.get_seat().grab(
+            window, Gdk.SeatCapabilities.KEYBOARD, False, None, None, None, None
+        )
         if status != Gdk.GrabStatus.SUCCESS:
             return False
         self._grab_pointer = pointer
@@ -278,7 +300,9 @@ class ButtonDialog(Gtk.Dialog):
 
         # HACK: we don't want to use SysRq as a keybinding, but we do want
         # Al+Print, so we avoid translating Alt+Print to SysRq.
-        if event.keyval == Gdk.KEY_Sys_Req and (event.state & Gdk.ModifierType.MOD1_MASK):
+        if event.keyval == Gdk.KEY_Sys_Req and (
+            event.state & Gdk.ModifierType.MOD1_MASK
+        ):
             event.keyval = Gdk.KEY_Print
 
         if event.type == Gdk.EventType.KEY_PRESS:
@@ -290,7 +314,9 @@ class ButtonDialog(Gtk.Dialog):
         if not self._XORG_KEYCODE_OFFSET <= event.hardware_keycode <= 255:
             print("Keycode is not within the valid range.", file=sys.stderr)
         else:
-            self._current_macro.append(type, event.hardware_keycode - self._XORG_KEYCODE_OFFSET)
+            self._current_macro.append(
+                type, event.hardware_keycode - self._XORG_KEYCODE_OFFSET
+            )
         return Gdk.EVENT_STOP
 
     def _on_macro_updated(self, macro, pspec):
@@ -300,8 +326,10 @@ class ButtonDialog(Gtk.Dialog):
 
     def _on_macro_set(self, macro):
         # A macro has been set; update accordingly.
-        if (RatbagdButton.ActionType.KEY in self._button.action_types and
-                len(macro.keys) == 2):  # single key (press + release events)
+        if (
+            RatbagdButton.ActionType.KEY in self._button.action_types
+            and len(macro.keys) == 2
+        ):  # single key (press + release events)
             self._action_type = RatbagdButton.ActionType.KEY
             type_, value = macro.keys[0]
             self._mapping = value

@@ -7,6 +7,7 @@ from .ratbagd import RatbagdButton
 from .resolutionrow import ResolutionRow
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk  # noqa
 
@@ -47,10 +48,18 @@ class ResolutionsPage(Gtk.Box):
         self._last_activated_row = None
 
         self._device.connect("active-profile-changed", self._on_active_profile_changed)
-        self._handler_125 = self.rate_125.connect("toggled", self._on_report_rate_toggled, 125)
-        self._handler_250 = self.rate_250.connect("toggled", self._on_report_rate_toggled, 250)
-        self._handler_500 = self.rate_500.connect("toggled", self._on_report_rate_toggled, 500)
-        self._handler_1000 = self.rate_1000.connect("toggled", self._on_report_rate_toggled, 1000)
+        self._handler_125 = self.rate_125.connect(
+            "toggled", self._on_report_rate_toggled, 125
+        )
+        self._handler_250 = self.rate_250.connect(
+            "toggled", self._on_report_rate_toggled, 250
+        )
+        self._handler_500 = self.rate_500.connect(
+            "toggled", self._on_report_rate_toggled, 500
+        )
+        self._handler_1000 = self.rate_1000.connect(
+            "toggled", self._on_report_rate_toggled, 1000
+        )
 
         self._init_ui()
 
@@ -62,14 +71,19 @@ class ResolutionsPage(Gtk.Box):
         # Place the MouseMap on the left
         self.reorder_child(mousemap, 0)
         for button in profile.buttons:
-            if button.action_type == RatbagdButton.ActionType.SPECIAL and \
-                    button.special in self._resolution_labels:
-                label = Gtk.Label(label=_(RatbagdButton.SPECIAL_DESCRIPTION[button.special]))
+            if (
+                button.action_type == RatbagdButton.ActionType.SPECIAL
+                and button.special in self._resolution_labels
+            ):
+                label = Gtk.Label(
+                    label=_(RatbagdButton.SPECIAL_DESCRIPTION[button.special])
+                )
                 mousemap.add(label, "#button{}".format(button.index))
         mousemap.show_all()
 
-        are_report_rates_supported = profile.report_rate != 0 \
-            and len(profile.report_rates) != 0
+        are_report_rates_supported = (
+            profile.report_rate != 0 and len(profile.report_rates) != 0
+        )
         self.rate_button_box.set_sensitive(are_report_rates_supported)
         self.rate_125.set_sensitive(125 in profile.report_rates)
         self.rate_250.set_sensitive(250 in profile.report_rates)

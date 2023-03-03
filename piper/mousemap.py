@@ -68,11 +68,15 @@ class MouseMap(Gtk.Container):
     __gtype_name__ = "MouseMap"
 
     __gproperties__ = {
-        "spacing": (int,
-                    "spacing",
-                    "The amount of space between children and the SVG leaders",
-                    0, GLib.MAXINT, 0,
-                    GObject.ParamFlags.READABLE),
+        "spacing": (
+            int,
+            "spacing",
+            "The amount of space between children and the SVG leaders",
+            0,
+            GLib.MAXINT,
+            0,
+            GObject.ParamFlags.READABLE,
+        ),
     }
 
     def __init__(self, layer, ratbagd_device, spacing=10, *args, **kwargs):
@@ -126,9 +130,12 @@ class MouseMap(Gtk.Container):
                       is to be paired, as str
         """
         svg_leader = svg_id + "-leader"
-        if widget is None or svg_id is None or not \
-            self._handle.has_sub(svg_id) or not \
-                self._handle.has_sub(svg_leader):
+        if (
+            widget is None
+            or svg_id is None
+            or not self._handle.has_sub(svg_id)
+            or not self._handle.has_sub(svg_leader)
+        ):
             return
 
         is_left = self._xpath_has_style(svg_leader[1:], "text-align:end")
@@ -203,10 +210,16 @@ class MouseMap(Gtk.Container):
         """
         width = 2 * self.props.border_width
         width_svg = self._handle.props.width
-        width_left = [child.widget.get_preferred_width()[1] for child in
-                      self._children if child.is_left]
-        width_right = [child.widget.get_preferred_width()[1] for child in
-                       self._children if not child.is_left]
+        width_left = [
+            child.widget.get_preferred_width()[1]
+            for child in self._children
+            if child.is_left
+        ]
+        width_right = [
+            child.widget.get_preferred_width()[1]
+            for child in self._children
+            if not child.is_left
+        ]
         width_left = max(width_left, default=0)
         width_right = max(width_right, default=0)
         width += width_left + width_svg + width_right + self.spacing
@@ -259,7 +272,9 @@ class MouseMap(Gtk.Container):
                 child_allocation.x = x + svg_geom.x - self.spacing - nat_size.width
             else:
                 child_allocation.x = x + svg_geom.x + self.spacing
-            child_allocation.y = y + svg_geom.y + 0.5 * svg_geom.height - 0.5 * nat_size.height
+            child_allocation.y = (
+                y + svg_geom.y + 0.5 * svg_geom.height - 0.5 * nat_size.height
+            )
             child_allocation.width = nat_size.width
             child_allocation.height = nat_size.height
             if not child.widget.get_has_window():
@@ -316,15 +331,15 @@ class MouseMap(Gtk.Container):
         # Checks if the SVG element with the given identifier has the given
         # style attribute set.
         namespaces = {
-            'sodipodi': 'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',
-            'cc': 'http://web.resource.org/cc/',
-            'svg': 'http://www.w3.org/2000/svg',
-            'dc': 'http://purl.org/dc/elements/1.1/',
-            'xlink': 'http://www.w3.org/1999/xlink',
-            'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-            'inkscape': 'http://www.inkscape.org/namespaces/inkscape'
+            "sodipodi": "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd",
+            "cc": "http://web.resource.org/cc/",
+            "svg": "http://www.w3.org/2000/svg",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "xlink": "http://www.w3.org/1999/xlink",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "inkscape": "http://www.inkscape.org/namespaces/inkscape",
         }
-        query = "//svg:rect[@id=\"{}\"][contains(@style, \"{}\")]".format(svg_id, style)
+        query = '//svg:rect[@id="{}"][contains(@style, "{}")]'.format(svg_id, style)
         element = self._svg_data.xpath(query, namespaces=namespaces)
         return element is not None and len(element) == 1 and element[0] is not None
 
@@ -334,16 +349,20 @@ class MouseMap(Gtk.Container):
         ret = Gdk.Rectangle()
         ok, svg_pos = self._handle.get_position_sub(svg_id)
         if not ok:
-            print("Warning: cannot retrieve element's position:", svg_id,
-                  file=sys.stderr)
+            print(
+                "Warning: cannot retrieve element's position:", svg_id, file=sys.stderr
+            )
             return ok, ret
         ret.x = svg_pos.x
         ret.y = svg_pos.y
 
         ok, svg_dim = self._handle.get_dimensions_sub(svg_id)
         if not ok:
-            print("Warning: cannot retrieve element's dimensions:", svg_id,
-                  file=sys.stderr)
+            print(
+                "Warning: cannot retrieve element's dimensions:",
+                svg_id,
+                file=sys.stderr,
+            )
             return ok, ret
         ret.width = svg_dim.width
         ret.height = svg_dim.height
@@ -360,8 +379,12 @@ class MouseMap(Gtk.Container):
             svg_height = self._handle.props.height
             self.queue_draw_area(x, y, svg_width, svg_height)
         else:
-            self.queue_draw_area(x + svg_geom.x - 10, y + svg_geom.y - 10,
-                                 svg_geom.width + 20, svg_geom.height + 20)
+            self.queue_draw_area(
+                x + svg_geom.x - 10,
+                y + svg_geom.y - 10,
+                svg_geom.width + 20,
+                svg_geom.height + 20,
+            )
 
     def _translate_to_origin(self):
         # Translates the coordinate system such that the SVG and its buttons
@@ -371,8 +394,11 @@ class MouseMap(Gtk.Container):
         width = self.get_preferred_width()[1]
         height = self.get_preferred_height()[1]
 
-        width_left = [child.widget.get_preferred_width()[1] for child in
-                      self._children if child.is_left]
+        width_left = [
+            child.widget.get_preferred_width()[1]
+            for child in self._children
+            if child.is_left
+        ]
         width_left = max(width_left, default=0)
         if width_left > 0:
             width_left += self.spacing
@@ -394,12 +420,13 @@ class MouseMap(Gtk.Container):
         self._handle.render_cairo_sub(cr, id="#Device")
         if self._highlight_element is not None:
             svg_surface = cr.get_target()
-            highlight_surface = svg_surface.create_similar(cairo.CONTENT_COLOR_ALPHA,
-                                                           self._handle.props.width,
-                                                           self._handle.props.height)
+            highlight_surface = svg_surface.create_similar(
+                cairo.CONTENT_COLOR_ALPHA,
+                self._handle.props.width,
+                self._handle.props.height,
+            )
             highlight_context = cairo.Context(highlight_surface)
-            self._handle.render_cairo_sub(highlight_context,
-                                          self._highlight_element)
+            self._handle.render_cairo_sub(highlight_context, self._highlight_element)
             cr.mask_surface(highlight_surface, 0, 0)
         for child in self._children:
             self._handle.render_cairo_sub(cr, id=child.svg_path)

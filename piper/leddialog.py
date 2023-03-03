@@ -3,6 +3,7 @@
 from .ratbagd import RatbagdLed
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GObject, Gtk  # noqa
 
@@ -33,7 +34,7 @@ class LedDialog(Gtk.Dialog):
             "solid": RatbagdLed.Mode.ON,
             "cycle": RatbagdLed.Mode.CYCLE,
             "breathing": RatbagdLed.Mode.BREATHING,
-            "off": RatbagdLed.Mode.OFF
+            "off": RatbagdLed.Mode.OFF,
         }
 
         # FIXME: why is this needed if this child's type is `titlebar` already?
@@ -53,8 +54,11 @@ class LedDialog(Gtk.Dialog):
 
         sp = Gtk.CssProvider()
         sp.load_from_data("* { background: #565854}".encode())
-        Gtk.StyleContext.add_provider(self.led_off_image.get_style_context(),
-                                      sp, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        Gtk.StyleContext.add_provider(
+            self.led_off_image.get_style_context(),
+            sp,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+        )
 
     @Gtk.Template.Callback("_on_change_value")
     def _on_change_value(self, scale, scroll, value):

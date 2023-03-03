@@ -7,8 +7,8 @@ from lxml import etree
 from pathlib import Path
 import logging
 
-ns = {'svg': 'http://www.w3.org/2000/svg'}
-style_query = '//svg:rect[@id=\"{}\"][contains(@style, \"{}\")]'
+ns = {"svg": "http://www.w3.org/2000/svg"}
+style_query = '//svg:rect[@id="{}"][contains(@style, "{}")]'
 
 logger = None
 
@@ -30,8 +30,8 @@ class SVGLogger(logging.Logger):
 
 
 def check_size(root):
-    width = float(root.attrib['width'])
-    height = float(root.attrib['height'])
+    width = float(root.attrib["width"])
+    height = float(root.attrib["height"])
     if not 400 <= width <= 500:
         logger.error("Width is outside of range: {}".format(width))
     if not 400 <= height <= 500:
@@ -42,7 +42,7 @@ def check_layers(root):
     """
     Check there are layers (well, groups) for the components we require.
     """
-    layer_ids = [g.attrib['id'] for g in root.iterfind('svg:g', ns)]
+    layer_ids = [g.attrib["id"] for g in root.iterfind("svg:g", ns)]
 
     for layer in ["Device", "Buttons", "LEDs"]:
         if layer not in layer_ids:
@@ -62,16 +62,20 @@ def check_elements(root, prefix, required=0):
     # elements can be paths and rects
     # This includes leaders and lines
     element_ids = []
-    for element in ['path', 'rect', 'g', 'circle']:
-        element_ids += [p.attrib['id'] for p in root.xpath('//svg:{}'.format(element), namespaces=ns) if p.attrib['id'].startswith(prefix)]
+    for element in ["path", "rect", "g", "circle"]:
+        element_ids += [
+            p.attrib["id"]
+            for p in root.xpath("//svg:{}".format(element), namespaces=ns)
+            if p.attrib["id"].startswith(prefix)
+        ]
 
     idx = 0
     highest = -1
     for idx in range(0, 20):
-        e = '{}{}'.format(prefix, idx)
-        previous = '{}{}'.format(prefix, idx - 1)
-        leader = '{}{}-leader'.format(prefix, idx)
-        path = '{}{}-path'.format(prefix, idx)
+        e = "{}{}".format(prefix, idx)
+        previous = "{}{}".format(prefix, idx - 1)
+        leader = "{}{}-leader".format(prefix, idx)
+        path = "{}{}-path".format(prefix, idx)
         if e in element_ids:
             highest = idx
             if idx > 0 and previous not in element_ids:
@@ -80,7 +84,9 @@ def check_elements(root, prefix, required=0):
             if leader not in element_ids:
                 logger.error("Missing {} for {}".format(leader, e))
             else:
-                element = root.xpath(style_query.format(leader, 'text-align'), namespaces=ns)
+                element = root.xpath(
+                    style_query.format(leader, "text-align"), namespaces=ns
+                )
                 if element is None or len(element) != 1 or element[0] is None:
                     logger.error("Missing style property for {}".format(leader))
 
@@ -105,7 +111,7 @@ def check_buttons(root):
 
 
 def check_svg(path):
-    path = os.path.join(os.environ.get('BASEDIR', '.'), path)
+    path = os.path.join(os.environ.get("BASEDIR", "."), path)
     svg = etree.parse(path)
     root = svg.getroot()
 

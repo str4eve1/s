@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
@@ -21,7 +22,7 @@ class ProfileRow(Gtk.ListBoxRow):
 
         name = profile.name
         if not name:
-            name = 'Profile {}'.format(profile.index)
+            name = "Profile {}".format(profile.index)
 
         self.title.set_text(name)
         self.show_all()
