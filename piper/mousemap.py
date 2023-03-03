@@ -309,8 +309,8 @@ class MouseMap(Gtk.Container):
         """
         if prop.name == "spacing":
             return self.spacing
-        else:
-            raise AttributeError("Unknown property %s" % prop.name)
+
+        raise AttributeError("Unknown property %s" % prop.name)
 
     def _on_enter(self, widget, event, child):
         # Highlights the element in the SVG to which the given widget belongs.

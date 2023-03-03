@@ -88,7 +88,7 @@ class WelcomePerspective(Gtk.Box):
         name2 = row2.device.name.casefold()
         if name1 < name2:
             return -1
-        elif name1 == name2:
+        if name1 == name2:
             return 0
         return 1
 
