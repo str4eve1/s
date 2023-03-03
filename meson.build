@@ -158,3 +158,20 @@ test(
   python_black_check,
   env: env_test,
 )
+
+#### code linting #####
+run_target(
+  'python-ruff',
+  command : 'tools/python-ruff.sh',
+)
+
+python_ruff_check = find_program(join_paths(meson.current_source_dir(), 'tests/python-ruff-check.sh'))
+run_target(
+  'python-ruff-check',
+  command : python_ruff_check,
+)
+test(
+  'python-ruff-check',
+  python_ruff_check,
+  env: env_test,
+)
