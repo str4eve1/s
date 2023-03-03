@@ -44,17 +44,17 @@ Building Piper from git
 Piper uses the [meson build system](http://mesonbuild.com/). Run the following
 commands to clone Piper and initialize the build:
 
-```
-$ git clone https://github.com/libratbag/piper.git
-$ cd piper
-$ meson builddir --prefix=/usr/
+```sh
+git clone https://github.com/libratbag/piper.git
+cd piper
+meson builddir --prefix=/usr/
 ```
 
 To build or re-build after code-changes and install, run:
 
-```
-$ ninja -C builddir
-$ sudo ninja -C builddir install
+```sh
+ninja -C builddir
+sudo ninja -C builddir install
 ```
 
 Note: `builddir` is the build output directory and can be changed to any other
@@ -72,9 +72,10 @@ the devices displayed by Piper come from libratbag.
 For quicker development iteration, there is a special binary `piper.devel`
 that uses data files from the git directory. This removes the need to
 install piper after every code change.
-```
-$ ninja -C builddir
-$ ./builddir/piper.devel
+
+```sh
+ninja -C builddir
+./builddir/piper.devel
 ```
 Note that this still requires ratbagd to run on the system bus.
 
@@ -82,15 +83,17 @@ Piper tries to conform to Python's PEP8 style guide. To verify your code before
 opening a PR, please install `flake8` and run the following commands to install
 its pre-commit hook:
 
-```
-$ flake8 --install-hook git
-$ git config --bool flake8.strict true
+```sh
+flake8 --install-hook git
+git config --bool flake8.strict true
 ```
 
 Source
 ======
 
-`git clone https://github.com/libratbag/piper.git`
+```sh
+git clone https://github.com/libratbag/piper.git
+```
 
 Bugs
 ====
