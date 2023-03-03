@@ -6,7 +6,7 @@ from evdev import ecodes
 from .buttondialog import ButtonDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
-from .ratbagd import RatbagdButton, RatbagdMacro
+from .ratbagd import RatbagdButton, RatbagdDevice, RatbagdMacro, RatbagdProfile
 from .util.gobject import connect_signal_with_weak_ref
 
 import gi
@@ -20,7 +20,9 @@ class ButtonsPage(Gtk.Box):
 
     __gtype_name__ = "ButtonsPage"
 
-    def __init__(self, ratbagd_device, *args, **kwargs):
+    def __init__(
+        self, ratbagd_device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs
+    ) -> None:
         """Instantiates a new ButtonsPage.
 
         @param ratbag_device The ratbag device to configure, as
@@ -29,24 +31,12 @@ class ButtonsPage(Gtk.Box):
         Gtk.Box.__init__(self, *args, **kwargs)
 
         self._device = ratbagd_device
-        self._profile = None
-
-        connect_signal_with_weak_ref(
-            self,
-            self._device,
-            "active-profile-changed",
-            self._on_active_profile_changed,
-        )
+        self._profile = profile
 
         self._mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
         self._sizegroup = Gtk.SizeGroup(mode=Gtk.SizeGroupMode.HORIZONTAL)
 
-        self._set_profile(self._device.active_profile)
-        self.show_all()
-
-    def _set_profile(self, profile):
-        self._profile = profile
         for ratbagd_button in profile.buttons:
             button = OptionButton()
             # Set the correct label in the option button.
@@ -90,14 +80,7 @@ class ButtonsPage(Gtk.Box):
             self._mousemap.add(button, f"#button{ratbagd_button.index}")
             self._sizegroup.add_widget(button)
 
-    def _on_active_profile_changed(self, device, profile):
-        # Disconnect the notify::action_type signal on the old profile's buttons.
-        for button in self._profile.buttons:
-            button.disconnect_by_func(self._on_button_mapping_changed)
-        # Clear the MouseMap of any children.
-        self._mousemap.foreach(Gtk.Widget.destroy)
-        # Repopulate the MouseMap.
-        self._set_profile(profile)
+        self.show_all()
 
     def _on_button_mapping_changed(self, ratbagd_button, pspec, optionbutton):
         # Called when the button's action type changed, which means its
@@ -129,7 +112,7 @@ class ButtonsPage(Gtk.Box):
     def _on_button_clicked(self, button, ratbagd_button):
         # Presents the ButtonDialog to configure the mouse button corresponding
         # to the clicked button.
-        buttons = self._find_active_profile().buttons
+        buttons = self._profile.buttons
         device_type = self._device.device_type
         dialog = ButtonDialog(
             ratbagd_button,
@@ -178,13 +161,6 @@ class ButtonsPage(Gtk.Box):
                             continue
                         profile.buttons[index].special = dialog.mapping
         dialog.destroy()
-
-    def _find_active_profile(self):
-        # Finds the active profile, which is guaranteed to exist.
-        for profile in self._device.profiles:
-            if profile.is_active:
-                return profile
-        return None
 
     def _find_button_type(self, button_type):
         for button in self._profile.buttons:
