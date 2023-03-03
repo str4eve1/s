@@ -5,13 +5,13 @@ from gettext import gettext as _
 from .leddialog import LedDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
-from .ratbagd import RatbagdLed
+from .ratbagd import RatbagdDevice, RatbagdLed, RatbagdProfile
 from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import GObject, Gtk  # noqa
+from gi.repository import Gtk  # noqa
 
 
 class LedsPage(Gtk.Box):
@@ -19,7 +19,9 @@ class LedsPage(Gtk.Box):
 
     __gtype_name__ = "LedsPage"
 
-    def __init__(self, ratbagd_device, *args, **kwargs):
+    def __init__(
+        self, ratbagd_device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs
+    ) -> None:
         """Instantiates a new LedsPage.
 
         @param ratbag_device The ratbag device to configure, as
@@ -28,62 +30,25 @@ class LedsPage(Gtk.Box):
         Gtk.Box.__init__(self, *args, **kwargs)
         self._device = ratbagd_device
 
-        connect_signal_with_weak_ref(
-            self,
-            self._device,
-            "active-profile-changed",
-            self._on_active_profile_changed,
-        )
-
-        self._profile = None
-
-        self._led_weak_refs: list[GObject.Object.weak_ref] = []
+        self._profile = profile
 
         self._mousemap = MouseMap("#Leds", self._device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
         self._sizegroup = Gtk.SizeGroup(mode=Gtk.SizeGroupMode.HORIZONTAL)
-
-        self._set_profile(self._device.active_profile)
-        self.show_all()
-
-    def _set_profile(self, profile):
-        self._profile = profile
-
-        for led_weak_ref in self._led_weak_refs:
-            led_weak_ref.unref()
-        self._led_weak_refs.clear()
 
         for led in profile.leds:
             mode = _(RatbagdLed.LED_DESCRIPTION[led.mode])
             button = OptionButton(mode)
             button.connect("clicked", self._on_button_clicked, led)
 
-            led_mode_changed_handler = led.connect(
-                "notify::mode", self._on_led_mode_changed, button
-            )
-            self._led_weak_refs.append(
-                led.weak_ref(
-                    lambda led=led, handler=led_mode_changed_handler: led.disconnect(
-                        handler
-                    )
-                )
+            connect_signal_with_weak_ref(
+                self, led, "notify::mode", self._on_led_mode_changed, button
             )
 
             self._mousemap.add(button, f"#led{led.index}")
             self._sizegroup.add_widget(button)
 
-    def _on_active_profile_changed(self, device, profile):
-        # Callbacks disconnected manually, remove the weak references.
-        for weak_ref in self._led_weak_refs:
-            weak_ref.unref()
-        self._led_weak_refs.clear()
-        # Disconnect the notify::mode signal on the old profile's LEDs.
-        for led in self._profile.leds:
-            led.disconnect_by_func(self._on_led_mode_changed)
-        # Clear the MouseMap of any children.
-        self._mousemap.foreach(Gtk.Widget.destroy)
-        # Repopulate the MouseMap.
-        self._set_profile(profile)
+        self.show_all()
 
     def _on_led_mode_changed(self, led, pspec, button):
         mode = _(RatbagdLed.LED_DESCRIPTION[led.mode])

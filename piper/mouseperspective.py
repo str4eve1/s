@@ -115,7 +115,7 @@ class MousePerspective(Gtk.Overlay):
                 ButtonsPage(self._device, profile), "buttons", _("Buttons")
             )
         if profile.leds:
-            self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
+            self.stack.add_titled(LedsPage(self._device, profile), "leds", _("LEDs"))
         if profile.angle_snapping != -1 or profile.debounces:
             self.stack.add_titled(
                 AdvancedPage(self._device, profile), "advanced", _("Advanced")
