@@ -74,7 +74,6 @@
                 <property name="halign">center</property>
                 <property name="margin-top">32</property>
                 <property name="margin-bottom">32</property>
-                <property name="hexpand">False</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkFrame">
