@@ -69,6 +69,10 @@ class MousePerspective(Gtk.Overlay):
         self._device = device
         device.connect("resync", lambda _: self._show_notification_error())
 
+        # FIXME: we should also recreate widgets for profile changes.
+        # Because of how this is structured right now, there is no way to
+        # enable/disable different tabs per different profiles.
+        # Widgets will need to be updated to work this way too.
         self.stack.foreach(Gtk.Widget.destroy)
         active_profile = device.active_profile
         if active_profile.resolutions:
