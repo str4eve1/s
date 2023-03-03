@@ -48,20 +48,21 @@ class AdvancedPage(Gtk.Box):
         self.pack_start(self._mousemap, True, True, 0)
 
         cell = Gtk.CellRendererText()
-        model = Gtk.ListStore(str)
-        for ms in profile.debounces:
-            model.append([str(ms)])
         self.debounce.pack_start(cell, True)
         self.debounce.add_attribute(cell, "text", 0)
-        self.debounce.set_model(model)
-
-        self.angle_snapping.set_sensitive(profile.angle_snapping != -1)
 
         self._on_active_profile_changed(self._device, profile)
 
         self.show_all()
 
     def _set_profile(self, profile: RatbagdProfile) -> None:
+        model = Gtk.ListStore(str)
+        for ms in profile.debounces:
+            model.append([str(ms)])
+        self.debounce.set_model(model)
+
+        self.angle_snapping.set_sensitive(profile.angle_snapping != -1)
+
         with self.debounce.handler_block(self._handler_debounce):
             if profile.debounce in profile.debounces:
                 idx = profile.debounces.index(profile.debounce)
