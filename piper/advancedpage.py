@@ -61,9 +61,7 @@ class AdvancedPage(Gtk.Box):
 
         self._on_active_profile_changed(self._device, profile)
 
-    def _on_active_profile_changed(
-        self, _device: RatbagdDevice, profile: RatbagdProfile
-    ) -> None:
+    def _set_profile(self, profile: RatbagdProfile) -> None:
         with self.debounce.handler_block(self._handler_debounce):
             if profile.debounce in profile.debounces:
                 idx = profile.debounces.index(profile.debounce)
@@ -73,6 +71,11 @@ class AdvancedPage(Gtk.Box):
 
         with self.angle_snapping.handler_block(self._handler_snapping):
             self.angle_snapping.set_active(profile.angle_snapping == 1)
+
+    def _on_active_profile_changed(
+        self, _device: RatbagdDevice, profile: RatbagdProfile
+    ) -> None:
+        self._set_profile(profile)
 
     def _on_debounce_changed(self, combo: Gtk.ComboBox) -> None:
         idx = combo.get_active()
