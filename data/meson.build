@@ -46,13 +46,13 @@ appdata = i18n.merge_file(input: appdata,
                           install: true,
                           install_dir: metainfodir)
 
-if enable_tests
-    appstreamcli = find_program('appstreamcli')
-    if appstreamcli.found()
-        test('validate appdata file',
-            appstreamcli,
-            args: ['validate', '--no-net', '--pedantic', appdata])
-     endif
+appstreamcli = find_program('appstreamcli')
+if appstreamcli.found()
+  test(
+    'validate appdata file',
+    appstreamcli,
+    args: ['validate', '--no-net', '--pedantic', appdata]
+  )
 endif
 
 svg_mapping = files('svgs/svg-lookup.ini')

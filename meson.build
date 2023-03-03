@@ -13,7 +13,6 @@ ratbagd_api_version = 2
 
 # Options
 enable_runtime_dependency_checks = get_option('runtime-dependency-checks')
-enable_tests = get_option('tests')
 
 # Dependencies
 if enable_runtime_dependency_checks
@@ -118,31 +117,37 @@ else
     meson.add_install_script('meson_install.sh')
 endif
 
-if enable_tests
-    flake8 = find_program('flake8')
-    if flake8.found()
-        test('flake8', flake8,
-             args: ['--config=' + join_paths(meson.current_source_dir(), '.flake8'),
-                    join_paths(meson.current_source_dir(), 'piper'),
-                    join_paths(meson.current_build_dir(), 'piper'),
-                    join_paths(meson.current_build_dir(), 'piper.devel')])
-    endif
-
-    test_svg_files = find_program('tests/check-svg.py')
-    test('check-svg', test_svg_files,
-        args: join_paths(meson.current_source_dir(), 'data/svgs/'),
-        env: ['BASEDIR=@0@'.format(join_paths(meson.current_source_dir(), 'data/'))]
-        )
-
-    test('svg-lookup-check',
-        find_program('tests/svg-lookup-ini-test.py'),
-        args: [svg_mapping,
-            join_paths(meson.current_source_dir(), 'data/svgs/')
-            ],
-
-        )
-    test('files-in-git',
-        find_program('tests/check-files-in-git.sh'),
-        args: [meson.current_source_dir()],
-        suite: ['all'])
+flake8 = find_program('flake8')
+if flake8.found()
+  test(
+    'flake8',
+    flake8,
+    args : [
+      '--config=' + join_paths(meson.current_source_dir(), '.flake8'),
+      join_paths(meson.current_source_dir(), 'piper'),
+      join_paths(meson.current_build_dir(), 'piper'),
+      join_paths(meson.current_build_dir(), 'piper.devel'),
+    ],
+  )
 endif
+
+test_svg_files = find_program('tests/check-svg.py')
+test(
+  'check-svg',
+  test_svg_files,
+  args : join_paths(meson.current_source_dir(), 'data/svgs/'),
+  env : ['BASEDIR=@0@'.format(join_paths(meson.current_source_dir(), 'data/'))],
+)
+
+test(
+  'svg-lookup-check',
+  find_program('tests/svg-lookup-ini-test.py'),
+  args : [svg_mapping, join_paths(meson.current_source_dir(), 'data/svgs/')],
+)
+
+test(
+  'files-in-git',
+  find_program('tests/check-files-in-git.sh'),
+  args : [meson.current_source_dir()],
+  suite : ['all'],
+)

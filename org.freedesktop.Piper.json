@@ -47,7 +47,7 @@
         {
             "name": "Piper",
             "buildsystem": "meson",
-            "config-opts": [ "-Druntime-dependency-checks=false", "-Dtests=false" ],
+            "config-opts": [ "-Druntime-dependency-checks=false" ],
             "sources": [
                 {
                     "type": "git",
