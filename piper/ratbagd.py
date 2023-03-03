@@ -76,7 +76,7 @@ class RatbagDeviceType(IntEnum):
     KEYBOARD = 3
 
 
-class RatbagdIncompatible(Exception):
+class RatbagdIncompatibleError(Exception):
     """ratbagd is incompatible with this client"""
 
     def __init__(self, ratbagd_version, required_version):
@@ -91,61 +91,45 @@ class RatbagdIncompatible(Exception):
         return self.message
 
 
-class RatbagdUnavailable(Exception):
+class RatbagdUnavailableError(Exception):
     """Signals DBus is unavailable or the ratbagd daemon is not available."""
 
-    pass
 
-
-class RatbagdDBusTimeout(Exception):
+class RatbagdDBusTimeoutError(Exception):
     """Signals that a timeout occurred during a DBus method call."""
-
-    pass
 
 
 class RatbagError(Exception):
     """A common base exception to catch any ratbag exception."""
 
-    pass
 
-
-class RatbagErrorDevice(RatbagError):
+class RatbagDeviceError(RatbagError):
     """An exception corresponding to RatbagErrorCode.DEVICE."""
 
-    pass
 
-
-class RatbagErrorCapability(RatbagError):
+class RatbagCapabilityError(RatbagError):
     """An exception corresponding to RatbagErrorCode.CAPABILITY."""
 
-    pass
 
-
-class RatbagErrorValue(RatbagError):
+class RatbagValueError(RatbagError):
     """An exception corresponding to RatbagErrorCode.VALUE."""
 
-    pass
 
-
-class RatbagErrorSystem(RatbagError):
+class RatbagSystemError(RatbagError):
     """An exception corresponding to RatbagErrorCode.SYSTEM."""
 
-    pass
 
-
-class RatbagErrorImplementation(RatbagError):
+class RatbagImplementationError(RatbagError):
     """An exception corresponding to RatbagErrorCode.IMPLEMENTATION."""
-
-    pass
 
 
 """A table mapping RatbagErrorCode values to RatbagError* exceptions."""
 EXCEPTION_TABLE = {
-    RatbagErrorCode.DEVICE: RatbagErrorDevice,
-    RatbagErrorCode.CAPABILITY: RatbagErrorCapability,
-    RatbagErrorCode.VALUE: RatbagErrorValue,
-    RatbagErrorCode.SYSTEM: RatbagErrorSystem,
-    RatbagErrorCode.IMPLEMENTATION: RatbagErrorImplementation,
+    RatbagErrorCode.DEVICE: RatbagDeviceError,
+    RatbagErrorCode.CAPABILITY: RatbagCapabilityError,
+    RatbagErrorCode.VALUE: RatbagValueError,
+    RatbagErrorCode.SYSTEM: RatbagSystemError,
+    RatbagErrorCode.IMPLEMENTATION: RatbagImplementationError,
 }
 
 
@@ -159,7 +143,7 @@ class _RatbagdDBus(GObject.GObject):
             try:
                 _RatbagdDBus._dbus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
             except GLib.Error as e:
-                raise RatbagdUnavailable(e.message)
+                raise RatbagdUnavailableError(e.message) from e
 
         ratbag1 = "org.freedesktop.ratbag1"
         if os.environ.get("RATBAG_TEST"):
@@ -169,7 +153,7 @@ class _RatbagdDBus(GObject.GObject):
             object_path = "/" + ratbag1.replace(".", "/")
 
         self._object_path = object_path
-        self._interface = "{}.{}".format(ratbag1, interface)
+        self._interface = f"{ratbag1}.{interface}"
 
         try:
             self._proxy = Gio.DBusProxy.new_sync(
@@ -182,10 +166,10 @@ class _RatbagdDBus(GObject.GObject):
                 None,
             )
         except GLib.Error as e:
-            raise RatbagdUnavailable(e.message)
+            raise RatbagdUnavailableError(e.message) from e
 
         if self._proxy.get_name_owner() is None:
-            raise RatbagdUnavailable("No one currently owns {}".format(ratbag1))
+            raise RatbagdUnavailableError(f"No one currently owns {ratbag1}")
 
         self._proxy.connect("g-properties-changed", self._on_properties_changed)
         self._proxy.connect("g-signal", self._on_signal_received)
@@ -220,7 +204,7 @@ class _RatbagdDBus(GObject.GObject):
         # org.freedesktop.DBus.Properties.Set we need to wrap that again
         # into a (ssv), where v is our value's variant.
         # args to .Set are "interface name", "function name",  value-variant
-        val = GLib.Variant("{}".format(type), value)
+        val = GLib.Variant(f"{type}", value)
         if readwrite:
             pval = GLib.Variant("(ssv)", (self._interface, property, val))
             self._proxy.call_sync(
@@ -243,7 +227,7 @@ class _RatbagdDBus(GObject.GObject):
         # appropriate RatbagError* or RatbagdDBus* exception, or GLib.Error if
         # it is an unexpected exception that probably shouldn't be passed up to
         # the UI.
-        val = GLib.Variant("({})".format(type), value)
+        val = GLib.Variant(f"({type})", value)
         try:
             res = self._proxy.call_sync(
                 method, val, Gio.DBusCallFlags.NO_AUTO_START, 2000, None
@@ -253,12 +237,11 @@ class _RatbagdDBus(GObject.GObject):
             return res.unpack()[0]  # Result is always a tuple
         except GLib.Error as e:
             if e.code == Gio.IOErrorEnum.TIMED_OUT:
-                raise RatbagdDBusTimeout(e.message)
-            else:
-                # Unrecognized error code; print the message to stderr and raise
-                # the GLib.Error.
-                print(e.message, file=sys.stderr)
-                raise
+                raise RatbagdDBusTimeoutError(e.message) from e
+
+            # Unrecognized error code.
+            print(e.message, file=sys.stderr)
+            raise
 
     def __eq__(self, other):
         return other and self._object_path == other._object_path
@@ -269,7 +252,7 @@ class Ratbagd(_RatbagdDBus):
     through ratbagd; actual interaction with the devices is via the
     RatbagdDevice, RatbagdProfile, RatbagdResolution and RatbagdButton objects.
 
-    Throws RatbagdUnavailable when the DBus service is not available.
+    Throws RatbagdUnavailableError when the DBus service is not available.
     """
 
     __gsignals__ = {
@@ -286,11 +269,11 @@ class Ratbagd(_RatbagdDBus):
         super().__init__("Manager", None)
         result = self._get_dbus_property("Devices")
         if result is None and not self._proxy.get_cached_property_names():
-            raise RatbagdUnavailable(
+            raise RatbagdUnavailableError(
                 "Make sure it is running and your user is in the required groups."
             )
         if self.api_version != api_version:
-            raise RatbagdIncompatible(self.api_version or -1, api_version)
+            raise RatbagdIncompatibleError(self.api_version or -1, api_version)
         self._devices = [RatbagdDevice(objpath) for objpath in result or []]
         self._proxy.connect("notify::g-name-owner", self._on_name_owner_changed)
 
@@ -405,7 +388,7 @@ class RatbagdDevice(_RatbagdDBus):
         """The currently active profile. This is a non-DBus property computed
         over the cached list of profiles. In the unlikely case that your device
         driver is misconfigured and there is no active profile, this returns
-        the first profile."""
+        `None`."""
         for profile in self._profiles:
             if profile.is_active:
                 return profile
@@ -413,7 +396,7 @@ class RatbagdDevice(_RatbagdDBus):
             "No active profile. Please report this bug to the libratbag developers",
             file=sys.stderr,
         )
-        return self._profiles[0]
+        return None
 
     def commit(self):
         """Commits all changes made to the device.
@@ -544,32 +527,35 @@ class RatbagdProfile(_RatbagdDBus):
         return self._get_dbus_property("ReportRates") or []
 
     @GObject.Property
-    def debounce(self):
-        return self._get_dbus_property("Debounce")
-
-    @debounce.setter
-    def debounce(self, response):
-        self._set_dbus_property("Debounce", "i", response)
-
-        if not self._dirty:
-            self._dirty = True
-            self.notify("dirty")
-
-    @GObject.Property
-    def debounces(self):
-        return self._get_dbus_property("Debounces") or []
-
-    @GObject.Property
     def angle_snapping(self):
+        """The angle snapping option."""
         return self._get_dbus_property("AngleSnapping")
 
     @angle_snapping.setter
-    def angle_snapping(self, snapping):
-        self._set_dbus_property("AngleSnapping", "i", snapping)
+    def angle_snapping(self, value):
+        """Set the angle snapping option.
 
-        if not self._dirty:
-            self._dirty = True
-            self.notify("dirty")
+        @param value The angle snapping option as int
+        """
+        self._set_dbus_property("AngleSnapping", "i", value)
+
+    @GObject.Property
+    def debounce(self):
+        """The button debounce time in ms."""
+        return self._get_dbus_property("Debounce")
+
+    @debounce.setter
+    def debounce(self, value):
+        """Set the button debounce time in ms.
+
+        @param value The button debounce time, as int
+        """
+        self._set_dbus_property("Debounce", "i", value)
+
+    @GObject.Property
+    def debounces(self):
+        """The list of supported debounce times"""
+        return self._get_dbus_property("Debounces") or []
 
     @GObject.Property
     def resolutions(self):
@@ -583,7 +569,7 @@ class RatbagdProfile(_RatbagdDBus):
         """The currently active resolution of this profile. This is a non-DBus
         property computed over the cached list of resolutions. In the unlikely
         case that your device driver is misconfigured and there is no active
-        resolution, this returns the first resolution."""
+        resolution, this returns `None`."""
         for resolution in self._resolutions:
             if resolution.is_active:
                 return resolution
@@ -591,7 +577,7 @@ class RatbagdProfile(_RatbagdDBus):
             "No active resolution. Please report this bug to the libratbag developers",
             file=sys.stderr,
         )
-        return self._resolutions[0]
+        return None
 
     @GObject.Property
     def buttons(self):
@@ -673,7 +659,8 @@ class RatbagdResolution(_RatbagdDBus):
         res = self._get_dbus_property("Resolution")
         if isinstance(res, int):
             res = tuple([res])
-        return res
+        # False-positive RET504:
+        return res  # noqa: RET504
 
     @resolution.setter
     def resolution(self, resolution):
@@ -936,7 +923,7 @@ class RatbagdMacro(GObject.Object):
         RatbagdButton.Macro.KEY_RELEASE: lambda key: "↑{}".format(
             ecodes.KEY[key][RatbagdMacro._PREFIX_LEN :]
         ),
-        RatbagdButton.Macro.WAIT: lambda val: "{}ms".format(val),
+        RatbagdButton.Macro.WAIT: lambda val: f"{val}ms",
         _MACRO_KEY: lambda key: "↕{}".format(
             ecodes.KEY[key][RatbagdMacro._PREFIX_LEN :]
         ),

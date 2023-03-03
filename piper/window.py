@@ -2,7 +2,7 @@
 
 from gettext import gettext as _
 
-from .ratbagd import RatbagdIncompatible, RatbagdUnavailable
+from .ratbagd import RatbagdIncompatibleError, RatbagdUnavailableError
 from .errorperspective import ErrorPerspective
 from .mouseperspective import MousePerspective
 from .welcomeperspective import WelcomePerspective
@@ -37,7 +37,7 @@ class Window(Gtk.ApplicationWindow):
         self._add_perspective(ErrorPerspective(), None)
         try:
             ratbag = init_ratbagd_cb()
-        except RatbagdUnavailable:
+        except RatbagdUnavailableError:
             self._present_error_perspective(
                 _("Cannot connect to ratbagd"),
                 _(
@@ -45,7 +45,7 @@ class Window(Gtk.ApplicationWindow):
                 ),
             )
             return
-        except RatbagdIncompatible as e:
+        except RatbagdIncompatibleError as e:
             self._present_error_perspective(
                 _(
                     "Incompatible ratbagd API version (required: {}, provided: {})".format(
