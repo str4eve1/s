@@ -5,6 +5,7 @@ from gettext import gettext as _
 from .mousemap import MouseMap
 from .ratbagd import RatbagdButton
 from .resolutionrow import ResolutionRow
+from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
@@ -47,7 +48,12 @@ class ResolutionsPage(Gtk.Box):
         self._device = ratbagd_device
         self._last_activated_row = None
 
-        self._device.connect("active-profile-changed", self._on_active_profile_changed)
+        connect_signal_with_weak_ref(
+            self,
+            self._device,
+            "active-profile-changed",
+            self._on_active_profile_changed,
+        )
         self._handler_125 = self.rate_125.connect(
             "toggled", self._on_report_rate_toggled, 125
         )

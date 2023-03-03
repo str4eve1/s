@@ -4,6 +4,7 @@ import gi
 
 from .mousemap import MouseMap
 from .ratbagd import RatbagdDevice, RatbagdProfile
+from .util.gobject import connect_signal_with_weak_ref
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk  # noqa: E402
@@ -30,7 +31,13 @@ class AdvancedPage(Gtk.Box):
 
         self._device = ratbagd_device
 
-        self._device.connect("active-profile-changed", self._on_active_profile_changed)
+        connect_signal_with_weak_ref(
+            self,
+            self._device,
+            "active-profile-changed",
+            self._on_active_profile_changed,
+        )
+
         self._handler_debounce = self.debounce.connect(
             "changed", self._on_debounce_changed
         )

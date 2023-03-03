@@ -7,6 +7,7 @@ from .profilerow import ProfileRow
 from .resolutionspage import ResolutionsPage
 from .advancedpage import AdvancedPage
 from .ledspage import LedsPage
+from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
@@ -65,7 +66,9 @@ class MousePerspective(Gtk.Overlay):
 
     def set_device(self, device):
         self._device = device
-        device.connect("resync", lambda _: self._show_notification_error())
+        connect_signal_with_weak_ref(
+            self, device, "resync", lambda _: self._show_notification_error()
+        )
 
         # FIXME: we should also recreate widgets for profile changes.
         # Because of how this is structured right now, there is no way to
@@ -98,8 +101,12 @@ class MousePerspective(Gtk.Overlay):
 
         self.listbox_profiles.foreach(Gtk.Widget.destroy)
         for profile in device.profiles:
-            profile.connect("notify::enabled", self._on_profile_notify_enabled)
-            profile.connect("notify::dirty", self._on_profile_notify_dirty)
+            connect_signal_with_weak_ref(
+                self, profile, "notify::enabled", self._on_profile_notify_enabled
+            )
+            connect_signal_with_weak_ref(
+                self, profile, "notify::dirty", self._on_profile_notify_dirty
+            )
             row = ProfileRow(profile)
             self.listbox_profiles.insert(row, profile.index)
             if profile is active_profile:

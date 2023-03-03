@@ -6,11 +6,12 @@ from .leddialog import LedDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
 from .ratbagd import RatbagdLed
+from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk  # noqa
+from gi.repository import GObject, Gtk  # noqa
 
 
 class LedsPage(Gtk.Box):
@@ -26,8 +27,17 @@ class LedsPage(Gtk.Box):
         """
         Gtk.Box.__init__(self, *args, **kwargs)
         self._device = ratbagd_device
-        self._device.connect("active-profile-changed", self._on_active_profile_changed)
+
+        connect_signal_with_weak_ref(
+            self,
+            self._device,
+            "active-profile-changed",
+            self._on_active_profile_changed,
+        )
+
         self._profile = None
+
+        self._led_weak_refs: list[GObject.Object.weak_ref] = []
 
         self._mousemap = MouseMap("#Leds", self._device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
@@ -38,15 +48,35 @@ class LedsPage(Gtk.Box):
 
     def _set_profile(self, profile):
         self._profile = profile
+
+        for led_weak_ref in self._led_weak_refs:
+            led_weak_ref.unref()
+        self._led_weak_refs.clear()
+
         for led in profile.leds:
             mode = _(RatbagdLed.LED_DESCRIPTION[led.mode])
             button = OptionButton(mode)
             button.connect("clicked", self._on_button_clicked, led)
-            led.connect("notify::mode", self._on_led_mode_changed, button)
+
+            led_mode_changed_handler = led.connect(
+                "notify::mode", self._on_led_mode_changed, button
+            )
+            self._led_weak_refs.append(
+                led.weak_ref(
+                    lambda led=led, handler=led_mode_changed_handler: led.disconnect(
+                        handler
+                    )
+                )
+            )
+
             self._mousemap.add(button, f"#led{led.index}")
             self._sizegroup.add_widget(button)
 
     def _on_active_profile_changed(self, device, profile):
+        # Callbacks disconnected manually, remove the weak references.
+        for weak_ref in self._led_weak_refs:
+            weak_ref.unref()
+        self._led_weak_refs.clear()
         # Disconnect the notify::mode signal on the old profile's LEDs.
         for led in self._profile.leds:
             led.disconnect_by_func(self._on_led_mode_changed)

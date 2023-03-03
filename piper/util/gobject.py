@@ -1,15 +1,21 @@
-from typing import Tuple
+from typing import Callable
 
 from gi.repository import GObject
 
 
-def disconnect_handlers(obj: GObject.GObject, handlers: Tuple[int, ...]) -> None:
-    """Disconnect supplied handlers from the supplied GObject."""
+def connect_signal_with_weak_ref(
+    ref_obj: GObject.GObject,
+    obj: GObject.GObject,
+    signal: str,
+    func: Callable,
+    *args,
+) -> int:
+    """
+    Connect handler to an object `obj` tied to the life time of `ref_obj`.
 
-    def disconnect_non_zero(handler_id: int) -> None:
-        if not handler_id > 0:
-            return
-        obj.disconnect(handler_id)
+    Use this to work around https://gitlab.gnome.org/GNOME/pygobject/-/issues/557.
+    """
 
-    for handler in handlers:
-        disconnect_non_zero(handler)
+    handler = obj.connect(signal, func, *args)
+    ref_obj.weak_ref(lambda: obj.disconnect(handler))
+    return handler

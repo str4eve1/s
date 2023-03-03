@@ -2,6 +2,8 @@
 
 import gi
 
+from .util.gobject import connect_signal_with_weak_ref
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import GObject, Gtk  # noqa
 
@@ -18,7 +20,9 @@ class ProfileRow(Gtk.ListBoxRow):
     def __init__(self, profile, *args, **kwargs):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self._profile = profile
-        self._profile.connect("notify::enabled", self._on_profile_notify_enabled)
+        connect_signal_with_weak_ref(
+            self, self._profile, "notify::enabled", self._on_profile_notify_enabled
+        )
 
         name = profile.name
         if not name:

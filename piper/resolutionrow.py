@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from .ratbagd import RatbagdResolution
-from .util.gobject import disconnect_handlers
+from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
@@ -38,17 +38,11 @@ class ResolutionRow(Gtk.ListBoxRow):
             "toggled", self._on_disable_button_toggled
         )
 
-        self._active_handler = resolution.connect(
-            "notify::is-active", self._on_status_changed
+        self._active_handler = connect_signal_with_weak_ref(
+            self, resolution, "notify::is-active", self._on_status_changed
         )
-        self._disabled_handler = resolution.connect(
-            "notify::is-disabled", self._on_status_changed
-        )
-        # https://gitlab.gnome.org/GNOME/pygobject/-/issues/557
-        self.weak_ref(
-            lambda: disconnect_handlers(
-                resolution, (self._active_handler, self._disabled_handler)
-            )
+        self._disabled_handler = connect_signal_with_weak_ref(
+            self, resolution, "notify::is-disabled", self._on_status_changed
         )
 
         # Get resolution capabilities and update internal values.

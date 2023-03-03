@@ -7,6 +7,7 @@ from .buttondialog import ButtonDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
 from .ratbagd import RatbagdButton, RatbagdMacro
+from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
@@ -26,9 +27,16 @@ class ButtonsPage(Gtk.Box):
                              ratbagd.RatbagdDevice
         """
         Gtk.Box.__init__(self, *args, **kwargs)
+
         self._device = ratbagd_device
-        self._device.connect("active-profile-changed", self._on_active_profile_changed)
         self._profile = None
+
+        connect_signal_with_weak_ref(
+            self,
+            self._device,
+            "active-profile-changed",
+            self._on_active_profile_changed,
+        )
 
         self._mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
@@ -44,20 +52,40 @@ class ButtonsPage(Gtk.Box):
             # Set the correct label in the option button.
             self._on_button_mapping_changed(ratbagd_button, None, button)
             button.connect("clicked", self._on_button_clicked, ratbagd_button)
-            ratbagd_button.connect(
-                "notify::mapping", self._on_button_mapping_changed, button
+            connect_signal_with_weak_ref(
+                self,
+                ratbagd_button,
+                "notify::mapping",
+                self._on_button_mapping_changed,
+                button,
             )
-            ratbagd_button.connect(
-                "notify::special", self._on_button_mapping_changed, button
+            connect_signal_with_weak_ref(
+                self,
+                ratbagd_button,
+                "notify::special",
+                self._on_button_mapping_changed,
+                button,
             )
-            ratbagd_button.connect(
-                "notify::macro", self._on_button_mapping_changed, button
+            connect_signal_with_weak_ref(
+                self,
+                ratbagd_button,
+                "notify::macro",
+                self._on_button_mapping_changed,
+                button,
             )
-            ratbagd_button.connect(
-                "notify::key", self._on_button_mapping_changed, button
+            connect_signal_with_weak_ref(
+                self,
+                ratbagd_button,
+                "notify::key",
+                self._on_button_mapping_changed,
+                button,
             )
-            ratbagd_button.connect(
-                "notify::action-type", self._on_button_mapping_changed, button
+            connect_signal_with_weak_ref(
+                self,
+                ratbagd_button,
+                "notify::action-type",
+                self._on_button_mapping_changed,
+                button,
             )
             self._mousemap.add(button, f"#button{ratbagd_button.index}")
             self._sizegroup.add_widget(button)
