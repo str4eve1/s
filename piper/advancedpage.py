@@ -57,9 +57,9 @@ class AdvancedPage(Gtk.Box):
 
         self.angle_snapping.set_sensitive(profile.angle_snapping != -1)
 
-        self.show_all()
-
         self._on_active_profile_changed(self._device, profile)
+
+        self.show_all()
 
     def _set_profile(self, profile: RatbagdProfile) -> None:
         with self.debounce.handler_block(self._handler_debounce):
