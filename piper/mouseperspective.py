@@ -4,6 +4,7 @@ from gettext import gettext as _
 
 from .buttonspage import ButtonsPage
 from .profilerow import ProfileRow
+from .ratbagd import RatbagdDevice, RatbagdProfile
 from .resolutionspage import ResolutionsPage
 from .advancedpage import AdvancedPage
 from .ledspage import LedsPage
@@ -69,30 +70,21 @@ class MousePerspective(Gtk.Overlay):
         connect_signal_with_weak_ref(
             self, device, "resync", lambda _: self._show_notification_error()
         )
+        connect_signal_with_weak_ref(
+            self,
+            self._device,
+            "active-profile-changed",
+            self._on_active_profile_changed,
+        )
 
-        # FIXME: we should also recreate widgets for profile changes.
-        # Because of how this is structured right now, there is no way to
-        # enable/disable different tabs per different profiles.
-        # Widgets will need to be updated to work this way too.
-        self.stack.foreach(Gtk.Widget.destroy)
         active_profile = device.active_profile
-        if active_profile.resolutions:
-            self.stack.add_titled(
-                ResolutionsPage(device), "resolutions", _("Resolutions")
-            )
-        if active_profile.buttons:
-            self.stack.add_titled(ButtonsPage(device), "buttons", _("Buttons"))
-        if active_profile.leds:
-            self.stack.add_titled(LedsPage(device), "leds", _("LEDs"))
-        if active_profile.angle_snapping != -1 or active_profile.debounces:
-            self.stack.add_titled(AdvancedPage(device), "advanced", _("Advanced"))
+        self._set_profile(active_profile)
 
         self.button_profile.set_visible(len(device.profiles) > 1)
         name = active_profile.name
         if not name:
             name = f"Profile {active_profile.index}"
         self.label_profile.set_label(name)
-        self._on_profile_notify_dirty(active_profile, None)
 
         # Find the first profile that is enabled. If there is none, disable the
         # add button.
@@ -112,6 +104,21 @@ class MousePerspective(Gtk.Overlay):
             if profile is active_profile:
                 self.listbox_profiles.select_row(row)
 
+    def _set_profile(self, profile: RatbagdProfile) -> None:
+        self.stack.foreach(Gtk.Widget.destroy)
+        if profile.resolutions:
+            self.stack.add_titled(
+                ResolutionsPage(self._device), "resolutions", _("Resolutions")
+            )
+        if profile.buttons:
+            self.stack.add_titled(ButtonsPage(self._device), "buttons", _("Buttons"))
+        if profile.leds:
+            self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
+        if profile.angle_snapping != -1 or profile.debounces:
+            self.stack.add_titled(AdvancedPage(self._device), "advanced", _("Advanced"))
+
+        self._on_profile_notify_dirty(profile, None)
+
     def _hide_notification_error(self):
         if self._notification_error_timeout_id != 0:
             GLib.Source.remove(self._notification_error_timeout_id)
@@ -123,6 +130,12 @@ class MousePerspective(Gtk.Overlay):
         self._notification_error_timeout_id = GLib.timeout_add_seconds(
             5, self._on_notification_error_timeout
         )
+
+    def _on_active_profile_changed(
+        self, device: RatbagdDevice, profile: RatbagdProfile
+    ) -> None:
+        # TODO: preserve the active tab.
+        self._set_profile(profile)
 
     def _on_notification_error_timeout(self):
         self._hide_notification_error()
