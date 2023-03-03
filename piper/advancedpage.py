@@ -27,7 +27,6 @@ class AdvancedPage(Gtk.Box):
                              ratbagd.RatbagdDevice
         """
         Gtk.Box.__init__(self, *args, **kwargs)
-        self.init_template()
 
         self._device = ratbagd_device
 
