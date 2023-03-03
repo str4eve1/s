@@ -101,8 +101,8 @@ class MouseMap(Gtk.Container):
             svg_bytes = get_svg(ratbagd_device.model)
             self._handle = Rsvg.Handle.new_from_data(svg_bytes)
             self._svg_data = etree.fromstring(svg_bytes)
-        except FileNotFoundError:
-            raise ValueError("Device has no image or its path is invalid")
+        except FileNotFoundError as e:
+            raise ValueError("Device has no image or its path is invalid") from e
 
         Gtk.Container.__init__(self, *args, **kwargs)
         self.set_has_window(False)
