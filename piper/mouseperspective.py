@@ -115,7 +115,9 @@ class MousePerspective(Gtk.Overlay):
         if profile.leds:
             self.stack.add_titled(LedsPage(self._device), "leds", _("LEDs"))
         if profile.angle_snapping != -1 or profile.debounces:
-            self.stack.add_titled(AdvancedPage(self._device), "advanced", _("Advanced"))
+            self.stack.add_titled(
+                AdvancedPage(self._device, profile), "advanced", _("Advanced")
+            )
 
         self._on_profile_notify_dirty(profile, None)
 
