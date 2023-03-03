@@ -88,6 +88,15 @@ flake8 --install-hook git
 git config --bool flake8.strict true
 ```
 
+Checking if code is formatted is also done as a part of the test suite.
+
+You can check if your code passes tests before submitting changes using the
+following command:
+
+```sh
+meson -C builddir test
+```
+
 Source
 ======
 
