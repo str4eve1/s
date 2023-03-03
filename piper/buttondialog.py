@@ -3,6 +3,7 @@
 import sys
 
 from gettext import gettext as _
+from typing import List, Optional, Tuple, Union
 
 from .ratbagd import RatbagdButton, RatbagdMacro, RatbagDeviceType
 
@@ -20,9 +21,17 @@ class ButtonRow(Gtk.ListBoxRow):
 
     __gtype_name__ = "ButtonRow"
 
-    description_label = Gtk.Template.Child()
+    description_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, description, section, action_type, value, *args, **kwargs):
+    def __init__(
+        self,
+        description: str,
+        section: str,
+        action_type: RatbagdButton.ActionType,
+        value: Union[int, RatbagdButton.ActionSpecial],
+        *args,
+        **kwargs,
+    ) -> None:
         """Instantiates a new ButtonRow.
 
         @param description The text to display in the row, as str.
@@ -41,7 +50,7 @@ class ButtonRow(Gtk.ListBoxRow):
         self.description_label.set_text(description)
 
     @GObject.Property
-    def description(self):
+    def description(self) -> str:
         return self.description_label.get_text()
 
 
@@ -58,19 +67,26 @@ class ButtonDialog(Gtk.Dialog):
     # Gdk uses an offset of 8 from the keycodes defined in linux/input.h.
     _XORG_KEYCODE_OFFSET = 8
 
-    stack = Gtk.Template.Child()
-    listbox = Gtk.Template.Child()
-    label_keystroke = Gtk.Template.Child()
-    label_preview = Gtk.Template.Child()
-    row_keystroke = Gtk.Template.Child()
-    row_keystroke_label = Gtk.Template.Child()
-    radio_right_handed = Gtk.Template.Child()
-    radio_left_handed = Gtk.Template.Child()
-    empty_search_placeholder = Gtk.Template.Child()
-    search_entry = Gtk.Template.Child()
-    search_bar = Gtk.Template.Child()
+    empty_search_placeholder: Gtk.Box = Gtk.Template.Child()  # type: ignore
+    label_keystroke: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    label_preview: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    listbox: Gtk.ListBox = Gtk.Template.Child()  # type: ignore
+    radio_left_handed: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
+    radio_right_handed: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
+    row_keystroke: Gtk.ListBoxRow = Gtk.Template.Child()  # type: ignore
+    row_keystroke_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    search_bar: Gtk.SearchBar = Gtk.Template.Child()  # type: ignore
+    search_entry: Gtk.SearchEntry = Gtk.Template.Child()  # type: ignore
+    stack: Gtk.Stack = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, ratbagd_button, buttons, device_type, *args, **kwargs):
+    def __init__(
+        self,
+        ratbagd_button: RatbagdButton,
+        buttons: List[RatbagdButton],
+        device_type: RatbagDeviceType,
+        *args,
+        **kwargs,
+    ) -> None:
         """Instantiates a new ButtonDialog.
 
         @param ratbagd_button The button to configure, as ratbagd.RatbagdButton.
@@ -96,13 +112,13 @@ class ButtonDialog(Gtk.Dialog):
 
         self._init_ui(buttons)
 
-    def _init_ui(self, buttons):
+    def _init_ui(self, buttons: List[RatbagdButton]) -> None:
         if self._device_type is RatbagDeviceType.MOUSE and self._button.index in [0, 1]:
             self._init_primary_buttons_ui()
         else:
             self._init_other_buttons_ui(buttons)
 
-    def _init_primary_buttons_ui(self):
+    def _init_primary_buttons_ui(self) -> None:
         # Shows the listbox to swap the primary buttons.
         self.stack.set_visible_child_name("handedness")
         # Left mouse button (index 0) is mapped to right mouse button, where
@@ -119,7 +135,7 @@ class ButtonDialog(Gtk.Dialog):
         else:
             self.radio_right_handed.set_active(True)
 
-    def _init_other_buttons_ui(self, buttons):
+    def _init_other_buttons_ui(self, buttons: List[RatbagdButton]) -> None:
         # Shows the listbox to map non-primary buttons.
         self.listbox.set_header_func(self._listbox_header_func)
         self.listbox.set_filter_func(self._listbox_filter_func)
@@ -170,7 +186,7 @@ class ButtonDialog(Gtk.Dialog):
         else:
             self._create_current_macro()
 
-    def _create_current_macro(self, macro=None):
+    def _create_current_macro(self, macro: Optional[RatbagdMacro] = None) -> None:
         if macro is not None:
             self._current_macro = macro
             self._on_macro_updated(macro, None)
@@ -179,7 +195,7 @@ class ButtonDialog(Gtk.Dialog):
         self._current_macro.connect("macro-set", self._on_macro_set)
         self._current_macro.connect("notify::keys", self._on_macro_updated)
 
-    def _listbox_header_func(self, row, before):
+    def _listbox_header_func(self, row: ButtonRow, before: ButtonRow) -> None:
         # Adds headers to those rows where a new category starts, to separate
         # different kinds of mappings.
         if row == self.row_keystroke:
@@ -210,7 +226,7 @@ class ButtonDialog(Gtk.Dialog):
         row.set_header(box)
         box.show_all()
 
-    def _listbox_filter_func(self, row):
+    def _listbox_filter_func(self, row: Gtk.ListBoxRow) -> bool:
         # Filters the list box with the text from the search entry.
         if self.search_entry.get_text_length() == 0:
             return True
@@ -223,7 +239,9 @@ class ButtonDialog(Gtk.Dialog):
 
         return all(term in description for term in search.split(" "))
 
-    def _get_button_name_and_description(self, button):
+    def _get_button_name_and_description(
+        self, button: RatbagdButton
+    ) -> Tuple[str, str]:
         # Translators: the {} will be replaced with the button index, e.g.
         # "Button 1 click".
         name = _("Button {} click").format(button.index)
@@ -233,7 +251,7 @@ class ButtonDialog(Gtk.Dialog):
             description = name
         return name, description
 
-    def _grab_seat(self):
+    def _grab_seat(self) -> bool:
         # Grabs the keyboard seat. Returns True on success, False on failure.
         # Gratefully copied from GNOME Control Center's keyboard panel.
         window = self.get_window()
@@ -261,7 +279,7 @@ class ButtonDialog(Gtk.Dialog):
         self.grab_add()
         return True
 
-    def _release_grab(self):
+    def _release_grab(self) -> None:
         # Releases a previously grabbed keyboard seat, if any.
         if self._grab_pointer is None:
             return
@@ -269,7 +287,7 @@ class ButtonDialog(Gtk.Dialog):
         self._grab_pointer = None
         self.grab_remove()
 
-    def do_key_press_event(self, event):
+    def do_key_press_event(self, event: Gdk.Event) -> bool:
         # Overrides Gtk.Window's standard key press event callback, so we can
         # capture the pressed buttons in capture mode. If we're not in capture
         # mode, we trigger the search bar on any key press.
@@ -279,7 +297,7 @@ class ButtonDialog(Gtk.Dialog):
             return Gtk.Window.do_key_press_event(self, event)
         return self._do_key_event(event)
 
-    def do_key_release_event(self, event):
+    def do_key_release_event(self, event: Gdk.Event) -> bool:
         # Overrides Gtk.Window's standard key release event callback, so we can
         # capture the released buttons in capture mode. If we're not in capture
         # mode, we pass the event on to other widgets in the dialog.
@@ -287,7 +305,7 @@ class ButtonDialog(Gtk.Dialog):
             return Gtk.Window.do_key_release_event(self, event)
         return self._do_key_event(event)
 
-    def _do_key_event(self, event):
+    def _do_key_event(self, event: Gdk.Event) -> bool:
         # Normalize tab.
         if event.keyval == Gdk.KEY_ISO_Left_Tab:
             event.keyval = Gdk.KEY_Tab
@@ -313,12 +331,14 @@ class ButtonDialog(Gtk.Dialog):
             )
         return Gdk.EVENT_STOP
 
-    def _on_macro_updated(self, macro, pspec):
+    def _on_macro_updated(
+        self, macro: RatbagdMacro, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
         current_macro = str(self._current_macro)
         self.label_keystroke.set_label(current_macro)
         self.label_preview.set_label(current_macro)
 
-    def _on_macro_set(self, macro):
+    def _on_macro_set(self, macro: RatbagdMacro) -> None:
         # A macro has been set; update accordingly.
         if (
             RatbagdButton.ActionType.KEY in self._button.action_types
@@ -334,7 +354,7 @@ class ButtonDialog(Gtk.Dialog):
         self._release_grab()
 
     @Gtk.Template.Callback("_on_row_activated")
-    def _on_row_activated(self, listbox, row):
+    def _on_row_activated(self, _listbox: Gtk.ListBox, row: ButtonRow) -> None:
         if row == self.row_keystroke:
             if self._grab_seat() is not True:
                 # TODO: display this somewhere in the UI instead.
@@ -347,13 +367,13 @@ class ButtonDialog(Gtk.Dialog):
             self._mapping = row._value
 
     @Gtk.Template.Callback("_on_apply_button_clicked")
-    def _on_apply_button_clicked(self, button):
+    def _on_apply_button_clicked(self, button: Gtk.Button) -> None:
         if self.stack.get_visible_child_name() == "capture":
             self._current_macro.accept()
         return Gdk.EVENT_PROPAGATE
 
     @Gtk.Template.Callback("_on_primary_mode_toggled")
-    def _on_primary_mode_toggled(self, toggle):
+    def _on_primary_mode_toggled(self, toggle: Gtk.RadioButton) -> None:
         if not toggle.get_active():
             return
         self._action_type = RatbagdButton.ActionType.BUTTON
@@ -363,12 +383,12 @@ class ButtonDialog(Gtk.Dialog):
             self._mapping = ButtonDialog.RIGHT_HANDED_MODE
 
     @GObject.Property
-    def action_type(self):
+    def action_type(self) -> RatbagdButton.ActionType:
         """The action type as last set in the dialog, one of RatbagdButton.ActionType.*."""
         return self._action_type
 
     @GObject.Property
-    def mapping(self):
+    def mapping(self) -> Union[RatbagdMacro, int]:
         """The mapping as last set in the dialog. Note that the type depends on
         action_type, and as such you should check that before using this
         property. A custom value of ButtonDialog.LEFT_HANDED_MODE means that

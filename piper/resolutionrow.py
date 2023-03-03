@@ -1,12 +1,14 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from .ratbagd import RatbagdResolution
-from .util.gobject import connect_signal_with_weak_ref
+from typing import Optional
 
 import gi
 
+from .ratbagd import RatbagdResolution
+from .util.gobject import connect_signal_with_weak_ref
+
 gi.require_version("Gtk", "3.0")
-from gi.repository import GObject, Gtk  # noqa
+from gi.repository import GObject, Gdk, Gtk  # noqa
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ResolutionRow.ui")
@@ -16,12 +18,12 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     __gtype_name__ = "ResolutionRow"
 
-    dpi_label = Gtk.Template.Child()
-    active_label = Gtk.Template.Child()
-    revealer = Gtk.Template.Child()
-    scale = Gtk.Template.Child()
-    active_button = Gtk.Template.Child()
-    disable_button = Gtk.Template.Child()
+    active_button: Gtk.Button = Gtk.Template.Child()  # type: ignore
+    active_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    disable_button: Gtk.Button = Gtk.Template.Child()  # type: ignore
+    dpi_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    revealer: Gtk.Revealer = Gtk.Template.Child()  # type: ignore
+    scale: Gtk.Scale = Gtk.Template.Child()  # type: ignore
 
     CAP_SEPARATE_XY_RESOLUTION = False
     CAP_DISABLE = False
@@ -64,7 +66,9 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._on_status_changed(resolution, pspec=None)
 
     @Gtk.Template.Callback("_on_change_value")
-    def _on_change_value(self, scale, scroll, value):
+    def _on_change_value(
+        self, scale: Gtk.Scale, scroll: Gtk.ScrollType, value: float
+    ) -> bool:
         # Cursor-controlled slider may get out of the GtkAdjustment's range.
         value = min(max(self.resolutions[0], value), self.resolutions[-1])
 
@@ -87,7 +91,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         return True
 
-    def _on_disable_button_toggled(self, togglebutton):
+    def _on_disable_button_toggled(self, togglebutton: Gtk.Button) -> None:
         # The disable button has been toggled, update RatbagdResolution.
         self._resolution.set_disabled(togglebutton.get_active())
 
@@ -95,22 +99,24 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._on_status_changed(self._resolution, pspec=None)
 
     @Gtk.Template.Callback("_on_active_button_clicked")
-    def _on_active_button_clicked(self, togglebutton):
+    def _on_active_button_clicked(self, togglebutton: Gtk.Button) -> None:
         # The set active button has been clicked, update RatbagdResolution.
         self._resolution.set_active()
 
     @Gtk.Template.Callback("_on_scroll_event")
-    def _on_scroll_event(self, widget, event):
+    def _on_scroll_event(self, widget: Gtk.Widget, event: Gdk.EventScroll) -> bool:
         # Prevent a scroll in the list to get caught by the scale.
         GObject.signal_stop_emission_by_name(widget, "scroll-event")
         return False
 
-    def _on_scale_value_changed(self, scale):
+    def _on_scale_value_changed(self, scale: Gtk.Scale) -> None:
         # The scale has been moved, update RatbagdResolution's resolution.
         res = int(scale.get_value())
         self._on_dpi_values_changed(res=res)
 
-    def _on_status_changed(self, resolution, pspec):
+    def _on_status_changed(
+        self, resolution: RatbagdResolution, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
         # The resolution's status changed, update UI.
         self._on_dpi_values_changed()
         if resolution.is_active:
@@ -133,12 +139,12 @@ class ResolutionRow(Gtk.ListBoxRow):
                         self.dpi_label.set_sensitive(True)
                         self.scale.set_sensitive(True)
 
-    def toggle_revealer(self):
+    def toggle_revealer(self) -> None:
         # Toggles the revealer to show or hide the configuration widgets.
         reveal = not self.revealer.get_reveal_child()
         self.revealer.set_reveal_child(reveal)
 
-    def _on_dpi_values_changed(self, res=None):
+    def _on_dpi_values_changed(self, res: Optional[int] = None) -> None:
         # Freeze the notify::resolution signal from firing and
         # update dpi label and resolution values.
         if res is None:

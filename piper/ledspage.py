@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from gettext import gettext as _
+from typing import Optional
 
 from .leddialog import LedDialog
 from .mousemap import MouseMap
@@ -11,7 +12,7 @@ from .util.gobject import connect_signal_with_weak_ref
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk  # noqa
+from gi.repository import Gtk, GObject  # noqa
 
 
 class LedsPage(Gtk.Box):
@@ -50,18 +51,22 @@ class LedsPage(Gtk.Box):
 
         self.show_all()
 
-    def _on_led_mode_changed(self, led, pspec, button):
+    def _on_led_mode_changed(
+        self, led: RatbagdLed, pspec: Optional[GObject.ParamSpec], button: OptionButton
+    ) -> None:
         mode = _(RatbagdLed.LED_DESCRIPTION[led.mode])
         button.set_label(mode)
 
-    def _on_button_clicked(self, button, led):
+    def _on_button_clicked(self, button: OptionButton, led: RatbagdLed) -> None:
         # Presents the LedDialog to configure the LED corresponding to the
         # clicked button.
         dialog = LedDialog(led, transient_for=self.get_toplevel())
         dialog.connect("response", self._on_dialog_response, led)
         dialog.present()
 
-    def _on_dialog_response(self, dialog, response, led):
+    def _on_dialog_response(
+        self, dialog: LedDialog, response: Gtk.ResponseType, led: RatbagdLed
+    ) -> None:
         # The user either pressed cancel or apply. If it's apply, apply the
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:

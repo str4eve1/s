@@ -17,8 +17,8 @@ class AdvancedPage(Gtk.Box):
 
     __gtype_name__ = "AdvancedPage"
 
-    debounce = Gtk.Template.Child()
-    angle_snapping = Gtk.Template.Child()
+    angle_snapping: Gtk.Switch = Gtk.Template.Child()  # type: ignore
+    debounce: Gtk.ComboBox = Gtk.Template.Child()  # type: ignore
 
     def __init__(
         self, device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs

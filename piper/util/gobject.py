@@ -1,11 +1,11 @@
-from typing import Callable
+from typing import Callable, Union
 
 from gi.repository import GObject
 
 
 def connect_signal_with_weak_ref(
-    ref_obj: GObject.GObject,
-    obj: GObject.GObject,
+    ref_obj: Union[GObject.Object, GObject.GObject],
+    obj: Union[GObject.Object, GObject.GObject],
     signal: str,
     func: Callable,
     *args,

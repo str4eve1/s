@@ -1,11 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+from typing import Optional
 from gi.repository import Gio  # noqa
 
 import configparser
 
 
-def get_svg(model):
+def get_svg(model: str) -> Optional[bytes]:
     resource = Gio.resources_lookup_data(
         "/org/freedesktop/Piper/svgs/svg-lookup.ini", Gio.ResourceLookupFlags.NONE
     )

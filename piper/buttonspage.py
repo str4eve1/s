@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from gettext import gettext as _
+from typing import Optional
 from evdev import ecodes
 
 from .buttondialog import ButtonDialog
@@ -12,7 +13,7 @@ from .util.gobject import connect_signal_with_weak_ref
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk  # noqa
+from gi.repository import Gtk, GObject  # noqa
 
 
 class ButtonsPage(Gtk.Box):
@@ -82,7 +83,12 @@ class ButtonsPage(Gtk.Box):
 
         self.show_all()
 
-    def _on_button_mapping_changed(self, ratbagd_button, pspec, optionbutton):
+    def _on_button_mapping_changed(
+        self,
+        ratbagd_button: RatbagdButton,
+        pspec: Optional[GObject.ParamSpec],
+        optionbutton: OptionButton,
+    ) -> None:
         # Called when the button's action type changed, which means its
         # corresponding optionbutton has to be updated.
         action_type = ratbagd_button.action_type
@@ -109,7 +115,9 @@ class ButtonsPage(Gtk.Box):
             label = _("Unknown")
         optionbutton.set_label(label)
 
-    def _on_button_clicked(self, button, ratbagd_button):
+    def _on_button_clicked(
+        self, button: OptionButton, ratbagd_button: RatbagdButton
+    ) -> None:
         # Presents the ButtonDialog to configure the mouse button corresponding
         # to the clicked button.
         buttons = self._profile.buttons
@@ -125,7 +133,12 @@ class ButtonsPage(Gtk.Box):
         dialog.connect("response", self._on_dialog_response, ratbagd_button)
         dialog.present()
 
-    def _on_dialog_response(self, dialog, response, ratbagd_button):
+    def _on_dialog_response(
+        self,
+        dialog: ButtonDialog,
+        response: Gtk.ResponseType,
+        ratbagd_button: RatbagdButton,
+    ) -> None:
         # The user either pressed cancel or apply. If it's apply, apply the
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
@@ -162,7 +175,7 @@ class ButtonsPage(Gtk.Box):
                         profile.buttons[index].special = dialog.mapping
         dialog.destroy()
 
-    def _find_button_type(self, button_type):
+    def _find_button_type(self, button_type: int) -> None:
         for button in self._profile.buttons:
             if button.index == button_type:
                 return button

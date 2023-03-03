@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+from typing import Any, List, Tuple
 import cairo
 import gi
 import sys
 from lxml import etree
 
 from piper.svg import get_svg
+from .ratbagd import RatbagdDevice
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
@@ -21,7 +23,7 @@ bunch of child widgets relative to the leaders in the device SVG."""
 class _MouseMapChild:
     # A helper class to manage children and their properties.
 
-    def __init__(self, widget, is_left, svg_id):
+    def __init__(self, widget: Gtk.Widget, is_left: bool, svg_id: str) -> None:
         self._widget = widget
         self._is_left = is_left
         self._svg_id = svg_id
@@ -29,30 +31,30 @@ class _MouseMapChild:
         self._svg_path = svg_id + "-path"
 
     @property
-    def widget(self):
+    def widget(self) -> Gtk.Widget:
         # The widget belonging to this child.
         return self._widget
 
     @property
-    def svg_id(self):
+    def svg_id(self) -> str:
         # The identifier of the SVG element with which this child's widget is
         # paired.
         return self._svg_id
 
     @property
-    def svg_leader(self):
+    def svg_leader(self) -> str:
         # The identifier of the leader SVG element with which this child's
         # widget is paired.
         return self._svg_leader
 
     @property
-    def svg_path(self):
+    def svg_path(self) -> str:
         # The identifier of the SVG element's path with which this child's
         # widget is paired.
         return self._svg_path
 
     @property
-    def is_left(self):
+    def is_left(self) -> bool:
         # True iff this child's widget is allocated to the left of the SVG.
         return self._is_left
 
@@ -79,7 +81,14 @@ class MouseMap(Gtk.Container):
         ),
     }
 
-    def __init__(self, layer, ratbagd_device, spacing=10, *args, **kwargs):
+    def __init__(
+        self,
+        layer: str,
+        ratbagd_device: RatbagdDevice,
+        spacing: int = 10,
+        *args,
+        **kwargs,
+    ) -> None:
         """Instantiates a new MouseMap.
 
         @param layer The SVG layer whose leaders to draw, according to librsvg
@@ -110,7 +119,7 @@ class MouseMap(Gtk.Container):
         self.spacing = spacing
         self._layer = layer
         self._device = ratbagd_device
-        self._children = []
+        self._children: List[_MouseMapChild] = []
         self._highlight_element = None
 
         # TODO: remove this when we're out of the transition to toned down SVGs
@@ -120,7 +129,7 @@ class MouseMap(Gtk.Container):
         if not device or not buttons or not leds:
             print("Device SVG is incompatible", file=sys.stderr)
 
-    def add(self, widget, svg_id):
+    def add(self, widget: Gtk.Widget, svg_id: str) -> None:
         """Adds the given widget to the map, bound to the given SVG element
         identifier. If the element identifier or its leader is not found in the
         SVG, the widget is not added.
@@ -145,7 +154,7 @@ class MouseMap(Gtk.Container):
         widget.connect("leave-notify-event", self._on_leave)
         widget.set_parent(self)
 
-    def do_remove(self, widget):
+    def do_remove(self, widget: Gtk.Widget) -> None:
         """Removes the given widget from the map.
 
         @param widget The widget to remove, as Gtk.Widget
@@ -157,11 +166,9 @@ class MouseMap(Gtk.Container):
                     child.widget.unparent()
                     break
 
-    def do_child_type(self):
-        """Indicates that this container accepts any GTK+ widget."""
-        return Gtk.Widget.get_type()
-
-    def do_forall(self, include_internals, callback, *parameters):
+    def do_forall(
+        self, include_internals: bool, callback: "Gtk.Callback", *parameters
+    ) -> None:
         """Invokes the given callback on each child, with the given parameters.
 
         @param include_internals Whether to run on internal children as well,
@@ -179,13 +186,13 @@ class MouseMap(Gtk.Container):
             # See https://bugzilla.gnome.org/show_bug.cgi?id=722562.
             pass
 
-    def do_get_request_mode(self):
+    def do_get_request_mode(self) -> Gtk.SizeRequestMode:
         """Gets whether the container prefers a height-for-width or a
         width-for-height layout. We don't want to trade width for height or
         height for width so we return CONSTANT_SIZE."""
         return Gtk.SizeRequestMode.CONSTANT_SIZE
 
-    def do_get_preferred_height(self):
+    def do_get_preferred_height(self) -> Tuple[int, int]:
         """Calculates the container's initial minimum and natural height. While
         this call is specific to width-for-height requests (that we requested
         not to get) we cannot be certain that our wishes are granted and hence
@@ -200,7 +207,7 @@ class MouseMap(Gtk.Container):
         height = self._handle.props.height + 2 * self.props.border_width
         return height, height
 
-    def do_get_preferred_width(self):
+    def do_get_preferred_width(self) -> Tuple[int, int]:
         """Calculates the container's initial minimum and natural width. While
         this call is specific to height-for-width requests (that we requested
         not to get) we cannot be certain that our wishes are granted and hence
@@ -227,7 +234,7 @@ class MouseMap(Gtk.Container):
             width += self.spacing
         return width, width
 
-    def do_get_preferred_height_for_width(self, width):
+    def do_get_preferred_height_for_width(self, width: int) -> Tuple[int, int]:
         """Returns this container's minimum and natural height if it would be
         given the specified width. While this call is specific to
         height-for-width requests (that we requested not to get) we cannot be
@@ -239,7 +246,7 @@ class MouseMap(Gtk.Container):
         """
         return self.do_get_preferred_height()
 
-    def do_get_preferred_width_for_height(self, height):
+    def do_get_preferred_width_for_height(self, height: int) -> Tuple[int, int]:
         """Returns this container's minimum and natural width if it would be
         given the specified height. While this call is specific to
         width-for-height requests (that we requested not to get) we cannot be
@@ -251,7 +258,7 @@ class MouseMap(Gtk.Container):
         """
         return self.do_get_preferred_width()
 
-    def do_size_allocate(self, allocation):
+    def do_size_allocate(self, allocation: Gdk.Rectangle) -> None:
         """Assigns a size and position to the child widgets. Children may
         adjust the given allocation in their adjust_size_allocation virtual
         method implementation.
@@ -282,7 +289,7 @@ class MouseMap(Gtk.Container):
                 child_allocation.y += allocation.y
             child.widget.size_allocate(child_allocation)
 
-    def do_draw(self, cr):
+    def do_draw(self, cr: cairo.Context) -> None:
         """Draws the container to the given Cairo context. The top left corner
         of the widget will be drawn to the currently set origin point of the
         context. The container needs to propagate the draw signal to its
@@ -302,7 +309,7 @@ class MouseMap(Gtk.Container):
         for child in self._children:
             self.propagate_draw(child.widget, cr)
 
-    def do_get_property(self, prop):
+    def do_get_property(self, prop: GObject.ParamSpec) -> Any:
         """Gets a property value.
 
         @param prop The property to get, as GObject.ParamSpec
@@ -312,12 +319,14 @@ class MouseMap(Gtk.Container):
 
         raise AttributeError("Unknown property %s" % prop.name)
 
-    def _on_enter(self, widget, event, child):
+    def _on_enter(
+        self, widget: Gtk.Widget, event: Gdk.EventCrossing, child: _MouseMapChild
+    ) -> None:
         # Highlights the element in the SVG to which the given widget belongs.
         self._highlight_element = child.svg_id
         self._redraw_svg_element(child.svg_id)
 
-    def _on_leave(self, widget, event):
+    def _on_leave(self, widget: Gtk.Widget, event: Gdk.EventCrossing) -> None:
         # Restores the device SVG to its original state.
         old_highlight = self._highlight_element
 
@@ -327,7 +336,7 @@ class MouseMap(Gtk.Container):
         self._highlight_element = None
         self._redraw_svg_element(old_highlight)
 
-    def _xpath_has_style(self, svg_id, style):
+    def _xpath_has_style(self, svg_id: str, style: str) -> bool:
         # Checks if the SVG element with the given identifier has the given
         # style attribute set.
         namespaces = {
@@ -343,7 +352,7 @@ class MouseMap(Gtk.Container):
         element = self._svg_data.xpath(query, namespaces=namespaces)
         return element is not None and len(element) == 1 and element[0] is not None
 
-    def _get_svg_sub_geometry(self, svg_id):
+    def _get_svg_sub_geometry(self, svg_id: str) -> Tuple[bool, Gdk.Rectangle]:
         # Helper method to get an SVG element's x- and y-coordinates, width and
         # height.
         ret = Gdk.Rectangle()
@@ -368,7 +377,7 @@ class MouseMap(Gtk.Container):
         ret.height = svg_dim.height
         return ok, ret
 
-    def _redraw_svg_element(self, svg_id):
+    def _redraw_svg_element(self, svg_id: str) -> None:
         # Helper method to redraw an element of the SVG image. Attempts to
         # redraw only the element (plus an offset), but will fall back to
         # redrawing the complete SVG.
@@ -386,7 +395,7 @@ class MouseMap(Gtk.Container):
                 svg_geom.height + 20,
             )
 
-    def _translate_to_origin(self):
+    def _translate_to_origin(self) -> Tuple[int, int]:
         # Translates the coordinate system such that the SVG and its buttons
         # will be drawn in the center of the allocated space. The returned x-
         # and y-coordinates will be the top left corner of the centered SVG.
@@ -407,7 +416,7 @@ class MouseMap(Gtk.Container):
         y = (allocation.height - height) / 2 + self.props.border_width
         return round(x), round(y)
 
-    def _draw_device(self, cr):
+    def _draw_device(self, cr: cairo.Context) -> None:
         # Draws the SVG into the Cairo context. If there is an element to be
         # highlighted, it will do as such in a separate surface which will be
         # used as a mask over the device surface.

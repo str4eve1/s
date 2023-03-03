@@ -6,6 +6,8 @@ import sys
 
 import gi
 
+from .ratbagd import RatbagdDevice
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import GdkPixbuf, GObject, Gtk, Rsvg  # noqa
 
@@ -17,10 +19,10 @@ class DeviceRow(Gtk.ListBoxRow):
 
     __gtype_name__ = "DeviceRow"
 
-    title = Gtk.Template.Child()
-    image = Gtk.Template.Child()
+    image: Gtk.Image = Gtk.Template.Child()  # type: ignore
+    title: Gtk.Label = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, device, *args, **kwargs):
+    def __init__(self, device: RatbagdDevice, *args, **kwargs) -> None:
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self._device = device
         self.title.set_text(device.name)
@@ -50,5 +52,5 @@ class DeviceRow(Gtk.ListBoxRow):
         self.show_all()
 
     @GObject.Property
-    def device(self):
+    def device(self) -> RatbagdDevice:
         return self._device

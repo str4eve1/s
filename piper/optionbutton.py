@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+from typing import Optional
 import gi
 
 gi.require_version("Gtk", "3.0")
@@ -12,9 +13,9 @@ class OptionButton(Gtk.Button):
 
     __gtype_name__ = "OptionButton"
 
-    label = Gtk.Template.Child()
+    label: Gtk.Label = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, label=None, *args, **kwargs):
+    def __init__(self, label: Optional[str] = None, *args, **kwargs) -> None:
         """Instantiates a new OptionButton.
 
         @param label The text to display.
@@ -23,7 +24,7 @@ class OptionButton(Gtk.Button):
         if label is not None:
             self.set_label(label)
 
-    def set_label(self, label):
+    def set_label(self, label: str) -> None:
         """Set the text to display.
 
         @param label The new text to display, as str.

@@ -1,6 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+from typing import Optional
 import gi
+
+from piper.ratbagd import RatbagdProfile
 
 from .util.gobject import connect_signal_with_weak_ref
 
@@ -15,9 +18,9 @@ class ProfileRow(Gtk.ListBoxRow):
 
     __gtype_name__ = "ProfileRow"
 
-    title = Gtk.Template.Child()
+    title: Gtk.Label = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, profile, *args, **kwargs):
+    def __init__(self, profile: RatbagdProfile, *args, **kwargs) -> None:
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self._profile = profile
         connect_signal_with_weak_ref(
@@ -32,17 +35,19 @@ class ProfileRow(Gtk.ListBoxRow):
         self.show_all()
         self.set_visible(not profile.disabled)
 
-    def _on_profile_notify_enabled(self, profile, pspec):
+    def _on_profile_notify_enabled(
+        self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
         self.set_visible(not profile.disabled)
 
     @Gtk.Template.Callback("_on_delete_button_clicked")
-    def _on_delete_button_clicked(self, button):
+    def _on_delete_button_clicked(self, button: Gtk.Button) -> None:
         self._profile.disabled = True
 
-    def set_active(self):
+    def set_active(self) -> None:
         """Activates the profile paired with this row."""
         self._profile.set_active()
 
     @GObject.Property
-    def name(self):
+    def name(self) -> str:
         return self.title.get_text()

@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+from typing import Tuple
+
 from .ratbagd import RatbagdLed
 
 import gi
@@ -15,15 +17,15 @@ class LedDialog(Gtk.Dialog):
 
     __gtype_name__ = "LedDialog"
 
-    adjustment_brightness = Gtk.Template.Child()
-    adjustment_effect_duration = Gtk.Template.Child()
-    colorbutton = Gtk.Template.Child()
-    colorchooser = Gtk.Template.Child()
-    led_off_image = Gtk.Template.Child()
-    stack = Gtk.Template.Child()
-    titlebar = Gtk.Template.Child()
+    adjustment_brightness: Gtk.Adjustment = Gtk.Template.Child()  # type: ignore
+    adjustment_effect_duration: Gtk.Adjustment = Gtk.Template.Child()  # type: ignore
+    colorbutton: Gtk.ColorButton = Gtk.Template.Child()  # type: ignore
+    colorchooser: Gtk.ColorChooserWidget = Gtk.Template.Child()  # type: ignore
+    led_off_image: Gtk.Image = Gtk.Template.Child()  # type: ignore
+    stack: Gtk.Stack = Gtk.Template.Child()  # type: ignore
+    titlebar: Gtk.HeaderBar = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, ratbagd_led, *args, **kwargs):
+    def __init__(self, ratbagd_led: RatbagdLed, *args, **kwargs) -> None:
         """Instantiates a new LedDialog.
 
         @param ratbagd_led The LED to configure, as ratbagd.RatbagdLed.
@@ -61,26 +63,28 @@ class LedDialog(Gtk.Dialog):
         )
 
     @Gtk.Template.Callback("_on_change_value")
-    def _on_change_value(self, scale, scroll, value):
+    def _on_change_value(
+        self, scale: Gtk.Scale, scroll: Gtk.ScrollType, value: float
+    ) -> bool:
         # Round the value resulting from a scroll event to the nearest multiple
         # of 500. This is to work around the Gtk.Scale not snapping to its
         # Gtk.Adjustment's step_increment.
         scale.set_value(int(value - (value % 500)))
         return True
 
-    def _get_led_color_as_rgba(self):
+    def _get_led_color_as_rgba(self) -> Gdk.RGBA:
         # Helper function to convert ratbagd's 0-255 color range to a Gdk.RGBA
         # with a 0.0-1.0 color range.
         r, g, b = self._led.color
         return Gdk.RGBA(r / 255.0, g / 255.0, b / 255.0, 1.0)
 
     @GObject.Property
-    def mode(self):
+    def mode(self) -> RatbagdLed.Mode:
         visible_child = self.stack.get_visible_child_name()
         return self._modes[visible_child]
 
     @GObject.Property
-    def color(self):
+    def color(self) -> Tuple[float, float, float]:
         if self.mode == RatbagdLed.Mode.ON:
             rgba = self.colorchooser.get_rgba()
         else:
@@ -88,9 +92,9 @@ class LedDialog(Gtk.Dialog):
         return (rgba.red * 255.0, rgba.green * 255.0, rgba.blue * 255.0)
 
     @GObject.Property
-    def brightness(self):
+    def brightness(self) -> float:
         return self.adjustment_brightness.get_value()
 
     @GObject.Property
-    def effect_duration(self):
+    def effect_duration(self) -> float:
         return self.adjustment_effect_duration.get_value()

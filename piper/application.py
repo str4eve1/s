@@ -16,7 +16,7 @@ class Application(Gtk.Application):
     do_activate methods and is responsible for the application's menus, icons,
     title and lifetime."""
 
-    def __init__(self, ratbagd_api_version):
+    def __init__(self, ratbagd_api_version: int) -> None:
         """Instantiates a new Application."""
         Gtk.Application.__init__(
             self,
@@ -26,7 +26,7 @@ class Application(Gtk.Application):
         GLib.set_application_name("Piper")
         self._required_ratbagd_version = ratbagd_api_version
 
-    def do_startup(self):
+    def do_startup(self) -> None:
         """This function is called when the application is first started. All
         initialization should be done here, to prevent doing duplicate work in
         case another window is opened."""
@@ -34,18 +34,18 @@ class Application(Gtk.Application):
         self._build_app_menu()
         self._ratbagd = None
 
-    def init_ratbagd(self):
+    def init_ratbagd(self) -> Ratbagd:
         if self._ratbagd is None:
             self._ratbag = Ratbagd(self._required_ratbagd_version)
         return self._ratbag
 
-    def do_activate(self):
+    def do_activate(self) -> None:
         """This function is called when the user requests a new window to be
         opened."""
         window = Window(self.init_ratbagd, application=self)
         window.present()
 
-    def _build_app_menu(self):
+    def _build_app_menu(self) -> None:
         # Set up the app menu
         actions = [("about", self._about), ("quit", self._quit)]
         for name, callback in actions:
@@ -53,7 +53,7 @@ class Application(Gtk.Application):
             action.connect("activate", callback)
             self.add_action(action)
 
-    def _about(self, action, param):
+    def _about(self, action: Gio.SimpleAction, param: None) -> None:
         # Set up the about dialog.
         builder = Gtk.Builder().new_from_resource(
             "/org/freedesktop/Piper/AboutDialog.ui"
@@ -63,7 +63,7 @@ class Application(Gtk.Application):
         about.connect("response", lambda about, param: about.destroy())
         about.show()
 
-    def _quit(self, action, param):
+    def _quit(self, action: Gio.SimpleAction, param: None) -> None:
         # Quit the application.
         windows = self.get_windows()
         for window in windows:

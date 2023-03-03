@@ -1,16 +1,24 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from gettext import gettext as _
+from typing import Callable, List, Optional
 
-from .ratbagd import RatbagdIncompatibleError, RatbagdUnavailableError
 from .errorperspective import ErrorPerspective
 from .mouseperspective import MousePerspective
 from .welcomeperspective import WelcomePerspective
+from .ratbagd import (
+    Ratbagd,
+    RatbagdDevice,
+    RatbagdIncompatibleError,
+    RatbagdUnavailableError,
+)
 
 import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GLib, Gtk, Gio  # noqa
+
+# TODO: type hint perspectives.
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/Window.ui")
@@ -21,11 +29,13 @@ class Window(Gtk.ApplicationWindow):
 
     __gtype_name__ = "Window"
 
-    stack_titlebar = Gtk.Template.Child()
-    stack_perspectives = Gtk.Template.Child()
-    primary_menu = Gtk.Template.Child()
+    primary_menu: Gtk.Menu = Gtk.Template.Child()  # type: ignore
+    stack_perspectives: Gtk.Stack = Gtk.Template.Child()  # type: ignore
+    stack_titlebar: Gtk.Stack = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, init_ratbagd_cb, *args, **kwargs):
+    def __init__(
+        self, init_ratbagd_cb: Callable[[], RatbagdDevice], *args, **kwargs
+    ) -> None:
         """Instantiates a new Window.
 
         @param ratbag The ratbag instance to connect to, as ratbagd.Ratbag
@@ -76,7 +86,7 @@ class Window(Gtk.ApplicationWindow):
         else:
             self._present_welcome_perspective(ratbag.devices)
 
-    def do_delete_event(self, event):
+    def do_delete_event(self, event: Gdk.Event) -> bool:
         for perspective in self.stack_perspectives.get_children():
             if not perspective.can_shutdown:
                 dialog = Gtk.MessageDialog(
@@ -96,12 +106,12 @@ class Window(Gtk.ApplicationWindow):
                     return Gdk.EVENT_STOP
         return Gdk.EVENT_PROPAGATE
 
-    def _on_daemon_disappeared(self, ratbag):
+    def _on_daemon_disappeared(self, ratbag: Ratbagd) -> None:
         self._present_error_perspective(
             _("Ooops. ratbagd has disappeared"), _("Please restart Piper")
         )
 
-    def _on_device_added(self, ratbag, device):
+    def _on_device_added(self, ratbag: Ratbagd, device: RatbagdDevice) -> None:
         if len(ratbag.devices) == 1:
             # We went from 0 devices to 1 device; immediately configure it.
             self._present_mouse_perspective(device)
@@ -114,7 +124,7 @@ class Window(Gtk.ApplicationWindow):
             # TODO: show in-app notification?
             print("Device connected")
 
-    def _on_device_removed(self, ratbag, device):
+    def _on_device_removed(self, ratbag: Ratbagd, device: RatbagdDevice) -> None:
         mouse_perspective = self._get_child("mouse_perspective")
 
         if device is mouse_perspective.device:
@@ -141,14 +151,18 @@ class Window(Gtk.ApplicationWindow):
             # TODO: show in-app notification?
             print("Device disconnected")
 
-    def _add_perspective(self, perspective, ratbag):
+    def _add_perspective(self, perspective, ratbag: Optional[Ratbagd]) -> None:
         self.stack_perspectives.add_named(perspective, perspective.name)
         self.stack_titlebar.add_named(perspective.titlebar, perspective.name)
         if perspective.can_go_back:
+            if ratbag is None:
+                raise ValueError(
+                    "`ratbag` must be provided if the perspective can go back"
+                )
             self._perspective_add_back_button(perspective, ratbag)
         self._perspective_add_primary_menu(perspective)
 
-    def _present_welcome_perspective(self, devices):
+    def _present_welcome_perspective(self, devices: List[RatbagdDevice]) -> None:
         # Present the welcome perspective for the user to select one of their
         # devices.
         welcome_perspective = self._get_child("welcome_perspective")
@@ -157,7 +171,7 @@ class Window(Gtk.ApplicationWindow):
         self.stack_titlebar.set_visible_child_name(welcome_perspective.name)
         self.stack_perspectives.set_visible_child_name(welcome_perspective.name)
 
-    def _present_mouse_perspective(self, device):
+    def _present_mouse_perspective(self, device: RatbagdDevice) -> None:
         # Present the mouse configuration perspective for the given device.
         try:
             mouse_perspective = self._get_child("mouse_perspective")
@@ -182,7 +196,7 @@ class Window(Gtk.ApplicationWindow):
                     _("Unknown exception occurred"), e.message
                 )
 
-    def _present_error_perspective(self, message, detail):
+    def _present_error_perspective(self, message: str, detail: str) -> None:
         # Present the error perspective informing the user of any errors.
         error_perspective = self._get_child("error_perspective")
         error_perspective.set_message(message)
@@ -191,13 +205,13 @@ class Window(Gtk.ApplicationWindow):
         self.stack_titlebar.set_visible_child_name(error_perspective.name)
         self.stack_perspectives.set_visible_child_name(error_perspective.name)
 
-    def _on_device_selected(self, perspective, device):
+    def _on_device_selected(self, perspective, device: RatbagdDevice) -> None:
         self._present_mouse_perspective(device)
 
-    def _get_child(self, name):
+    def _get_child(self, name: str) -> Optional[Gtk.Widget]:
         return self.stack_perspectives.get_child_by_name(name)
 
-    def _perspective_add_back_button(self, perspective, ratbag):
+    def _perspective_add_back_button(self, perspective, ratbag: Ratbagd) -> None:
         button_back = Gtk.Button.new_from_icon_name(
             "go-previous-symbolic", Gtk.IconSize.BUTTON
         )
@@ -215,7 +229,7 @@ class Window(Gtk.ApplicationWindow):
         # Place the button first in the titlebar.
         perspective.titlebar.child_set_property(button_back, "position", 0)
 
-    def _perspective_add_primary_menu(self, perspective):
+    def _perspective_add_primary_menu(self, perspective) -> None:
         hamburger = Gtk.Image.new_from_icon_name(
             "open-menu-symbolic", Gtk.IconSize.BUTTON
         )

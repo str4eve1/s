@@ -28,13 +28,13 @@ class ResolutionsPage(Gtk.Box):
         RatbagdButton.ActionSpecial.RESOLUTION_DEFAULT,
     ]
 
-    rate_125 = Gtk.Template.Child()
-    rate_250 = Gtk.Template.Child()
-    rate_500 = Gtk.Template.Child()
-    rate_1000 = Gtk.Template.Child()
-    rate_button_box = Gtk.Template.Child()
-    listbox = Gtk.Template.Child()
-    add_resolution_row = Gtk.Template.Child()
+    add_resolution_row: Gtk.ListBoxRow = Gtk.Template.Child()  # type: ignore
+    listbox: Gtk.ListBox = Gtk.Template.Child()  # type: ignore
+    rate_1000: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
+    rate_125: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
+    rate_250: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
+    rate_500: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
+    rate_button_box: Gtk.ButtonBox = Gtk.Template.Child()  # type: ignore
 
     def __init__(
         self, ratbagd_device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs
@@ -102,14 +102,14 @@ class ResolutionsPage(Gtk.Box):
         with self.rate_1000.handler_block(self._handler_1000):
             self.rate_1000.set_active(profile.report_rate == 1000)
 
-    def _on_report_rate_toggled(self, button, rate):
+    def _on_report_rate_toggled(self, button: Gtk.RadioButton, rate: int) -> None:
         if not button.get_active():
             return
         profile = self._profile
         profile.report_rate = rate
 
     @Gtk.Template.Callback("_on_row_activated")
-    def _on_row_activated(self, listbox, row):
+    def _on_row_activated(self, listbox: Gtk.ListBox, row: Gtk.ListBoxRow) -> None:
         if row is self._last_activated_row:
             self._last_activated_row = None
             row.toggle_revealer()

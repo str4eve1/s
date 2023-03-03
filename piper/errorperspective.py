@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+from typing import Optional
+
 import gi
 
 gi.require_version("Gtk", "3.0")
@@ -12,11 +14,11 @@ class ErrorPerspective(Gtk.Box):
 
     __gtype_name__ = "ErrorPerspective"
 
-    label_error = Gtk.Template.Child()
-    label_detail = Gtk.Template.Child()
-    _titlebar = Gtk.Template.Child()
+    label_error: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    label_detail: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    _titlebar: Gtk.HeaderBar = Gtk.Template.Child()  # type: ignore
 
-    def __init__(self, message=None, *args, **kwargs):
+    def __init__(self, message: Optional[str] = None, *args, **kwargs) -> None:
         """Instantiates a new ErrorPerspective.
 
         @param message The error message to display, as str.
@@ -26,34 +28,34 @@ class ErrorPerspective(Gtk.Box):
             self.set_message(message)
 
     @GObject.Property
-    def name(self):
+    def name(self) -> str:
         """The name of this perspective."""
         return "error_perspective"
 
     @GObject.Property
-    def titlebar(self):
+    def titlebar(self) -> Gtk.Widget:
         """The titlebar to this perspective."""
         return self._titlebar
 
     @GObject.Property
-    def can_go_back(self):
+    def can_go_back(self) -> bool:
         """Whether this perspective wants a back button to be displayed in case
         there is more than one connected device."""
         return False
 
     @GObject.Property
-    def can_shutdown(self):
+    def can_shutdown(self) -> bool:
         """Whether this perspective can safely shutdown."""
         return True
 
-    def set_message(self, message):
+    def set_message(self, message: str) -> None:
         """Sets the error message.
 
         @param message The error message to display, as str.
         """
         self.label_error.set_label(message)
 
-    def set_detail(self, detail):
+    def set_detail(self, detail: str) -> None:
         """Sets the detail message.
 
         @param message The detail message to display, as str.
