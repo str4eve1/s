@@ -22,7 +22,7 @@ class ProfileRow(Gtk.ListBoxRow):
 
         name = profile.name
         if not name:
-            name = "Profile {}".format(profile.index)
+            name = f"Profile {profile.index}"
 
         self.title.set_text(name)
         self.show_all()

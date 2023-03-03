@@ -189,10 +189,7 @@ class ButtonDialog(Gtk.Dialog):
             row.set_header(separator)
             return
 
-        if before is not None:
-            add_header = row._section != before._section
-        else:
-            add_header = True
+        add_header = row._section != before._section if before is not None else True
 
         if not add_header:
             row.set_header(None)
@@ -204,7 +201,7 @@ class ButtonDialog(Gtk.Dialog):
         else:
             box.set_margin_top(6)
 
-        markup = "<b>{}</b>".format(row._section)
+        markup = f"<b>{row._section}</b>"
         label = Gtk.Label(label=markup, use_markup=True, xalign=0.0, margin_start=6)
         label.get_style_context().add_class("dim-label")
 
@@ -224,10 +221,7 @@ class ButtonDialog(Gtk.Dialog):
             description = self.row_keystroke_label.get_label().casefold()
         search = self.search_entry.get_text().casefold()
 
-        for term in search.split(" "):
-            if term not in description:
-                return False
-        return True
+        return all(term in description for term in search.split(" "))
 
     def _get_button_name_and_description(self, button):
         # Translators: the {} will be replaced with the button index, e.g.

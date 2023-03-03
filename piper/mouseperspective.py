@@ -57,10 +57,7 @@ class MousePerspective(Gtk.Overlay):
             return True
 
         """Whether this perspective can safely shutdown."""
-        for profile in self._device.profiles:
-            if profile.dirty:
-                return False
-        return True
+        return all(not profile.dirty for profile in self._device.profiles)
 
     @GObject.Property
     def device(self):
@@ -90,7 +87,7 @@ class MousePerspective(Gtk.Overlay):
         self.button_profile.set_visible(len(device.profiles) > 1)
         name = active_profile.name
         if not name:
-            name = "Profile {}".format(active_profile.index)
+            name = f"Profile {active_profile.index}"
         self.label_profile.set_label(name)
         self._on_profile_notify_dirty(active_profile, None)
 

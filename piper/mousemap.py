@@ -339,7 +339,7 @@ class MouseMap(Gtk.Container):
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "inkscape": "http://www.inkscape.org/namespaces/inkscape",
         }
-        query = '//svg:rect[@id="{}"][contains(@style, "{}")]'.format(svg_id, style)
+        query = f'//svg:rect[@id="{svg_id}"][contains(@style, "{style}")]'
         element = self._svg_data.xpath(query, namespaces=namespaces)
         return element is not None and len(element) == 1 and element[0] is not None
 

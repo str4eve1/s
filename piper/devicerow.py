@@ -32,7 +32,7 @@ class DeviceRow(Gtk.ListBoxRow):
             handle.close()
             if svg is None:
                 print(
-                    "Device {}'s SVG is incompatible".format(device.name),
+                    f"Device {device.name}'s SVG is incompatible",
                     file=sys.stderr,
                 )
             else:
@@ -43,7 +43,7 @@ class DeviceRow(Gtk.ListBoxRow):
                     self.image.set_from_pixbuf(svg)
         except FileNotFoundError:
             print(
-                "Device {} has no image or its path is invalid".format(device.name),
+                f"Device {device.name} has no image or its path is invalid",
                 file=sys.stderr,
             )
 

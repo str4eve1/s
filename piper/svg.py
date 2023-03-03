@@ -21,10 +21,7 @@ def get_svg(model):
         bus, vid, pid, version = model.split(":")
         # Where the version is 0 (virtually all devices) we drop it. This
         # way the DeviceMatch lines are less confusing.
-        if int(version) == 0:
-            usbid = ":".join([bus, vid, pid])
-        else:
-            usbid = model
+        usbid = ":".join([bus, vid, pid]) if int(version) == 0 else model
 
         for s in config.sections():
             matches = config[s]["DeviceMatch"].split(";")
@@ -33,7 +30,7 @@ def get_svg(model):
                 break
 
     resource = Gio.resources_lookup_data(
-        "/org/freedesktop/Piper/svgs/{}".format(filename), Gio.ResourceLookupFlags.NONE
+        f"/org/freedesktop/Piper/svgs/{filename}", Gio.ResourceLookupFlags.NONE
     )
 
     return resource.get_data()

@@ -33,9 +33,9 @@ def check_size(root):
     width = float(root.attrib["width"])
     height = float(root.attrib["height"])
     if not 400 <= width <= 500:
-        logger.error("Width is outside of range: {}".format(width))
+        logger.error(f"Width is outside of range: {width}")
     if not 400 <= height <= 500:
-        logger.error("Height is outside of range: {}".format(height))
+        logger.error(f"Height is outside of range: {height}")
 
 
 def check_layers(root):
@@ -46,7 +46,7 @@ def check_layers(root):
 
     for layer in ["Device", "Buttons", "LEDs"]:
         if layer not in layer_ids:
-            logger.error("Missing layer: {}".format(layer))
+            logger.error(f"Missing layer: {layer}")
 
 
 def check_elements(root, prefix, required=0):
@@ -65,41 +65,41 @@ def check_elements(root, prefix, required=0):
     for element in ["path", "rect", "g", "circle"]:
         element_ids += [
             p.attrib["id"]
-            for p in root.xpath("//svg:{}".format(element), namespaces=ns)
+            for p in root.xpath(f"//svg:{element}", namespaces=ns)
             if p.attrib["id"].startswith(prefix)
         ]
 
     idx = 0
     highest = -1
     for idx in range(0, 20):
-        e = "{}{}".format(prefix, idx)
-        previous = "{}{}".format(prefix, idx - 1)
-        leader = "{}{}-leader".format(prefix, idx)
-        path = "{}{}-path".format(prefix, idx)
+        e = f"{prefix}{idx}"
+        previous = f"{prefix}{idx - 1}"
+        leader = f"{prefix}{idx}-leader"
+        path = f"{prefix}{idx}-path"
         if e in element_ids:
             highest = idx
             if idx > 0 and previous not in element_ids:
-                logger.warning("Non-consecutive {}: {}".format(prefix, e))
+                logger.warning(f"Non-consecutive {prefix}: {e}")
 
             if leader not in element_ids:
-                logger.error("Missing {} for {}".format(leader, e))
+                logger.error(f"Missing {leader} for {e}")
             else:
                 element = root.xpath(
                     style_query.format(leader, "text-align"), namespaces=ns
                 )
                 if element is None or len(element) != 1 or element[0] is None:
-                    logger.error("Missing style property for {}".format(leader))
+                    logger.error(f"Missing style property for {leader}")
 
             if path not in element_ids:
-                logger.error("Missing {} for {}".format(path, e))
+                logger.error(f"Missing {path} for {e}")
         elif leader in element_ids:
-            logger.error("Have {} but not {}".format(leader, e))
+            logger.error(f"Have {leader} but not {e}")
         elif path in element_ids:
-            logger.error("Have {} but not {}".format(path, e))
+            logger.error(f"Have {path} but not {e}")
         elif idx < required:
-            logger.error("Missing {}: {}".format(prefix, e))
+            logger.error(f"Missing {prefix}: {e}")
 
-    logger.info("Found {} {}s".format(highest + 1, prefix))
+    logger.info(f"Found {highest + 1} {prefix}s")
 
 
 def check_leds(root):
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     success = True
     for path in Path(sys.argv[1]).glob("*.svg"):
         logger = SVGLogger.get_logger(str(path))
-        print("checking {}...".format(path))
+        print(f"checking {path}...")
         check_svg(path)
         if not logger.success:
             success = False

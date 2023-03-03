@@ -78,7 +78,7 @@ class ResolutionsPage(Gtk.Box):
                 label = Gtk.Label(
                     label=_(RatbagdButton.SPECIAL_DESCRIPTION[button.special])
                 )
-                mousemap.add(label, "#button{}".format(button.index))
+                mousemap.add(label, f"#button{button.index}")
         mousemap.show_all()
 
         are_report_rates_supported = (

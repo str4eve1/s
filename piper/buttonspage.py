@@ -59,7 +59,7 @@ class ButtonsPage(Gtk.Box):
             ratbagd_button.connect(
                 "notify::action-type", self._on_button_mapping_changed, button
             )
-            self._mousemap.add(button, "#button{}".format(ratbagd_button.index))
+            self._mousemap.add(button, f"#button{ratbagd_button.index}")
             self._sizegroup.add_widget(button)
 
     def _on_active_profile_changed(self, device, profile):
@@ -156,6 +156,7 @@ class ButtonsPage(Gtk.Box):
         for profile in self._device.profiles:
             if profile.is_active:
                 return profile
+        return None
 
     def _find_button_type(self, button_type):
         for button in self._profile.buttons:

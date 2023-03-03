@@ -30,7 +30,7 @@ class TestSVGLookup(unittest.TestCase):
         matches = [config[s]["DeviceMatch"] for s in config.sections()]
         d = {}
         for match in matches:
-            self.assertNotIn(match, d, msg='Duplicate match "{}"'.format(match))
+            self.assertNotIn(match, d, msg=f'Duplicate match "{match}"')
             d[match] = True
 
 

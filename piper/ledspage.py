@@ -43,7 +43,7 @@ class LedsPage(Gtk.Box):
             button = OptionButton(mode)
             button.connect("clicked", self._on_button_clicked, led)
             led.connect("notify::mode", self._on_led_mode_changed, button)
-            self._mousemap.add(button, "#led{}".format(led.index))
+            self._mousemap.add(button, f"#led{led.index}")
             self._sizegroup.add_widget(button)
 
     def _on_active_profile_changed(self, device, profile):

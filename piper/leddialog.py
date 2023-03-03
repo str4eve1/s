@@ -53,7 +53,7 @@ class LedDialog(Gtk.Dialog):
         self.adjustment_effect_duration.set_value(self._led.effect_duration)
 
         sp = Gtk.CssProvider()
-        sp.load_from_data("* { background: #565854}".encode())
+        sp.load_from_data(b"* { background: #565854}")
         Gtk.StyleContext.add_provider(
             self.led_off_image.get_style_context(),
             sp,

@@ -78,10 +78,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         lo = max([r for r in self.resolutions if r <= value])
         hi = min([r for r in self.resolutions if r >= value])
 
-        if value - lo < hi - value:
-            value = lo
-        else:
-            value = hi
+        value = lo if value - lo < hi - value else hi
 
         scale.set_value(value)
 
@@ -152,11 +149,8 @@ class ResolutionRow(Gtk.ListBoxRow):
         # update dpi label and resolution values.
         if res is None:
             res = self._resolution.resolution[0]
-        if self.CAP_SEPARATE_XY_RESOLUTION:
-            new_res = (res, res)
-        else:
-            new_res = (res,)
-        self.dpi_label.set_text("{} DPI".format(res))
+        new_res = (res, res) if self.CAP_SEPARATE_XY_RESOLUTION else (res,)
+        self.dpi_label.set_text(f"{res} DPI")
 
         # Only update new resolution if changed
         if new_res != self._resolution.resolution:
