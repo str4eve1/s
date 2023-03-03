@@ -108,7 +108,7 @@ class MousePerspective(Gtk.Overlay):
         self.stack.foreach(Gtk.Widget.destroy)
         if profile.resolutions:
             self.stack.add_titled(
-                ResolutionsPage(self._device), "resolutions", _("Resolutions")
+                ResolutionsPage(self._device, profile), "resolutions", _("Resolutions")
             )
         if profile.buttons:
             self.stack.add_titled(

@@ -3,9 +3,8 @@
 from gettext import gettext as _
 
 from .mousemap import MouseMap
-from .ratbagd import RatbagdButton
+from .ratbagd import RatbagdButton, RatbagdDevice, RatbagdProfile
 from .resolutionrow import ResolutionRow
-from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
@@ -37,7 +36,9 @@ class ResolutionsPage(Gtk.Box):
     listbox = Gtk.Template.Child()
     add_resolution_row = Gtk.Template.Child()
 
-    def __init__(self, ratbagd_device, *args, **kwargs):
+    def __init__(
+        self, ratbagd_device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs
+    ) -> None:
         """Instantiates a new ResolutionsPage.
 
         @param ratbag_device The ratbag device to configure, as
@@ -47,13 +48,8 @@ class ResolutionsPage(Gtk.Box):
 
         self._device = ratbagd_device
         self._last_activated_row = None
+        self._profile = profile
 
-        connect_signal_with_weak_ref(
-            self,
-            self._device,
-            "active-profile-changed",
-            self._on_active_profile_changed,
-        )
         self._handler_125 = self.rate_125.connect(
             "toggled", self._on_report_rate_toggled, 125
         )
@@ -66,11 +62,6 @@ class ResolutionsPage(Gtk.Box):
         self._handler_1000 = self.rate_1000.connect(
             "toggled", self._on_report_rate_toggled, 1000
         )
-
-        self._init_ui()
-
-    def _init_ui(self):
-        profile = self._device.active_profile
 
         mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
         self.pack_start(mousemap, True, True, 0)
@@ -96,11 +87,6 @@ class ResolutionsPage(Gtk.Box):
         self.rate_500.set_sensitive(500 in profile.report_rates)
         self.rate_1000.set_sensitive(1000 in profile.report_rates)
 
-        # Set the report rate through a manual callback invocation.
-        self._on_active_profile_changed(self._device, profile)
-
-    def _on_active_profile_changed(self, device, profile):
-        # TODO: don't delete the unused "add new resolution" button.
         self.listbox.foreach(Gtk.Widget.destroy)
         for resolution in profile.resolutions:
             row = ResolutionRow(resolution)
@@ -119,7 +105,7 @@ class ResolutionsPage(Gtk.Box):
     def _on_report_rate_toggled(self, button, rate):
         if not button.get_active():
             return
-        profile = self._device.active_profile
+        profile = self._profile
         profile.report_rate = rate
 
     @Gtk.Template.Callback("_on_row_activated")
