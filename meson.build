@@ -117,19 +117,9 @@ else
     meson.add_install_script('meson_install.sh')
 endif
 
-flake8 = find_program('flake8')
-if flake8.found()
-  test(
-    'flake8',
-    flake8,
-    args : [
-      '--config=' + join_paths(meson.current_source_dir(), '.flake8'),
-      join_paths(meson.current_source_dir(), 'piper'),
-      join_paths(meson.current_build_dir(), 'piper'),
-      join_paths(meson.current_build_dir(), 'piper.devel'),
-    ],
-  )
-endif
+env_test = environment()
+# See: https://github.com/mesonbuild/meson/issues/3306.
+env_test.set('MESON_SOURCE_ROOT', meson.current_source_dir())
 
 test_svg_files = find_program('tests/check-svg.py')
 test(
@@ -150,4 +140,21 @@ test(
   find_program('tests/check-files-in-git.sh'),
   args : [meson.current_source_dir()],
   suite : ['all'],
+)
+
+#### code formatting #####
+run_target(
+  'python-black',
+  command : 'tools/python-black.sh',
+)
+
+python_black_check = find_program(join_paths(meson.current_source_dir(), 'tests/python-black-check.sh'))
+run_target(
+  'python-black-check',
+  command : python_black_check,
+)
+test(
+  'python-black-check',
+  python_black_check,
+  env: env_test,
 )

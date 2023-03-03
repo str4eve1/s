@@ -79,16 +79,8 @@ ninja -C builddir
 ```
 Note that this still requires ratbagd to run on the system bus.
 
-Piper tries to conform to Python's PEP8 style guide. To verify your code before
-opening a PR, please install `flake8` and run the following commands to install
-its pre-commit hook:
-
-```sh
-flake8 --install-hook git
-git config --bool flake8.strict true
-```
-
-Checking if code is formatted is also done as a part of the test suite.
+Piper tries to conform to Python's PEP8 style guide using the `black` formatter.
+Checking if code is formatted is done as a part of the test suite.
 
 You can check if your code passes tests before submitting changes using the
 following command:
