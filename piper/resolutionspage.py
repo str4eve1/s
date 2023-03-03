@@ -32,6 +32,7 @@ class ResolutionsPage(Gtk.Box):
     rate_250 = GtkTemplate.Child()
     rate_500 = GtkTemplate.Child()
     rate_1000 = GtkTemplate.Child()
+    rate_button_box = GtkTemplate.Child()
     listbox = GtkTemplate.Child()
     add_resolution_row = GtkTemplate.Child()
 
@@ -73,6 +74,9 @@ class ResolutionsPage(Gtk.Box):
             row = ResolutionRow(self._device, resolution)
             self.listbox.insert(row, resolution.index)
 
+        are_report_rates_supported = profile.report_rate != 0 \
+            and len(profile.report_rates) != 0
+        self.rate_button_box.set_sensitive(are_report_rates_supported)
         self.rate_125.set_sensitive(125 in profile.report_rates)
         self.rate_250.set_sensitive(250 in profile.report_rates)
         self.rate_500.set_sensitive(500 in profile.report_rates)
