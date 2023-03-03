@@ -6,7 +6,7 @@ from .mousemap import MouseMap
 from .ratbagd import RatbagdDevice, RatbagdProfile
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk  # noqa: E402
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/AdvancedPage.ui")
