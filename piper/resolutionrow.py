@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from .ratbagd import RatbagdResolution
+from .util.gobject import disconnect_handlers
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -24,38 +25,24 @@ class ResolutionRow(Gtk.ListBoxRow):
     CAP_SEPARATE_XY_RESOLUTION = False
     CAP_DISABLE = False
 
-    def __init__(self, device, resolution, *args, **kwargs):
+    def __init__(self, resolution: RatbagdResolution, *args, **kwargs) -> None:
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
 
-        self._resolution = None
-        self._resolution_handler = 0
-        self._active_handler = 0
-        self._disabled_handler = 0
+        self._resolution = resolution
+        self.resolutions = resolution.resolutions
         self._scale_handler = self.scale.connect("value-changed",
                                                  self._on_scale_value_changed)
         self._disabled_button_handler = self.disable_button.connect("toggled",
                                                                     self._on_disable_button_toggled)
 
-        device.connect("active-profile-changed",
-                       self._on_active_profile_changed, resolution.index)
-
-        self._init_values(resolution)
-
-    def _init_values(self, resolution):
-        if self._resolution_handler > 0:
-            self._resolution.disconnect(self._resolution_handler)
-        if self._active_handler > 0:
-            self._resolution.disconnect(self._active_handler)
-        if self._disabled_handler > 0:
-            self._resolution.disconnect(self._disabled_handler)
-        self._resolution = resolution
-        self.resolutions = resolution.resolutions
-        self._resolution_handler = resolution.connect("notify::resolution",
-                                                      self._on_resolution_changed)
         self._active_handler = resolution.connect("notify::is-active",
                                                   self._on_status_changed)
         self._disabled_handler = resolution.connect("notify::is-disabled",
                                                     self._on_status_changed)
+        # https://gitlab.gnome.org/GNOME/pygobject/-/issues/557
+        self.weak_ref(
+            lambda: disconnect_handlers(resolution, (self._active_handler, self._disabled_handler))
+        )
 
         # Get resolution capabilities and update internal values.
         if RatbagdResolution.CAP_SEPARATE_XY_RESOLUTION in resolution.capabilities:
@@ -74,10 +61,6 @@ class ResolutionRow(Gtk.ListBoxRow):
             with self.disable_button.handler_block(self._disabled_button_handler):
                 self.disable_button.set_active(True)
         self._on_status_changed(resolution, pspec=None)
-
-    def _on_active_profile_changed(self, device, profile, index):
-        resolution = profile.resolutions[index]
-        self._init_values(resolution)
 
     @Gtk.Template.Callback("_on_change_value")
     def _on_change_value(self, scale, scroll, value):
@@ -129,10 +112,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         res = int(scale.get_value())
         self._on_dpi_values_changed(res=res)
 
-    def _on_resolution_changed(self, resolution, pspec):
-        # RatbagdResolution's resolution has changed, re-initialize.
-        self._init_values(resolution)
-
     def _on_status_changed(self, resolution, pspec):
         # The resolution's status changed, update UI.
         self._on_dpi_values_changed()
@@ -174,5 +153,4 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         # Only update new resolution if changed
         if (new_res != self._resolution.resolution):
-            with self._resolution.handler_block(self._resolution_handler):
-                self._resolution.resolution = new_res
+            self._resolution.resolution = new_res

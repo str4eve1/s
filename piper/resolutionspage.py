@@ -68,10 +68,6 @@ class ResolutionsPage(Gtk.Box):
                 mousemap.add(label, "#button{}".format(button.index))
         mousemap.show_all()
 
-        for resolution in profile.resolutions:
-            row = ResolutionRow(self._device, resolution)
-            self.listbox.insert(row, resolution.index)
-
         are_report_rates_supported = profile.report_rate != 0 \
             and len(profile.report_rates) != 0
         self.rate_button_box.set_sensitive(are_report_rates_supported)
@@ -84,6 +80,12 @@ class ResolutionsPage(Gtk.Box):
         self._on_active_profile_changed(self._device, profile)
 
     def _on_active_profile_changed(self, device, profile):
+        # TODO: don't delete the unused "add new resolution" button.
+        self.listbox.foreach(Gtk.Widget.destroy)
+        for resolution in profile.resolutions:
+            row = ResolutionRow(resolution)
+            self.listbox.insert(row, resolution.index)
+
         # Updates report rate to reflect the new active profile's report rate.
         with self.rate_125.handler_block(self._handler_125):
             self.rate_125.set_active(profile.report_rate == 125)
