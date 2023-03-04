@@ -208,8 +208,11 @@ class Window(Gtk.ApplicationWindow):
     def _on_device_selected(self, perspective, device: RatbagdDevice) -> None:
         self._present_mouse_perspective(device)
 
-    def _get_child(self, name: str) -> Optional[Gtk.Widget]:
-        return self.stack_perspectives.get_child_by_name(name)
+    def _get_child(self, name: str) -> Gtk.Widget:
+        child = self.stack_perspectives.get_child_by_name(name)
+        if child is None:
+            raise ValueError(f"Child `{name}` was not found")
+        return child
 
     def _perspective_add_back_button(self, perspective, ratbag: Ratbagd) -> None:
         button_back = Gtk.Button.new_from_icon_name(

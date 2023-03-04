@@ -79,6 +79,7 @@ class MousePerspective(Gtk.Overlay):
         )
 
         active_profile = device.active_profile
+        assert active_profile is not None
         self._set_profile(active_profile)
 
         self.button_profile.set_visible(len(device.profiles) > 1)
@@ -106,6 +107,8 @@ class MousePerspective(Gtk.Overlay):
                 self.listbox_profiles.select_row(row)
 
     def _set_profile(self, profile: RatbagdProfile) -> None:
+        assert self._device is not None
+
         self.stack.foreach(Gtk.Widget.destroy)
         if profile.resolutions:
             self.stack.add_titled(
@@ -148,6 +151,7 @@ class MousePerspective(Gtk.Overlay):
 
     @Gtk.Template.Callback("_on_save_button_clicked")
     def _on_save_button_clicked(self, _button: Gtk.Button) -> None:
+        assert self._device is not None
         self._device.commit()
 
     @Gtk.Template.Callback("_on_notification_error_close_clicked")
@@ -163,6 +167,7 @@ class MousePerspective(Gtk.Overlay):
 
     @Gtk.Template.Callback("_on_add_profile_button_clicked")
     def _on_add_profile_button_clicked(self, button: Gtk.Button) -> None:
+        assert self._device is not None
         # Enable the first disabled profile we find.
         for profile in self._device.profiles:
             if not profile.disabled:
@@ -175,6 +180,7 @@ class MousePerspective(Gtk.Overlay):
     def _on_profile_notify_enabled(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
     ) -> None:
+        assert self._device is not None
         # We're only interested in the case where the last profile is disabled,
         # so that we can reset the sensitivity of the add button.
         if profile.disabled and profile == self._device.profiles[-1]:

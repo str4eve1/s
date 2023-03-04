@@ -321,11 +321,14 @@ class ButtonDialog(Gtk.Dialog):
             type = RatbagdButton.Macro.KEY_PRESS
         elif event.type == Gdk.EventType.KEY_RELEASE:
             type = RatbagdButton.Macro.KEY_RELEASE
+        else:
+            raise ValueError("Incorrect event type")
 
         # TODO: this needs to be checked for its Wayland support.
         if not self._XORG_KEYCODE_OFFSET <= event.hardware_keycode <= 255:
             print("Keycode is not within the valid range.", file=sys.stderr)
         else:
+            assert self._current_macro is not None
             self._current_macro.append(
                 type, event.hardware_keycode - self._XORG_KEYCODE_OFFSET
             )
@@ -369,6 +372,7 @@ class ButtonDialog(Gtk.Dialog):
     @Gtk.Template.Callback("_on_apply_button_clicked")
     def _on_apply_button_clicked(self, button: Gtk.Button) -> None:
         if self.stack.get_visible_child_name() == "capture":
+            assert self._current_macro is not None
             self._current_macro.accept()
         return Gdk.EVENT_PROPAGATE
 
