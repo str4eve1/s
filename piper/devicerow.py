@@ -25,7 +25,14 @@ class DeviceRow(Gtk.ListBoxRow):
     def __init__(self, device: RatbagdDevice, *args, **kwargs) -> None:
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self._device = device
-        self.title.set_text(device.name)
+
+        fw_version = device.firmware_version
+        if fw_version:
+            self.title.set_markup(
+                f"{device.name} <span foreground='gray'>(firmware {fw_version})</span>"
+            )
+        else:
+            self.title.set_text(device.name)
 
         try:
             svg_bytes = get_svg(device.model)
