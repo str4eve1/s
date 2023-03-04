@@ -30,11 +30,6 @@ class ResolutionsPage(Gtk.Box):
 
     add_resolution_row: Gtk.ListBoxRow = Gtk.Template.Child()  # type: ignore
     listbox: Gtk.ListBox = Gtk.Template.Child()  # type: ignore
-    rate_1000: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
-    rate_125: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
-    rate_250: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
-    rate_500: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
-    rate_button_box: Gtk.ButtonBox = Gtk.Template.Child()  # type: ignore
 
     def __init__(
         self, ratbagd_device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs
@@ -49,19 +44,6 @@ class ResolutionsPage(Gtk.Box):
         self._device = ratbagd_device
         self._last_activated_row = None
         self._profile = profile
-
-        self._handler_125 = self.rate_125.connect(
-            "toggled", self._on_report_rate_toggled, 125
-        )
-        self._handler_250 = self.rate_250.connect(
-            "toggled", self._on_report_rate_toggled, 250
-        )
-        self._handler_500 = self.rate_500.connect(
-            "toggled", self._on_report_rate_toggled, 500
-        )
-        self._handler_1000 = self.rate_1000.connect(
-            "toggled", self._on_report_rate_toggled, 1000
-        )
 
         mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
         self.pack_start(mousemap, True, True, 0)
@@ -78,35 +60,10 @@ class ResolutionsPage(Gtk.Box):
                 mousemap.add(label, f"#button{button.index}")
         mousemap.show_all()
 
-        are_report_rates_supported = (
-            profile.report_rate != 0 and len(profile.report_rates) != 0
-        )
-        self.rate_button_box.set_sensitive(are_report_rates_supported)
-        self.rate_125.set_sensitive(125 in profile.report_rates)
-        self.rate_250.set_sensitive(250 in profile.report_rates)
-        self.rate_500.set_sensitive(500 in profile.report_rates)
-        self.rate_1000.set_sensitive(1000 in profile.report_rates)
-
         self.listbox.foreach(Gtk.Widget.destroy)
         for resolution in profile.resolutions:
             row = ResolutionRow(resolution)
             self.listbox.insert(row, resolution.index)
-
-        # Updates report rate to reflect the new active profile's report rate.
-        with self.rate_125.handler_block(self._handler_125):
-            self.rate_125.set_active(profile.report_rate == 125)
-        with self.rate_250.handler_block(self._handler_250):
-            self.rate_250.set_active(profile.report_rate == 250)
-        with self.rate_500.handler_block(self._handler_500):
-            self.rate_500.set_active(profile.report_rate == 500)
-        with self.rate_1000.handler_block(self._handler_1000):
-            self.rate_1000.set_active(profile.report_rate == 1000)
-
-    def _on_report_rate_toggled(self, button: Gtk.RadioButton, rate: int) -> None:
-        if not button.get_active():
-            return
-        profile = self._profile
-        profile.report_rate = rate
 
     @Gtk.Template.Callback("_on_row_activated")
     def _on_row_activated(self, listbox: Gtk.ListBox, row: Gtk.ListBoxRow) -> None:
