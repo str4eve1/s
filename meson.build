@@ -17,7 +17,7 @@ enable_runtime_dependency_checks = get_option('runtime-dependency-checks')
 # Dependencies
 if enable_runtime_dependency_checks
     ratbagd = find_program('ratbagd', required: true)
-    ratbagd_required_version='0.14'
+    ratbagd_required_version='0.17'
 
     if not ratbagd.found()
         message('''
