@@ -538,6 +538,7 @@ class RatbagdProfile(_RatbagdDBus):
         @param value The angle snapping option as int
         """
         self._set_dbus_property("AngleSnapping", "i", value)
+        self._on_obj_notify(None, None)
 
     @GObject.Property
     def debounce(self):
@@ -551,6 +552,7 @@ class RatbagdProfile(_RatbagdDBus):
         @param value The button debounce time, as int
         """
         self._set_dbus_property("Debounce", "i", value)
+        self._on_obj_notify(None, None)
 
     @GObject.Property
     def debounces(self):
