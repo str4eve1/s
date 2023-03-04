@@ -142,7 +142,9 @@ class ButtonsPage(Gtk.Box):
         # The user either pressed cancel or apply. If it's apply, apply the
         # changes before closing the dialog, otherwise just close the dialog.
         if response == Gtk.ResponseType.APPLY:
-            if dialog.action_type == RatbagdButton.ActionType.BUTTON:
+            if dialog.action_type == RatbagdButton.ActionType.NONE:
+                ratbagd_button.disable()
+            elif dialog.action_type == RatbagdButton.ActionType.BUTTON:
                 if dialog.mapping in [
                     ButtonDialog.LEFT_HANDED_MODE,
                     ButtonDialog.RIGHT_HANDED_MODE,

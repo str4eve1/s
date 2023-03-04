@@ -28,7 +28,7 @@ class ButtonRow(Gtk.ListBoxRow):
         description: str,
         section: str,
         action_type: RatbagdButton.ActionType,
-        value: Union[int, RatbagdButton.ActionSpecial],
+        value: Union[int, RatbagdButton.ActionSpecial, None],
         *args,
         **kwargs,
     ) -> None:
@@ -99,7 +99,10 @@ class ButtonDialog(Gtk.Dialog):
         self._button = ratbagd_button
         self._device_type = device_type
         self._action_type = self._button.action_type
-        if self._action_type == RatbagdButton.ActionType.BUTTON:
+
+        if self.action_type == RatbagdButton.ActionType.NONE:
+            self._mapping = None
+        elif self._action_type == RatbagdButton.ActionType.BUTTON:
             self._mapping = self._button.mapping
         elif self._action_type == RatbagdButton.ActionType.MACRO:
             self._mapping = self._button.macro
@@ -175,6 +178,13 @@ class ButtonDialog(Gtk.Dialog):
             ):
                 self.listbox.select_row(row)
             i += 1
+
+        row = ButtonRow(_("Disable"), _("Other"), RatbagdButton.ActionType.NONE, None)
+        row.set_sensitive(RatbagdButton.ActionType.NONE in self._button.action_types)
+        self.listbox.insert(row, i)
+        i += 1
+        if self._action_type == RatbagdButton.ActionType.NONE:
+            self.listbox.select_row(row)
 
         if self._action_type == RatbagdButton.ActionType.MACRO:
             self._create_current_macro(macro=self._mapping)
