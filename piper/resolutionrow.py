@@ -46,6 +46,9 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._disabled_handler = connect_signal_with_weak_ref(
             self, resolution, "notify::is-disabled", self._on_status_changed
         )
+        connect_signal_with_weak_ref(
+            self, resolution, "notify::resolution", self._on_profile_resolution_changed
+        )
 
         # Get resolution capabilities and update internal values.
         if RatbagdResolution.CAP_SEPARATE_XY_RESOLUTION in resolution.capabilities:
@@ -155,3 +158,11 @@ class ResolutionRow(Gtk.ListBoxRow):
         # Only update new resolution if changed
         if new_res != self._resolution.resolution:
             self._resolution.resolution = new_res
+
+    def _on_profile_resolution_changed(
+        self, resolution: RatbagdResolution, pspec: GObject.ParamSpec
+    ) -> None:
+        with self.scale.handler_block(self._scale_handler):
+            res = resolution.resolution[0]
+            self.scale.set_value(res)
+            self.dpi_label.set_text(f"{res} DPI")
