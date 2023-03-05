@@ -109,6 +109,8 @@ class MousePerspective(Gtk.Overlay):
     def _set_profile(self, profile: RatbagdProfile) -> None:
         assert self._device is not None
 
+        self._profile = profile
+
         self.stack.foreach(Gtk.Widget.destroy)
         if profile.resolutions:
             self.stack.add_titled(
@@ -189,6 +191,9 @@ class MousePerspective(Gtk.Overlay):
     def _on_profile_notify_dirty(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
     ) -> None:
+        if profile is not self._profile:
+            return
+
         style_context = self.button_commit.get_style_context()
         if profile.dirty:
             style_context.add_class("suggested-action")
