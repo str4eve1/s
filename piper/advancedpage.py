@@ -1,12 +1,15 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+import sys
+from typing import Optional
 import gi
 
 from .mousemap import MouseMap
 from .ratbagd import RatbagdDevice, RatbagdProfile
+from .util.gobject import connect_signal_with_weak_ref
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk  # noqa: E402
+from gi.repository import GObject, Gtk  # noqa: E402
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/AdvancedPage.ui")
@@ -40,11 +43,6 @@ class AdvancedPage(Gtk.Box):
             "state-set", self._on_snapping_state_set
         )
 
-        self.rate_125.set_active(profile.report_rate == 125)
-        self.rate_250.set_active(profile.report_rate == 250)
-        self.rate_500.set_active(profile.report_rate == 500)
-        self.rate_1000.set_active(profile.report_rate == 1000)
-
         are_report_rates_supported = (
             profile.report_rate != 0 and len(profile.report_rates) != 0
         )
@@ -66,6 +64,14 @@ class AdvancedPage(Gtk.Box):
         self._handler_1000 = self.rate_1000.connect(
             "toggled", self._on_report_rate_toggled, 1000
         )
+
+        self._profile_report_rate_changed_handler = connect_signal_with_weak_ref(
+            self,
+            self._profile,
+            "notify::report-rate",
+            self._on_profile_report_rate_changed,
+        )
+        self._update_widget_report_rate()
 
         profile = self._profile
 
@@ -108,4 +114,37 @@ class AdvancedPage(Gtk.Box):
         if not button.get_active():
             return
         profile = self._profile
-        profile.report_rate = rate
+        with profile.handler_block(self._profile_report_rate_changed_handler):
+            profile.report_rate = rate
+
+    def _on_profile_report_rate_changed(
+        self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
+        self._update_widget_report_rate()
+
+    def _update_widget_report_rate(self) -> None:
+        with self.rate_125.handler_block(self._handler_125):
+            if self._profile.report_rate == 125:
+                self.rate_125.set_active(True)
+                return
+
+        with self.rate_250.handler_block(self._handler_250):
+            if self._profile.report_rate == 250:
+                self.rate_250.set_active(True)
+                return
+
+        with self.rate_500.handler_block(self._handler_500):
+            if self._profile.report_rate == 500:
+                self.rate_500.set_active(True)
+                return
+
+        with self.rate_1000.handler_block(self._handler_1000):
+            if self._profile.report_rate == 1000:
+                self.rate_1000.set_active(True)
+                return
+
+        # TODO: think how we should handle this.
+        print(
+            f"Profile was set to a weird report rate: {self._profile.report_rate}",
+            file=sys.stderr,
+        )
