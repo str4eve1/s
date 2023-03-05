@@ -198,6 +198,12 @@ class _RatbagdDBus(GObject.GObject):
             return p.unpack()
         return p
 
+    def _get_dbus_property_nonnull(self, property: str):
+        p = self._get_dbus_property(property)
+        if p is None:
+            raise ValueError(f"D-Bus API returned `None` for property {property}")
+        return p
+
     def _set_dbus_property(self, property, type, value, readwrite=True):
         # Sets a cached property on the bus.
 
