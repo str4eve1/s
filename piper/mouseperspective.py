@@ -83,10 +83,6 @@ class MousePerspective(Gtk.Overlay):
         self._set_profile(active_profile)
 
         self.button_profile.set_visible(len(device.profiles) > 1)
-        name = active_profile.name
-        if not name:
-            name = f"Profile {active_profile.index}"
-        self.label_profile.set_label(name)
 
         # Find the first profile that is enabled. If there is none, disable the
         # add button.
@@ -103,11 +99,20 @@ class MousePerspective(Gtk.Overlay):
             )
             row = ProfileRow(profile)
             self.listbox_profiles.insert(row, profile.index)
-            if profile is active_profile:
+
+        self._select_profile_row(self._profile)
+
+    def _select_profile_row(self, profile: RatbagdProfile) -> None:
+        for row in self.listbox_profiles.get_children():
+            if row.profile is profile:
                 self.listbox_profiles.select_row(row)
+                self.label_profile.set_label(row.name)
+                break
 
     def _set_profile(self, profile: RatbagdProfile) -> None:
         assert self._device is not None
+
+        self._select_profile_row(profile)
 
         self._profile = profile
 
@@ -165,7 +170,6 @@ class MousePerspective(Gtk.Overlay):
         self, listbox: Gtk.ListBox, row: Gtk.ListBoxRow
     ) -> None:
         row.set_active()
-        self.label_profile.set_label(row.name)
 
     @Gtk.Template.Callback("_on_add_profile_button_clicked")
     def _on_add_profile_button_clicked(self, button: Gtk.Button) -> None:

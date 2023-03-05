@@ -51,3 +51,7 @@ class ProfileRow(Gtk.ListBoxRow):
     @GObject.Property
     def name(self) -> str:
         return self.title.get_text()
+
+    @GObject.Property
+    def profile(self) -> RatbagdProfile:
+        return self._profile
