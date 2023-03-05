@@ -27,6 +27,7 @@ from enum import IntEnum
 from evdev import ecodes
 from gettext import gettext as _
 from gi.repository import Gio, GLib, GObject
+from typing import List, Optional
 
 
 # Deferred translations, see https://docs.python.org/3/library/gettext.html#deferred-translations
@@ -427,12 +428,24 @@ class RatbagdProfile(_RatbagdDBus):
         # lists, things will break!
         result = self._get_dbus_property("Resolutions") or []
         self._resolutions = [RatbagdResolution(objpath) for objpath in result]
+        self._subscribe_dirty(self._resolutions)
 
         result = self._get_dbus_property("Buttons") or []
         self._buttons = [RatbagdButton(objpath) for objpath in result]
+        self._subscribe_dirty(self._buttons)
 
         result = self._get_dbus_property("Leds") or []
         self._leds = [RatbagdLed(objpath) for objpath in result]
+        self._subscribe_dirty(self._leds)
+
+    def _subscribe_dirty(self, objects: List[GObject.GObject]):
+        for obj in objects:
+            obj.connect("notify", self._on_obj_notify)
+
+    def _on_obj_notify(self, obj: GObject.GObject, pspec: Optional[GObject.ParamSpec]):
+        if not self._dirty:
+            self._dirty = True
+            self.notify("dirty")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
         if "IsActive" in changed_props.keys():
