@@ -466,6 +466,11 @@ class RatbagdProfile(_RatbagdDBus):
                 self._dirty = dirty
                 self.notify("dirty")
 
+        if "ReportRate" in changed_props.keys():
+            report_rate = changed_props["ReportRate"]
+            if report_rate != self._report_rate:
+                self._report_rate = report_rate
+
     @GObject.Property
     def capabilities(self):
         """The capabilities of this profile as an array. Capabilities not
