@@ -470,6 +470,7 @@ class RatbagdProfile(_RatbagdDBus):
             report_rate = changed_props["ReportRate"]
             if report_rate != self._report_rate:
                 self._report_rate = report_rate
+                self.notify("report-rate")
 
     @GObject.Property
     def capabilities(self):
