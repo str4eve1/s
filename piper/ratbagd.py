@@ -27,7 +27,7 @@ from enum import IntEnum
 from evdev import ecodes
 from gettext import gettext as _
 from gi.repository import Gio, GLib, GObject
-from typing import List, Optional
+from typing import List, Optional, Tuple, Union
 
 
 # Deferred translations, see https://docs.python.org/3/library/gettext.html#deferred-translations
@@ -618,8 +618,17 @@ class RatbagdResolution(_RatbagdDBus):
         self._active = self._get_dbus_property("IsActive")
         self._default = self._get_dbus_property("IsDefault")
         self._disabled = self._get_dbus_property("IsDisabled")
+        self._resolution = self._convert_resolution_from_dbus(
+            self._get_dbus_property_nonnull("Resolution")
+        )
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        if "Resolution" in changed_props.keys():
+            resolution = self._convert_resolution_from_dbus(changed_props["Resolution"])
+            if resolution != self._resolution:
+                self._resolution = resolution
+                self.notify("resolution")
+
         if "IsActive" in changed_props.keys():
             active = changed_props["IsActive"]
             if active != self._active:
@@ -653,16 +662,23 @@ class RatbagdResolution(_RatbagdDBus):
         """The index of this resolution."""
         return self._get_dbus_property("Index")
 
+    @staticmethod
+    def _convert_resolution_from_dbus(
+        res: Union[int, Tuple[int, int]]
+    ) -> Union[Tuple[int], Tuple[int, int]]:
+        """
+        Convert resolution from what D-Bus API retuns - either an int or a tuple of two ints, to a tuple of either one or two ints.
+        """
+        if isinstance(res, int):
+            return (res,)
+        return res
+
     @GObject.Property
     def resolution(self):
         """The resolution in DPI, either as single value tuple ``(res, )``
         or as tuple ``(xres, yres)``.
         """
-        res = self._get_dbus_property("Resolution")
-        if isinstance(res, int):
-            res = tuple([res])
-        # False-positive RET504:
-        return res  # noqa: RET504
+        return self._resolution
 
     @resolution.setter
     def resolution(self, resolution):
