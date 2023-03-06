@@ -999,12 +999,6 @@ class RatbagdMacro(GObject.Object):
 class RatbagdLed(_RatbagdDBus):
     """Represents a ratbagd led."""
 
-    TYPE_LOGO = 1
-    TYPE_SIDE = 2
-    TYPE_BATTERY = 3
-    TYPE_DPI = 4
-    TYPE_WHEEL = 5
-
     class Mode(IntEnum):
         OFF = 0
         ON = 1
