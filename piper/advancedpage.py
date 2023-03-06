@@ -36,9 +36,27 @@ class AdvancedPage(Gtk.Box):
 
         self._profile = profile
 
+        cell = Gtk.CellRendererText()
+        self.debounce.pack_start(cell, True)
+        self.debounce.add_attribute(cell, "text", 0)
+
+        model = Gtk.ListStore(str)
+        for ms in profile.debounces:
+            model.append([str(ms)])
+        self.debounce.set_model(model)
+
         self._handler_debounce = self.debounce.connect(
-            "changed", self._on_debounce_changed
+            "changed", self._on_debounce_combo_changed
         )
+
+        self._profile_debounce_time_changed_handler = connect_signal_with_weak_ref(
+            self,
+            self._profile,
+            "notify::debounce",
+            self._on_profile_debounce_time_changed,
+        )
+        self._update_widget_debounce_time()
+
         self._handler_snapping = self.angle_snapping.connect(
             "state-set", self._on_snapping_state_set
         )
@@ -78,16 +96,20 @@ class AdvancedPage(Gtk.Box):
         self._mousemap = MouseMap("#Buttons", device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
 
-        cell = Gtk.CellRendererText()
-        self.debounce.pack_start(cell, True)
-        self.debounce.add_attribute(cell, "text", 0)
-
-        model = Gtk.ListStore(str)
-        for ms in profile.debounces:
-            model.append([str(ms)])
-        self.debounce.set_model(model)
-
         self.angle_snapping.set_sensitive(profile.angle_snapping != -1)
+
+        with self.angle_snapping.handler_block(self._handler_snapping):
+            self.angle_snapping.set_active(profile.angle_snapping == 1)
+
+        self.show_all()
+
+    def _on_profile_debounce_time_changed(
+        self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
+        self._update_widget_debounce_time()
+
+    def _update_widget_debounce_time(self) -> None:
+        profile = self._profile
 
         with self.debounce.handler_block(self._handler_debounce):
             if profile.debounce in profile.debounces:
@@ -96,15 +118,11 @@ class AdvancedPage(Gtk.Box):
             else:
                 self.debounce.set_active(0)
 
-        with self.angle_snapping.handler_block(self._handler_snapping):
-            self.angle_snapping.set_active(profile.angle_snapping == 1)
-
-        self.show_all()
-
-    def _on_debounce_changed(self, combo: Gtk.ComboBox) -> None:
+    def _on_debounce_combo_changed(self, combo: Gtk.ComboBox) -> None:
         idx = combo.get_active()
         profile = self._profile
-        profile.debounce = profile.debounces[idx]
+        with profile.handler_block(self._profile_debounce_time_changed_handler):
+            profile.debounce = profile.debounces[idx]
 
     def _on_snapping_state_set(self, button: Gtk.Switch, state: bool) -> None:
         profile = self._profile
