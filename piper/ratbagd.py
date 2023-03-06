@@ -432,6 +432,7 @@ class RatbagdProfile(_RatbagdDBus):
     def __init__(self, object_path):
         super().__init__("Profile", object_path)
         self._active = self._get_dbus_property("IsActive")
+        self._angle_snapping = self._get_dbus_property("AngleSnapping")
         self._debounce = self._get_dbus_property("Debounce")
         self._dirty = self._get_dbus_property("IsDirty")
         self._report_rate = self._get_dbus_property("ReportRate")
@@ -460,6 +461,16 @@ class RatbagdProfile(_RatbagdDBus):
             self.notify("dirty")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        try:
+            angle_snapping = changed_props["AngleSnapping"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
+            if angle_snapping != self._angle_snapping:
+                self._angle_snapping = angle_snapping
+                self.notify("angle-snapping")
+
         try:
             debounce = changed_props["Debounce"]
         except KeyError:
@@ -565,7 +576,7 @@ class RatbagdProfile(_RatbagdDBus):
     @GObject.Property
     def angle_snapping(self):
         """The angle snapping option."""
-        return self._get_dbus_property("AngleSnapping")
+        return self._angle_snapping
 
     @angle_snapping.setter
     def angle_snapping(self, value):
