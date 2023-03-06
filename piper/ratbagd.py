@@ -288,15 +288,20 @@ class Ratbagd(_RatbagdDBus):
         self.emit("daemon-disappeared")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
-        if "Devices" in changed_props.keys():
+        try:
+            new_device_object_paths = changed_props["Devices"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             object_paths = [d._object_path for d in self._devices]
-            for object_path in changed_props["Devices"]:
+            for object_path in new_device_object_paths:
                 if object_path not in object_paths:
                     device = RatbagdDevice(object_path)
                     self._devices.append(device)
                     self.emit("device-added", device)
             for device in self.devices:
-                if device._object_path not in changed_props["Devices"]:
+                if device._object_path not in new_device_object_paths:
                     self._devices.remove(device)
                     self.emit("device-removed", device)
             self.notify("devices")
@@ -454,20 +459,32 @@ class RatbagdProfile(_RatbagdDBus):
             self.notify("dirty")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
-        if "IsActive" in changed_props.keys():
+        try:
             active = changed_props["IsActive"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             if active != self._active:
                 self._active = active
                 self.notify("is-active")
 
-        if "IsDirty" in changed_props.keys():
+        try:
             dirty = changed_props["IsDirty"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             if dirty != self._dirty:
                 self._dirty = dirty
                 self.notify("dirty")
 
-        if "ReportRate" in changed_props.keys():
+        try:
             report_rate = changed_props["ReportRate"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             if report_rate != self._report_rate:
                 self._report_rate = report_rate
                 self.notify("report-rate")
@@ -629,26 +646,42 @@ class RatbagdResolution(_RatbagdDBus):
         )
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
-        if "Resolution" in changed_props.keys():
+        try:
             resolution = self._convert_resolution_from_dbus(changed_props["Resolution"])
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             if resolution != self._resolution:
                 self._resolution = resolution
                 self.notify("resolution")
 
-        if "IsActive" in changed_props.keys():
+        try:
             active = changed_props["IsActive"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             if active != self._active:
                 self._active = active
                 self.notify("is-active")
 
-        if "IsDefault" in changed_props.keys():
+        try:
             default = changed_props["IsDefault"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             if default != self._default:
                 self._default = default
                 self.notify("is-default")
 
-        if "IsDisabled" in changed_props.keys():
+        try:
             disabled = changed_props["IsDisabled"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
             if disabled != self._disabled:
                 self._disabled = disabled
                 self.notify("is-disabled")
