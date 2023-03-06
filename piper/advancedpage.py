@@ -57,10 +57,6 @@ class AdvancedPage(Gtk.Box):
         )
         self._update_widget_debounce_time()
 
-        self._handler_snapping = self.angle_snapping.connect(
-            "state-set", self._on_snapping_state_set
-        )
-
         are_report_rates_supported = (
             profile.report_rate != 0 and len(profile.report_rates) != 0
         )
@@ -96,10 +92,19 @@ class AdvancedPage(Gtk.Box):
         self._mousemap = MouseMap("#Buttons", device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
 
+        self._angle_snapping_switch_handler = self.angle_snapping.connect(
+            "state-set", self._on_angle_snapping_switch_state_set
+        )
+
         self.angle_snapping.set_sensitive(profile.angle_snapping != -1)
 
-        with self.angle_snapping.handler_block(self._handler_snapping):
-            self.angle_snapping.set_active(profile.angle_snapping == 1)
+        self._profile_angle_snapping_changed_handler = connect_signal_with_weak_ref(
+            self,
+            self._profile,
+            "notify::angle-snapping",
+            self._on_profile_angle_snapping_changed,
+        )
+        self._update_widget_angle_snapping()
 
         self.show_all()
 
@@ -124,9 +129,21 @@ class AdvancedPage(Gtk.Box):
         with profile.handler_block(self._profile_debounce_time_changed_handler):
             profile.debounce = profile.debounces[idx]
 
-    def _on_snapping_state_set(self, button: Gtk.Switch, state: bool) -> None:
+    def _on_angle_snapping_switch_state_set(
+        self, button: Gtk.Switch, state: bool
+    ) -> None:
         profile = self._profile
-        profile.angle_snapping = 1 if state else 0
+        with profile.handler_block(self._profile_angle_snapping_changed_handler):
+            profile.angle_snapping = 1 if state else 0
+
+    def _on_profile_angle_snapping_changed(
+        self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
+        self._update_widget_angle_snapping()
+
+    def _update_widget_angle_snapping(self) -> None:
+        with self.angle_snapping.handler_block(self._angle_snapping_switch_handler):
+            self.angle_snapping.set_active(self._profile.angle_snapping == 1)
 
     def _on_report_rate_toggled(self, button: Gtk.RadioButton, rate: int) -> None:
         if not button.get_active():
