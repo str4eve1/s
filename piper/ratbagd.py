@@ -1108,6 +1108,11 @@ class RatbagdLed(_RatbagdDBus):
     def __init__(self, object_path):
         super().__init__("Led", object_path)
 
+        self._brightness = self._get_dbus_property("Brightness")
+        self._color = self._get_dbus_property("Color")
+        self._effect_duration = self._get_dbus_property("EffectDuration")
+        self._mode: RatbagdLed.Mode = self._get_dbus_property_nonnull("Mode")
+
     @GObject.Property
     def index(self):
         """The index of this led."""
@@ -1117,7 +1122,7 @@ class RatbagdLed(_RatbagdDBus):
     def mode(self):
         """This led's mode, one of Mode.OFF, Mode.ON, Mode.CYCLE and
         Mode.BREATHING."""
-        return self._get_dbus_property("Mode")
+        return self._mode
 
     @mode.setter
     def mode(self, mode):
@@ -1136,7 +1141,7 @@ class RatbagdLed(_RatbagdDBus):
     @GObject.Property
     def color(self):
         """An integer triple of the current LED color."""
-        return self._get_dbus_property("Color")
+        return self._color
 
     @color.setter
     def color(self, color):
@@ -1155,7 +1160,7 @@ class RatbagdLed(_RatbagdDBus):
     @GObject.Property
     def effect_duration(self):
         """The LED's effect duration in ms, values range from 0 to 10000."""
-        return self._get_dbus_property("EffectDuration")
+        return self._effect_duration
 
     @effect_duration.setter
     def effect_duration(self, effect_duration):
@@ -1168,7 +1173,7 @@ class RatbagdLed(_RatbagdDBus):
     @GObject.Property
     def brightness(self):
         """The LED's brightness, values range from 0 to 255."""
-        return self._get_dbus_property("Brightness")
+        return self._brightness
 
     @brightness.setter
     def brightness(self, brightness):
@@ -1177,3 +1182,44 @@ class RatbagdLed(_RatbagdDBus):
         @param brightness The new brightness, as int
         """
         self._set_dbus_property("Brightness", "u", brightness)
+
+    def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        try:
+            brightness = changed_props["Brightness"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
+            if brightness != self._brightness:
+                self._brightness = brightness
+                self.notify("brightness")
+
+        try:
+            color = changed_props["Color"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
+            if color != self._color:
+                self._color = color
+                self.notify("color")
+
+        try:
+            effect_duration = changed_props["EffectDuration"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
+            if effect_duration != self._effect_duration:
+                self._effect_duration = effect_duration
+                self.notify("effect-duration")
+
+        try:
+            mode = changed_props["Mode"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
+            if mode != self._mode:
+                self._mode = mode
+                self.notify("mode")
