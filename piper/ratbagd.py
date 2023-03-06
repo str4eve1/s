@@ -432,6 +432,7 @@ class RatbagdProfile(_RatbagdDBus):
     def __init__(self, object_path):
         super().__init__("Profile", object_path)
         self._active = self._get_dbus_property("IsActive")
+        self._debounce = self._get_dbus_property("Debounce")
         self._dirty = self._get_dbus_property("IsDirty")
         self._report_rate = self._get_dbus_property("ReportRate")
 
@@ -459,6 +460,16 @@ class RatbagdProfile(_RatbagdDBus):
             self.notify("dirty")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        try:
+            debounce = changed_props["Debounce"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
+            if debounce != self._debounce:
+                self._debounce = debounce
+                self.notify("debounce")
+
         try:
             active = changed_props["IsActive"]
         except KeyError:
@@ -567,7 +578,7 @@ class RatbagdProfile(_RatbagdDBus):
     @GObject.Property
     def debounce(self):
         """The button debounce time in ms."""
-        return self._get_dbus_property("Debounce")
+        return self._debounce
 
     @debounce.setter
     def debounce(self, value):
