@@ -190,10 +190,10 @@ class MousePerspective(Gtk.Overlay):
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
     ) -> None:
         assert self._device is not None
-        # We're only interested in the case where the last profile is disabled,
-        # so that we can reset the sensitivity of the add button.
-        if profile.disabled and profile == self._device.profiles[-1]:
-            self.add_profile_button.set_sensitive(True)
+
+        self.add_profile_button.set_sensitive(
+            any(p.disabled for p in self._device.profiles)
+        )
 
     def _on_profile_notify_dirty(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
