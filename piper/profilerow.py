@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+import sys
 from typing import Optional
+
 import gi
 
 from piper.ratbagd import RatbagdProfile
@@ -42,7 +44,11 @@ class ProfileRow(Gtk.ListBoxRow):
 
     @Gtk.Template.Callback("_on_delete_button_clicked")
     def _on_delete_button_clicked(self, button: Gtk.Button) -> None:
-        self._profile.disabled = True
+        if not self._profile.is_active:
+            self._profile.disabled = True
+        else:
+            # TODO: display this in the app
+            print("Trying to disable the active profile", file=sys.stderr)
 
     def set_active(self) -> None:
         """Activates the profile paired with this row."""
