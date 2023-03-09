@@ -24,7 +24,7 @@ class ProfileRow(Gtk.ListBoxRow):
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self._profile = profile
         connect_signal_with_weak_ref(
-            self, self._profile, "notify::enabled", self._on_profile_notify_enabled
+            self, self._profile, "notify::disabled", self._on_profile_notify_disabled
         )
 
         name = profile.name
@@ -35,7 +35,7 @@ class ProfileRow(Gtk.ListBoxRow):
         self.show_all()
         self.set_visible(not profile.disabled)
 
-    def _on_profile_notify_enabled(
+    def _on_profile_notify_disabled(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
     ) -> None:
         self.set_visible(not profile.disabled)

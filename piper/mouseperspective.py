@@ -92,13 +92,15 @@ class MousePerspective(Gtk.Overlay):
         self.listbox_profiles.foreach(Gtk.Widget.destroy)
         for profile in device.profiles:
             connect_signal_with_weak_ref(
-                self, profile, "notify::enabled", self._on_profile_notify_enabled
+                self, profile, "notify::disabled", self._on_profile_notify_disabled
             )
             connect_signal_with_weak_ref(
                 self, profile, "notify::dirty", self._on_profile_notify_dirty
             )
             row = ProfileRow(profile)
             self.listbox_profiles.insert(row, profile.index)
+
+        self._on_profile_notify_disabled(active_profile, None)
 
         self._select_profile_row(self._profile)
 
@@ -187,11 +189,9 @@ class MousePerspective(Gtk.Overlay):
             if not profile.disabled:
                 continue
             profile.disabled = False
-            if profile == self._device.profiles[-1]:
-                self.add_profile_button.set_sensitive(False)
             break
 
-    def _on_profile_notify_enabled(
+    def _on_profile_notify_disabled(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
     ) -> None:
         assert self._device is not None
