@@ -84,11 +84,6 @@ class MousePerspective(Gtk.Overlay):
 
         self.button_profile.set_visible(len(device.profiles) > 1)
 
-        # Find the first profile that is enabled. If there is none, disable the
-        # add button.
-        left = next((p for p in device.profiles if p.disabled), None)
-        self.add_profile_button.set_visible(left is not None)
-
         self.listbox_profiles.foreach(Gtk.Widget.destroy)
         for profile in device.profiles:
             connect_signal_with_weak_ref(
