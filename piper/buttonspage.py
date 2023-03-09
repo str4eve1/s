@@ -2,12 +2,16 @@
 
 from gettext import gettext as _
 from typing import Optional
-from evdev import ecodes
 
 from .buttondialog import ButtonDialog
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
-from .ratbagd import RatbagdButton, RatbagdDevice, RatbagdMacro, RatbagdProfile
+from .ratbagd import (
+    RatbagdButton,
+    RatbagdDevice,
+    RatbagdProfile,
+    evcode_to_str,
+)
 from .util.gobject import connect_signal_with_weak_ref
 
 import gi
@@ -104,9 +108,7 @@ class ButtonsPage(Gtk.Box):
         elif action_type == RatbagdButton.ActionType.MACRO:
             label = _("Macro: {}").format(str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ActionType.KEY:
-            label = _("Key: {}").format(
-                ecodes.KEY[ratbagd_button.key][RatbagdMacro._PREFIX_LEN :]
-            )
+            label = _("Key: {}").format(evcode_to_str(ratbagd_button.key))
         elif action_type == RatbagdButton.ActionType.NONE:
             # Translators: the button is turned disabled, e.g. off.
             label = _("Disabled")
