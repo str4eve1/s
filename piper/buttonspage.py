@@ -179,7 +179,7 @@ class ButtonsPage(Gtk.Box):
                         profile.buttons[index].special = dialog.mapping
         dialog.destroy()
 
-    def _find_button_type(self, button_type: int) -> None:
+    def _find_button_type(self, button_type: int) -> Optional[RatbagdButton]:
         for button in self._profile.buttons:
             if button.index == button_type:
                 return button

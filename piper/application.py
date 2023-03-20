@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+from typing import Optional
+
 from .ratbagd import Ratbagd
 from .window import Window
 
@@ -32,7 +34,7 @@ class Application(Gtk.Application):
         case another window is opened."""
         Gtk.Application.do_startup(self)
         self._build_app_menu()
-        self._ratbagd = None
+        self._ratbagd: Optional[Ratbagd] = None
 
     def init_ratbagd(self) -> Ratbagd:
         if self._ratbagd is None:

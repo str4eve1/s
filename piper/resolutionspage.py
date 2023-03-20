@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from gettext import gettext as _
+from typing import Optional
 
 from .mousemap import MouseMap
 from .ratbagd import RatbagdButton, RatbagdDevice, RatbagdProfile
@@ -42,7 +43,7 @@ class ResolutionsPage(Gtk.Box):
         Gtk.Box.__init__(self, *args, **kwargs)
 
         self._device = ratbagd_device
-        self._last_activated_row = None
+        self._last_activated_row: Optional[Gtk.ListBoxRow] = None
         self._profile = profile
 
         mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)

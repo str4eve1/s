@@ -10,7 +10,7 @@ from .ratbagd import RatbagdButton, RatbagdMacro, RatbagDeviceType
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gdk, GObject, Gtk  # noqa
+from gi.repository import Gdk, GdkX11, GObject, Gtk  # noqa
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ButtonRow.ui")
@@ -94,8 +94,8 @@ class ButtonDialog(Gtk.Dialog):
         @param devicetype The type of this device, as ratbagd.RatbagDeviceType.
         """
         Gtk.Dialog.__init__(self, *args, **kwargs)
-        self._grab_pointer = None
-        self._current_macro = None
+        self._grab_pointer: Optional[GdkX11.X11DeviceXI2] = None
+        self._current_macro: Optional[RatbagdMacro] = None
         self._button = ratbagd_button
         self._device_type = device_type
         self._action_type = self._button.action_type

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from typing import Any, List, Tuple
+from typing import Any, List, Optional, Tuple
+
 import cairo
 import gi
 import sys
@@ -120,7 +121,7 @@ class MouseMap(Gtk.Container):
         self._layer = layer
         self._device = ratbagd_device
         self._children: List[_MouseMapChild] = []
-        self._highlight_element = None
+        self._highlight_element: Optional[str] = None
 
         # TODO: remove this when we're out of the transition to toned down SVGs
         device = self._handle.has_sub("#Device")
