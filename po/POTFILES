@@ -2,6 +2,7 @@ data/org.freedesktop.Piper.desktop.in
 data/org.freedesktop.Piper.appdata.xml.in.in
 
 piper/__init__.py
+piper/advancedpage.py
 piper/application.py
 piper/buttondialog.py
 piper/buttonspage.py
@@ -20,6 +21,7 @@ piper/welcomeperspective.py
 piper/window.py
 
 data/ui/AboutDialog.ui.in
+data/ui/AdvancedPage.ui
 data/ui/ButtonDialog.ui
 data/ui/ButtonRow.ui
 data/ui/DeviceRow.ui
