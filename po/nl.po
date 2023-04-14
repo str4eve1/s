@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-10 21:12+0200\n"
-"PO-Revision-Date: 2023-04-10 21:26+0200\n"
+"POT-Creation-Date: 2023-04-14 12:32+0200\n"
+"PO-Revision-Date: 2023-04-14 12:36+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <>\n"
 "Language: nl_NL\n"
@@ -111,19 +111,19 @@ msgstr "Onbekend"
 msgid "Configure button {}"
 msgstr "{}knop instellen"
 
-#: piper/mouseperspective.py:119 data/ui/ResolutionsPage.ui:78
+#: piper/mouseperspective.py:120 data/ui/ResolutionsPage.ui:78
 msgid "Resolutions"
 msgstr "Resoluties"
 
-#: piper/mouseperspective.py:123
+#: piper/mouseperspective.py:124
 msgid "Buttons"
 msgstr "Knoppen"
 
-#: piper/mouseperspective.py:126
+#: piper/mouseperspective.py:127
 msgid "LEDs"
 msgstr "Ledverlichting"
 
-#: piper/mouseperspective.py:137
+#: piper/mouseperspective.py:138
 msgid "Advanced"
 msgstr "Geavanceerd"
 
@@ -255,8 +255,10 @@ msgid "Cannot connect to ratbagd"
 msgstr "Kan niet verbinden met ratbagd"
 
 #: piper/window.py:54
-msgid "Please make sure ratbagd is running and your user is in the required group"
-msgstr "Zorg er voor dat ratbagd uitgevoerd wordt en dat je gebruikersaccount "
+msgid ""
+"Please make sure ratbagd is running and your user is in the required group"
+msgstr ""
+"Zorg er voor dat ratbagd uitgevoerd wordt en dat je gebruikersaccount "
 "onderdeel van de vereiste groep is"
 
 #: piper/window.py:61
@@ -320,6 +322,32 @@ msgstr "GitHub-pagina openen"
 #: data/ui/AboutDialog.ui.in:13
 msgid "translator-credits"
 msgstr "Heimen Stoffels <vistausss@fastmail.com>"
+
+#. Translators: the rate at which the device reports movement.
+#: data/ui/AdvancedPage.ui:33
+msgid "Report rate"
+msgstr "Rapportagesnelheid"
+
+#: data/ui/AdvancedPage.ui:50
+msgid "Change the profile’s report rate"
+msgstr "Pas de rapportagesnelheid van dit profiel aan"
+
+#: data/ui/AdvancedPage.ui:125
+msgid "Hz"
+msgstr "Hz"
+
+#: data/ui/AdvancedPage.ui:154
+msgid "Debounce time"
+msgstr "Vertraging"
+
+#: data/ui/AdvancedPage.ui:183 data/ui/LedDialog.ui:138
+#: data/ui/LedDialog.ui:294
+msgid "ms"
+msgstr "ms"
+
+#: data/ui/AdvancedPage.ui:212
+msgid "Angle snapping"
+msgstr "Stabiele muisverplaatsing"
 
 #: data/ui/ButtonDialog.ui:59
 msgid "Search for a button mapping"
@@ -419,10 +447,6 @@ msgstr "Helderheid"
 #: data/ui/LedDialog.ui:120 data/ui/LedDialog.ui:276
 msgid "Choose an effect duration for the LED"
 msgstr "Kies een ledeffectsnelheid"
-
-#: data/ui/LedDialog.ui:138 data/ui/LedDialog.ui:294
-msgid "ms"
-msgstr "ms"
 
 #: data/ui/LedDialog.ui:158 data/ui/LedDialog.ui:314
 msgid "Effect duration"
@@ -531,15 +555,6 @@ msgstr "_Over Piper"
 
 #~ msgid "Quit"
 #~ msgstr "Afsluiten"
-
-#~ msgid "Report rate"
-#~ msgstr "Rapportagesnelheid"
-
-#~ msgid "Change the profile’s report rate"
-#~ msgstr "Pas de rapportagesnelheid van dit profiel aan"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
 
 #~ msgid "Sensitivity"
 #~ msgstr "Gevoeligheid"
