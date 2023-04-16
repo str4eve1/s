@@ -71,7 +71,7 @@ def check_elements(root, prefix, required=0):
 
     idx = 0
     highest = -1
-    for idx in range(0, 20):
+    for idx in range(20):
         e = f"{prefix}{idx}"
         previous = f"{prefix}{idx - 1}"
         leader = f"{prefix}{idx}-leader"

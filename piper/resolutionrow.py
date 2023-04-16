@@ -76,8 +76,8 @@ class ResolutionRow(Gtk.ListBoxRow):
         value = min(max(self.resolutions[0], value), self.resolutions[-1])
 
         # Find the nearest permitted value to our Gtk.Scale value.
-        lo = max([r for r in self.resolutions if r <= value])
-        hi = min([r for r in self.resolutions if r >= value])
+        lo = max(r for r in self.resolutions if r <= value)
+        hi = min(r for r in self.resolutions if r >= value)
 
         value = lo if value - lo < hi - value else hi
 
