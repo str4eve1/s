@@ -97,10 +97,7 @@ class Window(Gtk.ApplicationWindow):
                 response = dialog.run()
                 dialog.destroy()
 
-                if (
-                    response == Gtk.ResponseType.NO
-                    or response == Gtk.ResponseType.DELETE_EVENT
-                ):
+                if response in [Gtk.ResponseType.NO, Gtk.ResponseType.DELETE_EVENT]:
                     return Gdk.EVENT_STOP
         return Gdk.EVENT_PROPAGATE
 
