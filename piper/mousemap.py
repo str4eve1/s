@@ -28,8 +28,8 @@ class _MouseMapChild:
         self._widget = widget
         self._is_left = is_left
         self._svg_id = svg_id
-        self._svg_leader = svg_id + "-leader"
-        self._svg_path = svg_id + "-path"
+        self._svg_leader = f"{svg_id}-leader"
+        self._svg_path = f"{svg_id}-path"
 
     @property
     def widget(self) -> Gtk.Widget:
@@ -139,7 +139,7 @@ class MouseMap(Gtk.Container):
         @param svg_id The identifier of the SVG element with which this widget
                       is to be paired, as str
         """
-        svg_leader = svg_id + "-leader"
+        svg_leader = f"{svg_id}-leader"
         if (
             widget is None
             or svg_id is None
@@ -318,7 +318,7 @@ class MouseMap(Gtk.Container):
         if prop.name == "spacing":
             return self.spacing
 
-        raise AttributeError("Unknown property %s" % prop.name)
+        raise AttributeError(f"Unknown property {prop.name}")
 
     def _on_enter(
         self, widget: Gtk.Widget, event: Gdk.EventCrossing, child: _MouseMapChild

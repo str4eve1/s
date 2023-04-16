@@ -92,9 +92,7 @@ class RatbagdIncompatibleError(Exception):
         super().__init__()
         self.ratbagd_version = ratbagd_version
         self.required_version = required_version
-        self.message = "ratbagd API version is {} but we require {}".format(
-            ratbagd_version, required_version
-        )
+        self.message = f"ratbagd API version is {ratbagd_version} but we require {required_version}"
 
     def __str__(self):
         return self.message
