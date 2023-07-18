@@ -131,7 +131,7 @@ class ResolutionRow(Gtk.ListBoxRow):
             self.active_button.set_sensitive(True)
             if self.CAP_DISABLE:
                 with self.disable_button.handler_block(self._disabled_button_handler):
-                    self.disable_button.set_sensitive(True)
+                    self.disable_button.set_sensitive(not resolution.is_default)
                     if resolution.is_disabled:
                         self.disable_button.set_active(True)
                         self.active_button.set_sensitive(False)
