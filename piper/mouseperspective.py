@@ -65,6 +65,7 @@ class MousePerspective(Gtk.Overlay):
 
     @GObject.Property
     def device(self) -> RatbagdDevice:
+        assert self._device is not None
         return self._device
 
     def set_device(self, device: RatbagdDevice) -> None:
@@ -98,7 +99,7 @@ class MousePerspective(Gtk.Overlay):
 
         self._on_profile_notify_disabled(active_profile, None)
 
-        self._select_profile_row(self._profile)
+        self._select_profile_row(active_profile)
 
     def _select_profile_row(self, profile: RatbagdProfile) -> None:
         for row in self.listbox_profiles.get_children():
@@ -172,9 +173,7 @@ class MousePerspective(Gtk.Overlay):
         self._hide_notification_error()
 
     @Gtk.Template.Callback("_on_profile_row_activated")
-    def _on_profile_row_activated(
-        self, listbox: Gtk.ListBox, row: Gtk.ListBoxRow
-    ) -> None:
+    def _on_profile_row_activated(self, listbox: Gtk.ListBox, row: ProfileRow) -> None:
         row.set_active()
 
     @Gtk.Template.Callback("_on_add_profile_button_clicked")

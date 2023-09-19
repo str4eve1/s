@@ -60,7 +60,8 @@ class Application(Gtk.Application):
         builder = Gtk.Builder().new_from_resource(
             "/org/freedesktop/Piper/AboutDialog.ui"
         )
-        about = builder.get_object("about_dialog")
+        about: Optional[Gtk.AboutDialog] = builder.get_object("about_dialog")  # type: ignore
+        assert about is not None
         about.set_transient_for(self.get_active_window())
         about.connect("response", lambda about, param: about.destroy())
         about.show()

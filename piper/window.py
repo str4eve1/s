@@ -18,8 +18,6 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GLib, Gtk, Gio  # noqa
 
-# TODO: type hint perspectives.
-
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/Window.ui")
 class Window(Gtk.ApplicationWindow):
@@ -33,9 +31,7 @@ class Window(Gtk.ApplicationWindow):
     stack_perspectives: Gtk.Stack = Gtk.Template.Child()  # type: ignore
     stack_titlebar: Gtk.Stack = Gtk.Template.Child()  # type: ignore
 
-    def __init__(
-        self, init_ratbagd_cb: Callable[[], RatbagdDevice], *args, **kwargs
-    ) -> None:
+    def __init__(self, init_ratbagd_cb: Callable[[], Ratbagd], *args, **kwargs) -> None:
         """Instantiates a new Window.
 
         @param ratbag The ratbag instance to connect to, as ratbagd.Ratbag
@@ -67,7 +63,7 @@ class Window(Gtk.ApplicationWindow):
         for perspective in [MousePerspective(), WelcomePerspective()]:
             self._add_perspective(perspective, ratbag)
 
-        welcome_perspective = self._get_child("welcome_perspective")
+        welcome_perspective: WelcomePerspective = self._get_child("welcome_perspective")  # type: ignore
         welcome_perspective.connect("device-selected", self._on_device_selected)
 
         ratbag.connect("device-added", self._on_device_added)
@@ -112,7 +108,9 @@ class Window(Gtk.ApplicationWindow):
             self._present_mouse_perspective(device)
         elif self.stack_perspectives.get_visible_child_name() == "welcome_perspective":
             # We're in the welcome perspective; just add it to the list.
-            welcome_perspective = self._get_child("welcome_perspective")
+            welcome_perspective: WelcomePerspective = self._get_child(
+                "welcome_perspective"
+            )  # type: ignore
             welcome_perspective.add_device(device)
         else:
             # We're configuring another device; just notify the user.
@@ -120,7 +118,7 @@ class Window(Gtk.ApplicationWindow):
             print("Device connected")
 
     def _on_device_removed(self, ratbag: Ratbagd, device: RatbagdDevice) -> None:
-        mouse_perspective = self._get_child("mouse_perspective")
+        mouse_perspective: MousePerspective = self._get_child("mouse_perspective")  # type: ignore
 
         if device is mouse_perspective.device:
             # The current device disconnected, which can only happen from the
@@ -134,7 +132,7 @@ class Window(Gtk.ApplicationWindow):
         elif self.stack_perspectives.get_visible_child_name() == "welcome_perspective":
             # We're in the welcome screen; just remove it from the list. If
             # there is nothing left, display the error perspective.
-            welcome_perspective = self._get_child("welcome_perspective")
+            welcome_perspective: WelcomePerspective = self._get_child("welcome_perspective")  # type: ignore
             welcome_perspective.remove_device(device)
             if len(ratbag.devices) == 0:
                 self._present_error_perspective(
@@ -160,7 +158,7 @@ class Window(Gtk.ApplicationWindow):
     def _present_welcome_perspective(self, devices: List[RatbagdDevice]) -> None:
         # Present the welcome perspective for the user to select one of their
         # devices.
-        welcome_perspective = self._get_child("welcome_perspective")
+        welcome_perspective: WelcomePerspective = self._get_child("welcome_perspective")  # type: ignore
         welcome_perspective.set_devices(devices)
 
         self.stack_titlebar.set_visible_child_name(welcome_perspective.name)
@@ -169,7 +167,7 @@ class Window(Gtk.ApplicationWindow):
     def _present_mouse_perspective(self, device: RatbagdDevice) -> None:
         # Present the mouse configuration perspective for the given device.
         try:
-            mouse_perspective = self._get_child("mouse_perspective")
+            mouse_perspective: MousePerspective = self._get_child("mouse_perspective")  # type: ignore
             mouse_perspective.set_device(device)
 
             self.stack_titlebar.set_visible_child_name(mouse_perspective.name)
@@ -193,7 +191,7 @@ class Window(Gtk.ApplicationWindow):
 
     def _present_error_perspective(self, message: str, detail: str) -> None:
         # Present the error perspective informing the user of any errors.
-        error_perspective = self._get_child("error_perspective")
+        error_perspective: ErrorPerspective = self._get_child("error_perspective")  # type: ignore
         error_perspective.set_message(message)
         error_perspective.set_detail(detail)
 

@@ -47,7 +47,9 @@ class LedDialog(Gtk.Dialog):
             if mode == v:
                 self.stack.set_visible_child_name(k)
             if v not in self._led.modes:
-                self.stack.get_child_by_name(k).set_visible(False)
+                child = self.stack.get_child_by_name(k)
+                assert child is not None
+                child.set_visible(False)
         rgba = self._get_led_color_as_rgba()
         self.colorchooser.set_rgba(rgba)
         self.colorbutton.set_rgba(rgba)
@@ -81,6 +83,7 @@ class LedDialog(Gtk.Dialog):
     @GObject.Property
     def mode(self) -> RatbagdLed.Mode:
         visible_child = self.stack.get_visible_child_name()
+        assert visible_child is not None
         return self._modes[visible_child]
 
     @GObject.Property

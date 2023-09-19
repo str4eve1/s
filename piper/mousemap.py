@@ -109,7 +109,10 @@ class MouseMap(Gtk.Container):
             raise ValueError("Device cannot be None")
         try:
             svg_bytes = get_svg(ratbagd_device.model)
-            self._handle = Rsvg.Handle.new_from_data(svg_bytes)
+            assert svg_bytes is not None
+            handle = Rsvg.Handle.new_from_data(svg_bytes)
+            assert handle is not None
+            self._handle: Rsvg.Handle = handle
             self._svg_data = etree.fromstring(svg_bytes)
         except FileNotFoundError as e:
             raise ValueError("Device has no image or its path is invalid") from e

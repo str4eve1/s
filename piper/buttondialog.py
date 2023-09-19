@@ -94,7 +94,7 @@ class ButtonDialog(Gtk.Dialog):
         @param devicetype The type of this device, as ratbagd.RatbagDeviceType.
         """
         Gtk.Dialog.__init__(self, *args, **kwargs)
-        self._grab_pointer: Optional[GdkX11.X11DeviceXI2] = None
+        self._grab_pointer: Optional[Gdk.Device] = None
         self._current_macro: Optional[RatbagdMacro] = None
         self._button = ratbagd_button
         self._device_type = device_type
@@ -380,7 +380,7 @@ class ButtonDialog(Gtk.Dialog):
             self._mapping = row._value
 
     @Gtk.Template.Callback("_on_apply_button_clicked")
-    def _on_apply_button_clicked(self, button: Gtk.Button) -> None:
+    def _on_apply_button_clicked(self, button: Gtk.Button) -> Optional[bool]:
         if self.stack.get_visible_child_name() == "capture":
             assert self._current_macro is not None
             self._current_macro.accept()

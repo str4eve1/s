@@ -36,7 +36,9 @@ class DeviceRow(Gtk.ListBoxRow):
 
         try:
             svg_bytes = get_svg(device.model)
+            assert svg_bytes is not None
             handle = Rsvg.Handle.new_from_data(svg_bytes)
+            assert handle is not None
             svg = handle.get_pixbuf_sub("#Device")
             handle.close()
             if svg is None:

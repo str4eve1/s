@@ -83,9 +83,7 @@ class WelcomePerspective(Gtk.Box):
         return True
 
     @Gtk.Template.Callback("_on_device_row_activated")
-    def _on_device_row_activated(
-        self, listbox: Gtk.ListBox, row: Gtk.ListBoxRow
-    ) -> None:
+    def _on_device_row_activated(self, listbox: Gtk.ListBox, row: DeviceRow) -> None:
         self.emit("device-selected", row.device)
 
     def _listbox_sort_func(self, row1: DeviceRow, row2: DeviceRow) -> int:

@@ -12,6 +12,7 @@ def get_svg(model: str) -> Optional[bytes]:
     )
 
     data = resource.get_data()
+    assert data is not None
     config = configparser.ConfigParser()
     config.read_string(data.decode("utf-8"), source="svg-lookup.ini")
     assert config.sections()

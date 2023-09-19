@@ -43,7 +43,7 @@ class ResolutionsPage(Gtk.Box):
         Gtk.Box.__init__(self, *args, **kwargs)
 
         self._device = ratbagd_device
-        self._last_activated_row: Optional[Gtk.ListBoxRow] = None
+        self._last_activated_row: Optional[ResolutionRow] = None
         self._profile = profile
 
         mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
@@ -67,7 +67,7 @@ class ResolutionsPage(Gtk.Box):
             self.listbox.insert(row, resolution.index)
 
     @Gtk.Template.Callback("_on_row_activated")
-    def _on_row_activated(self, listbox: Gtk.ListBox, row: Gtk.ListBoxRow) -> None:
+    def _on_row_activated(self, listbox: Gtk.ListBox, row: ResolutionRow) -> None:
         if row is self._last_activated_row:
             self._last_activated_row = None
             row.toggle_revealer()
