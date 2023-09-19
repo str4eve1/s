@@ -262,29 +262,21 @@ class ButtonDialog(Gtk.Dialog):
         return name, description
 
     def _grab_seat(self) -> bool:
-        # Grabs the keyboard seat. Returns True on success, False on failure.
-        # Gratefully copied from GNOME Control Center's keyboard panel.
+        """
+        Grabs the keyboard seat. Returns True on success, False on failure.
+        Gratefully copied from GNOME Control Center's keyboard panel.
+        """
         window = self.get_window()
-        if window is None:
-            return False
+        assert window is not None
         display = window.get_display()
-        seats = display.list_seats()
-        if len(seats) == 0:
-            return False
-        device = seats[0].get_keyboard()
-        if device is None:
-            return False
-        if device.get_source == Gdk.InputSource.KEYBOARD:
-            pointer = device.get_associated_device()
-            if pointer is None:
-                return False
-        else:
-            pointer = device
-        status = pointer.get_seat().grab(
+        seat: Gdk.Seat = display.get_default_seat()
+        status = seat.grab(
             window, Gdk.SeatCapabilities.KEYBOARD, False, None, None, None, None
         )
         if status != Gdk.GrabStatus.SUCCESS:
             return False
+        pointer = seat.get_keyboard()
+        assert pointer is not None
         self._grab_pointer = pointer
         self.grab_add()
         return True
