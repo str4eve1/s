@@ -68,10 +68,9 @@ class LedDialog(Gtk.Dialog):
     def _on_change_value(
         self, scale: Gtk.Scale, scroll: Gtk.ScrollType, value: float
     ) -> bool:
-        # Round the value resulting from a scroll event to the nearest multiple
-        # of 500. This is to work around the Gtk.Scale not snapping to its
-        # Gtk.Adjustment's step_increment.
-        scale.set_value(int(value - (value % 500)))
+        # Work around the Gtk.Scale not snapping to its step increment.
+        step = scale.get_adjustment().get_step_increment()
+        scale.set_value(int(round(value / step) * step))
         return True
 
     def _get_led_color_as_rgba(self) -> Gdk.RGBA:
