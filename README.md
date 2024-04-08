@@ -86,7 +86,7 @@ You can check if your code passes tests before submitting changes using the
 following command:
 
 ```sh
-meson -C builddir test
+meson test -C builddir
 ```
 
 Source
