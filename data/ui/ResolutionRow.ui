@@ -22,6 +22,7 @@
                 <property name="halign">start</property>
                 <signal name="activate" handler="_on_dpi_entry_activate" swapped="no"/>
                 <signal name="insert-text" handler="_on_dpi_entry_insert_text" swapped="no"/>
+                <signal name="focus-in-event" handler="_on_dpi_entry_focus_in" swapped="no"/>
               </object>
             </child>
             <child>
@@ -74,7 +75,7 @@
                   <object class="GtkScale" id="scale">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="tooltip-text" translatable="yes">Set this resolution's dpi</property>
+                    <property name="tooltip-text" translatable="yes">Set this resolution's DPI</property>
                     <property name="round-digits">0</property>
                     <property name="digits">0</property>
                     <property name="draw-value">False</property>

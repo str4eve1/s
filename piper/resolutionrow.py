@@ -29,9 +29,12 @@ class ResolutionRow(Gtk.ListBoxRow):
     CAP_SEPARATE_XY_RESOLUTION = False
     CAP_DISABLE = False
 
-    def __init__(self, resolution: RatbagdResolution, *args, **kwargs) -> None:
+    def __init__(
+        self, resolution: RatbagdResolution, resolutions_page, *args, **kwargs
+    ) -> None:
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
 
+        self.resolutions_page = resolutions_page
         self._resolution = resolution
         self.resolutions = resolution.resolutions
         self.previous_dpi_entry_value = None
@@ -103,30 +106,6 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         return True
 
-    @Gtk.Template.Callback("_on_dpi_entry_insert_text")
-    def _on_dpi_entry_insert_text(self, entry, text, _length, _position):
-        # Remove any non-numeric characters from the input
-        if not text.isdigit():
-            entry.stop_emission("insert-text")
-
-    @Gtk.Template.Callback("_on_dpi_entry_activate")
-    def _on_dpi_entry_activate(self, entry: Gtk.Entry) -> None:
-        # The DPI entry has been changed, update the scale and RatbagdResolution's resolution.
-        try:
-            res = int(entry.get_text())
-            # Get the resolution closest to what has been entered
-            closest_res = min(self.resolutions, key=lambda x: abs(x - res))
-            entry.set_text(str(closest_res))
-
-            if closest_res != self.previous_dpi_entry_value:
-                self._on_dpi_values_changed(res=res)
-
-            with self.scale.handler_block(self._scale_handler):
-                self.scale.set_value(res)
-        except ValueError:
-            # If the input is not a valid integer, reset to the current value.
-            entry.set_text(str(self._resolution.resolution[0]))
-
     def _on_disable_button_toggled(self, togglebutton: Gtk.Button) -> None:
         # The disable button has been toggled, update RatbagdResolution.
         self._resolution.set_disabled(togglebutton.get_active())
@@ -191,6 +170,35 @@ class ResolutionRow(Gtk.ListBoxRow):
         # Only update new resolution if changed
         if new_res != self._resolution.resolution:
             self._resolution.resolution = new_res
+
+    @Gtk.Template.Callback("_on_dpi_entry_insert_text")
+    def _on_dpi_entry_insert_text(self, entry, text, _length, _position):
+        # Remove any non-numeric characters from the input
+        if not text.isdigit():
+            entry.stop_emission("insert-text")
+
+    @Gtk.Template.Callback("_on_dpi_entry_activate")
+    def _on_dpi_entry_activate(self, entry: Gtk.Entry) -> None:
+        # The DPI entry has been changed, update the scale and RatbagdResolution's resolution.
+        try:
+            res = int(entry.get_text())
+            # Get the resolution closest to what has been entered
+            closest_res = min(self.resolutions, key=lambda x: abs(x - res))
+            entry.set_text(str(closest_res))
+
+            if closest_res != self.previous_dpi_entry_value:
+                self._on_dpi_values_changed(res=res)
+
+            with self.scale.handler_block(self._scale_handler):
+                self.scale.set_value(res)
+        except ValueError:
+            # If the input is not a valid integer, reset to the current value.
+            entry.set_text(str(self._resolution.resolution[0]))
+
+    @Gtk.Template.Callback("_on_dpi_entry_focus_in")
+    def _on_dpi_entry_focus_in(self, entry, event_focus):
+        if not self.revealer.get_reveal_child():
+            self.resolutions_page._on_row_activated(None, self)
 
     def _on_profile_resolution_changed(
         self, resolution: RatbagdResolution, pspec: GObject.ParamSpec

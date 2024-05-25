@@ -63,7 +63,7 @@ class ResolutionsPage(Gtk.Box):
 
         self.listbox.foreach(Gtk.Widget.destroy)
         for resolution in profile.resolutions:
-            row = ResolutionRow(resolution)
+            row = ResolutionRow(resolution, self)
             self.listbox.insert(row, resolution.index)
 
     @Gtk.Template.Callback("_on_row_activated")
