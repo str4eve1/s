@@ -4,11 +4,11 @@ from typing import Optional
 
 import gi
 
+from gi.repository import GObject, Gdk, Gtk  # noqa
 from .ratbagd import RatbagdResolution
 from .util.gobject import connect_signal_with_weak_ref
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import GObject, Gdk, Gtk  # noqa
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ResolutionRow.ui")
@@ -114,12 +114,12 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._on_status_changed(self._resolution, pspec=None)
 
     @Gtk.Template.Callback("_on_active_button_clicked")
-    def _on_active_button_clicked(self, togglebutton: Gtk.Button) -> None:
+    def _on_active_button_clicked(self, _togglebutton: Gtk.Button) -> None:
         # The set active button has been clicked, update RatbagdResolution.
         self._resolution.set_active()
 
     @Gtk.Template.Callback("_on_scroll_event")
-    def _on_scroll_event(self, widget: Gtk.Widget, event: Gdk.EventScroll) -> bool:
+    def _on_scroll_event(self, widget: Gtk.Widget, _event: Gdk.EventScroll) -> bool:
         # Prevent a scroll in the list to get caught by the scale.
         GObject.signal_stop_emission_by_name(widget, "scroll-event")
         return False
@@ -172,7 +172,9 @@ class ResolutionRow(Gtk.ListBoxRow):
             self._resolution.resolution = new_res
 
     @Gtk.Template.Callback("_on_dpi_entry_insert_text")
-    def _on_dpi_entry_insert_text(self, entry, text, _length, _position):
+    def _on_dpi_entry_insert_text(
+        self, entry: Gtk.Entry, text: str, _length: int, _position: int
+    ):
         # Remove any non-numeric characters from the input
         if not text.isdigit():
             entry.stop_emission("insert-text")
@@ -196,12 +198,12 @@ class ResolutionRow(Gtk.ListBoxRow):
             entry.set_text(str(self._resolution.resolution[0]))
 
     @Gtk.Template.Callback("_on_dpi_entry_focus_in")
-    def _on_dpi_entry_focus_in(self, entry, event_focus):
+    def _on_dpi_entry_focus_in(self, _entry: Gtk.Entry, _event_focus: Gdk.EventFocus):
         if not self.revealer.get_reveal_child():
             self.resolutions_page._on_row_activated(None, self)
 
     def _on_profile_resolution_changed(
-        self, resolution: RatbagdResolution, pspec: GObject.ParamSpec
+        self, resolution: RatbagdResolution, _pspec: GObject.ParamSpec
     ) -> None:
         with self.scale.handler_block(self._scale_handler):
             res = resolution.resolution[0]
