@@ -103,8 +103,8 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         return True
 
-    @Gtk.Template.Callback("_on_insert_dpi_entry_text")
-    def _on_insert_dpi_entry_text(self, entry, text, _length, _position):
+    @Gtk.Template.Callback("_on_dpi_entry_insert_text")
+    def _on_dpi_entry_insert_text(self, entry, text, _length, _position):
         # Remove any non-numeric characters from the input
         if not text.isdigit():
             entry.stop_emission("insert-text")
