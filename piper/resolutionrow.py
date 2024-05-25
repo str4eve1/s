@@ -22,6 +22,7 @@ class ResolutionRow(Gtk.ListBoxRow):
     active_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
     disable_button: Gtk.Button = Gtk.Template.Child()  # type: ignore
     dpi_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
+    dpi_entry: Gtk.Entry = Gtk.Template.Child()  # type: ignore
     revealer: Gtk.Revealer = Gtk.Template.Child()  # type: ignore
     scale: Gtk.Scale = Gtk.Template.Child()  # type: ignore
 
@@ -33,6 +34,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
         self._resolution = resolution
         self.resolutions = resolution.resolutions
+        self.previous_dpi_entry_value = None
         self._scale_handler = self.scale.connect(
             "value-changed", self._on_scale_value_changed
         )
@@ -49,6 +51,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         connect_signal_with_weak_ref(
             self, resolution, "notify::resolution", self._on_profile_resolution_changed
         )
+        self.dpi_entry.connect("focus-in-event", self._on_entry_focus_in)
 
         # Get resolution capabilities and update internal values.
         if RatbagdResolution.CAP_SEPARATE_XY_RESOLUTION in resolution.capabilities:
@@ -60,6 +63,12 @@ class ResolutionRow(Gtk.ListBoxRow):
         res = resolution.resolution[0]
         minres = resolution.resolutions[0]
         maxres = resolution.resolutions[-1]
+        res_num_chars = len(str(maxres))
+
+        # Set the max width and length for the DPI text boxes, based on the max res value.
+        self.dpi_entry.set_size_request(res_num_chars, 1)
+        self.dpi_entry.set_max_length(res_num_chars)
+
         with self.scale.handler_block(self._scale_handler):
             self.scale.props.adjustment.configure(res, minres, maxres, 50, 50, 0)
             self.scale.set_value(res)
@@ -82,6 +91,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         value = lo if value - lo < hi - value else hi
 
         scale.set_value(value)
+        self.dpi_entry.set_text(str(value))
 
         # libratbag provides a fake-exponential range with the deltas
         # increasing as the resolution goes up. Make sure we set our
@@ -93,6 +103,35 @@ class ResolutionRow(Gtk.ListBoxRow):
             scale.props.adjustment.set_page_increment(delta)
 
         return True
+
+    @Gtk.Template.Callback("_on_insert_dpi_entry_text")
+    def _on_insert_dpi_entry_text(self, entry, text, length, position):
+        # Remove any non-numeric characters from the input
+        new_text = "".join([c for c in text if c.isdigit()])
+        if new_text != text:
+            entry.stop_emission("insert-text")
+            entry.insert_text(new_text, len(new_text))
+
+    @Gtk.Template.Callback("_on_dpi_entry_activate")
+    def _on_dpi_entry_activate(self, entry: Gtk.Entry) -> None:
+        # The DPI entry has been changed, update the scale and RatbagdResolution's resolution.
+        try:
+            res = int(entry.get_text())
+            # Get the resolution closest to what has been entered
+            closest_res = min(self.resolutions, key=lambda x: abs(x - res))
+            entry.set_text(str(closest_res))
+            if closest_res != self.previous_dpi_entry_value:
+                self._on_dpi_values_changed(res=res)
+            with self.scale.handler_block(self._scale_handler):
+                self.scale.set_value(res)
+        except ValueError:
+            # If the input is not a valid integer, reset to the current value.
+            entry.set_text(str(self._resolution.resolution[0]))
+
+    def _on_entry_focus_in(self, entry, event):
+        # Store previous value
+        self.previous_dpi_entry_value = int(entry.get_text())
+        return False  # Continue handling the event
 
     def _on_disable_button_toggled(self, togglebutton: Gtk.Button) -> None:
         # The disable button has been toggled, update RatbagdResolution.
@@ -153,7 +192,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         if res is None:
             res = self._resolution.resolution[0]
         new_res = (res, res) if self.CAP_SEPARATE_XY_RESOLUTION else (res,)
-        self.dpi_label.set_text(f"{res} DPI")
+        self.dpi_entry.set_text(str(res))
 
         # Only update new resolution if changed
         if new_res != self._resolution.resolution:
@@ -165,4 +204,4 @@ class ResolutionRow(Gtk.ListBoxRow):
         with self.scale.handler_block(self._scale_handler):
             res = resolution.resolution[0]
             self.scale.set_value(res)
-            self.dpi_label.set_text(f"{res} DPI")
+            self.dpi_entry.set_text(str(res))
