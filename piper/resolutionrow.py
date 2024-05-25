@@ -51,7 +51,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         connect_signal_with_weak_ref(
             self, resolution, "notify::resolution", self._on_profile_resolution_changed
         )
-        self.dpi_entry.connect("focus-in-event", self._on_entry_focus_in)
 
         # Get resolution capabilities and update internal values.
         if RatbagdResolution.CAP_SEPARATE_XY_RESOLUTION in resolution.capabilities:
@@ -107,10 +106,8 @@ class ResolutionRow(Gtk.ListBoxRow):
     @Gtk.Template.Callback("_on_insert_dpi_entry_text")
     def _on_insert_dpi_entry_text(self, entry, text, length, position):
         # Remove any non-numeric characters from the input
-        new_text = "".join([c for c in text if c.isdigit()])
-        if new_text != text:
+        if not text.isdigit():
             entry.stop_emission("insert-text")
-            entry.insert_text(new_text, len(new_text))
 
     @Gtk.Template.Callback("_on_dpi_entry_activate")
     def _on_dpi_entry_activate(self, entry: Gtk.Entry) -> None:
@@ -127,11 +124,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         except ValueError:
             # If the input is not a valid integer, reset to the current value.
             entry.set_text(str(self._resolution.resolution[0]))
-
-    def _on_entry_focus_in(self, entry, event):
-        # Store previous value
-        self.previous_dpi_entry_value = int(entry.get_text())
-        return False  # Continue handling the event
 
     def _on_disable_button_toggled(self, togglebutton: Gtk.Button) -> None:
         # The disable button has been toggled, update RatbagdResolution.
