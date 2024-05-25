@@ -65,7 +65,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         res_num_chars = len(str(maxres))
 
         # Set the max width and length for the DPI text boxes, based on the max res value.
-        self.dpi_entry.set_size_request(res_num_chars, 1)
+        self.dpi_entry.set_width_chars(res_num_chars)
         self.dpi_entry.set_max_length(res_num_chars)
 
         with self.scale.handler_block(self._scale_handler):
@@ -104,7 +104,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         return True
 
     @Gtk.Template.Callback("_on_insert_dpi_entry_text")
-    def _on_insert_dpi_entry_text(self, entry, text, length, position):
+    def _on_insert_dpi_entry_text(self, entry, text, _length, _position):
         # Remove any non-numeric characters from the input
         if not text.isdigit():
             entry.stop_emission("insert-text")
@@ -117,8 +117,10 @@ class ResolutionRow(Gtk.ListBoxRow):
             # Get the resolution closest to what has been entered
             closest_res = min(self.resolutions, key=lambda x: abs(x - res))
             entry.set_text(str(closest_res))
+
             if closest_res != self.previous_dpi_entry_value:
                 self._on_dpi_values_changed(res=res)
+
             with self.scale.handler_block(self._scale_handler):
                 self.scale.set_value(res)
         except ValueError:
@@ -180,7 +182,7 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     def _on_dpi_values_changed(self, res: Optional[int] = None) -> None:
         # Freeze the notify::resolution signal from firing and
-        # update dpi label and resolution values.
+        # update DPI text box and resolution values.
         if res is None:
             res = self._resolution.resolution[0]
         new_res = (res, res) if self.CAP_SEPARATE_XY_RESOLUTION else (res,)
