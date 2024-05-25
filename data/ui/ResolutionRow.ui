@@ -23,6 +23,7 @@
                 <signal name="activate" handler="_on_dpi_entry_activate" swapped="no"/>
                 <signal name="insert-text" handler="_on_dpi_entry_insert_text" swapped="no"/>
                 <signal name="focus-in-event" handler="_on_dpi_entry_focus_in" swapped="no"/>
+                <signal name="focus-out-event" handler="_on_dpi_entry_focus_out" swapped="no"/>
               </object>
             </child>
             <child>

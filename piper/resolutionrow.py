@@ -189,7 +189,7 @@ class ResolutionRow(Gtk.ListBoxRow):
             entry.set_text(str(closest_res))
 
             if closest_res != self.previous_dpi_entry_value:
-                self._on_dpi_values_changed(res=res)
+                self._on_dpi_values_changed(res=closest_res)
 
             with self.scale.handler_block(self._scale_handler):
                 self.scale.set_value(res)
@@ -201,6 +201,11 @@ class ResolutionRow(Gtk.ListBoxRow):
     def _on_dpi_entry_focus_in(self, _entry: Gtk.Entry, _event_focus: Gdk.EventFocus):
         if not self.revealer.get_reveal_child():
             self.resolutions_page._on_row_activated(None, self)
+
+    @Gtk.Template.Callback("_on_dpi_entry_focus_out")
+    def _on_dpi_entry_focus_out(self, entry: Gtk.Entry, _event_focus: Gdk.EventFocus):
+        # Apply the DPI value on focus out
+        self._on_dpi_entry_activate(entry)
 
     def _on_profile_resolution_changed(
         self, resolution: RatbagdResolution, _pspec: GObject.ParamSpec
