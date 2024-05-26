@@ -108,7 +108,9 @@ class ResolutionRow(Gtk.ListBoxRow):
 
     def _on_disable_button_toggled(self, togglebutton: Gtk.Button) -> None:
         # The disable button has been toggled, update RatbagdResolution.
-        self._resolution.set_disabled(togglebutton.get_active())
+        is_active = togglebutton.get_active()
+        self._resolution.set_disabled(is_active)
+        self.dpi_entry.set_editable(not is_active)
 
         # Update UI
         self._on_status_changed(self._resolution, pspec=None)
