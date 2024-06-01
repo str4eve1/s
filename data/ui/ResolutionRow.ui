@@ -17,11 +17,10 @@
             <property name="border-width">12</property>
             <property name="spacing">6</property>
             <child>
-              <object class="GtkEntry" id="dpi_entry">
+              <object class="DPIEntry" id="dpi_entry">
                 <property name="visible">True</property>
                 <property name="halign">start</property>
                 <signal name="activate" handler="_on_dpi_entry_activate" swapped="no"/>
-                <signal name="insert-text" handler="_on_dpi_entry_insert_text" swapped="no"/>
                 <signal name="focus-in-event" handler="_on_dpi_entry_focus_in" swapped="no"/>
                 <signal name="focus-out-event" handler="_on_dpi_entry_focus_out" swapped="no"/>
               </object>

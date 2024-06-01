@@ -3,12 +3,40 @@
 from typing import Optional
 
 import gi
+import warnings
 
-from gi.repository import GObject, Gdk, Gtk  # noqa
 from .ratbagd import RatbagdResolution
 from .util.gobject import connect_signal_with_weak_ref
 
 gi.require_version("Gtk", "3.0")
+from gi.repository import GObject, Gdk, Gtk  # noqa
+
+
+class _DPIEntry(Gtk.Entry, Gtk.Editable):
+    """
+    A subclass of Gtk.Entry with an overridden method for input validation.
+
+    This class addresses a specific bug in the handling of parameters in pygobject when
+    using signals. For Gtk.Entry, the 'position' parameter is incorrect when handling
+    the 'insert-text' signal, causing an assertion warning to be logged. By using this
+    subclass, we can override the 'insert-text' logic to correctly handle the position
+    parameter and avoid the warning.
+
+    Inheriting from Gtk.Entry ensures that the overridden method applies only to instances
+    of this class, rather than affecting all Gtk.Entry objects in the application.
+    """
+
+    __gtype_name__ = "DPIEntry"
+
+    def do_insert_text(self, new_text: str, new_text_length: int, position: int) -> int:
+        """Overrides the default Gtk.Editable insert-text handler to validate
+        numerical input."""
+        if not new_text.isdigit():
+            self.stop_emission("insert-text")
+            return position
+
+        self.get_buffer().insert_text(position, new_text, new_text_length)
+        return position + new_text_length
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ResolutionRow.ui")
@@ -22,7 +50,7 @@ class ResolutionRow(Gtk.ListBoxRow):
     active_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
     disable_button: Gtk.Button = Gtk.Template.Child()  # type: ignore
     dpi_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
-    dpi_entry: Gtk.Entry = Gtk.Template.Child()  # type: ignore
+    dpi_entry: _DPIEntry = Gtk.Template.Child()  # type: ignore
     revealer: Gtk.Revealer = Gtk.Template.Child()  # type: ignore
     scale: Gtk.Scale = Gtk.Template.Child()  # type: ignore
 
@@ -37,7 +65,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         self.resolutions_page = resolutions_page
         self._resolution = resolution
         self.resolutions = resolution.resolutions
-        self.previous_dpi_entry_value = None
         self._scale_handler = self.scale.connect(
             "value-changed", self._on_scale_value_changed
         )
@@ -160,6 +187,8 @@ class ResolutionRow(Gtk.ListBoxRow):
         # Toggles the revealer to show or hide the configuration widgets.
         reveal = not self.revealer.get_reveal_child()
         self.revealer.set_reveal_child(reveal)
+        if reveal:
+            self.dpi_entry.grab_focus()
 
     def _on_dpi_values_changed(self, res: Optional[int] = None) -> None:
         # Freeze the notify::resolution signal from firing and
@@ -173,14 +202,6 @@ class ResolutionRow(Gtk.ListBoxRow):
         if new_res != self._resolution.resolution:
             self._resolution.resolution = new_res
 
-    @Gtk.Template.Callback("_on_dpi_entry_insert_text")
-    def _on_dpi_entry_insert_text(
-        self, entry: Gtk.Entry, text: str, _length: int, _position: int
-    ):
-        # Remove any non-numeric characters from the input
-        if not text.isdigit():
-            entry.stop_emission("insert-text")
-
     @Gtk.Template.Callback("_on_dpi_entry_activate")
     def _on_dpi_entry_activate(self, entry: Gtk.Entry) -> None:
         # The DPI entry has been changed, update the scale and RatbagdResolution's resolution.
@@ -189,9 +210,7 @@ class ResolutionRow(Gtk.ListBoxRow):
             # Get the resolution closest to what has been entered
             closest_res = min(self.resolutions, key=lambda x: abs(x - res))
             entry.set_text(str(closest_res))
-
-            if closest_res != self.previous_dpi_entry_value:
-                self._on_dpi_values_changed(res=closest_res)
+            self._on_dpi_values_changed(res=closest_res)
 
             with self.scale.handler_block(self._scale_handler):
                 self.scale.set_value(res)
@@ -202,7 +221,7 @@ class ResolutionRow(Gtk.ListBoxRow):
     @Gtk.Template.Callback("_on_dpi_entry_focus_in")
     def _on_dpi_entry_focus_in(self, _entry: Gtk.Entry, _event_focus: Gdk.EventFocus):
         if not self.revealer.get_reveal_child():
-            self.resolutions_page._on_row_activated(None, self)
+            self.resolutions_page.on_row_activated(None, self)
 
     @Gtk.Template.Callback("_on_dpi_entry_focus_out")
     def _on_dpi_entry_focus_out(self, entry: Gtk.Entry, _event_focus: Gdk.EventFocus):
