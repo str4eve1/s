@@ -103,7 +103,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         if resolution.is_disabled:
             with self.disable_button.handler_block(self._disabled_button_handler):
                 self.disable_button.set_active(True)
-        self._on_status_changed(resolution, pspec=None)
+        self._on_status_changed(resolution, _pspec=None)
 
     @Gtk.Template.Callback("_on_change_value")
     def _on_change_value(
@@ -137,7 +137,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._resolution.set_disabled(togglebutton.get_active())
 
         # Update UI
-        self._on_status_changed(self._resolution, pspec=None)
+        self._on_status_changed(self._resolution, _pspec=None)
 
     @Gtk.Template.Callback("_on_active_button_clicked")
     def _on_active_button_clicked(self, _togglebutton: Gtk.Button) -> None:
@@ -156,7 +156,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._on_dpi_values_changed(res=res)
 
     def _on_status_changed(
-        self, resolution: RatbagdResolution, pspec: Optional[GObject.ParamSpec]
+        self, resolution: RatbagdResolution, _pspec: Optional[GObject.ParamSpec]
     ) -> None:
         # The resolution's status changed, update UI.
         self._on_dpi_values_changed()
