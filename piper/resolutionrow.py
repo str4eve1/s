@@ -156,7 +156,7 @@ class ResolutionRow(Gtk.ListBoxRow):
         self._on_dpi_values_changed(res=res)
 
     def _on_status_changed(
-        self, resolution: RatbagdResolution, _pspec: Optional[GObject.ParamSpec]
+        self, resolution: RatbagdResolution, pspec: Optional[GObject.ParamSpec]
     ) -> None:
         # The resolution's status changed, update UI.
         self._on_dpi_values_changed()
