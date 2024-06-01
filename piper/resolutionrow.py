@@ -21,8 +21,9 @@ class _DPIEntry(Gtk.Entry, Gtk.Editable):
     subclass, we can override the 'insert-text' logic to correctly handle the position
     parameter and avoid the warning.
 
-    Inheriting from Gtk.Entry ensures that the overridden method applies only to instances
-    of this class, rather than affecting all Gtk.Entry objects in the application.
+    Inheriting from Gtk.Editable in addition to Gtk.Entry ensures that the overridden
+    method applies only to instances of this class, rather than affecting all
+    Gtk.Entry objects in the application.
     """
 
     __gtype_name__ = "DPIEntry"
