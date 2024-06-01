@@ -29,8 +29,8 @@ class _DPIEntry(Gtk.Entry, Gtk.Editable):
     __gtype_name__ = "DPIEntry"
 
     def do_insert_text(self, new_text: str, new_text_length: int, position: int) -> int:
-        """Overrides the default Gtk.Editable insert-text handler to validate
-        numerical input."""
+        """Overrides the default Gtk.Editable insert-text handler to validate numerical
+        input."""
         if not new_text.isdigit():
             self.stop_emission("insert-text")
             return position
