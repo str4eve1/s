@@ -38,7 +38,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="selection-mode">none</property>
-                        <signal name="row-activated" handler="_on_row_activated" swapped="no"/>
+                        <signal name="row-activated" handler="on_row_activated" swapped="no"/>
                         <child>
                           <object class="GtkListBoxRow" id="add_resolution_row">
                             <property name="can-focus">True</property>

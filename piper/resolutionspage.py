@@ -66,7 +66,7 @@ class ResolutionsPage(Gtk.Box):
             row = ResolutionRow(resolution, self)
             self.listbox.insert(row, resolution.index)
 
-    @Gtk.Template.Callback("_on_row_activated")
+    @Gtk.Template.Callback("on_row_activated")
     def on_row_activated(self, _listbox: Gtk.ListBox, row: ResolutionRow) -> None:
         if row is self._last_activated_row:
             self._last_activated_row = None
