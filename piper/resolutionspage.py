@@ -63,11 +63,11 @@ class ResolutionsPage(Gtk.Box):
 
         self.listbox.foreach(Gtk.Widget.destroy)
         for resolution in profile.resolutions:
-            row = ResolutionRow(resolution)
+            row = ResolutionRow(resolution, self)
             self.listbox.insert(row, resolution.index)
 
-    @Gtk.Template.Callback("_on_row_activated")
-    def _on_row_activated(self, listbox: Gtk.ListBox, row: ResolutionRow) -> None:
+    @Gtk.Template.Callback("on_row_activated")
+    def on_row_activated(self, _listbox: Gtk.ListBox, row: ResolutionRow) -> None:
         if row is self._last_activated_row:
             self._last_activated_row = None
             row.toggle_revealer()

@@ -17,11 +17,20 @@
             <property name="border-width">12</property>
             <property name="spacing">6</property>
             <child>
+              <object class="DPIEntry" id="dpi_entry">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <signal name="activate" handler="_on_dpi_entry_activate" swapped="no"/>
+                <signal name="focus-in-event" handler="_on_dpi_entry_focus_in" swapped="no"/>
+                <signal name="focus-out-event" handler="_on_dpi_entry_focus_out" swapped="no"/>
+              </object>
+            </child>
+            <child>
               <object class="GtkLabel" id="dpi_label">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="label">0 DPI</property>
+                <property name="label">DPI</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -66,7 +75,7 @@
                   <object class="GtkScale" id="scale">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="tooltip-text" translatable="yes">Set this resolution's dpi</property>
+                    <property name="tooltip-text" translatable="yes">Set this resolution's DPI</property>
                     <property name="round-digits">0</property>
                     <property name="digits">0</property>
                     <property name="draw-value">False</property>
