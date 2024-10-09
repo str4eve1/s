@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>org.freedesktop.Piper</id>
   <developer id="io.github.libratbag">
-    <name>The libratbag Developers</name>
+    <name>libratbag developers/name>
   </developer>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0-or-later</project_license>
