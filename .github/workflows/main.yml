@@ -14,12 +14,15 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        meson_args:
-          - '-Druntime-dependency-checks=false'
-          - '-Druntime-dependency-checks=false -Dbuildtype=plain'
-          - '-Druntime-dependency-checks=false -Dbuildtype=release'
+        include:
+          - name: debug
+            meson_args: '-Druntime-dependency-checks=false'
+          - name: plain
+            meson_args: '-Druntime-dependency-checks=false -Dbuildtype=plain'
+          - name: release
+            meson_args: '-Druntime-dependency-checks=false -Dbuildtype=release'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: libratbag/libratbag/.github/actions/pkginstall@master
         with:
           apt: $UBUNTU_DEPS
@@ -39,10 +42,10 @@ jobs:
       - name: list any files left after uninstall
         run: (test -d _instdir && tree _instdir) || exit 0
       # Capture all the meson logs, even if we failed
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ always() }}  # even if we fail
         with:
-          name: meson test logs
+          name: 'meson test logs ${{ matrix.name }}'
           path: |
             builddir/meson-logs/testlog*.txt
             builddir/meson-logs/meson-log.txt
